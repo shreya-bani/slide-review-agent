@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 class TextElement:
     """Represents a text element with complete metadata"""
     text: str
-    element_type: str  # title, bullet, body, note
+    element_type: str  # title, bullet, body, note, author, caption
     slide_number: int
     element_id: str
     style: Optional[Dict[str, Any]] = None
@@ -122,55 +122,80 @@ class DocumentProcessor:
             }
     
     def _process_pdf(self, file_content: bytes, filename: str) -> Dict[str, Any]:
-        """Process PDF file following specification requirements"""
+        """Process PDF with layout-aware extraction (bbox + font info)."""
         try:
             elements = []
-            
+
             with pdfplumber.open(io.BytesIO(file_content)) as pdf:
                 for page_idx, page in enumerate(pdf.pages, 1):
-                    # Extract text with positioning
-                    chars = page.chars
-                    
-                    if chars:
-                        # Group characters into text blocks
-                        text_blocks = self._group_pdf_characters(chars)
-                        
-                        for block_idx, block in enumerate(text_blocks):
-                            element_type = self._classify_pdf_element(block['text'])
-                            
-                            text_element = TextElement(
-                                text=block['text'],
-                                element_type=element_type,
-                                slide_number=page_idx,
-                                element_id=f"page_{page_idx}_block_{block_idx}",
-                                location={
-                                    "x": block['x0'],
-                                    "y": block['y0'],
-                                    "x1": block['x1'],
-                                    "y1": block['y1']
-                                },
-                                size={
-                                    "width": block['x1'] - block['x0'],
-                                    "height": block['y1'] - block['y0']
-                                },
-                                font_info={
-                                    "size": block.get('size', 0),
-                                    "font": block.get('fontname', 'Unknown')
-                                }
-                            )
-                            elements.append(text_element)
-            
+                    # words with coordinates (points; 1pt = 1/72 inch)
+                    words = page.extract_words(
+                        use_text_flow=True, keep_blank_chars=False,
+                        x_tolerance=2, y_tolerance=3
+                    )
+                    if not words:
+                        continue
+
+                    # group words into lines by ~same 'top'
+                    from collections import defaultdict, Counter
+                    lines = defaultdict(list)
+                    for w in words:
+                        lines[round(w["top"], 1)].append(w)
+
+                    # iterate lines
+                    for order, (top, ws) in enumerate(sorted(lines.items(), key=lambda kv: kv[0])):
+                        ws_sorted = sorted(ws, key=lambda w: w["x0"])
+                        text = " ".join(w["text"] for w in ws_sorted).strip()
+
+                        # filter junk like bare "undefined"
+                        if not text or text.lower() == "undefined":
+                            continue
+
+                        x0 = min(w["x0"] for w in ws_sorted)
+                        x1 = max(w["x1"] for w in ws_sorted)
+                        y0 = min(w["top"] for w in ws_sorted)
+                        y1 = max(w["bottom"] for w in ws_sorted)
+
+                        # collect fonts/sizes from chars within bbox (tolerant mask)
+                        tol = 0.5
+                        chars = [
+                            c for c in page.chars
+                            if (c["x0"] >= x0 - tol and c["x1"] <= x1 + tol and
+                                c["top"] >= y0 - tol and c["bottom"] <= y1 + tol)
+                        ]
+                        sizes = [c.get("size") for c in chars if c.get("size") is not None]
+                        fonts = [c.get("fontname") for c in chars if c.get("fontname")]
+
+                        # heuristic style flags
+                        is_bold = any("Bold" in (f or "") for f in fonts)
+                        is_italic = any(("Italic" in (f or "")) or ("Oblique" in (f or "")) for f in fonts)
+
+                        element_type = self._classify_pdf_element(text)
+
+                        elements.append(TextElement(
+                            text=text,
+                            element_type=element_type,
+                            slide_number=page_idx,
+                            element_id=f"page_{page_idx}_line_{order}",
+                            location={"x": round(x0, 2), "y": round(y0, 2), "x1": round(x1, 2), "y1": round(y1, 2)},
+                            size={"width": round(x1 - x0, 2), "height": round(y1 - y0, 2)},
+                            font_info={
+                                "font_most_common": Counter(fonts).most_common(1)[0][0] if fonts else None,
+                                "size_median": float(sorted(sizes)[len(sizes)//2]) if sizes else None,
+                                "units": "pt"
+                            },
+                            style={"bold": is_bold, "italic": is_italic}
+                        ))
+
             return {
                 "document_type": "pdf",
                 "filename": filename,
                 "total_slides": len(pdf.pages) if 'pdf' in locals() else 0,
                 "processing_status": "success",
-                "elements": [asdict(elem) for elem in elements],
-                "metadata": {
-                    "total_elements": len(elements)
-                }
+                "elements": [asdict(e) for e in elements],
+                "metadata": {"total_elements": len(elements)}
             }
-            
+
         except Exception as e:
             logger.error(f"Error processing PDF: {str(e)}")
             return {
@@ -181,6 +206,81 @@ class DocumentProcessor:
                 "error_message": str(e),
                 "elements": []
             }
+
+        
+    def _split_pdf_text_elements(self, text: str) -> List[str]:
+        """Split PDF text into individual logical elements"""
+        elements = []
+        
+        # Split by multiple newlines first (major sections)
+        major_sections = re.split(r'\n\s*\n\s*', text.strip())
+        
+        for section in major_sections:
+            section = section.strip()
+            if not section:
+                continue
+            
+            # Check if section contains bullet points
+            if self._has_bullet_points(section):
+                # Split bullet lists into individual bullets
+                bullet_items = self._extract_bullet_items(section)
+                elements.extend(bullet_items)
+            else:
+                # Check if section contains multiple sentences that should be split
+                lines = [line.strip() for line in section.split('\n') if line.strip()]
+                
+                for line in lines:
+                    # Each significant line becomes its own element
+                    if len(line) > 10:  # Avoid very short fragments
+                        elements.append(line)
+        
+        return elements
+    
+    def _extract_bullet_items(self, text: str) -> List[str]:
+        """Extract individual bullet items from text"""
+        bullets = []
+        
+        # Pattern for bullet points
+        bullet_patterns = [
+            r'^\s*[•▪▫◦‣⁃]\s*(.+)',     # Unicode bullets
+            r'^\s*[-*+]\s*(.+)',         # ASCII bullets  
+            r'^\s*\d+\.\s*(.+)',         # Numbered lists
+            r'^\s*[a-zA-Z]\.\s*(.+)'     # Lettered lists
+        ]
+        
+        lines = text.split('\n')
+        current_bullet = ""
+        
+        for line in lines:
+            line = line.strip()
+            if not line:
+                continue
+                
+            # Check if line starts with a bullet
+            is_bullet_start = False
+            for pattern in bullet_patterns:
+                if re.match(pattern, line):
+                    is_bullet_start = True
+                    break
+            
+            if is_bullet_start:
+                # Save previous bullet if exists
+                if current_bullet.strip():
+                    bullets.append(current_bullet.strip())
+                current_bullet = line
+            else:
+                # Continue previous bullet
+                if current_bullet:
+                    current_bullet += " " + line
+                else:
+                    # Standalone line
+                    bullets.append(line)
+        
+        # Don't forget the last bullet
+        if current_bullet.strip():
+            bullets.append(current_bullet.strip())
+        
+        return bullets
     
     def _create_pptx_element(self, shape, slide_idx: int, element_id: str, element_type: str) -> Optional[TextElement]:
         """Create TextElement from PPTX shape with complete metadata"""
@@ -276,22 +376,62 @@ class DocumentProcessor:
             return "body"
     
     def _classify_pdf_element(self, text: str) -> str:
-        """Classify PDF text element by type"""
+        """Classify PDF text element by type with improved logic"""
         text = text.strip()
         
-        # Title detection heuristics
-        if len(text) < 100 and (text.isupper() or text.istitle()):
+        # Title detection - improved heuristics
+        if self._is_likely_title(text):
             return "title"
         
         # Bullet detection
         if self._has_bullet_points(text):
             return "bullet"
         
-        # Short text without period might be heading
-        if len(text) < 80 and not text.endswith('.'):
-            return "title"
+        # Author/affiliation detection
+        if self._is_author_or_affiliation(text):
+            return "author"
         
+        # Caption or short descriptor
+        if len(text) < 150 and (
+            text.startswith(('Figure', 'Chart', 'Graph', 'Image', 'Photo', 'Source:')) or
+            re.search(r'\d{4}|\%|°[CF]', text)  # Contains years, percentages, or temperatures
+        ):
+            return "caption"
+        
+        # Default to body text
         return "body"
+    
+    def _is_likely_title(self, text: str) -> bool:
+        """Improved title detection"""
+        text = text.strip()
+        
+        # Very short text (likely fragments)
+        if len(text) < 5:
+            return False
+        
+        # Check various title indicators
+        title_indicators = [
+            len(text) < 100 and text.isupper(),  # Short uppercase text
+            len(text) < 80 and text.istitle() and not text.endswith('.'),  # Title case without period
+            len(text) < 60 and text.count(' ') <= 8,  # Short with few words
+            re.match(r'^[A-Z][^.!?]*$', text) and len(text) < 100  # Starts with capital, no sentence punctuation
+        ]
+        
+        return any(title_indicators)
+    
+    def _is_author_or_affiliation(self, text: str) -> bool:
+        """Detect author names or institutional affiliations"""
+        text = text.strip()
+        
+        # Common patterns for authors and affiliations
+        author_patterns = [
+            r'^[A-Z][a-z]+ [A-Z][a-z]+$',  # First Last
+            r'^[A-Z]\. [A-Z][a-z]+$',      # F. Last
+            r'University|Institute|College|Department',  # Institutions
+            r'@[a-zA-Z]+\.[a-zA-Z]+',      # Email
+        ]
+        
+        return any(re.search(pattern, text) for pattern in author_patterns)
     
     def _has_bullet_points(self, text: str) -> bool:
         """Detect if text contains bullet points"""
@@ -307,38 +447,6 @@ class DocumentProcessor:
                 return True
         
         return False
-    
-    def _group_pdf_characters(self, chars: List[Dict]) -> List[Dict]:
-        """Group PDF characters into text blocks"""
-        if not chars:
-            return []
-        
-        # Simple grouping by proximity (can be enhanced)
-        blocks = []
-        current_block = {
-            'text': '',
-            'x0': float('inf'),
-            'y0': float('inf'),
-            'x1': -float('inf'),
-            'y1': -float('inf'),
-            'size': 0,
-            'fontname': ''
-        }
-        
-        for char in chars:
-            current_block['text'] += char['text']
-            current_block['x0'] = min(current_block['x0'], char['x0'])
-            current_block['y0'] = min(current_block['y0'], char['y0'])
-            current_block['x1'] = max(current_block['x1'], char['x1'])
-            current_block['y1'] = max(current_block['y1'], char['y1'])
-            current_block['size'] = max(current_block['size'], char['size'])
-            if not current_block['fontname']:
-                current_block['fontname'] = char.get('fontname', 'Unknown')
-        
-        if current_block['text'].strip():
-            blocks.append(current_block)
-        
-        return blocks
     
     def _get_slide_dimensions(self, presentation) -> Dict[str, int]:
         """Get slide dimensions from presentation"""
