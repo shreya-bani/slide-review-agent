@@ -18,11 +18,10 @@ AI-powered editor and reviewer agent for presentation slides. Automatically chec
 git clone https://github.com/shreya-bani/slide-review-agent.git
 cd slide-review-agent
 pip install -r requirements.txt
-python -m spacy download en_core_web_sm
 ```
 
 ## Usage
 
 ```bash
-streamlit run src/ui/app.py
+streamlit run app.py
 ```
