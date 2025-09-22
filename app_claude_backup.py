@@ -1,15 +1,13 @@
 """
 Slide Review Agent - Complete Input Handling + Tone Analysis
 Following exact specifications for PPTX and PDF processing with tone checking
-Enhanced to show detailed negative language detection with page/line references
 """
 
 import streamlit as st
 from src.processors import process_document
-from src.analyzers import analyze_tone, get_groq_improvements
+from src.analyzers import analyze_tone, get_claude_improvements
 import os
-import warnings
-warnings.filterwarnings("ignore", message=".*non-stroke color.*")
+
 
 def main():
     st.title("🔍 Slide Review Agent")
@@ -46,35 +44,28 @@ def main():
                         with st.spinner("Analyzing tone and language patterns..."):
                             tone_analysis = analyze_tone(result["elements"])
                         
-                        # Get Groq-powered improvements if API key is available
-                        groq_improvements = None
-                        improved_by_elem = {}
-                        if os.getenv('GROQ_API_KEY'):
+                        # Get Claude-powered improvements if API key is available
+                        claude_improvements = None
+                        if os.getenv('ANTHROPIC_API_KEY'):
                             if tone_analysis['issues']:
-                                with st.spinner("Getting intelligent suggestions from Groq..."):
-                                    groq_improvements = get_groq_improvements(
+                                with st.spinner("Getting intelligent suggestions from Claude..."):
+                                    claude_improvements = get_claude_improvements(
                                         tone_analysis['issues'], 
                                         result["elements"], 
                                         tone_analysis['overall_stats']
                                     )
-                                # Map element_id -> improvement for easy lookup in panels
-                                if groq_improvements and groq_improvements.get('success'):
-                                    improvements = groq_improvements.get('improvements', [])
-                                    improved_by_elem = {imp.element_id: imp for imp in improvements}
                         else:
-                            st.info("💡 Add GROQ_API_KEY to .env for intelligent tone improvements")
+                            st.info("💡 Add ANTHROPIC_API_KEY to .env for intelligent tone improvements")
                         
                         # Display processing summary
-                        col1, col2, col3, col4, col5 = st.columns(5)
+                        col1, col2, col3, col4 = st.columns(4)
                         with col1:
                             st.metric("Total Slides/Pages", result['total_slides'])
                         with col2:
                             st.metric("Text Elements", result['metadata']['total_elements'])
                         with col3:
-                            st.metric("Passive Voice", tone_analysis['overall_stats']['passive_voice_count'])
+                            st.metric("Tone Issues", len(tone_analysis['issues']))
                         with col4:
-                            st.metric("Negative Language", tone_analysis['overall_stats']['negative_language_count'])
-                        with col5:
                             st.metric("Avg Positivity", f"{tone_analysis['overall_stats']['avg_positivity_score']:.2f}")
                         
                         # Display tone analysis summary
@@ -88,106 +79,75 @@ def main():
                         else:
                             st.warning(f"⚠️ Low positivity score: {tone_stats['avg_positivity_score']:.2f}/1.0 (threshold: 0.7)")
                         
-                        # Enhanced Issues breakdown
+                        # Issues breakdown
                         col1, col2, col3 = st.columns(3)
                         with col1:
                             st.metric("Passive Voice Issues", tone_stats['passive_voice_count'])
                         with col2:
-                            st.metric("Negative Language Issues", tone_stats['negative_language_count'])
+                            st.metric("Negative Language", tone_stats['negative_language_count'])
                         with col3:
-                            st.metric("Low Positivity Elements", tone_stats.get('low_positivity_count', 0))
+                            st.metric("Need LLM Rewrite", tone_stats['elements_needing_llm_rewrite'])
                         
                         # Display specific issues and improvements
                         if tone_analysis['issues']:
                             st.write("### 🔍 Tone Issues & Intelligent Suggestions")
                             
-                            # Categorize issues by type
-                            passive_voice_issues = [issue for issue in tone_analysis['issues'] if issue['issue_type'] == 'passive_voice']
-                            negative_language_issues = [issue for issue in tone_analysis['issues'] if issue['issue_type'] == 'negative_language']
-                            low_positivity_issues = [issue for issue in tone_analysis['issues'] if issue['issue_type'] == 'low_positivity']
-                            
-                            # Show Groq improvements if available
-                            if groq_improvements and groq_improvements['success'] and groq_improvements['improvements']:
-                                st.write("#### ✨ Groq-Powered Improvements")
-                                for improvement in groq_improvements['improvements']:
+                            # Show Claude improvements if available
+                            if claude_improvements and claude_improvements['success'] and claude_improvements['improvements']:
+                                st.write("#### ✨ Claude-Powered Improvements")
+                                
+                                for improvement in claude_improvements['improvements']:
                                     confidence_color = {"high": "🟢", "medium": "🟡", "low": "🔴"}
                                     confidence_icon = confidence_color.get(improvement.confidence, "🟡")
                                     
                                     with st.expander(f"{confidence_icon} {improvement.improvement_type.replace('_', ' ').title()} - {improvement.element_id}", expanded=True):
                                         col1, col2 = st.columns(2)
+                                        
                                         with col1:
                                             st.write("**Original:**")
                                             st.write(f"*{improvement.original_text}*")
+                                        
                                         with col2:
                                             st.write("**Improved:**")
                                             st.success(improvement.improved_text)
+                                        
                                         st.write(f"**Explanation:** {improvement.explanation}")
                                         st.write(f"**Confidence:** {improvement.confidence.title()}")
+                                        
+                                        # Add approve/reject buttons (placeholder for future reviewer system)
                                         col_a, col_b, col_c = st.columns(3)
                                         with col_a:
-                                            st.button("✅ Approve", key=f"approve_{improvement.element_id}")
+                                            st.button("✅ Approve", key=f"approve_{improvement.element_id}", help="Accept this improvement")
                                         with col_b:
-                                            st.button("✏️ Edit", key=f"edit_{improvement.element_id}")
+                                            st.button("✏️ Edit", key=f"edit_{improvement.element_id}", help="Modify this suggestion")
                                         with col_c:
-                                            st.button("❌ Reject", key=f"reject_{improvement.element_id}")
+                                            st.button("❌ Reject", key=f"reject_{improvement.element_id}", help="Decline this improvement")
                             
-                            # Show passive voice issues with page/line references
-                            if passive_voice_issues:
-                                st.write("#### 🔴 Passive Voice Issues")
-                                for issue in passive_voice_issues:
-                                    page_ref = issue.get('page_line_ref', issue['element_id'])
-                                    with st.expander(f"🔴 Passive Voice - {page_ref}", expanded=False):
-                                        col1, col2 = st.columns(2)
-                                        with col1:
-                                            st.write("**Original:**")
-                                            st.write(f"*{issue['original_text']}*")
-                                        with col2:
-                                            st.write("**Suggested Fix:**")
-                                            imp = improved_by_elem.get(issue['element_id'])
-                                            if imp and getattr(imp, "improved_text", None):
-                                                st.success(imp.improved_text)   # LLM rewrite shown here
-                                            else:
-                                                st.info(issue['suggested_fix'])  # fallback placeholder
-                                        st.write(f"**Location:** {page_ref}")
-                                        st.write(f"**Explanation:** {issue['explanation']}")
+                            # Show remaining basic issues
+                            basic_issues = [issue for issue in tone_analysis['issues'] 
+                                          if claude_improvements is None or not any(imp.element_id == issue['element_id'] 
+                                                                                   for imp in claude_improvements.get('improvements', []))]
                             
-                            # Show negative language issues with page/line references
-                            if negative_language_issues:
-                                st.write("#### 🟡 Negative Language Issues")
-                                for issue in negative_language_issues:
-                                    page_ref = issue.get('page_line_ref', issue['element_id'])
-                                    with st.expander(f"🟡 Negative Language - {page_ref}", expanded=False):
-                                        col1, col2 = st.columns(2)
-                                        with col1:
-                                            st.write("**Negative Word/Phrase:**")
-                                            st.write(f"*{issue['original_text']}*")
-                                        with col2:
-                                            st.write("**Positive Alternative:**")
-                                            st.success(issue['suggested_fix'])
-                                        st.write(f"**Location:** {page_ref}")
-                                        st.write(f"**Explanation:** {issue['explanation']}")
-                            
-                            # Show remaining basic issues (those not handled by Groq)
-                            remaining_issues = [
-                                issue for issue in tone_analysis['issues']
-                                if (
-                                    groq_improvements is None
-                                    or not any(imp.element_id == issue['element_id']
-                                               for imp in groq_improvements.get('improvements', []))
-                                )
-                                and issue['issue_type'] not in ['passive_voice', 'negative_language']
-                            ]
-                            
-                            if remaining_issues:
-                                st.write("#### 📋 Additional Issues Requiring LLM Review")
-                                for issue in remaining_issues[:10]:  # Limit to prevent overwhelming
-                                    page_ref = issue.get('page_line_ref', issue['element_id'])
-                                    issue_type_color = "🔵" if issue['issue_type'] == 'low_positivity' else "🟡"
-                                    with st.expander(f"{issue_type_color} {issue['issue_type'].replace('_', ' ').title()} - {page_ref}", expanded=False):
+                            if basic_issues:
+                                st.write("#### 📋 Additional Detected Issues")
+                                for issue in basic_issues[:5]:  # Limit to prevent overwhelming
+                                    issue_type_color = "🔴" if issue['issue_type'] == 'passive_voice' else "🟡"
+                                    
+                                    with st.expander(f"{issue_type_color} {issue['issue_type'].replace('_', ' ').title()}", expanded=False):
                                         st.write("**Text:**")
                                         st.write(f"*{issue['original_text']}*")
-                                        st.write(f"**Issue:** {issue['explanation']}")
-                                        st.write(f"**Location:** {page_ref}")
+                                        st.write(f"**Basic Suggestion:** {issue['suggested_fix']}")
+                                        st.write(f"**Element:** {issue['element_id']}")
+                        
+                        # Intelligent recommendations
+                        st.write("### 💡 Recommendations")
+                        if claude_improvements and claude_improvements['success']:
+                            for recommendation in claude_improvements['recommendations']:
+                                st.info(recommendation)
+                        else:
+                            # Fallback to basic recommendations
+                            for recommendation in tone_analysis['recommendations']:
+                                st.info(recommendation)
                         
                         # Display structured content
                         st.write("## 📊 Structured Document Analysis")
@@ -196,21 +156,21 @@ def main():
                         slides_data = {}
                         for element in result["elements"]:
                             slide_num = element["slide_number"]
-                            slides_data.setdefault(slide_num, []).append(element)
+                            if slide_num not in slides_data:
+                                slides_data[slide_num] = []
+                            slides_data[slide_num].append(element)
                         
                         # Display each slide with detailed metadata
                         for slide_num in sorted(slides_data.keys()):
                             elements = slides_data[slide_num]
-                            slide_title = next(
-                                (e["text"][:50] + "..." if len(e["text"]) > 50 else e["text"]
-                                 for e in elements if e["element_type"] == "title"),
-                                f"Slide {slide_num}"
-                            )
+                            slide_title = next((e["text"][:50] + "..." if len(e["text"]) > 50 else e["text"] 
+                                              for e in elements if e["element_type"] == "title"), f"Slide {slide_num}")
                             
                             with st.expander(f"📄 {result['document_type'].upper()} Page {slide_num}: {slide_title}", expanded=False):
                                 for element in elements:
                                     st.write(f"**{element['element_type'].title()} Element** (`{element['element_id']}`)")
                                     
+                                    # Display text content
                                     if element['element_type'] == 'bullet':
                                         st.write("```")
                                         st.write(element['text'])
@@ -218,25 +178,30 @@ def main():
                                     else:
                                         st.write(f"*{element['text']}*")
                                     
+                                    # Display metadata in columns
                                     if element.get('style') or element.get('location') or element.get('font_info'):
                                         meta_col1, meta_col2, meta_col3 = st.columns(3)
+                                        
                                         with meta_col1:
                                             if element.get('style'):
                                                 st.write("**Style:**")
                                                 for key, value in element['style'].items():
                                                     if value is not None:
                                                         st.write(f"• {key}: {value}")
+                                        
                                         with meta_col2:
                                             if element.get('location'):
                                                 st.write("**Location:**")
                                                 for key, value in element['location'].items():
                                                     st.write(f"• {key}: {value}")
+                                        
                                         with meta_col3:
                                             if element.get('font_info'):
                                                 st.write("**Font:**")
                                                 for key, value in element['font_info'].items():
                                                     if value is not None:
                                                         st.write(f"• {key}: {value}")
+                                    
                                     st.write("---")
                         
                         # Show JSON structure (collapsed)
@@ -248,7 +213,7 @@ def main():
                         st.write("1. ✅ Complete input handling (PPTX + PDF)")
                         st.write("2. ✅ Structured JSON with metadata (style, location, size)")
                         st.write("3. ✅ Element classification (title, bullet, body, note)")
-                        st.write("4. ✅ Enhanced tone checking (Active Voice + Positive Language + Page References)")
+                        st.write("4. ✅ Tone checking (Active Voice + Positive Language)")
                         st.write("5. ⏳ Usage checking (Specificity + Inclusivity)")
                         st.write("6. ⏳ Grammar & Style Rules enforcement")
                     
@@ -269,10 +234,8 @@ def main():
         st.write("- Structured JSON output")
         st.write("- Element classification")
         st.write("- Active voice detection (spaCy)")
-        st.write("- Enhanced negative language detection")
         st.write("- Positive language scoring (VADER)")
-        st.write("- Page/line reference tracking")
-        st.write("- Groq-powered intelligent improvements")
+        st.write("- Tone issue identification")
 
         st.header("🎯 Amida Core Values")
         st.write("- **Impact**")

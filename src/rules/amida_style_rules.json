@@ -119,5 +119,16 @@
     "numbers": ["pattern_large_numbers", "pattern_percentages"],
     "patent_claims": ["patent", "intellectual property", "proprietary"],
     "financial": ["$", "million", "billion", "revenue", "profit", "cost"]
+  },
+  "negative_phrases": {
+    "problem": "opportunity",
+    "issue": "consideration",
+    "won't work": "requires an alternative approach",
+    "cannot": "unable to",
+    "failed": "requires adjustment",
+    "impossible": "challenging",
+    "weakness": "area for improvement",
+    "setback": "adjustment",
+    "disadvantage": "tradeoff"
   }
 }

@@ -3,6 +3,6 @@ Document analyzers package
 """
 
 from .tone_analyzer import analyze_tone, ToneAnalyzer
-from .claude_tone_improver import get_claude_improvements
+from .groq_tone_improver import get_groq_improvements
 
-__all__ = ['analyze_tone', 'ToneAnalyzer', 'get_claude_improvements']
+__all__ = ['analyze_tone', 'ToneAnalyzer', 'get_groq_improvements']
