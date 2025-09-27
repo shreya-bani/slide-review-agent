@@ -14,7 +14,7 @@ import logging
 import re
 
 # Load environment variables if desired
-# load_dotenv()
+load_dotenv()
 
 logger = logging.getLogger(__name__)
 

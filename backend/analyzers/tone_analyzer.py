@@ -60,7 +60,7 @@ class ToneAnalyzer:
 
         # Sentiment
         self.sentiment_analyzer = SentimentIntensityAnalyzer()
-        self.positivity_threshold = 0.7
+        self.positivity_threshold = 0.5
 
         # Passive voice regex helpers (kept from your version)
         self.passive_patterns = [

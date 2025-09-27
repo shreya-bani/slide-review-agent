@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document/PPT Review - Professional Analysis Tool</title>
+    <meta name="description" content="Upload and analyze PowerPoint and PDF documents with AI-powered professional style guidelines review. Get detailed JSON reports instantly.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
+<body>
+    <!-- Main Review Page -->
+    <div id="main-page" class="page">
+        <header class="header">
+            <div class="container header-content">
+                <div class="header-title">
+                    <h1>Document/PPT Review Page</h1>
+                    <p class="subtitle">Amida Style Guidelines</p>
+                </div>
+                <div class="header-actions">
+                    <button id="logs-btn" class="btn btn-outline" data-testid="button-go-to-logs">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="4,17 10,11 4,5"></polyline>
+                            <line x1="12" y1="19" x2="20" y2="19"></line>
+                        </svg>
+                        Go to Terminal Logs Screen
+                    </button>
+                    <button id="theme-toggle" class="btn btn-icon" data-testid="button-theme-toggle">
+                        <svg id="sun-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                        <svg id="moon-icon" class="hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="container main-content">
+            <!-- File Upload Section -->
+            <div class="upload-section">
+                <div id="file-upload-area" class="upload-area" data-testid="file-upload-area">
+                    <div class="upload-content">
+                        <svg class="upload-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7,10 12,15 17,10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        <h3>Upload Document</h3>
+                        <p>Drag and drop your .pptx or .pdf file here, or click to browse</p>
+                        <button id="browse-btn" class="btn btn-outline" data-testid="button-browse-files">Browse Files</button>
+                        <input id="file-input" type="file" accept=".pptx,.pdf" hidden data-testid="input-file-upload">
+                    </div>
+                </div>
+
+                <!-- Selected File Display -->
+                <div id="selected-file" class="card hidden">
+                    <div class="file-info">
+                        <div class="file-details">
+                            <svg class="file-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"></path>
+                            </svg>
+                            <div>
+                                <div id="file-name" class="file-name" data-testid="text-selected-filename"></div>
+                                <div id="file-size" class="file-size"></div>
+                            </div>
+                        </div>
+                        <button id="clear-file" class="btn btn-icon" data-testid="button-clear-file">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- User Info Input -->
+                <div class="input-group">
+                    <label for="user-info">Your name or email (for audit log)</label>
+                    <input id="user-info" type="text" placeholder="john@company.com or John Doe" data-testid="input-user-info">
+                </div>
+
+                <!-- Action Button -->
+                <button id="analyze-btn" class="btn btn-primary full-width" disabled data-testid="button-start-analysis">
+                    See Entire Analysis Running
+                </button>
+            </div>
+
+            <!-- Status Line -->
+            <div id="status-line" class="status-line" data-testid="status-line">
+                <div class="status-info">
+                    <div class="status-badge">
+                        <svg class="status-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12,6 12,12 16,14"></polyline>
+                        </svg>
+                        <span class="badge badge-outline">Ready</span>
+                    </div>
+                    <span id="status-message" class="status-message" data-testid="text-status-message"></span>
+                </div>
+                <div class="time-info">
+                    <div class="time-item">
+                        <span>Started:</span>
+                        <span id="start-time" class="time-value" data-testid="text-start-time">--:--:--</span>
+                    </div>
+                    <div class="time-item">
+                        <span>Finished:</span>
+                        <span id="end-time" class="time-value" data-testid="text-end-time">--:--:--</span>
+                    </div>
+                    <div class="time-item">
+                        <span>Duration:</span>
+                        <span id="duration" class="time-value" data-testid="text-duration">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- JSON Viewer -->
+            <div id="json-viewer" class="card hidden">
+                <div class="card-header">
+                    <div class="viewer-title">
+                        <span>Analysis Report</span>
+                        <span class="badge badge-secondary" data-testid="text-report-status">Complete</span>
+                    </div>
+                    <div class="viewer-actions">
+                        <button id="copy-json" class="btn btn-outline btn-sm" data-testid="button-copy-json">
+                            <svg id="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5,15H4a2,2 0 0,1 -2,-2V4A2,2 0 0,1 4,2H15A2,2 0 0,1 17,4V5"></path>
+                            </svg>
+                            <svg id="check-icon" class="hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20,6 9,17 4,12"></polyline>
+                            </svg>
+                            <span id="copy-text">Copy JSON</span>
+                        </button>
+                        <button id="download-json" class="btn btn-outline btn-sm" data-testid="button-download-json">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7,10 12,15 17,10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            Download JSON
+                        </button>
+                    </div>
+                </div>
+                <div class="json-content">
+                    <pre id="json-display" class="json-display" data-testid="json-viewer-content"></pre>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Terminal Logs Page -->
+    <div id="logs-page" class="page hidden">
+        <header class="header">
+            <div class="container header-content">
+                <div class="header-title">
+                    <button id="back-btn" class="btn btn-icon" data-testid="button-back-to-main">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 12H6M12 5l-7 7 7 7"></path>
+                        </svg>
+                    </button>
+                    <div>
+                        <h1>Terminal Logs</h1>
+                        <p class="subtitle">Real-time processing activity</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <div class="logs-controls">
+                        <span id="logs-status" class="badge badge-primary">Running</span>
+                        <button id="toggle-logs" class="btn btn-icon" data-testid="button-toggle-logs">
+                            <svg id="pause-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="6" y="4" width="4" height="16"></rect>
+                                <rect x="14" y="4" width="4" height="16"></rect>
+                            </svg>
+                            <svg id="play-icon" class="hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="5,3 19,12 5,21"></polygon>
+                            </svg>
+                        </button>
+                    </div>
+                    <button id="theme-toggle-logs" class="btn btn-icon">
+                        <svg id="sun-icon-logs" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                        <svg id="moon-icon-logs" class="hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="container main-content">
+            <div class="logs-controls-bar">
+                <div class="logs-info">
+                    <span id="logs-count">0 log entries</span>
+                    <button id="auto-scroll-toggle" class="btn btn-outline btn-sm" data-testid="button-toggle-autoscroll">
+                        Auto-scroll: On
+                    </button>
+                </div>
+                <div class="logs-actions">
+                    <button id="download-logs" class="btn btn-outline btn-sm" data-testid="button-download-logs">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7,10 12,15 17,10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Download
+                    </button>
+                    <button id="clear-logs" class="btn btn-outline btn-sm" data-testid="button-clear-logs">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
+                            <path d="M21 3v5h-5"></path>
+                            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
+                            <path d="M3 21v-5h5"></path>
+                        </svg>
+                        Clear
+                    </button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="logs-title">
+                        <span>Processing Logs</span>
+                        <span id="logs-count-badge" class="badge badge-outline">0 entries</span>
+                    </div>
+                </div>
+                <div class="logs-container">
+                    <div id="logs-content" class="logs-content" data-testid="logs-container">
+                        <div class="logs-empty">
+                            No logs yet. Logs will appear here when processing starts.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/scripts/script.js"></script>
+</body>
+</html>
