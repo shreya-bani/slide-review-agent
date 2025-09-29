@@ -10,7 +10,7 @@ from pydantic_settings import BaseSettings
 from dotenv import load_dotenv
 
 # Load environment variables from .env.example file
-load_dotenv("../.env.example")
+load_dotenv(".env.example")
 
 class Settings(BaseSettings):
     """Application settings loaded from environment variables."""

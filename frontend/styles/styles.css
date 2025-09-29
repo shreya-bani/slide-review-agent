@@ -504,6 +504,61 @@ body {
     to { transform: rotate(360deg); }
 }
 
+/* === Toasts (moved from JS) === */
+#toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 1000;
+}
+
+.toast {
+    padding: 12px 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--foreground);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    animation: slideIn 0.3s ease;
+    will-change: transform, opacity;
+}
+
+.toast-success {
+    border-color: var(--success);
+    color: var(--success);
+}
+
+.toast-warning {
+    border-color: var(--warning);
+    color: var(--warning);
+}
+
+.toast-error {
+    border-color: var(--error);
+    color: var(--error);
+}
+
+.toast--in {
+    animation: slideIn 0.3s ease forwards;
+}
+
+.toast--out {
+    animation: slideOut 0.3s ease forwards;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideOut {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(100%); opacity: 0; }
+}
+
 /* Utility */
 .hidden {
     display: none !important;
@@ -514,26 +569,27 @@ body {
     .container {
         padding: 0 16px;
     }
-    
+
     .header-content {
         flex-direction: column;
         gap: 16px;
         text-align: center;
     }
-    
+
     .status-line {
         flex-direction: column;
         gap: 16px;
         text-align: center;
     }
-    
+
     .time-info {
         flex-direction: column;
         gap: 8px;
     }
-    
+
     .logs-controls-bar {
         flex-direction: column;
         gap: 16px;
     }
 }
+/* End of styles.css */
