@@ -1,0 +1,345 @@
+{
+  "document_type": "pdf",
+  "metadata": {
+    "file_path": "data\\uploads\\001_demo.pdf",
+    "total_pages": 6,
+    "title": "Streamlit",
+    "author": null,
+    "subject": null,
+    "creator": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "creation_date": "D:20250921161705+00'00'"
+  },
+  "pages": [
+    {
+      "index": 1,
+      "title": null,
+      "elements": [
+        {
+          "text": "🔍  Slide Review\nAgent\nAmida Style Guide Compliance\nChecker\nUpload your presentation\nDrag and drop file here\nLimit 200MB per file • PPTX, PDF\n Browse files\nsample_pdf.pdf 2.5MB\nFile uploaded: sample_pdf.pdf\nFile Details:\nName: sample_pdf.pdf\nSize: 2599661 bytes\nType: application/pdf\n🚀  Process Document\n✅  Successfully processed PDF with 37 slides/pages!\nSlides/P…\n37\nText Ele…\n324\nTone Iss…\n2\nUsage Is…\n97\nAvg Posi…\n0.…\nSpecificity\n0.…\nℹ  About\nThis tool checks presentation\nslides against Amida's Style\nGuide.\n📋  Current Features\nFile upload (PPTX + PDF)\nComplete metadata\nextraction\nStructured JSON output\nElement classification\nActive voice detection\n(spaCy)\nPositive language scoring\n(VADER)\nTone issue identification\n🎯  Amida Core Values\nImpact\nExcellence\nJoy\n9/21/25, 12:17 PM Streamlit\nlocalhost:8501 1/6",
+          "locator": {
+            "page_or_slide_index": 1,
+            "element_type": "paragraph",
+            "element_index": 0,
+            "sub_index": null,
+            "position": "middle"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": null,
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": null
+          },
+          "confidence": 0.7,
+          "source_type": "pdf"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Page size: (612.0, 792.0)",
+      "element_count": 1
+    },
+    {
+      "index": 2,
+      "title": "• Tropical species are\nImproved:\n9/21/25, 12:17 PM Streamlit\nlocalhost:8501 2/6",
+      "elements": [
+        {
+          "text": "🎯  Tone Analysis Results\n⚠  Low positivity score: 0.50/1.0 (threshold: 0.7)\nPassive Voice Issues\n2\nNegative Language\n0\nNeed LLM Rewrite\n316\n🔍  Tone Issues & Intelligent\nSuggestions\n✨  Claude-Powered Improvements\n🟢  Active Voice - page_3_line_1\nOriginal:\nchange is caused by climate?\nImproved:\nDoes climate drive this\nchange?\nExplanation: Converted from passive to active voice by\nrestructuring as a direct question with \"climate\" as the active\nsubject performing the action of driving change. This creates\nmore engaging, conversational language while maintaining\nthe technical inquiry.\nConfidence: High\n✅  Approve\n ✏  Edit\n ❌  Reject\n🟡  Active Voice - page_15_line_2\nOriginal:",
+          "locator": {
+            "page_or_slide_index": 2,
+            "element_type": "paragraph",
+            "element_index": 0,
+            "sub_index": null,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": null,
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": null
+          },
+          "confidence": 0.7,
+          "source_type": "pdf"
+        },
+        {
+          "text": "• Tropical species are\nImproved:\n9/21/25, 12:17 PM Streamlit\nlocalhost:8501 2/6",
+          "locator": {
+            "page_or_slide_index": 2,
+            "element_type": "heading",
+            "element_index": 1,
+            "sub_index": null,
+            "position": "middle"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": null,
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": null
+          },
+          "confidence": 0.9,
+          "source_type": "pdf"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Page size: (612.0, 792.0)",
+      "element_count": 2
+    },
+    {
+      "index": 3,
+      "title": null,
+      "elements": [
+        {
+          "text": "• Tropical species\ndemonstrateExplanation: The original text appears incomplete, but I\nconverted the fragment from a passive construction (\"are\") to\nan active verb (\"demonstrate\") that positions tropical species\nas the active subject performing an action. This creates more\ndirect, engaging language while maintaining the technical\ncontext.\nConfidence: Medium (Due To The Incomplete Nature Of The\nOriginal Text, But The Directional Change From Passive To\nActive Voice Is Clearly Beneficial)\n✅  Approve\n ✏  Edit\n ❌  Reject\n💡  Recommendations\n1. Strengthen Your\nPositivity Score\nYour current 0.50/1.0 positivity score indicates room for\nimprovement. Replace neutral descriptors with confident,\nbenefit-focused language:\nInstead of: \"This solution handles data processing\"\nUse: \"This solution accelerates data processing and delivers\nfaster insights\"\n9/21/25, 12:17 PM Streamlit\nlocalhost:8501 3/6",
+          "locator": {
+            "page_or_slide_index": 3,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": null,
+            "position": "middle"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": null,
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": null
+          },
+          "confidence": 0.95,
+          "source_type": "pdf"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Page size: (612.0, 792.0)",
+      "element_count": 1
+    },
+    {
+      "index": 4,
+      "title": null,
+      "elements": [
+        {
+          "text": "2. Eliminate Remaining\nPassive Voice\n📊  Structured Document\nAnalysis\n📄  PDF Page 1: Global Warming and Wild Life\n📄  PDF Page 2: * Global Temperatures are Rising\n📄  PDF Page 3: How do we know a biological\n📄  PDF Page 4: IPCC : 8 Biological studies in USA\n📄  PDF Page 5: Pew report - USA only\n📄  PDF Page 6: Butterflies want\n📄  PDF Page 7: Edith’s Checkerspot butterfly\n📄  PDF Page 8: Species’ range has shifted northward\n📄  PDF Page 9: Warming Causes Asynchrony --- Extinctions\n📄  PDF Page 10: False Springs Cause Extinctions\n📄  PDF Page 12: Heavy snowpack at high elevations\nbenefits\n📄  PDF Page 13: Shift in status - at diversity of latitudes\n9/21/25, 12:17 PM Streamlit\nlocalhost:8501 4/6",
+          "locator": {
+            "page_or_slide_index": 4,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": null,
+            "position": "middle"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": null,
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": null
+          },
+          "confidence": 0.9,
+          "source_type": "pdf"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Page size: (612.0, 792.0)",
+      "element_count": 1
+    },
+    {
+      "index": 5,
+      "title": null,
+      "elements": [
+        {
+          "text": "📄  PDF Page 14: Shifts in Nationality: Multiple invasions\n📄  PDF Page 15: Texas Has 5 New Species of\n📄  PDF Page 16: Species have moved into USA from\n📄  PDF Page 17: The Red fox has shifted its range north,\n📄  PDF Page 18: Species\n📄  PDF Page 19: The toucan and other lowland tropical\nbirds have\n📄  PDF Page 20: Pikas are Sensitive to Heat\n📄  PDF Page 21: Low Elevation\n📄  PDF Page 22: Upward shift of\n📄  PDF Page 23: moisture available)\n📄  PDF Page 24: Estimated: More than Half of Wild Species\nhave\n📄  PDF Page 25: Is this a Problem?\n📄  PDF Page 26: Habitat loss coupled with climate change\n📄  PDF Page 27: Extinction of\n📄  PDF Page 28: Whole Ecosystems can collapse with single\n📄  PDF Page 31: Stress\n9/21/25, 12:17 PM Streamlit\nlocalhost:8501 5/6",
+          "locator": {
+            "page_or_slide_index": 5,
+            "element_type": "paragraph",
+            "element_index": 0,
+            "sub_index": null,
+            "position": "middle"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": null,
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": null
+          },
+          "confidence": 0.7,
+          "source_type": "pdf"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Page size: (612.0, 792.0)",
+      "element_count": 1
+    },
+    {
+      "index": 6,
+      "title": "1. ✅  Complete input handling (PPTX + PDF)",
+      "elements": [
+        {
+          "text": "\n📄  PDF Page 32: In In 1998, 1998, coral coral bleaching\nbleaching ...\n📄  PDF Page 33: Coral reefs are among the most\n📄  PDF Page 34: Global temperature over the\n📄  PDF Page 35: A c k n o w l e d g e m e n t s\n📄  PDF Page 37: First signs of positive feedbacks\n🔍  Raw JSON Structure\n🚀  Implementation\nProgress",
+          "locator": {
+            "page_or_slide_index": 6,
+            "element_type": "paragraph",
+            "element_index": 0,
+            "sub_index": null,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": null,
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": null
+          },
+          "confidence": 0.7,
+          "source_type": "pdf"
+        },
+        {
+          "text": "1. ✅  Complete input handling (PPTX + PDF)",
+          "locator": {
+            "page_or_slide_index": 6,
+            "element_type": "heading",
+            "element_index": 1,
+            "sub_index": null,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": null,
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": null
+          },
+          "confidence": 0.9,
+          "source_type": "pdf"
+        },
+        {
+          "text": "2. ✅  Structured JSON with metadata (style, location, size)",
+          "locator": {
+            "page_or_slide_index": 6,
+            "element_type": "heading",
+            "element_index": 2,
+            "sub_index": null,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": null,
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": null
+          },
+          "confidence": 0.9,
+          "source_type": "pdf"
+        },
+        {
+          "text": "3. ✅  Element classification (title, bullet, body, note)",
+          "locator": {
+            "page_or_slide_index": 6,
+            "element_type": "heading",
+            "element_index": 3,
+            "sub_index": null,
+            "position": "middle"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": null,
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": null
+          },
+          "confidence": 0.9,
+          "source_type": "pdf"
+        },
+        {
+          "text": "4. ✅  Tone checking (Active Voice + Positive Language)",
+          "locator": {
+            "page_or_slide_index": 6,
+            "element_type": "heading",
+            "element_index": 4,
+            "sub_index": null,
+            "position": "middle"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": null,
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": null
+          },
+          "confidence": 0.9,
+          "source_type": "pdf"
+        },
+        {
+          "text": "5. ⏳  Usage checking (Specificity + Inclusivity)",
+          "locator": {
+            "page_or_slide_index": 6,
+            "element_type": "heading",
+            "element_index": 5,
+            "sub_index": null,
+            "position": "bottom"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": null,
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": null
+          },
+          "confidence": 0.9,
+          "source_type": "pdf"
+        },
+        {
+          "text": "6. ⏳  Grammar & Style Rules enforcement\n9/21/25, 12:17 PM Streamlit\nlocalhost:8501 6/6",
+          "locator": {
+            "page_or_slide_index": 6,
+            "element_type": "heading",
+            "element_index": 6,
+            "sub_index": null,
+            "position": "bottom"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": null,
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": null
+          },
+          "confidence": 0.9,
+          "source_type": "pdf"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Page size: (612.0, 792.0)",
+      "element_count": 7
+    }
+  ],
+  "extraction_info": {
+    "total_pages": 6,
+    "pages_with_content": 6,
+    "total_elements": 13,
+    "element_types": {
+      "paragraph": 4,
+      "heading": 7,
+      "bullet": 2
+    },
+    "avg_elements_per_page": 2.1666666666666665
+  },
+  "normalized_at": "2025-09-29T12:01:40.187413",
+  "summary": {
+    "total_pages": 6,
+    "pages_with_content": 6,
+    "total_elements": 13
+  }
+}

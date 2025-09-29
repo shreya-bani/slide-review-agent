@@ -1,0 +1,717 @@
+{
+  "success": true,
+  "file_id": "003",
+  "doc_id": 3,
+  "original_filename": "amida style guide -jan 2025 -final.docx.pdf",
+  "user_info": "Anonymous",
+  "processed_at": "2025-09-29T12:06:11.596964",
+  "document_analysis": {
+    "document_type": "pdf",
+    "metadata": {
+      "file_path": "data\\uploads\\003_amida_style_guide_-jan_2025_-finaldocx.pdf",
+      "total_pages": 6,
+      "title": "amida style guide -jan 2025 -final.docx",
+      "author": null,
+      "subject": null,
+      "creator": null,
+      "creation_date": null
+    },
+    "pages": [
+      {
+        "index": 1,
+        "title": null,
+        "elements": [],
+        "notes": null,
+        "layout_info": "Page size: (612.0, 792.0)",
+        "element_count": 0
+      },
+      {
+        "index": 2,
+        "title": null,
+        "elements": [
+          {
+            "text": "I. Introduction   The  Amida  brand  extends  far  beyond  a  logo  or  a  website. It  is  a  complex  system  driven  by  the  \nemotions\n \nof\n \nthe\n \naudiences\n \nwho\n \nconnect\n \ntheir\n \npersonal\n \nexperiences\n \nto\n \nAmida. Amida  believes  that  strong  writing  is  essential  to  our  company’s  continued  success. Employees  \nshould\n \nuse\n \nthe\n \nfollowing\n \nstandards\n \nfor\n \nall\n \ndocumentation\n \nunless\n \na\n \nclient\n \nspeciﬁes\n \notherwise.",
+            "locator": {
+              "page_or_slide_index": 2,
+              "element_type": "paragraph",
+              "element_index": 0,
+              "sub_index": null,
+              "position": "top"
+            },
+            "formatting": {
+              "font_name": null,
+              "font_size": null,
+              "is_bold": null,
+              "is_italic": null,
+              "color": null,
+              "hierarchy_level": null
+            },
+            "confidence": 0.7,
+            "source_type": "pdf"
+          },
+          {
+            "text": "Any  piece  of  writing  should  reﬂect  Amida’s  three  core  values:  Impact,  Excellence,  and  Joy. Templates  for  multiple  types  of  documents  are  located  within  Amida’s  shared  Google  Drive:  ●  Excel  ●  PowerPoint  ●  Word \nII. Tone  The  tone  of  Amida  collateral  can  vary  by  medium,  audience,  and  purpose. No  matter  what  form  it  \ntakes,\n \nour\n \ntone\n \nshould\n \nalways\n \nreinforce\n \nthe\n \nAmida\n \nvoice\n \nand\n \nour\n \nrole\n \nas\n \na\n \ntrusted\n \npartner.",
+            "locator": {
+              "page_or_slide_index": 2,
+              "element_type": "paragraph",
+              "element_index": 1,
+              "sub_index": null,
+              "position": "top"
+            },
+            "formatting": {
+              "font_name": null,
+              "font_size": null,
+              "is_bold": null,
+              "is_italic": null,
+              "color": null,
+              "hierarchy_level": null
+            },
+            "confidence": 0.7,
+            "source_type": "pdf"
+          },
+          {
+            "text": "Amida’s  voice  is  always:  ●  Technical  but  not  condescending  ●  Intelligent  but  not  assuming  ●  Compelling  but  not  hyperbolic  Amida’s  voice  varies  based  on  the  audience  but  is  usually:   ●  Conversational  but  not  informal  ●  Inquisitive  but  not  indecisive  ●  Passionate  but  not  tangential   A. Active  Voice The  active  voice  is  usually  more  direct  and  vigorous  than  the  passive  ( The  Elements  of  Style  by  \nStrunk\n \n&\n \nWhite).",
+            "locator": {
+              "page_or_slide_index": 2,
+              "element_type": "paragraph",
+              "element_index": 2,
+              "sub_index": null,
+              "position": "middle"
+            },
+            "formatting": {
+              "font_name": null,
+              "font_size": null,
+              "is_bold": null,
+              "is_italic": null,
+              "color": null,
+              "hierarchy_level": null
+            },
+            "confidence": 0.7,
+            "source_type": "pdf"
+          },
+          {
+            "text": "The\n \npassive\n \nvoice\n \nis\n \ngenerally\n \nconstructed\n \nwith\n \nsome\n \nvariant\n \nof\n \nthe\n \nverb\n \n“to\n \nbe,”\n \nalthough\n \nthe\n \nuse\n \nof\n \nthe\n \ngerund\n \n(“-ing”)\n \nis\n \nalso\n \ntypical\n \nof\n \nthis\n \nvoice. Passive:  Amida  was  founded  in  2013. Active:\n \nMatt\n \nand\n \nPeter\n \nco-founded\n \nAmida\n \nin\n \n2013.",
+            "locator": {
+              "page_or_slide_index": 2,
+              "element_type": "paragraph",
+              "element_index": 3,
+              "sub_index": null,
+              "position": "middle"
+            },
+            "formatting": {
+              "font_name": null,
+              "font_size": null,
+              "is_bold": null,
+              "is_italic": null,
+              "color": null,
+              "hierarchy_level": null
+            },
+            "confidence": 0.7,
+            "source_type": "pdf"
+          },
+          {
+            "text": "Mushy:  We  are  looking  for  a  few  good  engineers  who  have  expertise  in…  \nClear:\n \nWe\n \nhire\n \nengineers\n \nwith\n \nexpertise\n \nin…\n In  some  cases,  the  audience  may  respond  better  to  a  passive  voice,  as  in  technical  \ndocumentation. Strive\n \nto\n \nwrite\n \nin\n \nthe\n \nactive\n \nwhenever\n \npossible. B.",
+            "locator": {
+              "page_or_slide_index": 2,
+              "element_type": "paragraph",
+              "element_index": 4,
+              "sub_index": null,
+              "position": "middle"
+            },
+            "formatting": {
+              "font_name": null,
+              "font_size": null,
+              "is_bold": null,
+              "is_italic": null,
+              "color": null,
+              "hierarchy_level": null
+            },
+            "confidence": 0.7,
+            "source_type": "pdf"
+          },
+          {
+            "text": "Positive  Language  In  writing,  it  is  generally  preferable  to  phrase  statements  in  the  positive  rather  than  the  \nnegative\n \nto\n \ncreate\n \nclarity,\n \npromote\n \nconstructive\n \nlanguage,\n \nand\n \nmaintain\n \nan\n \nupbeat\n \ntone. By\n \nframing\n \nstatements\n \nas\n \nwhat\n \nis\n \nrather\n \nthan\n \nwhat\n \nisn't\n,\n \ncommunication\n \nbecomes\n \nmore\n \ndirect\n \nand\n \nAmida  Technology  Solutions,  Inc. Page  2  Amida  Style  Guide   January  2025",
+            "locator": {
+              "page_or_slide_index": 2,
+              "element_type": "paragraph",
+              "element_index": 5,
+              "sub_index": null,
+              "position": "bottom"
+            },
+            "formatting": {
+              "font_name": null,
+              "font_size": null,
+              "is_bold": null,
+              "is_italic": null,
+              "color": null,
+              "hierarchy_level": null
+            },
+            "confidence": 0.7,
+            "source_type": "pdf"
+          }
+        ],
+        "notes": null,
+        "layout_info": "Page size: (612.0, 792.0)",
+        "element_count": 6
+      },
+      {
+        "index": 3,
+        "title": "Page  3  Amida  Style  Guide   January  2025",
+        "elements": [
+          {
+            "text": "easier  to  understand. Positive  phrasing  reduces  ambiguity  and  fosters  a  forward-thinking,  \nsolution-oriented\n \nmindset. Negative:  This  procedure  is  not  difﬁcult  to  follow. Positive:\n \nThis\n \nprocedure\n \nis\n \neasy\n \nto\n \nfollow. III. Usage  A.",
+            "locator": {
+              "page_or_slide_index": 3,
+              "element_type": "paragraph",
+              "element_index": 0,
+              "sub_index": null,
+              "position": "top"
+            },
+            "formatting": {
+              "font_name": null,
+              "font_size": null,
+              "is_bold": null,
+              "is_italic": null,
+              "color": null,
+              "hierarchy_level": null
+            },
+            "confidence": 0.7,
+            "source_type": "pdf"
+          },
+          {
+            "text": "Speciﬁcity There  are  two  ways  in  which  speciﬁcity  is  important  –  ﬁrst,  in  maintaining  an  overall  narrow  \nfocus\n \nwithin\n \neach\n \npiece\n \nof\n \nwriting,\n \nand\n \nsecond,\n \nin\n \nusing\n \nmore\n \nspeciﬁc\n \nterms\n \nwhenever\n \npossible.",
+            "locator": {
+              "page_or_slide_index": 3,
+              "element_type": "paragraph",
+              "element_index": 1,
+              "sub_index": null,
+              "position": "top"
+            },
+            "formatting": {
+              "font_name": null,
+              "font_size": null,
+              "is_bold": null,
+              "is_italic": null,
+              "color": null,
+              "hierarchy_level": null
+            },
+            "confidence": 0.7,
+            "source_type": "pdf"
+          },
+          {
+            "text": "Basic  guidelines  for  speciﬁcity:  ●  Every  piece  of  writing  should  answer  the  four  W’s  +  1  H  –  Who,  When,  What,  Why,  and  \nHow\n \n ●  Maintain  a  tight  focus  in  every  piece  of  writing  ●  Be  speciﬁc  in  naming  what  you’re  talking  about;  if  you  use  the  word  “people,”  stop  and  \nask\n \nyourself\n \nwho\n \nyou\n \nare\n \nreally\n \ntalking\n \nabout,\n \nand\n \nthen\n \nuse\n \nthat\n \nword\n \ninstead\n \n(maybe\n \nit\n \nis\n \nend\n \nusers,\n \nmaybe\n \nit\n \nis\n \nstaff,\n \nmaybe\n \nit\n \nis\n \nclients)\n ●  Tangents  can  be  great  in  a  conversation,  but  they  are  not  great  in  writing;  if  you  digress,  \ngo\n \nback\n \nand\n \ndelete\n \nit,\n \nor\n \nconsider\n \nmaking\n \nthe\n \ndigression\n \nthe\n \nwriting\n \nand\n \ndelete\n \neverything\n \nthat\n \ncame\n \nbefore\n \nit\n ●  Avoid  using  words  like  \"currently,\"  \"at  this  time,\"  or  similar  phrases  that  imply  a  \ntemporal\n \ncontext,\n \nas\n \nthey\n \ncan\n \nbecome\n \nambiguous\n \nover\n \ntime;\n \ninstead,\n \nspecify\n \na\n \nclear\n \ntime\n \nframe\n \nor\n \nprovide\n \nconcrete\n \ndetails\n \nto\n \nensure\n \nthe\n \ncontext\n \nremains\n \nclear\n \nto\n \nfuture\n \nreaders\n o  Example:  “The  system  is  undergoing  maintenance  as  of  January  2025,”  instead  of  “The  \nsystem\n \nis\n \ncurrently\n \nundergoing\n \nmaintenance.”\n B.",
+            "locator": {
+              "page_or_slide_index": 3,
+              "element_type": "paragraph",
+              "element_index": 2,
+              "sub_index": null,
+              "position": "middle"
+            },
+            "formatting": {
+              "font_name": null,
+              "font_size": null,
+              "is_bold": null,
+              "is_italic": null,
+              "color": null,
+              "hierarchy_level": null
+            },
+            "confidence": 0.7,
+            "source_type": "pdf"
+          },
+          {
+            "text": "Inclusivity  Writing  inclusively  is  important  and  can  be  difﬁcult. Many  of  us  were  taught  to  accept  certain  \nbasic\n \nconventions,\n \nwith\n \nthe\n \nprimary\n \nexample\n \nbeing\n \nthe\n \nuse\n \nof\n \n“he”\n \nas\n \nthe\n \n(exclusive)\n \npronoun\n \nof\n \nchoice.",
+            "locator": {
+              "page_or_slide_index": 3,
+              "element_type": "paragraph",
+              "element_index": 3,
+              "sub_index": null,
+              "position": "middle"
+            },
+            "formatting": {
+              "font_name": null,
+              "font_size": null,
+              "is_bold": null,
+              "is_italic": null,
+              "color": null,
+              "hierarchy_level": null
+            },
+            "confidence": 0.7,
+            "source_type": "pdf"
+          },
+          {
+            "text": "Defaulting\n \nto\n \nthose\n \nnorms,\n \nhowever,\n \nmay\n \ndistance\n \nyou\n \nfrom\n \na\n \nreader\n \nwho\n \ndoes\n \nnot\n \nidentify\n \nas\n \n“he.”\n \n Basic  rules  for  inclusive  writing:  ●  “They”  is  an  acceptable  gender-neutral,  singular  pronoun  o  If  you  are  uncomfortable  using  “they”  or  a  variant  (them,  themselves)  as  a  singular  \npronoun,\n \nrephrase\n \nyour\n \nsentence\n o  “He  or  she”  is  an  acceptable  variation,  but  becomes  unwieldy  if  not  used  sparingly   o  Alternating  between  “he”  and  “she”  may  be  acceptable  for  longer  narratives,  \ndepending\n \non\n \nthe\n \ncircumstances\n ●  Don’t  reference  a  person’s  age,  race,  ethnicity,  disability,  etc.  unless  it  is  relevant   o  If  you  think  it  is  relevant,  question  yourself  \nAmida  Technology  Solutions,  Inc.",
+            "locator": {
+              "page_or_slide_index": 3,
+              "element_type": "paragraph",
+              "element_index": 4,
+              "sub_index": null,
+              "position": "middle"
+            },
+            "formatting": {
+              "font_name": null,
+              "font_size": null,
+              "is_bold": null,
+              "is_italic": null,
+              "color": null,
+              "hierarchy_level": null
+            },
+            "confidence": 0.7,
+            "source_type": "pdf"
+          },
+          {
+            "text": "Page  3  Amida  Style  Guide   January  2025",
+            "locator": {
+              "page_or_slide_index": 3,
+              "element_type": "heading",
+              "element_index": 5,
+              "sub_index": null,
+              "position": "bottom"
+            },
+            "formatting": {
+              "font_name": null,
+              "font_size": null,
+              "is_bold": null,
+              "is_italic": null,
+              "color": null,
+              "hierarchy_level": null
+            },
+            "confidence": 0.9,
+            "source_type": "pdf"
+          }
+        ],
+        "notes": null,
+        "layout_info": "Page size: (612.0, 792.0)",
+        "element_count": 6
+      },
+      {
+        "index": 4,
+        "title": "Page  4  Amida  Style  Guide   January  2025",
+        "elements": [
+          {
+            "text": "o  If  you  must  reference  a  disability,  be  sure  to  center  the  person  and  not  the  \ncondition\n ▪  \nExample:\n \n“She\n \nhas\n \na\n \ndisability,”\n \nnot\n \n“He\n \nis\n \ndisabled.”\n ●  Avoid  gendered  terms,  for  example:   o  “Server”  instead  of  “waitress”  o  “People”  instead  of  “guys”  \nIV. Grammar  A.",
+            "locator": {
+              "page_or_slide_index": 4,
+              "element_type": "paragraph",
+              "element_index": 0,
+              "sub_index": null,
+              "position": "top"
+            },
+            "formatting": {
+              "font_name": null,
+              "font_size": null,
+              "is_bold": null,
+              "is_italic": null,
+              "color": null,
+              "hierarchy_level": null
+            },
+            "confidence": 0.7,
+            "source_type": "pdf"
+          },
+          {
+            "text": "Acronyms  Before  using  an  acronym,  ﬁrst  write  out  the  full  phrase,  with  the  acronym  in  parentheses  \nimmediately\n \nafterward.\n ●  Example:  “Amida  proposes  the  Data  Reconciliation  Engine  (DRE)  to  the  U.S. Department  of  \nVeterans\n \nAffairs\n \n(VA).",
+            "locator": {
+              "page_or_slide_index": 4,
+              "element_type": "paragraph",
+              "element_index": 1,
+              "sub_index": null,
+              "position": "top"
+            },
+            "formatting": {
+              "font_name": null,
+              "font_size": null,
+              "is_bold": null,
+              "is_italic": null,
+              "color": null,
+              "hierarchy_level": null
+            },
+            "confidence": 0.7,
+            "source_type": "pdf"
+          },
+          {
+            "text": "The\n \nDRE\n \nwill\n \nstrongly\n \nbeneﬁt\n \nVA.”\n ●  Note  that  for  the  Department  of  Veterans  Affairs  (VA) ,  when  abbreviated,  we  do  not  \nuse\n \na\n \n“the”\n \nbefore\n \n“VA”\n \n–\n \nfor\n \nexample,\n \n“Amida\n \ncreated\n \na\n \nstatus\n \nreport\n \nfor\n \nVA”\n \n(view\n \nVA’s\n own  style  guide  here)  B.",
+            "locator": {
+              "page_or_slide_index": 4,
+              "element_type": "paragraph",
+              "element_index": 2,
+              "sub_index": null,
+              "position": "top"
+            },
+            "formatting": {
+              "font_name": null,
+              "font_size": null,
+              "is_bold": null,
+              "is_italic": null,
+              "color": null,
+              "hierarchy_level": null
+            },
+            "confidence": 0.7,
+            "source_type": "pdf"
+          },
+          {
+            "text": "Bullets  Follow  these  guidelines  when  you  use  bullets:  ●  Do  not  use  periods  at  the  ends  of  bullet  points  ●  If  a  single  bullet  point  contains  multiple  sentences,  separate  them  with  semicolons  or  \nsplit\n \nthem\n \ninto\n \nadditional\n \nbullets\n \nor\n \nsub-bullets\n ●  Use  parallel  construction  for  all  items  in  a  bulleted  list  ●  Capitalize  the  ﬁrst  letter  of  the  ﬁrst  word  of  bulleted  text  (unless  the  ﬁrst  word  is  \ncase-sensitive)\n ●  If  the  bulleted  items  represent  a  sequence  or  ranking,  used  a  numbered  list  instead  C.",
+            "locator": {
+              "page_or_slide_index": 4,
+              "element_type": "paragraph",
+              "element_index": 3,
+              "sub_index": null,
+              "position": "middle"
+            },
+            "formatting": {
+              "font_name": null,
+              "font_size": null,
+              "is_bold": null,
+              "is_italic": null,
+              "color": null,
+              "hierarchy_level": null
+            },
+            "confidence": 0.7,
+            "source_type": "pdf"
+          },
+          {
+            "text": "Headings  Amida  uses  Lato  font  for  our  website  body  copy  and  all  documents.",
+            "locator": {
+              "page_or_slide_index": 4,
+              "element_type": "paragraph",
+              "element_index": 4,
+              "sub_index": null,
+              "position": "middle"
+            },
+            "formatting": {
+              "font_name": null,
+              "font_size": null,
+              "is_bold": null,
+              "is_italic": null,
+              "color": null,
+              "hierarchy_level": null
+            },
+            "confidence": 0.7,
+            "source_type": "pdf"
+          },
+          {
+            "text": "Please  adhere  to  the  \nfollowing\n \nguidelines\n \nfor\n \ndocuments:\n \n \n Font  Style  Color  \nRecommended  Size  \nParagraph  Spacing  (Before/After)  \nHeading  1\n \nLato  Bold  \nRGB   38-111-160  \n20  0/12  \nHeading  2\n Lato  Regular  \nRGB   38-111-160  \n16  12/2  \nHeading  3  Lato  Bold  RGB  0-8-14  11  0/2  \nHeading  4  Lato  Italicized  RGB  0-8-14  11  0/2  \nNormal  (Body  Text)  Lato  Regular  RGB  0-8-14  11  0/6  \nCaptions/Callouts  Lato  Italicized  RGB  0-8-14  10  0/6  \nAmida  Technology  Solutions,  Inc.",
+            "locator": {
+              "page_or_slide_index": 4,
+              "element_type": "paragraph",
+              "element_index": 5,
+              "sub_index": null,
+              "position": "bottom"
+            },
+            "formatting": {
+              "font_name": null,
+              "font_size": null,
+              "is_bold": null,
+              "is_italic": null,
+              "color": null,
+              "hierarchy_level": null
+            },
+            "confidence": 0.7,
+            "source_type": "pdf"
+          },
+          {
+            "text": "Page  4  Amida  Style  Guide   January  2025",
+            "locator": {
+              "page_or_slide_index": 4,
+              "element_type": "heading",
+              "element_index": 6,
+              "sub_index": null,
+              "position": "bottom"
+            },
+            "formatting": {
+              "font_name": null,
+              "font_size": null,
+              "is_bold": null,
+              "is_italic": null,
+              "color": null,
+              "hierarchy_level": null
+            },
+            "confidence": 0.9,
+            "source_type": "pdf"
+          }
+        ],
+        "notes": null,
+        "layout_info": "Page size: (612.0, 792.0)",
+        "element_count": 7
+      },
+      {
+        "index": 5,
+        "title": null,
+        "elements": [
+          {
+            "text": "Footers  Lato  Regular  RGB  0-8-14  9  0/0  \nAmida  uses  Word’s  default  1.08  line  spacing. Do  not  add  extra  spaces  between  paragraphs. When  \nyou\n \nuse\n \nAmida\n \ntemplates,\n \nthe\n \ndocument\n \nwill\n \nautomatically\n \ninsert\n \nspaces\n \nbetween\n \nlines. D.",
+            "locator": {
+              "page_or_slide_index": 5,
+              "element_type": "paragraph",
+              "element_index": 0,
+              "sub_index": null,
+              "position": "top"
+            },
+            "formatting": {
+              "font_name": null,
+              "font_size": null,
+              "is_bold": null,
+              "is_italic": null,
+              "color": null,
+              "hierarchy_level": null
+            },
+            "confidence": 0.7,
+            "source_type": "pdf"
+          },
+          {
+            "text": "Hyphens  Use  en  dashes  (“–”)  alone  or  in  pairs;  do  not  use  em  dashes  (“—”)  or  double  hyphens  (“--\").  ●  Example:  “Our  ﬁrst  step  was  to  establish  the  purpose  and  objective  –  or  ‘why’  –  of  the  data  \nmanagement\n \nplan\n \nthat\n \nwe\n \nintroduced.”\n E. Numerals  For  numbers,  spell  out  anything  below  100  in  non-technical  writing.",
+            "locator": {
+              "page_or_slide_index": 5,
+              "element_type": "paragraph",
+              "element_index": 1,
+              "sub_index": null,
+              "position": "top"
+            },
+            "formatting": {
+              "font_name": null,
+              "font_size": null,
+              "is_bold": null,
+              "is_italic": null,
+              "color": null,
+              "hierarchy_level": null
+            },
+            "confidence": 0.7,
+            "source_type": "pdf"
+          },
+          {
+            "text": "Exceptions  to  this  rule  \nmay\n \napply\n \nfor\n \nproposal-writing\n \nand\n \nunder\n \nother\n \nspecial\n \ncircumstances.\n ●  Example:  “In  the  last  365  days,  we  responded  to  ﬁfty  opportunities.”  Additional  rules  for  numerals:  ●  Avoid  starting  a  sentence  with  a  number;  if  you  do,  always  spell  it  out  ●  Always  use  a  comma  for  numbers  of  four  digits  or  more  (“1,000”),  except  in  a  date  ●  Use  numerals  for  any  number  that  precedes  percent,  million,  or  billion  (“25  percent,”  “2  \nmillion”),\n \nunless\n \nit\n \nbegins\n \na\n \nsentence\n F.",
+            "locator": {
+              "page_or_slide_index": 5,
+              "element_type": "paragraph",
+              "element_index": 2,
+              "sub_index": null,
+              "position": "top"
+            },
+            "formatting": {
+              "font_name": null,
+              "font_size": null,
+              "is_bold": null,
+              "is_italic": null,
+              "color": null,
+              "hierarchy_level": null
+            },
+            "confidence": 0.7,
+            "source_type": "pdf"
+          },
+          {
+            "text": "Periods  Only  include  one  space  after  a  period  (or  other  sentence-ending  punctuation). G. Quotation  Marks  Generally,  commas  and  periods  go  inside  quotation  marks,  while  semicolons  and  colons  go  \noutside\n \nof\n \nthem. Question\n \nmarks,\n \ndashes,\n \nand\n \nexclamation\n \npoints\n \ngo\n \ninside\n \nquotation\n \nmarks\n \nonly\n \nif\n \nthey\n \nare\n \npart\n \nof\n \nthe\n \nquoted\n \nmaterial. H. Titles  When  writing  titles  for  anything  (proposals,  decks,  websites),  we  use  Title  Case.",
+            "locator": {
+              "page_or_slide_index": 5,
+              "element_type": "paragraph",
+              "element_index": 3,
+              "sub_index": null,
+              "position": "middle"
+            },
+            "formatting": {
+              "font_name": null,
+              "font_size": null,
+              "is_bold": null,
+              "is_italic": null,
+              "color": null,
+              "hierarchy_level": null
+            },
+            "confidence": 0.7,
+            "source_type": "pdf"
+          },
+          {
+            "text": "Capitalize  the  \nﬁrst\n \nword,\n \nthe\n \nlast\n \nword,\n \nand\n \nall\n \nthe\n \nmain\n \nwords\n \nin\n \nbetween\n \n–\n \nnouns,\n \npronouns,\n \nverbs,\n \nadverbs,\n \nand\n \nadjectives\n \n–\n \nno\n \nmatter\n \nhow\n \nlong\n \nor\n \nshort\n \nthey\n \nare. Any\n \nword\n \nlonger\n \nthan\n \nthree\n \nletters\n \n–\n \nno\n \nmatter\n \nwhat\n \npart\n \nof\n \nspeech\n \nor\n \nlocation\n \nin\n \nthe\n \ntitle\n \n–\n \nis\n \ncapitalized.",
+            "locator": {
+              "page_or_slide_index": 5,
+              "element_type": "paragraph",
+              "element_index": 4,
+              "sub_index": null,
+              "position": "middle"
+            },
+            "formatting": {
+              "font_name": null,
+              "font_size": null,
+              "is_bold": null,
+              "is_italic": null,
+              "color": null,
+              "hierarchy_level": null
+            },
+            "confidence": 0.7,
+            "source_type": "pdf"
+          },
+          {
+            "text": "For\n \nexample,\n \n“between”\n \ngets\n \ncapitalized\n \ndespite\n \nbeing\n \na\n \npreposition;\n \n“of”\n \ndoes\n \nnot\n \nget\n \ncapitalized.\n \n ●  When  referring  to  the  title  of  a  document,  italicize  it  and  do  not  use  quotation  marks;  \nfor\n \nexample:\n \n“Please\n \nreference\n \nthe\n \nAmida\n \nCausal\n \nAnalysis\n \nFramework\n \ndocument\n \nfor\n \nadditional\n \ndetails.”\n \nV. Word  List  Amida  created  a  Word  List  for  commonly  confused  or  misspelled  words.",
+            "locator": {
+              "page_or_slide_index": 5,
+              "element_type": "paragraph",
+              "element_index": 5,
+              "sub_index": null,
+              "position": "bottom"
+            },
+            "formatting": {
+              "font_name": null,
+              "font_size": null,
+              "is_bold": null,
+              "is_italic": null,
+              "color": null,
+              "hierarchy_level": null
+            },
+            "confidence": 0.7,
+            "source_type": "pdf"
+          },
+          {
+            "text": "If  you  have  any  additions  \nfor\n \nthis\n \nlist,\n \nplease\n \nlet\n \nthe\n \nTechnical\n \nEditor\n \nknow.\n \n ●  built-in  not  built  in  ●  cyberattacks  not  cyber-attacks  \nAmida  Technology  Solutions,  Inc. Page  5  Amida  Style  Guide   January  2025",
+            "locator": {
+              "page_or_slide_index": 5,
+              "element_type": "paragraph",
+              "element_index": 6,
+              "sub_index": null,
+              "position": "bottom"
+            },
+            "formatting": {
+              "font_name": null,
+              "font_size": null,
+              "is_bold": null,
+              "is_italic": null,
+              "color": null,
+              "hierarchy_level": null
+            },
+            "confidence": 0.7,
+            "source_type": "pdf"
+          }
+        ],
+        "notes": null,
+        "layout_info": "Page size: (612.0, 792.0)",
+        "element_count": 7
+      },
+      {
+        "index": 6,
+        "title": null,
+        "elements": [
+          {
+            "text": "●  cybersecurity  not  cyber  security  or  cyber-security  ●  code  sets  not  codesets  or  code-sets  ●  end  user  when  used  as  a  noun;  end-user  when  used  as  an  adjective  ●  healthcare  not  health  care  ●  open  source  when  used  as  a  noun;  open-source  when  used  as  an  adjective  ●  public  sector  not  public-sector  ●  set  up  =  verb,  set-up  =  noun  (You  set  up  the  set-up.)  ●  software  is  never  plural  ●  user-friendly  not  user  friendly  ●  web-based  not  web  based  ●  e.g.  =  “exempli  gratia”  or  “for  example”  –  always  followed  by  a  comma  (e.g.,  like  this)  ●  i.e.  =  “id  est”  or  “that  is”  –  use  this  to  deﬁne,  clarify,  or  restate  something  in  a  different  way;  \nshould\n \nalways\n \nbe\n \nfollowed\n \nby\n \na\n \ncomma\n ●  Machine  Learning  /  Artiﬁcial  Intelligence  /  Natural  Language  Processing  not  machine  \nlearning\n \n/\n \nartiﬁcial\n \nintelligence\n \n/\n \nnatural\n \nlanguage\n \nprocessing\n \nVI.",
+            "locator": {
+              "page_or_slide_index": 6,
+              "element_type": "paragraph",
+              "element_index": 0,
+              "sub_index": null,
+              "position": "top"
+            },
+            "formatting": {
+              "font_name": null,
+              "font_size": null,
+              "is_bold": null,
+              "is_italic": null,
+              "color": null,
+              "hierarchy_level": null
+            },
+            "confidence": 0.7,
+            "source_type": "pdf"
+          },
+          {
+            "text": "Mechanics  Our  use  of  correct  and  consistent  grammar  ensures  that  the  audience  gains  a  clear  understanding  of  Amida’s  vision  and  message. Amida  relies  on  the  AP  Style  Book to  guide  grammar  decisions.",
+            "locator": {
+              "page_or_slide_index": 6,
+              "element_type": "paragraph",
+              "element_index": 1,
+              "sub_index": null,
+              "position": "top"
+            },
+            "formatting": {
+              "font_name": null,
+              "font_size": null,
+              "is_bold": null,
+              "is_italic": null,
+              "color": null,
+              "hierarchy_level": null
+            },
+            "confidence": 0.7,
+            "source_type": "pdf"
+          },
+          {
+            "text": "Essential  Grammar  and  Style  Rules  Please  follow  the  guidelines  below  regarding  common  grammar  questions  and  errors.  ●  In  a  list  of  three  or  more,  always  include  the  serial  (Oxford)  comma  before  the  conjunction   o  Example:  “Peter  asked  for  updates  on  Indaba,  Orange  Rx,  and  DRE.”  ●  No  “hanging  words”  in  slide  decks  (i.e.,  no  single  word  that  hangs  alone  on  its  own  line)  ●  Avoid  repeated  use  of  a  word  within  a  sentence,  across  a  pair  of  sentences,  or  in  a  \nparagraph\n ●  Do  not  use  “and/or”  in  formal  writing  ●  Do  not  use  contractions  in  formal  writing  ●  Avoid  the  use  of  “&”  and  “etc.”  in  formal  writing  ●  Avoid  the  use  of  second-person  pronouns  (‘you”  and  “yours”)  in  formal  writing  ●  Do  not  use  unnecessary  gerunds  o  Example:  “Do  not  use”  is  better  than  “Avoid  using”  \nVII.",
+            "locator": {
+              "page_or_slide_index": 6,
+              "element_type": "paragraph",
+              "element_index": 2,
+              "sub_index": null,
+              "position": "middle"
+            },
+            "formatting": {
+              "font_name": null,
+              "font_size": null,
+              "is_bold": null,
+              "is_italic": null,
+              "color": null,
+              "hierarchy_level": null
+            },
+            "confidence": 0.7,
+            "source_type": "pdf"
+          },
+          {
+            "text": "File  Naming  Conventions Amida  relies  on  standardized  folder  and  document  naming  conventions  to  ensure  consistent  \norganization,\n \nlabeling,\n \nand\n \nstorage\n \nof\n \ndocuments\n \nacross\n \nGoogle\n \nDrive\n \nand\n \nSharePoint. When\n \nwe\n \nfollow\n \nthese\n \nconventions,\n \nwe\n \nimprove\n \ndocument\n \nidentiﬁcation,\n \nsearchability,\n \nand\n \narchiving.",
+            "locator": {
+              "page_or_slide_index": 6,
+              "element_type": "paragraph",
+              "element_index": 3,
+              "sub_index": null,
+              "position": "middle"
+            },
+            "formatting": {
+              "font_name": null,
+              "font_size": null,
+              "is_bold": null,
+              "is_italic": null,
+              "color": null,
+              "hierarchy_level": null
+            },
+            "confidence": 0.7,
+            "source_type": "pdf"
+          },
+          {
+            "text": "To\n \nensure\n \nconsistency\n \nand\n \nease\n \nof\n \naccess,\n \nall\n \ndocuments\n \n–\n \nwhether\n \nfor\n \ninternal\n \nor\n \nexternal\n \nuse\n \n–\n \nmust\n adhere  to  Amida’s  standardized  naming  conventions,  as  detailed  in  the  Documents  and  Folder  Naming  Convention  Policy. Amida  Technology  Solutions,  Inc. Page  6  Amida  Style  Guide   January  2025",
+            "locator": {
+              "page_or_slide_index": 6,
+              "element_type": "paragraph",
+              "element_index": 4,
+              "sub_index": null,
+              "position": "bottom"
+            },
+            "formatting": {
+              "font_name": null,
+              "font_size": null,
+              "is_bold": null,
+              "is_italic": null,
+              "color": null,
+              "hierarchy_level": null
+            },
+            "confidence": 0.7,
+            "source_type": "pdf"
+          }
+        ],
+        "notes": null,
+        "layout_info": "Page size: (612.0, 792.0)",
+        "element_count": 5
+      }
+    ],
+    "extraction_info": {
+      "total_pages": 6,
+      "pages_with_content": 5,
+      "total_elements": 31,
+      "element_types": {
+        "paragraph": 29,
+        "heading": 2
+      },
+      "avg_elements_per_page": 5.166666666666667
+    },
+    "normalized_at": "2025-09-29T12:06:11.596964",
+    "summary": {
+      "total_pages": 6,
+      "pages_with_content": 5,
+      "total_elements": 31
+    }
+  },
+  "processing_summary": {
+    "document_type": "pdf",
+    "total_pages": 6,
+    "total_elements": 31,
+    "processing_time": "N/A"
+  }
+}
