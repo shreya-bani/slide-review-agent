@@ -1,0 +1,44 @@
+{
+  "document_type": "pdf",
+  "metadata": {
+    "file_path": "data\\uploads\\004_AILABS-Technical_Details-260925-191805.pdf",
+    "total_pages": 1,
+    "title": "Technical Details - AI-LABS - Confluence",
+    "author": null,
+    "subject": null,
+    "creator": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/140.0.0.0 Safari/537.36",
+    "creation_date": "D:20250926191812+00'00'"
+  },
+  "pages": [
+    {
+      "page_index": 1,
+      "raw_text": "Technical Details\nAzure Portal\nAzure Subscription\nName/ID 9dee9caa-cbab-4bce-8874-e252947539b1\nAzure Key Vault\nAzure Entra Id GroupAZ_AI_AGENTS_FOUNDATIONAL\nAzure ADLS Storage\nAzure PostgresSQL EndPoint:\nServer Name: dev-use2-adw-storage-pgdb-001\nDatabase Name: ai_foundation\nResource Details\nhttps://portal.azure.com/#home\nAmida-DLH-Dev-CommAz\nhttps://dev-use2-agent-hub-kv-\n01.vault.azure.net/\nhttps://portal.azure.com/#@amida.com/resource\n/subscriptions/9dee9caa-cbab-4bce-8874-\ne252947539b1/resourceGroups/ADW/providers/\nMicrosoft.KeyVault/vaults/dev-use2-agent-hub-\nkv-01/overview\nhttps://amidaadwdevtraineus2.blob.core.window\ns.net/ai-foundational\ndev-use2-adw-storage-pgdb-\n001.postgres.database.azure.com",
+      "elements": [
+        {
+          "text": "Technical Details\nAzure Portal\nAzure Subscription\nName/ID 9dee9caa-cbab-4bce-8874-e252947539b1\nAzure Key Vault\nAzure Entra Id GroupAZ_AI_AGENTS_FOUNDATIONAL\nAzure ADLS Storage\nAzure PostgresSQL EndPoint:\nServer Name: dev-use2-adw-storage-pgdb-001\nDatabase Name: ai_foundation\nResource Details\nhttps://portal.azure.com/#home\nAmida-DLH-Dev-CommAz\nhttps://dev-use2-agent-hub-kv-\n01.vault.azure.net/\nhttps://portal.azure.com/#@amida.com/resource\n/subscriptions/9dee9caa-cbab-4bce-8874-\ne252947539b1/resourceGroups/ADW/providers/\nMicrosoft.KeyVault/vaults/dev-use2-agent-hub-\nkv-01/overview\nhttps://amidaadwdevtraineus2.blob.core.window\ns.net/ai-foundational\ndev-use2-adw-storage-pgdb-\n001.postgres.database.azure.com",
+          "locator": {
+            "page_index": 1,
+            "paragraph_index": 0,
+            "element_type": "paragraph",
+            "position": "middle"
+          },
+          "confidence": 0.7
+        }
+      ],
+      "page_size": [
+        612.0,
+        792.0
+      ],
+      "element_count": 1
+    }
+  ],
+  "extraction_summary": {
+    "total_pages": 1,
+    "pages_with_content": 1,
+    "total_elements": 1,
+    "element_types": {
+      "paragraph": 1
+    },
+    "avg_elements_per_page": 1.0
+  }
+}

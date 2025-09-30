@@ -14,7 +14,7 @@ class StyleRule:
     severity: str  # 'critical', 'warning', 'suggestion'
     description: str
     guide_section: str  # Reference to Amida Style Guide section
-    pattern: str = None  # Regex pattern if applicable
+    pattern: str = None  
     examples: Dict[str, str] = None  # {'incorrect': '...', 'correct': '...'}
 
 class AmidaStyleRules:
