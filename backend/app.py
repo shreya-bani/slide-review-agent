@@ -1,5 +1,5 @@
 """
-FastAPI application entry point for Slide Review Agent.
+FastAPI application with integrated document analysis pipeline.
 """
 import asyncio
 import os
@@ -16,11 +16,11 @@ from fastapi.responses import JSONResponse, FileResponse
 
 from .config.settings import settings
 
-# Configure the basic logging setup
+# Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Import document processors with fallback handling
+# Import document processors
 try:
     from .processors.pptx_reader import PPTXReader
     from .processors.pdf_reader import PDFReader
@@ -31,19 +31,25 @@ except Exception as e:
     PDFReader = None
     DocumentNormalizer = None
 
-# Global variable to track if processing has already been done
+# Import analyzers
+try:
+    from .analyzers.combine_analysis import CombinedAnalyzer
+except Exception as e:
+    logger.warning(f"Could not import analyzers: {e}")
+    CombinedAnalyzer = None
+
+# Global cache
 processed_files = {}
 
 def create_app() -> FastAPI:
     """Create and configure the FastAPI application."""
     app = FastAPI(
         title=settings.app_name,
-        description="AI-powered slide deck review agent",
+        description="AI-powered slide deck review agent with style analysis",
         version="1.0.0",
         debug=settings.debug
     )
     
-    # CORS middleware
     app.add_middleware(
         CORSMiddleware,
         allow_origins=["*"] if settings.debug else ["http://localhost:3000"],
@@ -52,40 +58,33 @@ def create_app() -> FastAPI:
         allow_headers=["*"],
     )
     
-    # Ensure required directories exist
     settings.ensure_directories()
     return app
 
 app = create_app()
 
-# Frontend static file paths
+# Frontend static files
 REPO_ROOT = Path(__file__).resolve().parent.parent
 FRONTEND_DIR = REPO_ROOT / "frontend"
 STYLES_DIR = FRONTEND_DIR / "styles"
 SCRIPTS_DIR = FRONTEND_DIR / "scripts"
 PAGES_DIR = FRONTEND_DIR / "pages"
 
-# Mount static files
-if not all([STYLES_DIR.exists(), SCRIPTS_DIR.exists(), FRONTEND_DIR.exists()]):
-    logger.warning(f"Frontend directories not found under {FRONTEND_DIR}")
+if STYLES_DIR.exists() and SCRIPTS_DIR.exists():
+    app.mount("/styles", StaticFiles(directory=str(STYLES_DIR)), name="styles")
+    app.mount("/scripts", StaticFiles(directory=str(SCRIPTS_DIR)), name="scripts")
+    app.mount("/static", StaticFiles(directory=str(FRONTEND_DIR)), name="static")
 
-app.mount("/styles", StaticFiles(directory=str(STYLES_DIR)), name="styles")
-app.mount("/scripts", StaticFiles(directory=str(SCRIPTS_DIR)), name="scripts")
-app.mount("/static", StaticFiles(directory=str(FRONTEND_DIR)), name="static")
-
-# Helper functions for file naming
 def get_next_document_id() -> int:
-    """Get the next incremental document ID by checking existing files."""
+    """Get the next incremental document ID."""
     output_dir = Path(settings.output_dir)
     if not output_dir.exists():
         return 1
     
     existing_ids = []
-    for file_path in output_dir.glob("*_analysis.json"):
+    for file_path in output_dir.glob("*_combined_analysis.json"):
         try:
-            filename = file_path.stem
-            # Extract the first part before the first underscore
-            parts = filename.split('_')
+            parts = file_path.stem.split('_')
             if parts and parts[0].isdigit():
                 existing_ids.append(int(parts[0]))
         except:
@@ -94,24 +93,23 @@ def get_next_document_id() -> int:
     return max(existing_ids, default=0) + 1
 
 def create_clean_filename(original_filename: str, doc_id: int) -> tuple[str, str]:
-    """Create clean filename and file_id from original filename and incremental ID."""
+    """Create clean filename and file_id."""
     stem = Path(original_filename).stem
     extension = Path(original_filename).suffix.lower()
     
-    # Clean filename: remove problematic characters, limit length
     clean_stem = "".join(c for c in stem if c.isalnum() or c in " -_").strip()
     clean_stem = clean_stem.replace(" ", "_")
     
     if len(clean_stem) > 50:
         clean_stem = clean_stem[:50]
     
-    file_id = f"{doc_id:03d}"  # 001, 002, 003, etc.
+    file_id = f"{doc_id:03d}"
     clean_filename = f"{file_id}_{clean_stem}{extension}"
     
     return clean_filename, file_id
 
 def write_json(path: Path, obj: dict) -> None:
-    """Helper to write JSON files with proper formatting."""
+    """Write JSON files with proper formatting."""
     path.parent.mkdir(parents=True, exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
         json.dump(obj, f, indent=2, ensure_ascii=False)
@@ -124,8 +122,7 @@ async def root():
         "app": settings.app_name,
         "version": "1.0.0",
         "status": "running",
-        "environment": settings.environment,
-        "demo_mode": settings.demo_mode
+        "environment": settings.environment
     }
 
 @app.get("/app")
@@ -133,35 +130,35 @@ async def serve_frontend():
     """Serve the frontend application."""
     index_file = PAGES_DIR / "index.html"
     if not index_file.exists():
-        raise HTTPException(status_code=404, detail=f"Frontend index not found: {index_file}")
+        raise HTTPException(status_code=404, detail="Frontend not found")
     return FileResponse(str(index_file))
 
 @app.get("/health")
 async def health_check():
     """Health check endpoint."""
     try:
-        # Test database path
         db_path = Path(settings.database_path).parent
         db_accessible = db_path.exists() or db_path.parent.exists()
         
-        # Test directories
         dirs_exist = (
             Path(settings.upload_dir).exists() and 
             Path(settings.output_dir).exists()
         )
         
-        # Test LLM configuration
         llm_config_valid = settings.validate_llm_config()
-        
-        # Test document processors
         processors_available = all([PPTXReader, PDFReader, DocumentNormalizer])
+        analyzers_available = CombinedAnalyzer is not None
         
         health_status = {
             "database": "ok" if db_accessible else "error",
             "directories": "ok" if dirs_exist else "error", 
             "llm_config": "ok" if llm_config_valid else "error",
             "processors": "ok" if processors_available else "error",
-            "overall": "healthy" if all([db_accessible, dirs_exist, llm_config_valid, processors_available]) else "unhealthy"
+            "analyzers": "ok" if analyzers_available else "error",
+            "overall": "healthy" if all([
+                db_accessible, dirs_exist, llm_config_valid, 
+                processors_available, analyzers_available
+            ]) else "unhealthy"
         }
         
         status_code = 200 if health_status["overall"] == "healthy" else 503
@@ -173,73 +170,37 @@ async def health_check():
             status_code=503
         )
 
-@app.get("/config")
-async def get_config():
-    """Get non-sensitive configuration info."""
-    return {
-        "llm_provider": settings.llm_provider,
-        "llm_model": settings.groq_model if settings.llm_provider == "groq" else settings.openai_model,
-        "max_file_size_mb": settings.max_file_size_mb,
-        "demo_mode": settings.demo_mode,
-        "has_groq_key": bool(settings.groq_api_key),
-        "has_openai_key": bool(settings.openai_api_key),
-        "allowed_file_types": [".pptx", ".pdf"],
-        "upload_dir": settings.upload_dir,
-        "processors_status": {
-            "pptx_reader": "available" if PPTXReader else "missing",
-            "pdf_reader": "available" if PDFReader else "missing",
-            "document_normalizer": "available" if DocumentNormalizer else "missing"
-        }
-    }
-
-@app.get("/debug-env")
-async def debug_env():
-    """Debug environment configuration."""
-    return {
-        "groq_api_key_exists": bool(settings.groq_api_key),
-        "groq_api_key_length": len(settings.groq_api_key) if settings.groq_api_key else 0,
-        "groq_api_key_first_4": settings.groq_api_key[:4] if settings.groq_api_key else None,
-        "llm_provider": settings.llm_provider,
-        "groq_model": settings.groq_model,
-        "current_working_dir": str(Path.cwd()),
-        "processors_available": {
-            "pptx_reader": PPTXReader is not None,
-            "pdf_reader": PDFReader is not None,
-            "document_normalizer": DocumentNormalizer is not None
-        }
-    }
-
 @app.post("/upload-document")
 async def upload_document(
     request: Request,
     file: UploadFile = File(...),
     user_info: Optional[str] = Form(None)
 ):
-    """Upload and process a document."""
+    """Upload and analyze a document with complete pipeline."""
     user_info = user_info or "Anonymous"
 
-    # Validate file extension
+    # Validate file
     allowed_extensions = ['.pptx', '.pdf']
     file_extension = Path(file.filename).suffix.lower()
     if file_extension not in allowed_extensions:
         raise HTTPException(400, f"Unsupported file type. Allowed: {allowed_extensions}")
 
-    # Check file size
+    # Check size
     max_bytes = settings.max_file_size_mb * 1024 * 1024
     cl = request.headers.get("content-length")
     if cl and int(cl) > max_bytes:
-        raise HTTPException(400, f"File too large. Maximum size: {settings.max_file_size_mb}MB")
+        raise HTTPException(400, f"File too large. Maximum: {settings.max_file_size_mb}MB")
 
-    # Generate clean filename and ID
+    # Generate filenames
     doc_id = get_next_document_id()
     clean_filename, file_id = create_clean_filename(file.filename, doc_id)
     file_path = Path(settings.upload_dir) / clean_filename
 
     logger.info(f"Processing document {doc_id}: {file.filename} -> {clean_filename}")
 
-    # Stream file to disk with size enforcement
+    # Save file
     written = 0
-    chunk_size = 1024 * 1024  # 1MB chunks
+    chunk_size = 1024 * 1024
     try:
         with open(file_path, "wb") as buffer:
             while True:
@@ -253,22 +214,22 @@ async def upload_document(
                         os.remove(file_path)
                     except: 
                         pass
-                    raise HTTPException(400, f"File too large. Maximum size: {settings.max_file_size_mb}MB")
+                    raise HTTPException(400, f"File too large. Maximum: {settings.max_file_size_mb}MB")
                 buffer.write(chunk)
     except Exception as e:
         try: 
             os.remove(file_path)
         except: 
             pass
-        raise HTTPException(500, f"Failed to save uploaded file: {str(e)}")
+        raise HTTPException(500, f"Failed to save file: {str(e)}")
 
-    # Check if this file has already been processed
+    # Check cache
     if file_id in processed_files:
-        logger.info(f"Document {file_id} already processed, returning existing result")
+        logger.info(f"Document {file_id} already processed, returning cached result")
         return JSONResponse(content=processed_files[file_id], status_code=200)
 
-    # Process the document ONLY ONCE
-    processing_result = await process_document_async(
+    # Process and analyze document
+    processing_result = await process_and_analyze_document(
         file_path=str(file_path),
         original_filename=file.filename,
         user_info=user_info,
@@ -276,98 +237,122 @@ async def upload_document(
         doc_id=doc_id
     )
     
-    # Cache the result to prevent duplicate processing
+    # Cache result
     processed_files[file_id] = processing_result
     
     return JSONResponse(content=processing_result, status_code=200)
 
-async def process_document_async(file_path: str, original_filename: str,
-                                 user_info: str, file_id: str, doc_id: int) -> dict:
-    """Process a document asynchronously and save all JSON artifacts."""
+async def process_and_analyze_document(
+    file_path: str, 
+    original_filename: str,
+    user_info: str, 
+    file_id: str, 
+    doc_id: int
+) -> dict:
+    """Complete document processing and analysis pipeline."""
     try:
-        if not DocumentNormalizer:
-            raise Exception("Document processors not available")
+        if not DocumentNormalizer or not CombinedAnalyzer:
+            raise Exception("Processors or analyzers not available")
 
-        logger.info(f"Starting processing for document {doc_id}: {original_filename}")
+        logger.info(f"Starting complete analysis for document {doc_id}")
 
-        # Check if JSON files already exist - if so, return existing data
         output_dir = Path(settings.output_dir)
-        analysis_file = output_dir / f"{file_id}_analysis.json"
+        clean_stem = Path(original_filename).stem.replace(" ", "_")[:50]
         
+        # Check if analysis already exists
+        analysis_file = output_dir / f"{file_id}_{clean_stem}_combined_analysis.json"
         if analysis_file.exists():
             logger.info(f"Analysis file already exists: {analysis_file}")
             with open(analysis_file, 'r', encoding='utf-8') as f:
-                existing_result = json.load(f)
-                return existing_result
+                return json.load(f)
 
-        # 1) Normalize document using unified schema
+        # Step 1: Normalize document
+        logger.info("Step 1: Normalizing document...")
         normalizer = DocumentNormalizer()
         normalized_obj = await asyncio.to_thread(normalizer.normalize_document, file_path)
-        normalized = normalized_obj.to_dict()  # Convert dataclass to dict!
+        normalized_doc = normalized_obj.to_dict()
         
-        logger.info(f"Document normalized: {normalized['summary']['total_pages']} pages, {normalized['summary']['total_elements']} elements")
+        logger.info(f"Normalized: {normalized_doc['summary']['total_pages']} pages, "
+                   f"{normalized_doc['summary']['total_elements']} elements")
 
-        # 2) Extract raw data using specific readers
-        suffix = Path(original_filename).suffix.lower()
-        raw_extraction = {}
+        # Step 2: Run combined analysis (grammar + tone)
+        logger.info("Step 2: Running combined analysis (grammar + tone)...")
+        analyzer = CombinedAnalyzer()
+        analysis_report = await asyncio.to_thread(
+            analyzer.analyze, 
+            normalized_doc, 
+            file_path
+        )
         
-        if suffix == ".pptx" and PPTXReader:
-            reader = PPTXReader()
-            if reader.load_file(file_path):
-                raw_extraction = reader.extract_to_dict()
-                logger.info(f"PPTX processing: Found {len(raw_extraction.get('slides', []))} slides")
-            else:
-                logger.warning(f"PPTX failed to load: {file_path}")
-                
-        elif suffix == ".pdf" and PDFReader:
-            reader = PDFReader()
-            if reader.load_file(file_path):
-                raw_extraction = reader.extract_to_dict()
-                logger.info(f"PDF processing: Found {len(raw_extraction.get('pages', []))} pages")
-            else:
-                logger.warning(f"PDF failed to load: {file_path}")
+        logger.info(f"Analysis complete: {analysis_report['summary']['total_issues']} issues found")
 
-        # 3) Build comprehensive processing result
+        # Step 3: Build complete response
         processing_result = {
             "success": True,
             "file_id": file_id,
             "doc_id": doc_id,
             "original_filename": original_filename,
             "user_info": user_info,
-            "processed_at": normalized["normalized_at"],
-            "document_analysis": normalized,
-            "processing_summary": {
-                "document_type": normalized["document_type"],
-                "total_pages": normalized["summary"]["total_pages"],
-                "total_elements": normalized["summary"]["total_elements"],
-                "processing_time": "N/A"  # TODO: Add actual timing
-            }
+            "processed_at": datetime.now().isoformat(),
+            
+            # Document metadata
+            "metadata": analysis_report.get("document_metadata", {}),
+            
+            # Analysis summary
+            "analysis_summary": {
+                "total_issues": analysis_report["summary"]["total_issues"],
+                "grammar_issues": analysis_report["summary"]["grammar_issues"],
+                "tone_issues": analysis_report["summary"]["tone_issues"],
+                "issues_with_suggestions": analysis_report["summary"]["issues_with_suggestions"],
+                "severity_breakdown": analysis_report["summary"]["severity_breakdown"],
+                "category_breakdown": analysis_report["summary"]["category_breakdown"],
+                "rule_breakdown": analysis_report["summary"]["rule_breakdown"],
+            },
+            
+            # Content statistics
+            "content_statistics": analysis_report.get("content_statistics", {}),
+            
+            # All issues for table display
+            "findings": analysis_report.get("all_issues", []),
+            
+            # Issues by slide for navigation
+            "issues_by_slide": analysis_report.get("issues_by_slide", {}),
+            
+            # Categorized issues
+            "issues_by_category": analysis_report.get("issues_by_category", {}),
+            
+            # Full analysis metadata
+            "analysis_metadata": analysis_report.get("analysis_metadata", {}),
         }
 
-        # 4) Save all JSON artifacts (ONLY IF THEY DON'T ALREADY EXIST)
-        logger.info(f"Saving JSON files to: {output_dir}")
+        # Step 4: Save all outputs
+        logger.info(f"Saving outputs to: {output_dir}")
         
-        # Get clean stem without extension
-        clean_stem = Path(original_filename).stem
-        clean_stem = "".join(c for c in clean_stem if c.isalnum() or c in " -_").strip().replace(" ", "_")
+        # Save combined analysis
+        write_json(
+            output_dir / f"{file_id}_{clean_stem}_combined_analysis.json",
+            analysis_report
+        )
+        
+        # Save normalized document
+        write_json(
+            output_dir / f"{file_id}_{clean_stem}_normalized.json",
+            normalized_doc
+        )
+        
+        # Save processing result (for quick frontend loading)
+        write_json(
+            output_dir / f"{file_id}_{clean_stem}_result.json",
+            processing_result
+        )
 
-        # Create filenames with clean stem
-        write_json(output_dir / f"{file_id}_{clean_stem}_analysis.json", processing_result)
-        write_json(output_dir / f"{file_id}_{clean_stem}_normalized.json", normalized)
-        write_json(output_dir / f"{file_id}_{clean_stem}_raw.json", raw_extraction)
-
-        logger.debug(f"JSON files saved successfully:")
-        logger.debug(f"  - {output_dir}/{file_id}_analysis.json")
-        logger.debug(f"  - {output_dir}/{file_id}_normalized.json") 
-        logger.debug(f"  - {output_dir}/{file_id}_raw.json")
-
-        # 5) KEEP uploaded file - DO NOT DELETE IT
-        logger.info(f"Uploaded file preserved at: {file_path}")
-
+        logger.info(f"Processing complete for document {doc_id}")
         return processing_result
 
     except Exception as e:
         logger.error(f"Processing error for document {doc_id}: {e}")
+        import traceback
+        traceback.print_exc()
         
         return {
             "success": False,
@@ -377,46 +362,12 @@ async def process_document_async(file_path: str, original_filename: str,
             "original_filename": original_filename
         }
 
-@app.post("/test-llm")
-async def test_llm():
-    """Test LLM connection."""
-    try:
-        if settings.llm_provider == "groq":
-            if not settings.groq_api_key:
-                raise HTTPException(status_code=400, detail="Groq API key not configured")
-            
-            from groq import Groq
-            client = Groq(api_key=settings.groq_api_key)
-            
-            response = await asyncio.to_thread(
-                client.chat.completions.create,
-                messages=[{"role": "user", "content": "Hello! Respond with just 'OK' if you can hear me."}],
-                model=settings.groq_model,
-                max_tokens=10
-            )
-            
-            return {
-                "status": "success",
-                "provider": "groq",
-                "model": settings.groq_model,
-                "response": response.choices[0].message.content.strip()
-            }
-            
-        else:
-            return {"status": "error", "message": f"Provider {settings.llm_provider} not implemented yet"}
-            
-    except Exception as e:
-        return JSONResponse(
-            content={"status": "error", "message": str(e)},
-            status_code=500
-        )
-
 @app.get("/analysis-history")
 async def get_analysis_history():
-    """Get list of previous analysis results."""
+    """Get list of previous analyses."""
     try:
         output_dir = Path(settings.output_dir)
-        analysis_files = list(output_dir.glob("*_analysis.json"))
+        analysis_files = list(output_dir.glob("*_combined_analysis.json"))
         
         history = []
         for file_path in sorted(analysis_files, key=lambda x: x.stat().st_mtime, reverse=True):
@@ -425,27 +376,21 @@ async def get_analysis_history():
                     data = json.load(f)
                     
                 summary = {
-                    "file_id": data.get("file_id"),
-                    "doc_id": data.get("doc_id"),
-                    "original_filename": data.get("original_filename"),
-                    "user_info": data.get("user_info"),
-                    "processed_at": data.get("processed_at"),
-                    "document_type": data.get("document_analysis", {}).get("document_type"),
-                    "total_pages": data.get("processing_summary", {}).get("total_pages"),
-                    "success": data.get("success", False)
+                    "file_id": file_path.stem.split('_')[0],
+                    "filename": file_path.name,
+                    "processed_at": data.get("analysis_metadata", {}).get("timestamp"),
+                    "total_issues": data.get("summary", {}).get("total_issues", 0),
+                    "total_pages": data.get("document_metadata", {}).get("total_pages"),
                 }
                 history.append(summary)
             except Exception as e:
                 logger.error(f"Error reading analysis file {file_path}: {e}")
                 continue
         
-        return {"history": history[:10]}  # Return last 10 analyses
+        return {"history": history[:10]}
         
     except Exception as e:
-        return JSONResponse(
-            content={"error": str(e)},
-            status_code=500
-        )
+        return JSONResponse(content={"error": str(e)}, status_code=500)
 
 if __name__ == "__main__":
     import uvicorn

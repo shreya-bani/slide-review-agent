@@ -12,10 +12,9 @@ from dotenv import load_dotenv
 
 # Configure logger
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)  # You can change to DEBUG if needed
+logger.setLevel(logging.INFO)
 
-
-# Get the project root directory (where settings.py is located)
+# Get the project root directory
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 
 # Load environment variables from .env.example file
@@ -32,10 +31,10 @@ class Settings(BaseSettings):
     # Database
     database_url: str = Field(default=f"sqlite:///{PROJECT_ROOT}/data/slide_review.db", alias="DATABASE_URL")
     
-    # LLM Provider
-    llm_provider: str = Field(default="groq", alias="LLM_PROVIDER")
-    groq_api_key: Optional[str] = Field(default=None, alias="GROQ_API_KEY")
-    groq_model: str = Field(default="llama-3.1-8b-instant", alias="GROQ_MODEL")
+    # Hugging Face Configuration
+    huggingface_api_key: Optional[str] = Field(default=None, alias="HUGGINGFACE_API_KEY")
+    huggingface_model: str = Field(default="google/gemma-2-2b-it", alias="HUGGINGFACE_MODEL")
+    llm_provider: str = Field(default="huggingface", alias="LLM_PROVIDER")
     
     # Fallback providers
     openai_api_key: Optional[str] = Field(default=None, alias="OPENAI_API_KEY")
@@ -46,8 +45,16 @@ class Settings(BaseSettings):
     upload_dir: str = Field(default=str(PROJECT_ROOT / "data" / "uploads"), alias="UPLOAD_DIR")
     output_dir: str = Field(default=str(PROJECT_ROOT / "data" / "outputs"), alias="OUTPUT_DIR")
     
-    # Demo mode
+    # Demo mode and rewrite settings
     demo_mode: bool = Field(default=True, alias="DEMO_MODE")
+    enable_rewrite: bool = Field(default=True, alias="ENABLE_REWRITE")
+    rewrite_budget_max_calls: int = Field(default=5, alias="REWRITE_BUDGET_MAX_CALLS")
+    batch_size_limit: int = Field(default=50, alias="BATCH_SIZE_LIMIT") 
+    
+    # Analyzer settings
+    log_level: int = Field(default=logging.INFO, alias="LOG_LEVEL")
+    vader_neg_threshold: float = Field(default=-0.05, alias="VADER_NEG_THRESHOLD")
+    analyzer_include_notes: bool = Field(default=False, alias="ANALYZER_INCLUDE_NOTES")
     
     # Paths
     style_guide_path: str = Field(default=str(PROJECT_ROOT / "docs" / "style_template"), alias="STYLE_GUIDE_PATH")
@@ -81,13 +88,15 @@ class Settings(BaseSettings):
     
     def validate_llm_config(self) -> bool:
         """Validate LLM provider configuration."""
-        if self.llm_provider == "groq" and not self.groq_api_key:
-            return False
-        elif self.llm_provider == "openai" and not self.openai_api_key:
-            return False
-        return True
+        if self.llm_provider == "huggingface":
+            is_valid = self.huggingface_api_key is not None and len(str(self.huggingface_api_key).strip()) > 0
+            if not is_valid:
+                logger.warning("Hugging Face API key is missing or empty")
+            return is_valid
+        elif self.llm_provider == "openai":
+            return self.openai_api_key is not None
+        return False
 
 
 # Global settings instance
 settings = Settings()
-

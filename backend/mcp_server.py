@@ -1,4 +1,3 @@
-# backend/mcp_server.py
 """
 MCP Server for Slide Review Agent
 Exposes document analysis capabilities via Model Context Protocol

@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document/PPT Review - Professional Analysis Tool</title>
-    <meta name="description" content="Upload and analyze PowerPoint and PDF documents with AI-powered professional style guidelines review. Get detailed JSON reports instantly.">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/styles/styles.css">
+    <meta name="description" content="Upload and analyze PowerPoint and PDF documents with AI-powered professional style guidelines review.  Get detailed analysis reports instantly.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/styles.css">
 </head>
+
 <body>
-    <!-- Main Review Page -->
     <div id="main-page" class="page">
         <header class="header">
             <div class="container header-content">
@@ -46,7 +47,6 @@
         </header>
 
         <main class="container main-content">
-            <!-- File Upload Section -->
             <div class="upload-section">
                 <div id="file-upload-area" class="upload-area" data-testid="file-upload-area">
                     <div class="upload-content">
@@ -62,7 +62,6 @@
                     </div>
                 </div>
 
-                <!-- Selected File Display -->
                 <div id="selected-file" class="card hidden">
                     <div class="file-info">
                         <div class="file-details">
@@ -83,19 +82,16 @@
                     </div>
                 </div>
 
-                <!-- User Info Input -->
                 <div class="input-group">
                     <label for="user-info">Your name or email (for audit log)</label>
                     <input id="user-info" type="text" placeholder="john@company.com or John Doe" data-testid="input-user-info">
                 </div>
 
-                <!-- Action Button -->
                 <button id="analyze-btn" class="btn btn-primary full-width" disabled data-testid="button-start-analysis">
                     See Entire Analysis Running
                 </button>
             </div>
 
-            <!-- Status Line -->
             <div id="status-line" class="status-line" data-testid="status-line">
                 <div class="status-info">
                     <div class="status-badge">
@@ -123,14 +119,170 @@
                 </div>
             </div>
 
-            <!-- JSON Viewer -->
-            <div id="json-viewer" class="card hidden">
-                <div class="card-header">
-                    <div class="viewer-title">
-                        <span>Analysis Report</span>
-                        <span class="badge badge-secondary" data-testid="text-report-status">Complete</span>
+            <div id="visual-report" class="report-container hidden">
+                <div class="view-toggle-container">
+                    <div class="view-toggle" data-testid="view-toggle">
+                        <button id="visual-view-btn" class="view-toggle-btn active" data-testid="button-visual-view">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="14" width="7" height="7"></rect>
+                                <rect x="3" y="14" width="7" height="7"></rect>
+                            </svg>
+                            Visual Report
+                        </button>
+                        <button id="json-view-btn" class="view-toggle-btn" data-testid="button-json-view">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="16 18 22 12 16 6"></polyline>
+                                <polyline points="8 6 2 12 8 18"></polyline>
+                            </svg>
+                            JSON Output
+                        </button>
                     </div>
-                    <div class="viewer-actions">
+                    <div class="report-actions">
+                        <button id="export-report-btn" class="btn btn-outline btn-sm" data-testid="button-export-report">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7,10 12,15 17,10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            Export Report
+                        </button>
+                    </div>
+                </div>
+
+                <div id="visual-content" class="visual-content">
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <h3>Overall Quality Score</h3>
+                            </div>
+                            <div class="metric-content">
+                                <div class="score-display">
+                                    <div class="score-circle">
+                                        <svg class="score-ring" viewBox="0 0 100 100">
+                                            <circle class="score-ring-bg" cx="50" cy="50" r="45"></circle>
+                                            <circle id="score-ring-progress" class="score-ring-progress" cx="50" cy="50" r="45"></circle>
+                                        </svg>
+                                        <div class="score-value">
+                                            <span id="overall-score" class="score-number">--</span>
+                                            <span class="score-suffix">/100</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="score-status" class="score-status"></div>
+                            </div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <h3>Severity Breakdown</h3>
+                                <span id="total-issues" class="metric-badge">0 issues</span>
+                            </div>
+                            <div class="metric-content">
+                                <div class="severity-bars">
+                                    <div class="severity-item">
+                                        <div class="severity-label">
+                                            <span class="severity-dot severity-error"></span>
+                                            <span>Errors</span>
+                                        </div>
+                                        <div class="severity-bar-container">
+                                            <div id="error-bar" class="severity-bar severity-bar-error" style="width: 0%"></div>
+                                        </div>
+                                        <span id="error-count" class="severity-count">0</span>
+                                    </div>
+                                    <div class="severity-item">
+                                        <div class="severity-label">
+                                            <span class="severity-dot severity-warning"></span>
+                                            <span>Warnings</span>
+                                        </div>
+                                        <div class="severity-bar-container">
+                                            <div id="warning-bar" class="severity-bar severity-bar-warning" style="width: 0%"></div>
+                                        </div>
+                                        <span id="warning-count" class="severity-count">0</span>
+                                    </div>
+                                    <div class="severity-item">
+                                        <div class="severity-label">
+                                            <span class="severity-dot severity-info"></span>
+                                            <span>Info</span>
+                                        </div>
+                                        <div class="severity-bar-container">
+                                            <div id="info-bar" class="severity-bar severity-bar-info" style="width: 0%"></div>
+                                        </div>
+                                        <span id="info-count" class="severity-count">0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <h3>Category Analysis</h3>
+                                <span id="coverage-badge" class="metric-badge">0% coverage</span>
+                            </div>
+                            <div class="metric-content">
+                                <div id="category-list" class="category-list"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="metadata-panel">
+                        <div class="metadata-header">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                            </svg>
+                            <h3>Document Information</h3>
+                        </div>
+                        <div class="metadata-grid">
+                            <div class="metadata-item">
+                                <span class="metadata-label">File:</span>
+                                <span id="meta-filename" class="metadata-value">--</span>
+                            </div>
+                            <div class="metadata-item">
+                                <span class="metadata-label">Type:</span>
+                                <span id="meta-type" class="metadata-value">--</span>
+                            </div>
+                            <div class="metadata-item">
+                                <span class="metadata-label">Title:</span>
+                                <span id="meta-title" class="metadata-value">--</span>
+                            </div>
+                            <div class="metadata-item">
+                                <span class="metadata-label">Author:</span>
+                                <span id="meta-author" class="metadata-value">--</span>
+                            </div>
+                            <div class="metadata-item">
+                                <span class="metadata-label">Total Slides:</span>
+                                <span id="meta-slides" class="metadata-value">--</span>
+                            </div>
+                            <div class="metadata-item">
+                                <span class="metadata-label">Analyzed:</span>
+                                <span id="meta-timestamp" class="metadata-value">--</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="findings-section">
+                        <div class="findings-header">
+                            <h3>Findings</h3>
+                            <div class="findings-controls">
+                                <select id="severity-filter" class="filter-select" data-testid="select-severity-filter">
+                                    <option value="all">All Severities</option>
+                                    <option value="error">Errors</option>
+                                    <option value="warning">Warnings</option>
+                                    <option value="info">Info</option>
+                                </select>
+                                <select id="category-filter" class="filter-select" data-testid="select-category-filter">
+                                    <option value="all">All Categories</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="findings-table" class="findings-table"></div>
+                    </div>
+                </div>
+
+                <div id="json-content" class="json-content-view hidden">
+                    <div class="json-actions">
                         <button id="copy-json" class="btn btn-outline btn-sm" data-testid="button-copy-json">
                             <svg id="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
@@ -150,15 +302,12 @@
                             Download JSON
                         </button>
                     </div>
-                </div>
-                <div class="json-content">
                     <pre id="json-display" class="json-display" data-testid="json-viewer-content"></pre>
                 </div>
             </div>
         </main>
     </div>
 
-    <!-- Terminal Logs Page -->
     <div id="logs-page" class="page hidden">
         <header class="header">
             <div class="container header-content">
@@ -253,6 +402,7 @@
         </main>
     </div>
 
-    <script src="/scripts/script.js"></script>
+    <script src="../scripts/script.js"></script>
 </body>
+
 </html>

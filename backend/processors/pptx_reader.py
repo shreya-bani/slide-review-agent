@@ -3,12 +3,13 @@ PowerPoint file reader for extracting text content with precise locators.
 """
 import logging
 from pathlib import Path
-from typing import Dict, List, Optional, Any, Tuple
+from typing import Dict, List, Optional, Any
 from dataclasses import dataclass, asdict
 
 from pptx import Presentation
-from pptx.shapes.base import BaseShape
 from pptx.text.text import TextFrame
+from pptx.enum.dml import MSO_COLOR_TYPE, MSO_THEME_COLOR
+from pptx.util import Pt
 
 import warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning)
@@ -33,10 +34,14 @@ class TextLocator:
 class FormattingInfo:
     """Formatting information for text elements."""
     font_name: Optional[str] = None
-    font_size: Optional[int] = None
+    font_size: Optional[float] = None
     is_bold: Optional[bool] = None
     is_italic: Optional[bool] = None
     font_color: Optional[str] = None
+    font_color_rgb: Optional[str] = None  # Resolved RGB
+    paragraph_spacing_before: Optional[float] = None
+    paragraph_spacing_after: Optional[float] = None
+    line_spacing: Optional[float] = None
     
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
@@ -84,20 +89,53 @@ class SlideContent:
 class PPTXReader:
     """Extract text content from PowerPoint files."""
     
+    # Theme color name mapping
+    THEME_COLOR_NAMES = {
+        MSO_THEME_COLOR.ACCENT_1: "ACCENT_1",
+        MSO_THEME_COLOR.ACCENT_2: "ACCENT_2",
+        MSO_THEME_COLOR.ACCENT_3: "ACCENT_3",
+        MSO_THEME_COLOR.ACCENT_4: "ACCENT_4",
+        MSO_THEME_COLOR.ACCENT_5: "ACCENT_5",
+        MSO_THEME_COLOR.ACCENT_6: "ACCENT_6",
+        MSO_THEME_COLOR.BACKGROUND_1: "BACKGROUND_1",
+        MSO_THEME_COLOR.BACKGROUND_2: "BACKGROUND_2",
+        MSO_THEME_COLOR.DARK_1: "DARK_1",
+        MSO_THEME_COLOR.DARK_2: "DARK_2",
+        MSO_THEME_COLOR.FOLLOWED_HYPERLINK: "FOLLOWED_HYPERLINK",
+        MSO_THEME_COLOR.HYPERLINK: "HYPERLINK",
+        MSO_THEME_COLOR.LIGHT_1: "LIGHT_1",
+        MSO_THEME_COLOR.LIGHT_2: "LIGHT_2",
+        MSO_THEME_COLOR.TEXT_1: "TEXT_1",
+        MSO_THEME_COLOR.TEXT_2: "TEXT_2",
+    }
+    
     def __init__(self):
         self.presentation = None
         self.file_path = None
+        self.theme_colors = {}
     
     def load_file(self, file_path: str) -> bool:
         """Load PowerPoint file."""
         try:
             self.file_path = Path(file_path)
             self.presentation = Presentation(file_path)
+            self._extract_theme_colors()
             logger.info(f"Loaded PPTX: {file_path} ({len(self.presentation.slides)} slides)")
             return True
         except Exception as e:
             logger.error(f"Failed to load PPTX {file_path}: {e}")
             return False
+    
+    def _extract_theme_colors(self):
+        """Extract theme colors from the presentation."""
+        try:
+            if hasattr(self.presentation, 'part') and hasattr(self.presentation.part, 'theme'):
+                theme = self.presentation.part.theme
+                if hasattr(theme, 'color_scheme'):
+                    # Store reference to color scheme for potential future use
+                    self.theme_colors['_scheme'] = theme.color_scheme
+        except Exception as e:
+            logger.debug(f"Could not extract theme colors: {e}")
     
     def extract_all_content(self) -> List[SlideContent]:
         """Extract content from all slides (1-based indexing)."""
@@ -105,7 +143,6 @@ class PPTXReader:
             raise ValueError("No presentation loaded")
         
         slides = []
-        # enumerate starting at 1
         for idx, slide in enumerate(self.presentation.slides, start=1):
             slide_content = self._extract_slide_content(idx, slide)
             slides.append(slide_content)
@@ -202,30 +239,137 @@ class PPTXReader:
         return elements
     
     def _extract_formatting(self, paragraph) -> FormattingInfo:
-        """Extract formatting information from paragraph."""
+        """Extract formatting information from paragraph with enhanced fallback."""
         formatting = FormattingInfo()
         
         try:
+            # Extract paragraph-level spacing
+            if hasattr(paragraph, 'paragraph_format'):
+                para_format = paragraph.paragraph_format
+                
+                # Spacing before
+                try:
+                    if hasattr(para_format, 'space_before') and para_format.space_before is not None:
+                        formatting.paragraph_spacing_before = float(para_format.space_before.pt)
+                except:
+                    pass
+                
+                # Spacing after
+                try:
+                    if hasattr(para_format, 'space_after') and para_format.space_after is not None:
+                        formatting.paragraph_spacing_after = float(para_format.space_after.pt)
+                except:
+                    pass
+                
+                # Line spacing
+                try:
+                    if hasattr(para_format, 'line_spacing') and para_format.line_spacing is not None:
+                        formatting.line_spacing = float(para_format.line_spacing)
+                except:
+                    pass
+            
+            # Extract run-level formatting - try all runs if needed
             if paragraph.runs:
+                # Start with first run
                 run = paragraph.runs[0]
                 font = run.font
                 
+                # Font name - check multiple runs if first is None
                 formatting.font_name = font.name
-                formatting.font_size = int(font.size.pt) if font.size else None
+                if formatting.font_name is None and len(paragraph.runs) > 1:
+                    for r in paragraph.runs[1:]:
+                        if r.font.name:
+                            formatting.font_name = r.font.name
+                            break
+                
+                # Font size - check multiple runs if first is None
+                if font.size:
+                    formatting.font_size = float(font.size.pt)
+                elif len(paragraph.runs) > 1:
+                    for r in paragraph.runs[1:]:
+                        if r.font.size:
+                            formatting.font_size = float(r.font.size.pt)
+                            break
+                
+                # Bold and italic
                 formatting.is_bold = font.bold
                 formatting.is_italic = font.italic
                 
-                # Extract color if available
-                if hasattr(font, 'color') and font.color:
-                    try:
-                        rgb = font.color.rgb
-                        formatting.font_color = f"rgb({rgb.r},{rgb.g},{rgb.b})"
-                    except:
-                        pass
+                # Extract color information with enhanced handling
+                color_info = self._extract_color_enhanced(font, paragraph)
+                formatting.font_color = color_info['display']
+                formatting.font_color_rgb = color_info['rgb']
+                        
         except Exception as e:
             logger.debug(f"Could not extract formatting: {e}")
         
         return formatting
+    
+    def _extract_color_enhanced(self, font, paragraph) -> Dict[str, Optional[str]]:
+        """Enhanced color extraction with multiple fallback mechanisms."""
+        result = {'display': 'default', 'rgb': None}
+        
+        if not hasattr(font, 'color') or not font.color:
+            return result
+        
+        try:
+            color = font.color
+            
+            # RGB Color - Direct
+            if color.type == MSO_COLOR_TYPE.RGB:
+                try:
+                    rgb = color.rgb
+                    rgb_str = f"RGB {rgb[0]}-{rgb[1]}-{rgb[2]}"
+                    result['display'] = rgb_str
+                    result['rgb'] = rgb_str
+                    return result
+                except:
+                    pass
+            
+            # Theme Color - Enhanced resolution attempts
+            elif color.type == MSO_COLOR_TYPE.SCHEME:
+                theme_color = color.theme_color
+                theme_name = self.THEME_COLOR_NAMES.get(theme_color, str(theme_color))
+                
+                rgb_str = None
+                
+                # Method 1: Try direct RGB property
+                try:
+                    rgb = color.rgb
+                    rgb_str = f"RGB {rgb[0]}-{rgb[1]}-{rgb[2]}"
+                except:
+                    pass
+                
+                # Method 2: Try brightness/tint adjusted color
+                if not rgb_str:
+                    try:
+                        # Some theme colors store adjusted values
+                        if hasattr(color, '_element'):
+                            # Access XML element for more details
+                            pass
+                    except:
+                        pass
+                
+                result['display'] = f"theme:{theme_name} ({theme_color})"
+                result['rgb'] = rgb_str
+                return result
+            
+            # HSL or other color types
+            else:
+                try:
+                    rgb = color.rgb
+                    rgb_str = f"RGB {rgb[0]}-{rgb[1]}-{rgb[2]}"
+                    result['display'] = rgb_str
+                    result['rgb'] = rgb_str
+                except:
+                    result['display'] = f"color_type:{color.type}"
+                    result['rgb'] = None
+                
+                return result
+                    
+        except Exception as e:
+            logger.debug(f"Color extraction failed: {e}")
+            return result
     
     def _extract_notes(self, slide) -> Optional[str]:
         """Extract speaker notes."""
@@ -300,13 +444,12 @@ def process_pptx_file(file_path: str) -> Dict[str, Any]:
 # if __name__ == "__main__":
 #     import json
 
-#     # Example usage
 #     try:
 #         result = process_pptx_file(
-#             r"C:\Users\Shreya\Documents\Projects\Amida Agentic AI solution Strategic Plan Draft Aug 28 2025 maf.pptx"
+#             r"C:\Users\Shreya B\Documents\GitHub\slide-review-agent\data\uploads\002_Amida_Agentic_AI_solution_Strategic_Plan_Draft_Aug.pptx"
 #         )
 
-#         output_file = r'C:\Users\Shreya\Documents\GitHub\slide-review-agent\data\outputs\sample_pptx_result.json'
+#         output_file = r'C:\Users\Shreya B\Documents\GitHub\slide-review-agent\data\logs\002_Amida_Agentic_AI_solution_Strategic_Plan_Draft_Aug.json'
 #         with open(output_file, "w", encoding="utf-8") as f:
 #             json.dump(result, f, indent=2, ensure_ascii=False)
 
@@ -314,3 +457,5 @@ def process_pptx_file(file_path: str) -> Dict[str, Any]:
 
 #     except Exception as e:
 #         print(f"Error: {e}")
+#         import traceback
+#         traceback.print_exc()
