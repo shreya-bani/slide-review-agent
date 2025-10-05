@@ -1,9 +1,9 @@
 {
   "analysis_metadata": {
-    "timestamp": "2025-10-03T14:58:09.219771",
-    "total_duration_seconds": 11.92,
-    "grammar_duration_seconds": 0.02,
-    "tone_duration_seconds": 11.9,
+    "timestamp": "2025-10-04T21:39:12.944327",
+    "total_duration_seconds": 10.05,
+    "grammar_duration_seconds": 0.08,
+    "tone_duration_seconds": 9.97,
     "analyzer_version": "1.0.0"
   },
   "summary": {
@@ -1432,11 +1432,12 @@
           "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
           "location": "slide 2, element 1",
           "found_text": "Amida cannot beat branded systems integrators just on the basis of having smart people; we will win with a compelling solution or secret sauce that provides a differentiator (e.g. removing a constraint that has been causing a client to fail such as data issues, cybersec weakness, or measurable ROI).",
-          "suggestion": "Amida can win by offering a compelling solution or secret sauce that provides a differentiator, such as removing a constraint that has been causing a client to fail, such as data issues, cybersecurity weaknesses, or measurable ROI.",
+          "suggestion": "Amida can win by offering a compelling solution or unique differentiator, such as addressing a client's data issues, cybersecurity weaknesses, or demonstrating measurable ROI.",
           "page_or_slide_index": 1,
           "element_index": 0,
           "element_type": "bullet",
-          "score": null
+          "score": null,
+          "method": "llm"
         },
         {
           "rule_name": "positive_language",
@@ -1445,11 +1446,12 @@
           "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
           "location": "slide 2, element 1",
           "found_text": "Provide secure-by-design AI agents that prevent data loss and unintended or erroneous use",
-          "suggestion": "Develop secure-by-design AI agents that prevent data loss and unintended or erroneous use.",
+          "suggestion": "We can develop secure-by-design AI agents that prevent data loss and unintended or erroneous use.",
           "page_or_slide_index": 1,
           "element_index": 0,
           "element_type": "bullet",
-          "score": -0.6124
+          "score": -0.6124,
+          "method": "llm"
         },
         {
           "rule_name": "positive_language",
@@ -1458,11 +1460,12 @@
           "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
           "location": "slide 4, element 1",
           "found_text": "Amida achieves 30% gross margin within 24 months.",
-          "suggestion": "Amida achieves 30% gross margin within 24 months.",
+          "suggestion": "Amida will achieve 30% gross margin within 24 months.",
           "page_or_slide_index": 3,
           "element_index": 0,
           "element_type": "bullet",
-          "score": -0.4767
+          "score": -0.4767,
+          "method": "llm"
         },
         {
           "rule_name": "positive_language",
@@ -1475,7 +1478,8 @@
           "page_or_slide_index": 4,
           "element_index": 0,
           "element_type": "bullet",
-          "score": -0.4019
+          "score": -0.4019,
+          "method": "fallback_unvalidated_identical"
         },
         {
           "rule_name": "positive_language",
@@ -1484,11 +1488,12 @@
           "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
           "location": "slide 5, element 1",
           "found_text": "State governments face increasing demand for digital services and decision support but are constrained by legacy systems and workforce shortages.",
-          "suggestion": "State governments face increasing demand for digital services and decision support but are constrained by legacy systems and workforce shortages.",
+          "suggestion": "AI adoption is growing rapidly, and we can capitalize on this trend by providing procurement and IT adoption methods that are aligned with the technology.",
           "page_or_slide_index": 4,
           "element_index": 0,
           "element_type": "bullet",
-          "score": -0.2263
+          "score": -0.2263,
+          "method": "llm"
         },
         {
           "rule_name": "positive_language",
@@ -1497,11 +1502,12 @@
           "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
           "location": "slide 5, element 1",
           "found_text": "AI Interest is growing, but procurement and IT adoption methods (including governance) lag behind the technology.",
-          "suggestion": "AI Interest is growing, but procurement and IT adoption methods (including governance) lag behind the technology.",
+          "suggestion": "We can leverage AI BPA with governance platforms and agent pilots that build upon the success of Medicaid work.",
           "page_or_slide_index": 4,
           "element_index": 0,
           "element_type": "bullet",
-          "score": -0.1901
+          "score": -0.1901,
+          "method": "llm"
         },
         {
           "rule_name": "positive_language",
@@ -1510,11 +1516,12 @@
           "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
           "location": "slide 8, element 1",
           "found_text": "North Carolina: exploit AI BPA with governance platform and agent pilots that are derivatives of Medicaid work",
-          "suggestion": "North Carolina: exploit AI BPA with governance platform and agent pilots that are derivatives of Medicaid work.",
+          "suggestion": "North Carolina: Our key strengths lie in leveraging AI to address specific challenges within the healthcare and benefits sector.",
           "page_or_slide_index": 7,
           "element_index": 0,
           "element_type": "bullet",
-          "score": -0.1027
+          "score": -0.1027,
+          "method": "llm"
         },
         {
           "rule_name": "positive_language",
@@ -1527,7 +1534,8 @@
           "page_or_slide_index": 9,
           "element_index": 1,
           "element_type": "bullet",
-          "score": -0.3612
+          "score": -0.3612,
+          "method": "fallback_unvalidated_identical"
         },
         {
           "rule_name": "positive_language",
@@ -1536,11 +1544,12 @@
           "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
           "location": "slide 10, element 2",
           "found_text": "Our sales content is vey technical and not consumable for non-IT mission, procurement, or program office staff",
-          "suggestion": "Our sales content is vey technical and consumable is limited for non-IT mission, procurement, or program office staff.",
+          "suggestion": "We are focusing on demonstrating the impact of our solutions on program outcomes, not just technology.",
           "page_or_slide_index": 9,
           "element_index": 1,
           "element_type": "bullet",
-          "score": null
+          "score": null,
+          "method": "llm"
         },
         {
           "rule_name": "positive_language",
@@ -1549,11 +1558,12 @@
           "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
           "location": "slide 10, element 2",
           "found_text": "Our focus has been on technology versus program impact, so we do not have solutions with mission impact proof points",
-          "suggestion": "Our focus has been on technology versus program impact, so we do have is limited solutions with mission impact proof points.",
+          "suggestion": "We are working to address multiple single points of failure in product development to ensure scalability and growth.",
           "page_or_slide_index": 9,
           "element_index": 1,
           "element_type": "bullet",
-          "score": null
+          "score": null,
+          "method": "llm"
         },
         {
           "rule_name": "positive_language",
@@ -1562,11 +1572,12 @@
           "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
           "location": "slide 10, element 2",
           "found_text": "We have multiple single points of failure in product development that create an inability to scale (e.g. development, bid and proposal, partnership relations, validation/approval of solution features and functionality)",
-          "suggestion": "We have multiple single points of failure in product development that create an inability to scale (e.g. development, bid and proposal, partnership relations, validation/approval of solution features and functionality).",
+          "suggestion": "We are actively exploring and capitalizing on AI-related contract vehicles to expand our reach and market presence.",
           "page_or_slide_index": 9,
           "element_index": 1,
           "element_type": "bullet",
-          "score": -0.3818
+          "score": -0.3818,
+          "method": "llm"
         },
         {
           "rule_name": "positive_language",
@@ -1579,7 +1590,8 @@
           "page_or_slide_index": 11,
           "element_index": 7,
           "element_type": "bullet",
-          "score": -0.1027
+          "score": -0.1027,
+          "method": "fallback_unvalidated_identical"
         },
         {
           "rule_name": "positive_language",
@@ -1588,11 +1600,12 @@
           "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
           "location": "slide 15, element 1",
           "found_text": "Threats/Risks: Low initial spending by clients for new approaches; states have current investments that they don’t want to change; AI may not be suitable for some tasks; limited spending in mid-Atlantic states means we have to find other states to hit target; many companies have workflow builders for common items like email readers; future state market in flux and forecasting of contract vehicles difficult with even leaders saying that they are trying to figure out  how to buy and implement; procurements may be limited by bundling into existing contracts’ scope",
-          "suggestion": "Threats/Risks: Low initial spending by clients for new approaches; states have current investments that they don’t want to change; AI may be is limited suitable for some tasks; limited spending in mid-Atlantic states means we have to find other states to hit target; many companies have workflow builders for common items like email readers; future state market in flux and forecasting of contract vehicles difficult with even leaders saying that they are trying to figure out  how to buy and implement; procurements may be limited by bundling into existing contracts’ scope.",
+          "suggestion": "Threats/Risks: Low initial spending by clients for new approaches; states have current investments that they don’t want to change; AI may needs be improvement suitable for some tasks; limited spending in mid-Atlantic states means we have to find other states to hit target; many companies have workflow builders for common items like email readers; future state market in flux and forecasting of contract vehicles difficult with even leaders saying that they are trying to figure out  how to buy and implement; procurements may be limited by bundling into existing contracts’ scope.",
           "page_or_slide_index": 14,
           "element_index": 0,
           "element_type": "bullet",
-          "score": null
+          "score": null,
+          "method": "fallback"
         },
         {
           "rule_name": "positive_language",
@@ -1601,11 +1614,12 @@
           "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
           "location": "slide 15, element 2",
           "found_text": "Profitability: Reach or Exceed 30% Gross Margin",
-          "suggestion": "Profitability: Reach or Exceed 30% Gross Margin.",
+          "suggestion": "Profitability: We can reach or exceed 30% gross margin.",
           "page_or_slide_index": 14,
           "element_index": 1,
           "element_type": "bullet",
-          "score": -0.2263
+          "score": -0.2263,
+          "method": "llm"
         },
         {
           "rule_name": "positive_language",
@@ -1614,11 +1628,12 @@
           "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
           "location": "slide 15, element 2",
           "found_text": "Weaknesses: We have initial HITrust environment",
-          "suggestion": "Weaknesses: We have initial HITrust environment.",
+          "suggestion": "Weaknesses: We have established a secure HITRUST environment.",
           "page_or_slide_index": 14,
           "element_index": 1,
           "element_type": "bullet",
-          "score": -0.3612
+          "score": -0.3612,
+          "method": "llm"
         },
         {
           "rule_name": "positive_language",
@@ -1627,11 +1642,12 @@
           "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
           "location": "slide 16, element 1",
           "found_text": "Weaknesses: No unique knowledge outside healthcare and benefits; small client footprint outside mid-Atlantic and none with big 5 IT spending states",
-          "suggestion": "Weaknesses: limited unique knowledge outside healthcare and benefits; small client footprint outside mid-Atlantic and none with big 5 IT spending states.",
+          "suggestion": "Weaknesses: We are expanding our client base beyond the mid-Atlantic region by targeting states with significant IT spending.",
           "page_or_slide_index": 15,
           "element_index": 0,
           "element_type": "bullet",
-          "score": null
+          "score": null,
+          "method": "llm"
         },
         {
           "rule_name": "positive_language",
@@ -1640,11 +1656,12 @@
           "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
           "location": "slide 16, element 1",
           "found_text": "Threats/Risks: platform is industry agnostic with limited barriers; many states have preferred vendors",
-          "suggestion": "Threats/Risks: platform is industry agnostic with limited barriers; many states have preferred vendors.",
+          "suggestion": "Threats/Risks: Our platform is designed to be adaptable and scalable, making it suitable for a broader range of state agencies.",
           "page_or_slide_index": 15,
           "element_index": 0,
           "element_type": "bullet",
-          "score": -0.2263
+          "score": -0.2263,
+          "method": "llm"
         },
         {
           "rule_name": "positive_language",
@@ -1653,11 +1670,12 @@
           "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
           "location": "slide 16, element 2",
           "found_text": "Weaknesses: our content is vey technical so not consumable for broader market",
-          "suggestion": "Weaknesses: our content is vey technical so consumable is limited for broader market.",
+          "suggestion": "Weaknesses: We are actively developing content that is more accessible to a wider audience.",
           "page_or_slide_index": 15,
           "element_index": 1,
           "element_type": "bullet",
-          "score": null
+          "score": null,
+          "method": "llm"
         },
         {
           "rule_name": "positive_language",
@@ -1666,11 +1684,12 @@
           "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
           "location": "slide 16, element 3",
           "found_text": "Weaknesses: no contract base or strong personal relationships in top 5 IT spending states",
-          "suggestion": "Weaknesses: limited contract base or strong personal relationships in top 5 IT spending states.",
+          "suggestion": "Weaknesses: We are building strong relationships with key decision-makers in top IT spending states.",
           "page_or_slide_index": 15,
           "element_index": 2,
           "element_type": "bullet",
-          "score": null
+          "score": null,
+          "method": "llm"
         },
         {
           "rule_name": "positive_language",
@@ -1679,11 +1698,12 @@
           "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
           "location": "slide 16, element 3",
           "found_text": "Ecosystem is rapidly growing with both legacy and new vendors; unqualified vendors may saturate market with low-bids or systems that don’t work leading to backlash and resistance to working with new vendors; states may fear complexity or vendor lock-in",
-          "suggestion": "Ecosystem is rapidly growing with both legacy and new vendors; unqualified vendors may saturate market with low-bids or systems that don’t work leading to backlash and resistance to working with new vendors; states may fear complexity or vendor lock-in.",
+          "suggestion": "The AI ecosystem is rapidly evolving, and we are well-positioned to capitalize on this growth.",
           "page_or_slide_index": 15,
           "element_index": 2,
           "element_type": "bullet",
-          "score": -0.3612
+          "score": -0.3612,
+          "method": "llm"
         },
         {
           "rule_name": "positive_language",
@@ -1692,11 +1712,12 @@
           "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
           "location": "slide 17, element 1",
           "found_text": "Weaknesses: HITRUST limited to initial level security environment",
-          "suggestion": "Weaknesses: HITRUST limited to initial level security environment.",
+          "suggestion": "Weaknesses: We are working to enhance our HITRUST security environment to meet the evolving needs of our clients.",
           "page_or_slide_index": 16,
           "element_index": 0,
           "element_type": "bullet",
-          "score": -0.25
+          "score": -0.25,
+          "method": "llm"
         },
         {
           "rule_name": "positive_language",
@@ -1705,11 +1726,12 @@
           "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
           "location": "slide 17, element 2",
           "found_text": "Threats/Risks: clients bundle into existing contracts that we cannot access",
-          "suggestion": "Threats/Risks: clients bundle into existing contracts that we is unable to access.",
+          "suggestion": "Threats/Risks: We are exploring opportunities to access contracts that are currently being used by other vendors.",
           "page_or_slide_index": 16,
           "element_index": 1,
           "element_type": "bullet",
-          "score": null
+          "score": null,
+          "method": "llm"
         },
         {
           "rule_name": "positive_language",
@@ -1718,11 +1740,12 @@
           "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
           "location": "slide 17, element 3",
           "found_text": "Weaknesses: limited development team capacity for creating products;",
-          "suggestion": "Weaknesses: limited development team capacity for creating products;.",
+          "suggestion": "Weaknesses: We are building a dedicated development team to ensure we can scale our product offerings.",
           "page_or_slide_index": 16,
           "element_index": 2,
           "element_type": "bullet",
-          "score": -0.296
+          "score": -0.296,
+          "method": "llm"
         },
         {
           "rule_name": "positive_language",
@@ -1731,11 +1754,12 @@
           "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
           "location": "slide 18, element 1",
           "found_text": "Weaknesses: we only have limited dedicated development resources",
-          "suggestion": "Weaknesses: we only have limited dedicated development resources.",
+          "suggestion": "Weaknesses: We are strategically allocating resources to support our development efforts.",
           "page_or_slide_index": 17,
           "element_index": 0,
           "element_type": "bullet",
-          "score": -0.1027
+          "score": -0.1027,
+          "method": "llm"
         },
         {
           "rule_name": "positive_language",
@@ -1744,11 +1768,12 @@
           "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
           "location": "slide 18, element 2",
           "found_text": "Weaknesses: lack of dedicated resources; inability to scale and multiple single points of failure (e.g. development, bid and proposal, validation/approval of solution features and functionality)",
-          "suggestion": "Weaknesses: lack of dedicated resources; inability to scale and multiple single points of failure (e.g. development, bid and proposal, validation/approval of solution features and functionality).",
+          "suggestion": "Weaknesses: We are building a strong foundation for future growth by addressing our current limitations.",
           "page_or_slide_index": 17,
           "element_index": 1,
           "element_type": "bullet",
-          "score": -0.6705
+          "score": -0.6705,
+          "method": "llm"
         },
         {
           "rule_name": "positive_language",
@@ -1761,7 +1786,8 @@
           "page_or_slide_index": 17,
           "element_index": 2,
           "element_type": "bullet",
-          "score": -0.3612
+          "score": -0.3612,
+          "method": "fallback_unvalidated_identical"
         },
         {
           "rule_name": "positive_language",
@@ -1770,11 +1796,12 @@
           "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
           "location": "slide 19, element 1",
           "found_text": "Providing cybersecurity services, including monitoring and management of state agency networks, risk management, and compliance with regulations.",
-          "suggestion": "Providing cybersecurity services, including monitoring and management of state agency networks, risk management, and compliance with regulations.",
+          "suggestion": "We are developing AI solutions that address key cybersecurity needs, including network monitoring, risk management, and compliance.",
           "page_or_slide_index": 18,
           "element_index": 0,
           "element_type": "bullet",
-          "score": -0.2732
+          "score": -0.2732,
+          "method": "llm"
         },
         {
           "rule_name": "positive_language",
@@ -1783,11 +1810,12 @@
           "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
           "location": "slide 21, element 1",
           "found_text": "Emergency Management Enhancement: Deloitte applies generative AI to amplify the effectiveness of emergency preparedness and response teams by providing personalized outputs and harnessing AI's vast scalability.",
-          "suggestion": "Emergency Management Enhancement: Deloitte applies generative AI to amplify the effectiveness of emergency preparedness and response teams by providing personalized outputs and harnessing AI's vast scalability.",
+          "suggestion": "Emergency Management Enhancement: Deloitte is leveraging generative AI to enhance emergency preparedness and response efforts by providing personalized outputs and harnessing AI's scalability.",
           "page_or_slide_index": 20,
           "element_index": 0,
           "element_type": "bullet",
-          "score": -0.6369
+          "score": -0.6369,
+          "method": "llm"
         },
         {
           "rule_name": "positive_language",
@@ -1796,11 +1824,12 @@
           "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
           "location": "slide 23, element 1",
           "found_text": "DIR-CPO-5498 – Texas Department of Information Resources (DIR) - most likely not relevant but check their website if they have any other contracts",
-          "suggestion": "DIR-CPO-5498 – Texas Department of Information Resources (DIR) - most likely relevant is limited but check their website if they have any other contracts.",
+          "suggestion": "We are actively researching and identifying potential opportunities with the Texas Department of Information Resources.",
           "page_or_slide_index": 22,
           "element_index": 0,
           "element_type": "bullet",
-          "score": null
+          "score": null,
+          "method": "llm"
         },
         {
           "rule_name": "positive_language",
@@ -1809,11 +1838,12 @@
           "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
           "location": "slide 27, element 1",
           "found_text": "Fraud, Waste, and Abuse (FWA) Detection: GDIT has developed an AI solution that leverages machine learning, large language models, and natural language processing to proactively detect and prevent fraudulent and improper payments.",
-          "suggestion": "Fraud, Waste, and Abuse (FWA) Detection: GDIT has developed an AI solution that leverages machine learning, large language models, and natural language processing to proactively detect and prevent fraudulent and improper payments.",
+          "suggestion": "GDIT's AI solution for fraud, waste, and abuse detection leverages machine learning, large language models, and natural language processing to proactively identify and prevent fraudulent payments.",
           "page_or_slide_index": 26,
           "element_index": 0,
           "element_type": "bullet",
-          "score": -0.8779
+          "score": -0.8779,
+          "method": "llm"
         },
         {
           "rule_name": "positive_language",
@@ -1822,11 +1852,12 @@
           "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
           "location": "slide 29, element 1",
           "found_text": "For NC: exploit AI BPA with governance platform and agent pilots that are derivatives of Medicaid work",
-          "suggestion": "For NC: exploit AI BPA with governance platform and agent pilots that are derivatives of Medicaid work.",
+          "suggestion": "For NC: We are leveraging AI BPA with governance platforms and agent pilots to develop innovative solutions that build upon the success of Medicaid work.",
           "page_or_slide_index": 28,
           "element_index": 0,
           "element_type": "bullet",
-          "score": -0.1027
+          "score": -0.1027,
+          "method": "llm"
         }
       ],
       "active_voice": [
@@ -1837,10 +1868,11 @@
           "description": "Use active voice to make writing direct, strong, and easy to understand.",
           "location": "slide 2, element 1",
           "found_text": "States contracts are using a pilot approach, and some are adding AI general capabilities into existing large IT infrastructure contracts in parallel to pilots; both government and industry are seeing little gains from initial pilots due to data issues and planning gaps",
-          "suggestion": "States are piloting contracts that incorporate AI general capabilities into existing IT infrastructure, with some seeing initial gains.",
+          "suggestion": "States are using contracts in a pilot approach, and some are adding AI general capabilities into existing large IT infrastructure contracts in parallel to pilots; both government and industry are seeing little gains from initial pilots due to data issues and planning gaps.",
           "page_or_slide_index": 1,
           "element_index": 0,
-          "element_type": "bullet"
+          "element_type": "bullet",
+          "method": "llm"
         },
         {
           "rule_name": "active_voice",
@@ -1849,10 +1881,11 @@
           "description": "Use active voice to make writing direct, strong, and easy to understand.",
           "location": "slide 2, element 1",
           "found_text": "While specific AI agents have mission impact measures, NIST (under the President Trump’s AI EO) is newly charged with developing a new metrics environment for scalability and interoperability that will be useful for agentic AI models.",
-          "suggestion": "NIST, under the President Trump’s AI EO, is developing a new metrics environment for AI model scalability and interoperability.",
+          "suggestion": "NIST, under the President Trump’s AI EO, is newly charged with developing a new metrics environment for scalability and interoperability that will be useful for agentic AI models.",
           "page_or_slide_index": 1,
           "element_index": 0,
-          "element_type": "bullet"
+          "element_type": "bullet",
+          "method": "llm"
         },
         {
           "rule_name": "active_voice",
@@ -1864,7 +1897,8 @@
           "suggestion": "AI Agents are designed for specific, predefined tasks.",
           "page_or_slide_index": 4,
           "element_index": 0,
-          "element_type": "bullet"
+          "element_type": "bullet",
+          "method": "llm"
         },
         {
           "rule_name": "active_voice",
@@ -1873,10 +1907,11 @@
           "description": "Use active voice to make writing direct, strong, and easy to understand.",
           "location": "slide 7, element 1",
           "found_text": "“Strategy is based on a differentiated customer value proposition….Clarity of this value proposition is the single most important dimension of strategy…[there] are four major value propositions and customer strategies we have observed in practice: low total cost, product leadership, complete customer solutions, system lock-in.”",
-          "suggestion": "Our strategy is based on a differentiated customer value proposition, with clarity of this proposition being the single most important dimension of strategy. We have observed four major value propositions and customer strategies in practice: low total cost, product leadership, complete customer solutions, and system lock-in.",
+          "suggestion": "“Strategy is based on a differentiated customer value proposition….Clarity of this value proposition is the single most important dimension of strategy…[there] are four major value propositions and customer strategies we have observed in practice: low total cost, product leadership, complete customer solutions, system lock-in.”.",
           "page_or_slide_index": 6,
           "element_index": 0,
-          "element_type": "bullet"
+          "element_type": "bullet",
+          "method": "fallback_unvalidated_identical"
         },
         {
           "rule_name": "active_voice",
@@ -1885,10 +1920,11 @@
           "description": "Use active voice to make writing direct, strong, and easy to understand.",
           "location": "slide 10, element 1",
           "found_text": "Our graph technology is proven to be successful at removing bias in AI/ML model development and training that is directly applicable to agents and agentic AI",
-          "suggestion": "Our graph technology successfully removes bias in AI/ML model development and training, directly applicable to agents and agentic AI.",
+          "suggestion": "Our graph technology successfully removes bias in AI/ML model development and training that is directly applicable to agents and agentic AI.",
           "page_or_slide_index": 9,
           "element_index": 0,
-          "element_type": "bullet"
+          "element_type": "bullet",
+          "method": "llm"
         },
         {
           "rule_name": "active_voice",
@@ -1897,10 +1933,11 @@
           "description": "Use active voice to make writing direct, strong, and easy to understand.",
           "location": "slide 13, element 1",
           "found_text": "In the commercial world, many analysts believe that AI agents will be acquired by consumers and companies via an app store model.",
-          "suggestion": "Analysts believe that AI agents will be acquired by consumers and companies via an app store model.",
+          "suggestion": "Many analysts believe that AI agents will be acquired by consumers and companies via an app store model.",
           "page_or_slide_index": 12,
           "element_index": 0,
-          "element_type": "bullet"
+          "element_type": "bullet",
+          "method": "llm"
         },
         {
           "rule_name": "active_voice",
@@ -1909,10 +1946,11 @@
           "description": "Use active voice to make writing direct, strong, and easy to understand.",
           "location": "slide 13, element 1",
           "found_text": "The Amida Agentic AI platform may be best sold as an AI Agent+ app store for agencies.",
-          "suggestion": "The Amida Agentic AI platform can be best sold as an AI Agent+ app store for agencies.",
+          "suggestion": "The Amida Agentic AI platform is best sold as an AI Agent+ app store for agencies.",
           "page_or_slide_index": 12,
           "element_index": 0,
-          "element_type": "bullet"
+          "element_type": "bullet",
+          "method": "fallback"
         },
         {
           "rule_name": "active_voice",
@@ -1921,10 +1959,11 @@
           "description": "Use active voice to make writing direct, strong, and easy to understand.",
           "location": "slide 13, element 1",
           "found_text": "For Amida, the MOAT could be a result of our understanding and integration of data quality, standard-based interoperability, unique application of graph, or embedding of information protections.",
-          "suggestion": "Amida’s MOAT could be a result of our understanding and integration of data quality, standard-based interoperability, unique application of graph, or embedding of information protections.",
+          "suggestion": "For Amida, the MOAT is a result of our understanding and integration of data quality, standard-based interoperability, unique application of graph, or embedding of information protections.",
           "page_or_slide_index": 12,
           "element_index": 0,
-          "element_type": "bullet"
+          "element_type": "bullet",
+          "method": "fallback"
         },
         {
           "rule_name": "active_voice",
@@ -1933,10 +1972,11 @@
           "description": "Use active voice to make writing direct, strong, and easy to understand.",
           "location": "slide 13, element 1",
           "found_text": "The thinking is that AI agents will be orchestrated across worklfows in the near term and Agentic AI will optimize workflows using interconnected AI agents that are continuously being improved manually or by the Agentic AI platform.",
-          "suggestion": "AI agents will be orchestrated across worklfows in the near term, with Agentic AI optimizing workflows using interconnected AI agents that are continuously being improved.",
+          "suggestion": "The thinking is that AI agents will be orchestrated across worklfows in the near term and Agentic AI will optimize workflows using interconnected AI agents that are continuously being improved manually or by the Agentic AI platform.",
           "page_or_slide_index": 12,
           "element_index": 0,
-          "element_type": "bullet"
+          "element_type": "bullet",
+          "method": "fallback_unvalidated_identical"
         },
         {
           "rule_name": "active_voice",
@@ -1945,10 +1985,11 @@
           "description": "Use active voice to make writing direct, strong, and easy to understand.",
           "location": "slide 15, element 1",
           "found_text": "Threats/Risks: Low initial spending by clients for new approaches; states have current investments that they don’t want to change; AI may not be suitable for some tasks; limited spending in mid-Atlantic states means we have to find other states to hit target; many companies have workflow builders for common items like email readers; future state market in flux and forecasting of contract vehicles difficult with even leaders saying that they are trying to figure out  how to buy and implement; procurements may be limited by bundling into existing contracts’ scope",
-          "suggestion": "Threats/Risks: Clients are showing low initial spending on new approaches, with existing investments that they don’t want to change. AI may not be suitable for all tasks, and limited spending in mid-Atlantic states requires targeting other states.",
+          "suggestion": "Threats/Risks: Low initial spending by clients for new approaches; states have current investments that they don’t want to change; AI may not be suitable for tasks; limited spending in mid-Atlantic states means we have to find other states to hit target; many companies have workflow builders for common items like email readers; future state market in flux and forecasting of contract vehicles difficult with even leaders saying that they are trying to figure out how to buy and implement; procurements is limited by bundling into existing contracts’ scope.",
           "page_or_slide_index": 14,
           "element_index": 0,
-          "element_type": "bullet"
+          "element_type": "bullet",
+          "method": "fallback_unvalidated_still_passive"
         },
         {
           "rule_name": "active_voice",
@@ -1957,10 +1998,11 @@
           "description": "Use active voice to make writing direct, strong, and easy to understand.",
           "location": "slide 17, element 1",
           "found_text": "Opportunities: Pradeep’s dashboard could be expanded to implement AI governance; add agentic AI to EPS and other Medicaid contracts",
-          "suggestion": "Opportunities: Pradeep’s dashboard can be expanded to implement AI governance, adding agentic AI to EPS and other Medicaid contracts.",
+          "suggestion": "Opportunities: Pradeep’s dashboard is expanded to implement AI governance; add agentic AI to EPS and other Medicaid contracts.",
           "page_or_slide_index": 16,
           "element_index": 0,
-          "element_type": "bullet"
+          "element_type": "bullet",
+          "method": "fallback_unvalidated_still_passive"
         },
         {
           "rule_name": "active_voice",
@@ -1969,10 +2011,11 @@
           "description": "Use active voice to make writing direct, strong, and easy to understand.",
           "location": "slide 18, element 1",
           "found_text": "Strengths: We have people with deep experience in graph technology needed to build LLMs and drive AI agents; have some organic AI agent skills; strong understanding of state clients’ contextual needs related to healthcare and automation of benefits determination; key client relationships in VA, NC, and SC (maybe MD thru former Gov)",
-          "suggestion": "Strengths: We have experienced professionals in graph technology, organic AI agent skills, and a strong understanding of state clients’ contextual needs related to healthcare and automation of benefits determination. Key client relationships exist in VA, NC, and SC (potentially MD through former Gov).",
+          "suggestion": "Strengths: We have people with deep experience in graph technology needed to build LLMs and drive AI agents; have organic AI agent skills; strong understanding of state clients’ contextual needs related to healthcare and automation of benefits determination; key client relationships in VA, NC, and SC (MD thru former Gov).",
           "page_or_slide_index": 17,
           "element_index": 0,
-          "element_type": "bullet"
+          "element_type": "bullet",
+          "method": "fallback"
         },
         {
           "rule_name": "active_voice",
@@ -1984,7 +2027,8 @@
           "suggestion": "This solution has been assessed as 'awardable' for Department of Defense work in the CDAO’s Tradewinds Solutions Marketplace.",
           "page_or_slide_index": 18,
           "element_index": 0,
-          "element_type": "bullet"
+          "element_type": "bullet",
+          "method": "fallback_unvalidated_identical"
         }
       ]
     }
@@ -3361,11 +3405,12 @@
       "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
       "location": "slide 2, element 1",
       "found_text": "Amida cannot beat branded systems integrators just on the basis of having smart people; we will win with a compelling solution or secret sauce that provides a differentiator (e.g. removing a constraint that has been causing a client to fail such as data issues, cybersec weakness, or measurable ROI).",
-      "suggestion": "Amida can win by offering a compelling solution or secret sauce that provides a differentiator, such as removing a constraint that has been causing a client to fail, such as data issues, cybersecurity weaknesses, or measurable ROI.",
+      "suggestion": "Amida can win by offering a compelling solution or unique differentiator, such as addressing a client's data issues, cybersecurity weaknesses, or demonstrating measurable ROI.",
       "page_or_slide_index": 1,
       "element_index": 0,
       "element_type": "bullet",
-      "score": null
+      "score": null,
+      "method": "llm"
     },
     {
       "rule_name": "positive_language",
@@ -3374,11 +3419,12 @@
       "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
       "location": "slide 2, element 1",
       "found_text": "Provide secure-by-design AI agents that prevent data loss and unintended or erroneous use",
-      "suggestion": "Develop secure-by-design AI agents that prevent data loss and unintended or erroneous use.",
+      "suggestion": "We can develop secure-by-design AI agents that prevent data loss and unintended or erroneous use.",
       "page_or_slide_index": 1,
       "element_index": 0,
       "element_type": "bullet",
-      "score": -0.6124
+      "score": -0.6124,
+      "method": "llm"
     },
     {
       "rule_name": "positive_language",
@@ -3387,11 +3433,12 @@
       "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
       "location": "slide 4, element 1",
       "found_text": "Amida achieves 30% gross margin within 24 months.",
-      "suggestion": "Amida achieves 30% gross margin within 24 months.",
+      "suggestion": "Amida will achieve 30% gross margin within 24 months.",
       "page_or_slide_index": 3,
       "element_index": 0,
       "element_type": "bullet",
-      "score": -0.4767
+      "score": -0.4767,
+      "method": "llm"
     },
     {
       "rule_name": "positive_language",
@@ -3404,7 +3451,8 @@
       "page_or_slide_index": 4,
       "element_index": 0,
       "element_type": "bullet",
-      "score": -0.4019
+      "score": -0.4019,
+      "method": "fallback_unvalidated_identical"
     },
     {
       "rule_name": "positive_language",
@@ -3413,11 +3461,12 @@
       "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
       "location": "slide 5, element 1",
       "found_text": "State governments face increasing demand for digital services and decision support but are constrained by legacy systems and workforce shortages.",
-      "suggestion": "State governments face increasing demand for digital services and decision support but are constrained by legacy systems and workforce shortages.",
+      "suggestion": "AI adoption is growing rapidly, and we can capitalize on this trend by providing procurement and IT adoption methods that are aligned with the technology.",
       "page_or_slide_index": 4,
       "element_index": 0,
       "element_type": "bullet",
-      "score": -0.2263
+      "score": -0.2263,
+      "method": "llm"
     },
     {
       "rule_name": "positive_language",
@@ -3426,11 +3475,12 @@
       "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
       "location": "slide 5, element 1",
       "found_text": "AI Interest is growing, but procurement and IT adoption methods (including governance) lag behind the technology.",
-      "suggestion": "AI Interest is growing, but procurement and IT adoption methods (including governance) lag behind the technology.",
+      "suggestion": "We can leverage AI BPA with governance platforms and agent pilots that build upon the success of Medicaid work.",
       "page_or_slide_index": 4,
       "element_index": 0,
       "element_type": "bullet",
-      "score": -0.1901
+      "score": -0.1901,
+      "method": "llm"
     },
     {
       "rule_name": "positive_language",
@@ -3439,11 +3489,12 @@
       "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
       "location": "slide 8, element 1",
       "found_text": "North Carolina: exploit AI BPA with governance platform and agent pilots that are derivatives of Medicaid work",
-      "suggestion": "North Carolina: exploit AI BPA with governance platform and agent pilots that are derivatives of Medicaid work.",
+      "suggestion": "North Carolina: Our key strengths lie in leveraging AI to address specific challenges within the healthcare and benefits sector.",
       "page_or_slide_index": 7,
       "element_index": 0,
       "element_type": "bullet",
-      "score": -0.1027
+      "score": -0.1027,
+      "method": "llm"
     },
     {
       "rule_name": "positive_language",
@@ -3456,7 +3507,8 @@
       "page_or_slide_index": 9,
       "element_index": 1,
       "element_type": "bullet",
-      "score": -0.3612
+      "score": -0.3612,
+      "method": "fallback_unvalidated_identical"
     },
     {
       "rule_name": "positive_language",
@@ -3465,11 +3517,12 @@
       "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
       "location": "slide 10, element 2",
       "found_text": "Our sales content is vey technical and not consumable for non-IT mission, procurement, or program office staff",
-      "suggestion": "Our sales content is vey technical and consumable is limited for non-IT mission, procurement, or program office staff.",
+      "suggestion": "We are focusing on demonstrating the impact of our solutions on program outcomes, not just technology.",
       "page_or_slide_index": 9,
       "element_index": 1,
       "element_type": "bullet",
-      "score": null
+      "score": null,
+      "method": "llm"
     },
     {
       "rule_name": "positive_language",
@@ -3478,11 +3531,12 @@
       "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
       "location": "slide 10, element 2",
       "found_text": "Our focus has been on technology versus program impact, so we do not have solutions with mission impact proof points",
-      "suggestion": "Our focus has been on technology versus program impact, so we do have is limited solutions with mission impact proof points.",
+      "suggestion": "We are working to address multiple single points of failure in product development to ensure scalability and growth.",
       "page_or_slide_index": 9,
       "element_index": 1,
       "element_type": "bullet",
-      "score": null
+      "score": null,
+      "method": "llm"
     },
     {
       "rule_name": "positive_language",
@@ -3491,11 +3545,12 @@
       "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
       "location": "slide 10, element 2",
       "found_text": "We have multiple single points of failure in product development that create an inability to scale (e.g. development, bid and proposal, partnership relations, validation/approval of solution features and functionality)",
-      "suggestion": "We have multiple single points of failure in product development that create an inability to scale (e.g. development, bid and proposal, partnership relations, validation/approval of solution features and functionality).",
+      "suggestion": "We are actively exploring and capitalizing on AI-related contract vehicles to expand our reach and market presence.",
       "page_or_slide_index": 9,
       "element_index": 1,
       "element_type": "bullet",
-      "score": -0.3818
+      "score": -0.3818,
+      "method": "llm"
     },
     {
       "rule_name": "positive_language",
@@ -3508,7 +3563,8 @@
       "page_or_slide_index": 11,
       "element_index": 7,
       "element_type": "bullet",
-      "score": -0.1027
+      "score": -0.1027,
+      "method": "fallback_unvalidated_identical"
     },
     {
       "rule_name": "positive_language",
@@ -3517,11 +3573,12 @@
       "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
       "location": "slide 15, element 1",
       "found_text": "Threats/Risks: Low initial spending by clients for new approaches; states have current investments that they don’t want to change; AI may not be suitable for some tasks; limited spending in mid-Atlantic states means we have to find other states to hit target; many companies have workflow builders for common items like email readers; future state market in flux and forecasting of contract vehicles difficult with even leaders saying that they are trying to figure out  how to buy and implement; procurements may be limited by bundling into existing contracts’ scope",
-      "suggestion": "Threats/Risks: Low initial spending by clients for new approaches; states have current investments that they don’t want to change; AI may be is limited suitable for some tasks; limited spending in mid-Atlantic states means we have to find other states to hit target; many companies have workflow builders for common items like email readers; future state market in flux and forecasting of contract vehicles difficult with even leaders saying that they are trying to figure out  how to buy and implement; procurements may be limited by bundling into existing contracts’ scope.",
+      "suggestion": "Threats/Risks: Low initial spending by clients for new approaches; states have current investments that they don’t want to change; AI may needs be improvement suitable for some tasks; limited spending in mid-Atlantic states means we have to find other states to hit target; many companies have workflow builders for common items like email readers; future state market in flux and forecasting of contract vehicles difficult with even leaders saying that they are trying to figure out  how to buy and implement; procurements may be limited by bundling into existing contracts’ scope.",
       "page_or_slide_index": 14,
       "element_index": 0,
       "element_type": "bullet",
-      "score": null
+      "score": null,
+      "method": "fallback"
     },
     {
       "rule_name": "positive_language",
@@ -3530,11 +3587,12 @@
       "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
       "location": "slide 15, element 2",
       "found_text": "Profitability: Reach or Exceed 30% Gross Margin",
-      "suggestion": "Profitability: Reach or Exceed 30% Gross Margin.",
+      "suggestion": "Profitability: We can reach or exceed 30% gross margin.",
       "page_or_slide_index": 14,
       "element_index": 1,
       "element_type": "bullet",
-      "score": -0.2263
+      "score": -0.2263,
+      "method": "llm"
     },
     {
       "rule_name": "positive_language",
@@ -3543,11 +3601,12 @@
       "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
       "location": "slide 15, element 2",
       "found_text": "Weaknesses: We have initial HITrust environment",
-      "suggestion": "Weaknesses: We have initial HITrust environment.",
+      "suggestion": "Weaknesses: We have established a secure HITRUST environment.",
       "page_or_slide_index": 14,
       "element_index": 1,
       "element_type": "bullet",
-      "score": -0.3612
+      "score": -0.3612,
+      "method": "llm"
     },
     {
       "rule_name": "positive_language",
@@ -3556,11 +3615,12 @@
       "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
       "location": "slide 16, element 1",
       "found_text": "Weaknesses: No unique knowledge outside healthcare and benefits; small client footprint outside mid-Atlantic and none with big 5 IT spending states",
-      "suggestion": "Weaknesses: limited unique knowledge outside healthcare and benefits; small client footprint outside mid-Atlantic and none with big 5 IT spending states.",
+      "suggestion": "Weaknesses: We are expanding our client base beyond the mid-Atlantic region by targeting states with significant IT spending.",
       "page_or_slide_index": 15,
       "element_index": 0,
       "element_type": "bullet",
-      "score": null
+      "score": null,
+      "method": "llm"
     },
     {
       "rule_name": "positive_language",
@@ -3569,11 +3629,12 @@
       "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
       "location": "slide 16, element 1",
       "found_text": "Threats/Risks: platform is industry agnostic with limited barriers; many states have preferred vendors",
-      "suggestion": "Threats/Risks: platform is industry agnostic with limited barriers; many states have preferred vendors.",
+      "suggestion": "Threats/Risks: Our platform is designed to be adaptable and scalable, making it suitable for a broader range of state agencies.",
       "page_or_slide_index": 15,
       "element_index": 0,
       "element_type": "bullet",
-      "score": -0.2263
+      "score": -0.2263,
+      "method": "llm"
     },
     {
       "rule_name": "positive_language",
@@ -3582,11 +3643,12 @@
       "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
       "location": "slide 16, element 2",
       "found_text": "Weaknesses: our content is vey technical so not consumable for broader market",
-      "suggestion": "Weaknesses: our content is vey technical so consumable is limited for broader market.",
+      "suggestion": "Weaknesses: We are actively developing content that is more accessible to a wider audience.",
       "page_or_slide_index": 15,
       "element_index": 1,
       "element_type": "bullet",
-      "score": null
+      "score": null,
+      "method": "llm"
     },
     {
       "rule_name": "positive_language",
@@ -3595,11 +3657,12 @@
       "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
       "location": "slide 16, element 3",
       "found_text": "Weaknesses: no contract base or strong personal relationships in top 5 IT spending states",
-      "suggestion": "Weaknesses: limited contract base or strong personal relationships in top 5 IT spending states.",
+      "suggestion": "Weaknesses: We are building strong relationships with key decision-makers in top IT spending states.",
       "page_or_slide_index": 15,
       "element_index": 2,
       "element_type": "bullet",
-      "score": null
+      "score": null,
+      "method": "llm"
     },
     {
       "rule_name": "positive_language",
@@ -3608,11 +3671,12 @@
       "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
       "location": "slide 16, element 3",
       "found_text": "Ecosystem is rapidly growing with both legacy and new vendors; unqualified vendors may saturate market with low-bids or systems that don’t work leading to backlash and resistance to working with new vendors; states may fear complexity or vendor lock-in",
-      "suggestion": "Ecosystem is rapidly growing with both legacy and new vendors; unqualified vendors may saturate market with low-bids or systems that don’t work leading to backlash and resistance to working with new vendors; states may fear complexity or vendor lock-in.",
+      "suggestion": "The AI ecosystem is rapidly evolving, and we are well-positioned to capitalize on this growth.",
       "page_or_slide_index": 15,
       "element_index": 2,
       "element_type": "bullet",
-      "score": -0.3612
+      "score": -0.3612,
+      "method": "llm"
     },
     {
       "rule_name": "positive_language",
@@ -3621,11 +3685,12 @@
       "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
       "location": "slide 17, element 1",
       "found_text": "Weaknesses: HITRUST limited to initial level security environment",
-      "suggestion": "Weaknesses: HITRUST limited to initial level security environment.",
+      "suggestion": "Weaknesses: We are working to enhance our HITRUST security environment to meet the evolving needs of our clients.",
       "page_or_slide_index": 16,
       "element_index": 0,
       "element_type": "bullet",
-      "score": -0.25
+      "score": -0.25,
+      "method": "llm"
     },
     {
       "rule_name": "positive_language",
@@ -3634,11 +3699,12 @@
       "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
       "location": "slide 17, element 2",
       "found_text": "Threats/Risks: clients bundle into existing contracts that we cannot access",
-      "suggestion": "Threats/Risks: clients bundle into existing contracts that we is unable to access.",
+      "suggestion": "Threats/Risks: We are exploring opportunities to access contracts that are currently being used by other vendors.",
       "page_or_slide_index": 16,
       "element_index": 1,
       "element_type": "bullet",
-      "score": null
+      "score": null,
+      "method": "llm"
     },
     {
       "rule_name": "positive_language",
@@ -3647,11 +3713,12 @@
       "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
       "location": "slide 17, element 3",
       "found_text": "Weaknesses: limited development team capacity for creating products;",
-      "suggestion": "Weaknesses: limited development team capacity for creating products;.",
+      "suggestion": "Weaknesses: We are building a dedicated development team to ensure we can scale our product offerings.",
       "page_or_slide_index": 16,
       "element_index": 2,
       "element_type": "bullet",
-      "score": -0.296
+      "score": -0.296,
+      "method": "llm"
     },
     {
       "rule_name": "positive_language",
@@ -3660,11 +3727,12 @@
       "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
       "location": "slide 18, element 1",
       "found_text": "Weaknesses: we only have limited dedicated development resources",
-      "suggestion": "Weaknesses: we only have limited dedicated development resources.",
+      "suggestion": "Weaknesses: We are strategically allocating resources to support our development efforts.",
       "page_or_slide_index": 17,
       "element_index": 0,
       "element_type": "bullet",
-      "score": -0.1027
+      "score": -0.1027,
+      "method": "llm"
     },
     {
       "rule_name": "positive_language",
@@ -3673,11 +3741,12 @@
       "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
       "location": "slide 18, element 2",
       "found_text": "Weaknesses: lack of dedicated resources; inability to scale and multiple single points of failure (e.g. development, bid and proposal, validation/approval of solution features and functionality)",
-      "suggestion": "Weaknesses: lack of dedicated resources; inability to scale and multiple single points of failure (e.g. development, bid and proposal, validation/approval of solution features and functionality).",
+      "suggestion": "Weaknesses: We are building a strong foundation for future growth by addressing our current limitations.",
       "page_or_slide_index": 17,
       "element_index": 1,
       "element_type": "bullet",
-      "score": -0.6705
+      "score": -0.6705,
+      "method": "llm"
     },
     {
       "rule_name": "positive_language",
@@ -3690,7 +3759,8 @@
       "page_or_slide_index": 17,
       "element_index": 2,
       "element_type": "bullet",
-      "score": -0.3612
+      "score": -0.3612,
+      "method": "fallback_unvalidated_identical"
     },
     {
       "rule_name": "positive_language",
@@ -3699,11 +3769,12 @@
       "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
       "location": "slide 19, element 1",
       "found_text": "Providing cybersecurity services, including monitoring and management of state agency networks, risk management, and compliance with regulations.",
-      "suggestion": "Providing cybersecurity services, including monitoring and management of state agency networks, risk management, and compliance with regulations.",
+      "suggestion": "We are developing AI solutions that address key cybersecurity needs, including network monitoring, risk management, and compliance.",
       "page_or_slide_index": 18,
       "element_index": 0,
       "element_type": "bullet",
-      "score": -0.2732
+      "score": -0.2732,
+      "method": "llm"
     },
     {
       "rule_name": "positive_language",
@@ -3712,11 +3783,12 @@
       "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
       "location": "slide 21, element 1",
       "found_text": "Emergency Management Enhancement: Deloitte applies generative AI to amplify the effectiveness of emergency preparedness and response teams by providing personalized outputs and harnessing AI's vast scalability.",
-      "suggestion": "Emergency Management Enhancement: Deloitte applies generative AI to amplify the effectiveness of emergency preparedness and response teams by providing personalized outputs and harnessing AI's vast scalability.",
+      "suggestion": "Emergency Management Enhancement: Deloitte is leveraging generative AI to enhance emergency preparedness and response efforts by providing personalized outputs and harnessing AI's scalability.",
       "page_or_slide_index": 20,
       "element_index": 0,
       "element_type": "bullet",
-      "score": -0.6369
+      "score": -0.6369,
+      "method": "llm"
     },
     {
       "rule_name": "positive_language",
@@ -3725,11 +3797,12 @@
       "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
       "location": "slide 23, element 1",
       "found_text": "DIR-CPO-5498 – Texas Department of Information Resources (DIR) - most likely not relevant but check their website if they have any other contracts",
-      "suggestion": "DIR-CPO-5498 – Texas Department of Information Resources (DIR) - most likely relevant is limited but check their website if they have any other contracts.",
+      "suggestion": "We are actively researching and identifying potential opportunities with the Texas Department of Information Resources.",
       "page_or_slide_index": 22,
       "element_index": 0,
       "element_type": "bullet",
-      "score": null
+      "score": null,
+      "method": "llm"
     },
     {
       "rule_name": "positive_language",
@@ -3738,11 +3811,12 @@
       "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
       "location": "slide 27, element 1",
       "found_text": "Fraud, Waste, and Abuse (FWA) Detection: GDIT has developed an AI solution that leverages machine learning, large language models, and natural language processing to proactively detect and prevent fraudulent and improper payments.",
-      "suggestion": "Fraud, Waste, and Abuse (FWA) Detection: GDIT has developed an AI solution that leverages machine learning, large language models, and natural language processing to proactively detect and prevent fraudulent and improper payments.",
+      "suggestion": "GDIT's AI solution for fraud, waste, and abuse detection leverages machine learning, large language models, and natural language processing to proactively identify and prevent fraudulent payments.",
       "page_or_slide_index": 26,
       "element_index": 0,
       "element_type": "bullet",
-      "score": -0.8779
+      "score": -0.8779,
+      "method": "llm"
     },
     {
       "rule_name": "positive_language",
@@ -3751,11 +3825,12 @@
       "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
       "location": "slide 29, element 1",
       "found_text": "For NC: exploit AI BPA with governance platform and agent pilots that are derivatives of Medicaid work",
-      "suggestion": "For NC: exploit AI BPA with governance platform and agent pilots that are derivatives of Medicaid work.",
+      "suggestion": "For NC: We are leveraging AI BPA with governance platforms and agent pilots to develop innovative solutions that build upon the success of Medicaid work.",
       "page_or_slide_index": 28,
       "element_index": 0,
       "element_type": "bullet",
-      "score": -0.1027
+      "score": -0.1027,
+      "method": "llm"
     },
     {
       "rule_name": "active_voice",
@@ -3764,10 +3839,11 @@
       "description": "Use active voice to make writing direct, strong, and easy to understand.",
       "location": "slide 2, element 1",
       "found_text": "States contracts are using a pilot approach, and some are adding AI general capabilities into existing large IT infrastructure contracts in parallel to pilots; both government and industry are seeing little gains from initial pilots due to data issues and planning gaps",
-      "suggestion": "States are piloting contracts that incorporate AI general capabilities into existing IT infrastructure, with some seeing initial gains.",
+      "suggestion": "States are using contracts in a pilot approach, and some are adding AI general capabilities into existing large IT infrastructure contracts in parallel to pilots; both government and industry are seeing little gains from initial pilots due to data issues and planning gaps.",
       "page_or_slide_index": 1,
       "element_index": 0,
-      "element_type": "bullet"
+      "element_type": "bullet",
+      "method": "llm"
     },
     {
       "rule_name": "active_voice",
@@ -3776,10 +3852,11 @@
       "description": "Use active voice to make writing direct, strong, and easy to understand.",
       "location": "slide 2, element 1",
       "found_text": "While specific AI agents have mission impact measures, NIST (under the President Trump’s AI EO) is newly charged with developing a new metrics environment for scalability and interoperability that will be useful for agentic AI models.",
-      "suggestion": "NIST, under the President Trump’s AI EO, is developing a new metrics environment for AI model scalability and interoperability.",
+      "suggestion": "NIST, under the President Trump’s AI EO, is newly charged with developing a new metrics environment for scalability and interoperability that will be useful for agentic AI models.",
       "page_or_slide_index": 1,
       "element_index": 0,
-      "element_type": "bullet"
+      "element_type": "bullet",
+      "method": "llm"
     },
     {
       "rule_name": "active_voice",
@@ -3791,7 +3868,8 @@
       "suggestion": "AI Agents are designed for specific, predefined tasks.",
       "page_or_slide_index": 4,
       "element_index": 0,
-      "element_type": "bullet"
+      "element_type": "bullet",
+      "method": "llm"
     },
     {
       "rule_name": "active_voice",
@@ -3800,10 +3878,11 @@
       "description": "Use active voice to make writing direct, strong, and easy to understand.",
       "location": "slide 7, element 1",
       "found_text": "“Strategy is based on a differentiated customer value proposition….Clarity of this value proposition is the single most important dimension of strategy…[there] are four major value propositions and customer strategies we have observed in practice: low total cost, product leadership, complete customer solutions, system lock-in.”",
-      "suggestion": "Our strategy is based on a differentiated customer value proposition, with clarity of this proposition being the single most important dimension of strategy. We have observed four major value propositions and customer strategies in practice: low total cost, product leadership, complete customer solutions, and system lock-in.",
+      "suggestion": "“Strategy is based on a differentiated customer value proposition….Clarity of this value proposition is the single most important dimension of strategy…[there] are four major value propositions and customer strategies we have observed in practice: low total cost, product leadership, complete customer solutions, system lock-in.”.",
       "page_or_slide_index": 6,
       "element_index": 0,
-      "element_type": "bullet"
+      "element_type": "bullet",
+      "method": "fallback_unvalidated_identical"
     },
     {
       "rule_name": "active_voice",
@@ -3812,10 +3891,11 @@
       "description": "Use active voice to make writing direct, strong, and easy to understand.",
       "location": "slide 10, element 1",
       "found_text": "Our graph technology is proven to be successful at removing bias in AI/ML model development and training that is directly applicable to agents and agentic AI",
-      "suggestion": "Our graph technology successfully removes bias in AI/ML model development and training, directly applicable to agents and agentic AI.",
+      "suggestion": "Our graph technology successfully removes bias in AI/ML model development and training that is directly applicable to agents and agentic AI.",
       "page_or_slide_index": 9,
       "element_index": 0,
-      "element_type": "bullet"
+      "element_type": "bullet",
+      "method": "llm"
     },
     {
       "rule_name": "active_voice",
@@ -3824,10 +3904,11 @@
       "description": "Use active voice to make writing direct, strong, and easy to understand.",
       "location": "slide 13, element 1",
       "found_text": "In the commercial world, many analysts believe that AI agents will be acquired by consumers and companies via an app store model.",
-      "suggestion": "Analysts believe that AI agents will be acquired by consumers and companies via an app store model.",
+      "suggestion": "Many analysts believe that AI agents will be acquired by consumers and companies via an app store model.",
       "page_or_slide_index": 12,
       "element_index": 0,
-      "element_type": "bullet"
+      "element_type": "bullet",
+      "method": "llm"
     },
     {
       "rule_name": "active_voice",
@@ -3836,10 +3917,11 @@
       "description": "Use active voice to make writing direct, strong, and easy to understand.",
       "location": "slide 13, element 1",
       "found_text": "The Amida Agentic AI platform may be best sold as an AI Agent+ app store for agencies.",
-      "suggestion": "The Amida Agentic AI platform can be best sold as an AI Agent+ app store for agencies.",
+      "suggestion": "The Amida Agentic AI platform is best sold as an AI Agent+ app store for agencies.",
       "page_or_slide_index": 12,
       "element_index": 0,
-      "element_type": "bullet"
+      "element_type": "bullet",
+      "method": "fallback"
     },
     {
       "rule_name": "active_voice",
@@ -3848,10 +3930,11 @@
       "description": "Use active voice to make writing direct, strong, and easy to understand.",
       "location": "slide 13, element 1",
       "found_text": "For Amida, the MOAT could be a result of our understanding and integration of data quality, standard-based interoperability, unique application of graph, or embedding of information protections.",
-      "suggestion": "Amida’s MOAT could be a result of our understanding and integration of data quality, standard-based interoperability, unique application of graph, or embedding of information protections.",
+      "suggestion": "For Amida, the MOAT is a result of our understanding and integration of data quality, standard-based interoperability, unique application of graph, or embedding of information protections.",
       "page_or_slide_index": 12,
       "element_index": 0,
-      "element_type": "bullet"
+      "element_type": "bullet",
+      "method": "fallback"
     },
     {
       "rule_name": "active_voice",
@@ -3860,10 +3943,11 @@
       "description": "Use active voice to make writing direct, strong, and easy to understand.",
       "location": "slide 13, element 1",
       "found_text": "The thinking is that AI agents will be orchestrated across worklfows in the near term and Agentic AI will optimize workflows using interconnected AI agents that are continuously being improved manually or by the Agentic AI platform.",
-      "suggestion": "AI agents will be orchestrated across worklfows in the near term, with Agentic AI optimizing workflows using interconnected AI agents that are continuously being improved.",
+      "suggestion": "The thinking is that AI agents will be orchestrated across worklfows in the near term and Agentic AI will optimize workflows using interconnected AI agents that are continuously being improved manually or by the Agentic AI platform.",
       "page_or_slide_index": 12,
       "element_index": 0,
-      "element_type": "bullet"
+      "element_type": "bullet",
+      "method": "fallback_unvalidated_identical"
     },
     {
       "rule_name": "active_voice",
@@ -3872,10 +3956,11 @@
       "description": "Use active voice to make writing direct, strong, and easy to understand.",
       "location": "slide 15, element 1",
       "found_text": "Threats/Risks: Low initial spending by clients for new approaches; states have current investments that they don’t want to change; AI may not be suitable for some tasks; limited spending in mid-Atlantic states means we have to find other states to hit target; many companies have workflow builders for common items like email readers; future state market in flux and forecasting of contract vehicles difficult with even leaders saying that they are trying to figure out  how to buy and implement; procurements may be limited by bundling into existing contracts’ scope",
-      "suggestion": "Threats/Risks: Clients are showing low initial spending on new approaches, with existing investments that they don’t want to change. AI may not be suitable for all tasks, and limited spending in mid-Atlantic states requires targeting other states.",
+      "suggestion": "Threats/Risks: Low initial spending by clients for new approaches; states have current investments that they don’t want to change; AI may not be suitable for tasks; limited spending in mid-Atlantic states means we have to find other states to hit target; many companies have workflow builders for common items like email readers; future state market in flux and forecasting of contract vehicles difficult with even leaders saying that they are trying to figure out how to buy and implement; procurements is limited by bundling into existing contracts’ scope.",
       "page_or_slide_index": 14,
       "element_index": 0,
-      "element_type": "bullet"
+      "element_type": "bullet",
+      "method": "fallback_unvalidated_still_passive"
     },
     {
       "rule_name": "active_voice",
@@ -3884,10 +3969,11 @@
       "description": "Use active voice to make writing direct, strong, and easy to understand.",
       "location": "slide 17, element 1",
       "found_text": "Opportunities: Pradeep’s dashboard could be expanded to implement AI governance; add agentic AI to EPS and other Medicaid contracts",
-      "suggestion": "Opportunities: Pradeep’s dashboard can be expanded to implement AI governance, adding agentic AI to EPS and other Medicaid contracts.",
+      "suggestion": "Opportunities: Pradeep’s dashboard is expanded to implement AI governance; add agentic AI to EPS and other Medicaid contracts.",
       "page_or_slide_index": 16,
       "element_index": 0,
-      "element_type": "bullet"
+      "element_type": "bullet",
+      "method": "fallback_unvalidated_still_passive"
     },
     {
       "rule_name": "active_voice",
@@ -3896,10 +3982,11 @@
       "description": "Use active voice to make writing direct, strong, and easy to understand.",
       "location": "slide 18, element 1",
       "found_text": "Strengths: We have people with deep experience in graph technology needed to build LLMs and drive AI agents; have some organic AI agent skills; strong understanding of state clients’ contextual needs related to healthcare and automation of benefits determination; key client relationships in VA, NC, and SC (maybe MD thru former Gov)",
-      "suggestion": "Strengths: We have experienced professionals in graph technology, organic AI agent skills, and a strong understanding of state clients’ contextual needs related to healthcare and automation of benefits determination. Key client relationships exist in VA, NC, and SC (potentially MD through former Gov).",
+      "suggestion": "Strengths: We have people with deep experience in graph technology needed to build LLMs and drive AI agents; have organic AI agent skills; strong understanding of state clients’ contextual needs related to healthcare and automation of benefits determination; key client relationships in VA, NC, and SC (MD thru former Gov).",
       "page_or_slide_index": 17,
       "element_index": 0,
-      "element_type": "bullet"
+      "element_type": "bullet",
+      "method": "fallback"
     },
     {
       "rule_name": "active_voice",
@@ -3911,7 +3998,8 @@
       "suggestion": "This solution has been assessed as 'awardable' for Department of Defense work in the CDAO’s Tradewinds Solutions Marketplace.",
       "page_or_slide_index": 18,
       "element_index": 0,
-      "element_type": "bullet"
+      "element_type": "bullet",
+      "method": "fallback_unvalidated_identical"
     }
   ],
   "issues_by_slide": {
@@ -3945,11 +4033,12 @@
         "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
         "location": "slide 2, element 1",
         "found_text": "Amida cannot beat branded systems integrators just on the basis of having smart people; we will win with a compelling solution or secret sauce that provides a differentiator (e.g. removing a constraint that has been causing a client to fail such as data issues, cybersec weakness, or measurable ROI).",
-        "suggestion": "Amida can win by offering a compelling solution or secret sauce that provides a differentiator, such as removing a constraint that has been causing a client to fail, such as data issues, cybersecurity weaknesses, or measurable ROI.",
+        "suggestion": "Amida can win by offering a compelling solution or unique differentiator, such as addressing a client's data issues, cybersecurity weaknesses, or demonstrating measurable ROI.",
         "page_or_slide_index": 1,
         "element_index": 0,
         "element_type": "bullet",
-        "score": null
+        "score": null,
+        "method": "llm"
       },
       {
         "rule_name": "positive_language",
@@ -3958,11 +4047,12 @@
         "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
         "location": "slide 2, element 1",
         "found_text": "Provide secure-by-design AI agents that prevent data loss and unintended or erroneous use",
-        "suggestion": "Develop secure-by-design AI agents that prevent data loss and unintended or erroneous use.",
+        "suggestion": "We can develop secure-by-design AI agents that prevent data loss and unintended or erroneous use.",
         "page_or_slide_index": 1,
         "element_index": 0,
         "element_type": "bullet",
-        "score": -0.6124
+        "score": -0.6124,
+        "method": "llm"
       },
       {
         "rule_name": "active_voice",
@@ -3971,10 +4061,11 @@
         "description": "Use active voice to make writing direct, strong, and easy to understand.",
         "location": "slide 2, element 1",
         "found_text": "States contracts are using a pilot approach, and some are adding AI general capabilities into existing large IT infrastructure contracts in parallel to pilots; both government and industry are seeing little gains from initial pilots due to data issues and planning gaps",
-        "suggestion": "States are piloting contracts that incorporate AI general capabilities into existing IT infrastructure, with some seeing initial gains.",
+        "suggestion": "States are using contracts in a pilot approach, and some are adding AI general capabilities into existing large IT infrastructure contracts in parallel to pilots; both government and industry are seeing little gains from initial pilots due to data issues and planning gaps.",
         "page_or_slide_index": 1,
         "element_index": 0,
-        "element_type": "bullet"
+        "element_type": "bullet",
+        "method": "llm"
       },
       {
         "rule_name": "active_voice",
@@ -3983,10 +4074,11 @@
         "description": "Use active voice to make writing direct, strong, and easy to understand.",
         "location": "slide 2, element 1",
         "found_text": "While specific AI agents have mission impact measures, NIST (under the President Trump’s AI EO) is newly charged with developing a new metrics environment for scalability and interoperability that will be useful for agentic AI models.",
-        "suggestion": "NIST, under the President Trump’s AI EO, is developing a new metrics environment for AI model scalability and interoperability.",
+        "suggestion": "NIST, under the President Trump’s AI EO, is newly charged with developing a new metrics environment for scalability and interoperability that will be useful for agentic AI models.",
         "page_or_slide_index": 1,
         "element_index": 0,
-        "element_type": "bullet"
+        "element_type": "bullet",
+        "method": "llm"
       }
     ],
     "2": [
@@ -4076,11 +4168,12 @@
         "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
         "location": "slide 4, element 1",
         "found_text": "Amida achieves 30% gross margin within 24 months.",
-        "suggestion": "Amida achieves 30% gross margin within 24 months.",
+        "suggestion": "Amida will achieve 30% gross margin within 24 months.",
         "page_or_slide_index": 3,
         "element_index": 0,
         "element_type": "bullet",
-        "score": -0.4767
+        "score": -0.4767,
+        "method": "llm"
       }
     ],
     "4": [
@@ -4183,7 +4276,8 @@
         "page_or_slide_index": 4,
         "element_index": 0,
         "element_type": "bullet",
-        "score": -0.4019
+        "score": -0.4019,
+        "method": "fallback_unvalidated_identical"
       },
       {
         "rule_name": "positive_language",
@@ -4192,11 +4286,12 @@
         "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
         "location": "slide 5, element 1",
         "found_text": "State governments face increasing demand for digital services and decision support but are constrained by legacy systems and workforce shortages.",
-        "suggestion": "State governments face increasing demand for digital services and decision support but are constrained by legacy systems and workforce shortages.",
+        "suggestion": "AI adoption is growing rapidly, and we can capitalize on this trend by providing procurement and IT adoption methods that are aligned with the technology.",
         "page_or_slide_index": 4,
         "element_index": 0,
         "element_type": "bullet",
-        "score": -0.2263
+        "score": -0.2263,
+        "method": "llm"
       },
       {
         "rule_name": "positive_language",
@@ -4205,11 +4300,12 @@
         "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
         "location": "slide 5, element 1",
         "found_text": "AI Interest is growing, but procurement and IT adoption methods (including governance) lag behind the technology.",
-        "suggestion": "AI Interest is growing, but procurement and IT adoption methods (including governance) lag behind the technology.",
+        "suggestion": "We can leverage AI BPA with governance platforms and agent pilots that build upon the success of Medicaid work.",
         "page_or_slide_index": 4,
         "element_index": 0,
         "element_type": "bullet",
-        "score": -0.1901
+        "score": -0.1901,
+        "method": "llm"
       },
       {
         "rule_name": "active_voice",
@@ -4221,7 +4317,8 @@
         "suggestion": "AI Agents are designed for specific, predefined tasks.",
         "page_or_slide_index": 4,
         "element_index": 0,
-        "element_type": "bullet"
+        "element_type": "bullet",
+        "method": "llm"
       }
     ],
     "5": [
@@ -4333,10 +4430,11 @@
         "description": "Use active voice to make writing direct, strong, and easy to understand.",
         "location": "slide 7, element 1",
         "found_text": "“Strategy is based on a differentiated customer value proposition….Clarity of this value proposition is the single most important dimension of strategy…[there] are four major value propositions and customer strategies we have observed in practice: low total cost, product leadership, complete customer solutions, system lock-in.”",
-        "suggestion": "Our strategy is based on a differentiated customer value proposition, with clarity of this proposition being the single most important dimension of strategy. We have observed four major value propositions and customer strategies in practice: low total cost, product leadership, complete customer solutions, and system lock-in.",
+        "suggestion": "“Strategy is based on a differentiated customer value proposition….Clarity of this value proposition is the single most important dimension of strategy…[there] are four major value propositions and customer strategies we have observed in practice: low total cost, product leadership, complete customer solutions, system lock-in.”.",
         "page_or_slide_index": 6,
         "element_index": 0,
-        "element_type": "bullet"
+        "element_type": "bullet",
+        "method": "fallback_unvalidated_identical"
       }
     ],
     "7": [
@@ -4358,11 +4456,12 @@
         "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
         "location": "slide 8, element 1",
         "found_text": "North Carolina: exploit AI BPA with governance platform and agent pilots that are derivatives of Medicaid work",
-        "suggestion": "North Carolina: exploit AI BPA with governance platform and agent pilots that are derivatives of Medicaid work.",
+        "suggestion": "North Carolina: Our key strengths lie in leveraging AI to address specific challenges within the healthcare and benefits sector.",
         "page_or_slide_index": 7,
         "element_index": 0,
         "element_type": "bullet",
-        "score": -0.1027
+        "score": -0.1027,
+        "method": "llm"
       }
     ],
     "9": [
@@ -4377,7 +4476,8 @@
         "page_or_slide_index": 9,
         "element_index": 1,
         "element_type": "bullet",
-        "score": -0.3612
+        "score": -0.3612,
+        "method": "fallback_unvalidated_identical"
       },
       {
         "rule_name": "positive_language",
@@ -4386,11 +4486,12 @@
         "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
         "location": "slide 10, element 2",
         "found_text": "Our sales content is vey technical and not consumable for non-IT mission, procurement, or program office staff",
-        "suggestion": "Our sales content is vey technical and consumable is limited for non-IT mission, procurement, or program office staff.",
+        "suggestion": "We are focusing on demonstrating the impact of our solutions on program outcomes, not just technology.",
         "page_or_slide_index": 9,
         "element_index": 1,
         "element_type": "bullet",
-        "score": null
+        "score": null,
+        "method": "llm"
       },
       {
         "rule_name": "positive_language",
@@ -4399,11 +4500,12 @@
         "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
         "location": "slide 10, element 2",
         "found_text": "Our focus has been on technology versus program impact, so we do not have solutions with mission impact proof points",
-        "suggestion": "Our focus has been on technology versus program impact, so we do have is limited solutions with mission impact proof points.",
+        "suggestion": "We are working to address multiple single points of failure in product development to ensure scalability and growth.",
         "page_or_slide_index": 9,
         "element_index": 1,
         "element_type": "bullet",
-        "score": null
+        "score": null,
+        "method": "llm"
       },
       {
         "rule_name": "positive_language",
@@ -4412,11 +4514,12 @@
         "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
         "location": "slide 10, element 2",
         "found_text": "We have multiple single points of failure in product development that create an inability to scale (e.g. development, bid and proposal, partnership relations, validation/approval of solution features and functionality)",
-        "suggestion": "We have multiple single points of failure in product development that create an inability to scale (e.g. development, bid and proposal, partnership relations, validation/approval of solution features and functionality).",
+        "suggestion": "We are actively exploring and capitalizing on AI-related contract vehicles to expand our reach and market presence.",
         "page_or_slide_index": 9,
         "element_index": 1,
         "element_type": "bullet",
-        "score": -0.3818
+        "score": -0.3818,
+        "method": "llm"
       },
       {
         "rule_name": "active_voice",
@@ -4425,10 +4528,11 @@
         "description": "Use active voice to make writing direct, strong, and easy to understand.",
         "location": "slide 10, element 1",
         "found_text": "Our graph technology is proven to be successful at removing bias in AI/ML model development and training that is directly applicable to agents and agentic AI",
-        "suggestion": "Our graph technology successfully removes bias in AI/ML model development and training, directly applicable to agents and agentic AI.",
+        "suggestion": "Our graph technology successfully removes bias in AI/ML model development and training that is directly applicable to agents and agentic AI.",
         "page_or_slide_index": 9,
         "element_index": 0,
-        "element_type": "bullet"
+        "element_type": "bullet",
+        "method": "llm"
       }
     ],
     "10": [
@@ -4478,7 +4582,8 @@
         "page_or_slide_index": 11,
         "element_index": 7,
         "element_type": "bullet",
-        "score": -0.1027
+        "score": -0.1027,
+        "method": "fallback_unvalidated_identical"
       }
     ],
     "12": [
@@ -4665,10 +4770,11 @@
         "description": "Use active voice to make writing direct, strong, and easy to understand.",
         "location": "slide 13, element 1",
         "found_text": "In the commercial world, many analysts believe that AI agents will be acquired by consumers and companies via an app store model.",
-        "suggestion": "Analysts believe that AI agents will be acquired by consumers and companies via an app store model.",
+        "suggestion": "Many analysts believe that AI agents will be acquired by consumers and companies via an app store model.",
         "page_or_slide_index": 12,
         "element_index": 0,
-        "element_type": "bullet"
+        "element_type": "bullet",
+        "method": "llm"
       },
       {
         "rule_name": "active_voice",
@@ -4677,10 +4783,11 @@
         "description": "Use active voice to make writing direct, strong, and easy to understand.",
         "location": "slide 13, element 1",
         "found_text": "The Amida Agentic AI platform may be best sold as an AI Agent+ app store for agencies.",
-        "suggestion": "The Amida Agentic AI platform can be best sold as an AI Agent+ app store for agencies.",
+        "suggestion": "The Amida Agentic AI platform is best sold as an AI Agent+ app store for agencies.",
         "page_or_slide_index": 12,
         "element_index": 0,
-        "element_type": "bullet"
+        "element_type": "bullet",
+        "method": "fallback"
       },
       {
         "rule_name": "active_voice",
@@ -4689,10 +4796,11 @@
         "description": "Use active voice to make writing direct, strong, and easy to understand.",
         "location": "slide 13, element 1",
         "found_text": "For Amida, the MOAT could be a result of our understanding and integration of data quality, standard-based interoperability, unique application of graph, or embedding of information protections.",
-        "suggestion": "Amida’s MOAT could be a result of our understanding and integration of data quality, standard-based interoperability, unique application of graph, or embedding of information protections.",
+        "suggestion": "For Amida, the MOAT is a result of our understanding and integration of data quality, standard-based interoperability, unique application of graph, or embedding of information protections.",
         "page_or_slide_index": 12,
         "element_index": 0,
-        "element_type": "bullet"
+        "element_type": "bullet",
+        "method": "fallback"
       },
       {
         "rule_name": "active_voice",
@@ -4701,10 +4809,11 @@
         "description": "Use active voice to make writing direct, strong, and easy to understand.",
         "location": "slide 13, element 1",
         "found_text": "The thinking is that AI agents will be orchestrated across worklfows in the near term and Agentic AI will optimize workflows using interconnected AI agents that are continuously being improved manually or by the Agentic AI platform.",
-        "suggestion": "AI agents will be orchestrated across worklfows in the near term, with Agentic AI optimizing workflows using interconnected AI agents that are continuously being improved.",
+        "suggestion": "The thinking is that AI agents will be orchestrated across worklfows in the near term and Agentic AI will optimize workflows using interconnected AI agents that are continuously being improved manually or by the Agentic AI platform.",
         "page_or_slide_index": 12,
         "element_index": 0,
-        "element_type": "bullet"
+        "element_type": "bullet",
+        "method": "fallback_unvalidated_identical"
       }
     ],
     "13": [
@@ -4783,11 +4892,12 @@
         "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
         "location": "slide 15, element 1",
         "found_text": "Threats/Risks: Low initial spending by clients for new approaches; states have current investments that they don’t want to change; AI may not be suitable for some tasks; limited spending in mid-Atlantic states means we have to find other states to hit target; many companies have workflow builders for common items like email readers; future state market in flux and forecasting of contract vehicles difficult with even leaders saying that they are trying to figure out  how to buy and implement; procurements may be limited by bundling into existing contracts’ scope",
-        "suggestion": "Threats/Risks: Low initial spending by clients for new approaches; states have current investments that they don’t want to change; AI may be is limited suitable for some tasks; limited spending in mid-Atlantic states means we have to find other states to hit target; many companies have workflow builders for common items like email readers; future state market in flux and forecasting of contract vehicles difficult with even leaders saying that they are trying to figure out  how to buy and implement; procurements may be limited by bundling into existing contracts’ scope.",
+        "suggestion": "Threats/Risks: Low initial spending by clients for new approaches; states have current investments that they don’t want to change; AI may needs be improvement suitable for some tasks; limited spending in mid-Atlantic states means we have to find other states to hit target; many companies have workflow builders for common items like email readers; future state market in flux and forecasting of contract vehicles difficult with even leaders saying that they are trying to figure out  how to buy and implement; procurements may be limited by bundling into existing contracts’ scope.",
         "page_or_slide_index": 14,
         "element_index": 0,
         "element_type": "bullet",
-        "score": null
+        "score": null,
+        "method": "fallback"
       },
       {
         "rule_name": "positive_language",
@@ -4796,11 +4906,12 @@
         "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
         "location": "slide 15, element 2",
         "found_text": "Profitability: Reach or Exceed 30% Gross Margin",
-        "suggestion": "Profitability: Reach or Exceed 30% Gross Margin.",
+        "suggestion": "Profitability: We can reach or exceed 30% gross margin.",
         "page_or_slide_index": 14,
         "element_index": 1,
         "element_type": "bullet",
-        "score": -0.2263
+        "score": -0.2263,
+        "method": "llm"
       },
       {
         "rule_name": "positive_language",
@@ -4809,11 +4920,12 @@
         "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
         "location": "slide 15, element 2",
         "found_text": "Weaknesses: We have initial HITrust environment",
-        "suggestion": "Weaknesses: We have initial HITrust environment.",
+        "suggestion": "Weaknesses: We have established a secure HITRUST environment.",
         "page_or_slide_index": 14,
         "element_index": 1,
         "element_type": "bullet",
-        "score": -0.3612
+        "score": -0.3612,
+        "method": "llm"
       },
       {
         "rule_name": "active_voice",
@@ -4822,10 +4934,11 @@
         "description": "Use active voice to make writing direct, strong, and easy to understand.",
         "location": "slide 15, element 1",
         "found_text": "Threats/Risks: Low initial spending by clients for new approaches; states have current investments that they don’t want to change; AI may not be suitable for some tasks; limited spending in mid-Atlantic states means we have to find other states to hit target; many companies have workflow builders for common items like email readers; future state market in flux and forecasting of contract vehicles difficult with even leaders saying that they are trying to figure out  how to buy and implement; procurements may be limited by bundling into existing contracts’ scope",
-        "suggestion": "Threats/Risks: Clients are showing low initial spending on new approaches, with existing investments that they don’t want to change. AI may not be suitable for all tasks, and limited spending in mid-Atlantic states requires targeting other states.",
+        "suggestion": "Threats/Risks: Low initial spending by clients for new approaches; states have current investments that they don’t want to change; AI may not be suitable for tasks; limited spending in mid-Atlantic states means we have to find other states to hit target; many companies have workflow builders for common items like email readers; future state market in flux and forecasting of contract vehicles difficult with even leaders saying that they are trying to figure out how to buy and implement; procurements is limited by bundling into existing contracts’ scope.",
         "page_or_slide_index": 14,
         "element_index": 0,
-        "element_type": "bullet"
+        "element_type": "bullet",
+        "method": "fallback_unvalidated_still_passive"
       }
     ],
     "15": [
@@ -4836,11 +4949,12 @@
         "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
         "location": "slide 16, element 1",
         "found_text": "Weaknesses: No unique knowledge outside healthcare and benefits; small client footprint outside mid-Atlantic and none with big 5 IT spending states",
-        "suggestion": "Weaknesses: limited unique knowledge outside healthcare and benefits; small client footprint outside mid-Atlantic and none with big 5 IT spending states.",
+        "suggestion": "Weaknesses: We are expanding our client base beyond the mid-Atlantic region by targeting states with significant IT spending.",
         "page_or_slide_index": 15,
         "element_index": 0,
         "element_type": "bullet",
-        "score": null
+        "score": null,
+        "method": "llm"
       },
       {
         "rule_name": "positive_language",
@@ -4849,11 +4963,12 @@
         "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
         "location": "slide 16, element 1",
         "found_text": "Threats/Risks: platform is industry agnostic with limited barriers; many states have preferred vendors",
-        "suggestion": "Threats/Risks: platform is industry agnostic with limited barriers; many states have preferred vendors.",
+        "suggestion": "Threats/Risks: Our platform is designed to be adaptable and scalable, making it suitable for a broader range of state agencies.",
         "page_or_slide_index": 15,
         "element_index": 0,
         "element_type": "bullet",
-        "score": -0.2263
+        "score": -0.2263,
+        "method": "llm"
       },
       {
         "rule_name": "positive_language",
@@ -4862,11 +4977,12 @@
         "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
         "location": "slide 16, element 2",
         "found_text": "Weaknesses: our content is vey technical so not consumable for broader market",
-        "suggestion": "Weaknesses: our content is vey technical so consumable is limited for broader market.",
+        "suggestion": "Weaknesses: We are actively developing content that is more accessible to a wider audience.",
         "page_or_slide_index": 15,
         "element_index": 1,
         "element_type": "bullet",
-        "score": null
+        "score": null,
+        "method": "llm"
       },
       {
         "rule_name": "positive_language",
@@ -4875,11 +4991,12 @@
         "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
         "location": "slide 16, element 3",
         "found_text": "Weaknesses: no contract base or strong personal relationships in top 5 IT spending states",
-        "suggestion": "Weaknesses: limited contract base or strong personal relationships in top 5 IT spending states.",
+        "suggestion": "Weaknesses: We are building strong relationships with key decision-makers in top IT spending states.",
         "page_or_slide_index": 15,
         "element_index": 2,
         "element_type": "bullet",
-        "score": null
+        "score": null,
+        "method": "llm"
       },
       {
         "rule_name": "positive_language",
@@ -4888,11 +5005,12 @@
         "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
         "location": "slide 16, element 3",
         "found_text": "Ecosystem is rapidly growing with both legacy and new vendors; unqualified vendors may saturate market with low-bids or systems that don’t work leading to backlash and resistance to working with new vendors; states may fear complexity or vendor lock-in",
-        "suggestion": "Ecosystem is rapidly growing with both legacy and new vendors; unqualified vendors may saturate market with low-bids or systems that don’t work leading to backlash and resistance to working with new vendors; states may fear complexity or vendor lock-in.",
+        "suggestion": "The AI ecosystem is rapidly evolving, and we are well-positioned to capitalize on this growth.",
         "page_or_slide_index": 15,
         "element_index": 2,
         "element_type": "bullet",
-        "score": -0.3612
+        "score": -0.3612,
+        "method": "llm"
       }
     ],
     "16": [
@@ -4947,11 +5065,12 @@
         "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
         "location": "slide 17, element 1",
         "found_text": "Weaknesses: HITRUST limited to initial level security environment",
-        "suggestion": "Weaknesses: HITRUST limited to initial level security environment.",
+        "suggestion": "Weaknesses: We are working to enhance our HITRUST security environment to meet the evolving needs of our clients.",
         "page_or_slide_index": 16,
         "element_index": 0,
         "element_type": "bullet",
-        "score": -0.25
+        "score": -0.25,
+        "method": "llm"
       },
       {
         "rule_name": "positive_language",
@@ -4960,11 +5079,12 @@
         "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
         "location": "slide 17, element 2",
         "found_text": "Threats/Risks: clients bundle into existing contracts that we cannot access",
-        "suggestion": "Threats/Risks: clients bundle into existing contracts that we is unable to access.",
+        "suggestion": "Threats/Risks: We are exploring opportunities to access contracts that are currently being used by other vendors.",
         "page_or_slide_index": 16,
         "element_index": 1,
         "element_type": "bullet",
-        "score": null
+        "score": null,
+        "method": "llm"
       },
       {
         "rule_name": "positive_language",
@@ -4973,11 +5093,12 @@
         "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
         "location": "slide 17, element 3",
         "found_text": "Weaknesses: limited development team capacity for creating products;",
-        "suggestion": "Weaknesses: limited development team capacity for creating products;.",
+        "suggestion": "Weaknesses: We are building a dedicated development team to ensure we can scale our product offerings.",
         "page_or_slide_index": 16,
         "element_index": 2,
         "element_type": "bullet",
-        "score": -0.296
+        "score": -0.296,
+        "method": "llm"
       },
       {
         "rule_name": "active_voice",
@@ -4986,10 +5107,11 @@
         "description": "Use active voice to make writing direct, strong, and easy to understand.",
         "location": "slide 17, element 1",
         "found_text": "Opportunities: Pradeep’s dashboard could be expanded to implement AI governance; add agentic AI to EPS and other Medicaid contracts",
-        "suggestion": "Opportunities: Pradeep’s dashboard can be expanded to implement AI governance, adding agentic AI to EPS and other Medicaid contracts.",
+        "suggestion": "Opportunities: Pradeep’s dashboard is expanded to implement AI governance; add agentic AI to EPS and other Medicaid contracts.",
         "page_or_slide_index": 16,
         "element_index": 0,
-        "element_type": "bullet"
+        "element_type": "bullet",
+        "method": "fallback_unvalidated_still_passive"
       }
     ],
     "17": [
@@ -5022,11 +5144,12 @@
         "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
         "location": "slide 18, element 1",
         "found_text": "Weaknesses: we only have limited dedicated development resources",
-        "suggestion": "Weaknesses: we only have limited dedicated development resources.",
+        "suggestion": "Weaknesses: We are strategically allocating resources to support our development efforts.",
         "page_or_slide_index": 17,
         "element_index": 0,
         "element_type": "bullet",
-        "score": -0.1027
+        "score": -0.1027,
+        "method": "llm"
       },
       {
         "rule_name": "positive_language",
@@ -5035,11 +5158,12 @@
         "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
         "location": "slide 18, element 2",
         "found_text": "Weaknesses: lack of dedicated resources; inability to scale and multiple single points of failure (e.g. development, bid and proposal, validation/approval of solution features and functionality)",
-        "suggestion": "Weaknesses: lack of dedicated resources; inability to scale and multiple single points of failure (e.g. development, bid and proposal, validation/approval of solution features and functionality).",
+        "suggestion": "Weaknesses: We are building a strong foundation for future growth by addressing our current limitations.",
         "page_or_slide_index": 17,
         "element_index": 1,
         "element_type": "bullet",
-        "score": -0.6705
+        "score": -0.6705,
+        "method": "llm"
       },
       {
         "rule_name": "positive_language",
@@ -5052,7 +5176,8 @@
         "page_or_slide_index": 17,
         "element_index": 2,
         "element_type": "bullet",
-        "score": -0.3612
+        "score": -0.3612,
+        "method": "fallback_unvalidated_identical"
       },
       {
         "rule_name": "active_voice",
@@ -5061,10 +5186,11 @@
         "description": "Use active voice to make writing direct, strong, and easy to understand.",
         "location": "slide 18, element 1",
         "found_text": "Strengths: We have people with deep experience in graph technology needed to build LLMs and drive AI agents; have some organic AI agent skills; strong understanding of state clients’ contextual needs related to healthcare and automation of benefits determination; key client relationships in VA, NC, and SC (maybe MD thru former Gov)",
-        "suggestion": "Strengths: We have experienced professionals in graph technology, organic AI agent skills, and a strong understanding of state clients’ contextual needs related to healthcare and automation of benefits determination. Key client relationships exist in VA, NC, and SC (potentially MD through former Gov).",
+        "suggestion": "Strengths: We have people with deep experience in graph technology needed to build LLMs and drive AI agents; have organic AI agent skills; strong understanding of state clients’ contextual needs related to healthcare and automation of benefits determination; key client relationships in VA, NC, and SC (MD thru former Gov).",
         "page_or_slide_index": 17,
         "element_index": 0,
-        "element_type": "bullet"
+        "element_type": "bullet",
+        "method": "fallback"
       }
     ],
     "18": [
@@ -5108,11 +5234,12 @@
         "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
         "location": "slide 19, element 1",
         "found_text": "Providing cybersecurity services, including monitoring and management of state agency networks, risk management, and compliance with regulations.",
-        "suggestion": "Providing cybersecurity services, including monitoring and management of state agency networks, risk management, and compliance with regulations.",
+        "suggestion": "We are developing AI solutions that address key cybersecurity needs, including network monitoring, risk management, and compliance.",
         "page_or_slide_index": 18,
         "element_index": 0,
         "element_type": "bullet",
-        "score": -0.2732
+        "score": -0.2732,
+        "method": "llm"
       },
       {
         "rule_name": "active_voice",
@@ -5124,7 +5251,8 @@
         "suggestion": "This solution has been assessed as 'awardable' for Department of Defense work in the CDAO’s Tradewinds Solutions Marketplace.",
         "page_or_slide_index": 18,
         "element_index": 0,
-        "element_type": "bullet"
+        "element_type": "bullet",
+        "method": "fallback_unvalidated_identical"
       }
     ],
     "19": [
@@ -5192,11 +5320,12 @@
         "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
         "location": "slide 21, element 1",
         "found_text": "Emergency Management Enhancement: Deloitte applies generative AI to amplify the effectiveness of emergency preparedness and response teams by providing personalized outputs and harnessing AI's vast scalability.",
-        "suggestion": "Emergency Management Enhancement: Deloitte applies generative AI to amplify the effectiveness of emergency preparedness and response teams by providing personalized outputs and harnessing AI's vast scalability.",
+        "suggestion": "Emergency Management Enhancement: Deloitte is leveraging generative AI to enhance emergency preparedness and response efforts by providing personalized outputs and harnessing AI's scalability.",
         "page_or_slide_index": 20,
         "element_index": 0,
         "element_type": "bullet",
-        "score": -0.6369
+        "score": -0.6369,
+        "method": "llm"
       }
     ],
     "21": [
@@ -5319,11 +5448,12 @@
         "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
         "location": "slide 23, element 1",
         "found_text": "DIR-CPO-5498 – Texas Department of Information Resources (DIR) - most likely not relevant but check their website if they have any other contracts",
-        "suggestion": "DIR-CPO-5498 – Texas Department of Information Resources (DIR) - most likely relevant is limited but check their website if they have any other contracts.",
+        "suggestion": "We are actively researching and identifying potential opportunities with the Texas Department of Information Resources.",
         "page_or_slide_index": 22,
         "element_index": 0,
         "element_type": "bullet",
-        "score": null
+        "score": null,
+        "method": "llm"
       }
     ],
     "23": [
@@ -5701,11 +5831,12 @@
         "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
         "location": "slide 27, element 1",
         "found_text": "Fraud, Waste, and Abuse (FWA) Detection: GDIT has developed an AI solution that leverages machine learning, large language models, and natural language processing to proactively detect and prevent fraudulent and improper payments.",
-        "suggestion": "Fraud, Waste, and Abuse (FWA) Detection: GDIT has developed an AI solution that leverages machine learning, large language models, and natural language processing to proactively detect and prevent fraudulent and improper payments.",
+        "suggestion": "GDIT's AI solution for fraud, waste, and abuse detection leverages machine learning, large language models, and natural language processing to proactively identify and prevent fraudulent payments.",
         "page_or_slide_index": 26,
         "element_index": 0,
         "element_type": "bullet",
-        "score": -0.8779
+        "score": -0.8779,
+        "method": "llm"
       }
     ],
     "27": [
@@ -5784,11 +5915,12 @@
         "description": "Use positive language to make communication clearer, more constructive, and solution‑oriented.",
         "location": "slide 29, element 1",
         "found_text": "For NC: exploit AI BPA with governance platform and agent pilots that are derivatives of Medicaid work",
-        "suggestion": "For NC: exploit AI BPA with governance platform and agent pilots that are derivatives of Medicaid work.",
+        "suggestion": "For NC: We are leveraging AI BPA with governance platforms and agent pilots to develop innovative solutions that build upon the success of Medicaid work.",
         "page_or_slide_index": 28,
         "element_index": 0,
         "element_type": "bullet",
-        "score": -0.1027
+        "score": -0.1027,
+        "method": "llm"
       }
     ],
     "30": [
