@@ -1,7 +1,12 @@
 """
-Application configuration management using Pydantic settings.
+Provider-agnostic settings with ONE LLM config:
+  LLM_PROVIDER, LLM_API_KEY, LLM_MODEL, LLM_API_ENDPOINT
+
+CLI:
+  python -m backend.config.settings --verbose
 """
-import os
+from __future__ import annotations
+
 import logging
 from pathlib import Path
 from typing import Optional
@@ -10,93 +15,82 @@ from pydantic import Field
 from pydantic_settings import BaseSettings
 from dotenv import load_dotenv
 
-# Configure logger
+# logging bootstrap
 logger = logging.getLogger(__name__)
+if not logger.handlers:
+    _h = logging.StreamHandler()
+    _h.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(name)s: %(message)s"))
+    logger.addHandler(_h)
 logger.setLevel(logging.INFO)
 
-# Get the project root directory
-PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
-
-# Load environment variables from .env.example file
-load_dotenv(".env.example")
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+ENV_EXAMPLE = PROJECT_ROOT / ".env.example"
+if ENV_EXAMPLE.exists():
+    load_dotenv(ENV_EXAMPLE, override=False)
+    logger.info("Loaded defaults from %s (override=False)", ENV_EXAMPLE)
 
 class Settings(BaseSettings):
-    """Application settings loaded from environment variables."""
-    
-    # Application
+    # App
     app_name: str = Field(default="slide-review-agent", alias="APP_NAME")
     environment: str = Field(default="development", alias="ENVIRONMENT")
     debug: bool = Field(default=True, alias="DEBUG")
-    
-    # Database
-    database_url: str = Field(default=f"sqlite:///{PROJECT_ROOT}/data/slide_review.db", alias="DATABASE_URL")
-    
-    # Hugging Face Configuration
-    huggingface_api_key: Optional[str] = Field(default=None, alias="HUGGINGFACE_API_KEY")
-    huggingface_model: str = Field(default="google/gemma-2-2b-it", alias="HUGGINGFACE_MODEL")
+
+    # DB
+    database_url: str = Field(default=f"sqlite:///{PROJECT_ROOT}/data/slide_review.db",
+                              alias="DATABASE_URL")
+
+    # SINGLE LLM CONFIG
     llm_provider: str = Field(default="huggingface", alias="LLM_PROVIDER")
-    
-    # Fallback providers
-    openai_api_key: Optional[str] = Field(default=None, alias="OPENAI_API_KEY")
-    openai_model: str = Field(default="gpt-4", alias="OPENAI_MODEL")
-    
-    # File handling
-    max_file_size_mb: int = Field(default=50, alias="MAX_FILE_SIZE_MB")
-    upload_dir: str = Field(default=str(PROJECT_ROOT / "data" / "uploads"), alias="UPLOAD_DIR")
-    output_dir: str = Field(default=str(PROJECT_ROOT / "data" / "outputs"), alias="OUTPUT_DIR")
-    
-    # Demo mode and rewrite settings
-    demo_mode: bool = Field(default=True, alias="DEMO_MODE")
-    enable_rewrite: bool = Field(default=True, alias="ENABLE_REWRITE")
-    rewrite_budget_max_calls: int = Field(default=5, alias="REWRITE_BUDGET_MAX_CALLS")
-    batch_size_limit: int = Field(default=50, alias="BATCH_SIZE_LIMIT") 
-    
-    # Analyzer settings
+    llm_api_key: Optional[str] = Field(default=None, alias="LLM_API_KEY")
+    llm_model: str = Field(default="google/gemma-2-2b-it", alias="LLM_MODEL")
+    llm_api_endpoint: str = Field(default="https://router.huggingface.co/v1/chat/completions",
+                                  alias="LLM_API_ENDPOINT")
+
+    # Logging
     log_level: int = Field(default=logging.INFO, alias="LOG_LEVEL")
-    vader_neg_threshold: float = Field(default=-0.05, alias="VADER_NEG_THRESHOLD")
-    analyzer_include_notes: bool = Field(default=False, alias="ANALYZER_INCLUDE_NOTES")
-    
-    # Paths
-    style_guide_path: str = Field(default=str(PROJECT_ROOT / "docs" / "style_template"), alias="STYLE_GUIDE_PATH")
-    past_docs_dir: str = Field(default=str(PROJECT_ROOT / "docs" / "past_docs"), alias="PAST_DOCS_DIR")
-    
+
     class Config:
         case_sensitive = False
-        
-    def ensure_directories(self):
-        """Create required directories if they don't exist."""
-        directories = [
-            self.upload_dir,
-            self.output_dir,
-            str(PROJECT_ROOT / "data" / "logs"),
-            str(PROJECT_ROOT / "data" / "vector_store"),
-            self.style_guide_path,
-            self.past_docs_dir
-        ]
-        
-        logger.info(f"Creating directories from project root: {PROJECT_ROOT}")
-        for directory in directories:
-            Path(directory).mkdir(parents=True, exist_ok=True)
-            logger.debug(f" - {directory}")
-    
-    @property
-    def database_path(self) -> str:
-        """Extract database file path from SQLite URL."""
-        if self.database_url.startswith("sqlite:///"):
-            return self.database_url.replace("sqlite:///", "")
-        return self.database_url
-    
+
+    # helpers
     def validate_llm_config(self) -> bool:
-        """Validate LLM provider configuration."""
-        if self.llm_provider == "huggingface":
-            is_valid = self.huggingface_api_key is not None and len(str(self.huggingface_api_key).strip()) > 0
-            if not is_valid:
-                logger.warning("Hugging Face API key is missing or empty")
-            return is_valid
-        elif self.llm_provider == "openai":
-            return self.openai_api_key is not None
-        return False
+        return bool((self.llm_api_key or "").strip()
+                    and (self.llm_model or "").strip()
+                    and (self.llm_api_endpoint or "").strip())
 
+    def log_summary(self) -> None:
+        logger.info("App: %s | Env: %s | Debug=%s", self.app_name, self.environment, self.debug)
+        logger.info("Database URL: %s", self.database_url)
+        logger.info("LLM Provider: %s", self.llm_provider)
+        logger.info("LLM Model: %s", self.llm_model)
+        logger.info("LLM Endpoint: %s", self.llm_api_endpoint)
+        logger.info("LLM API key set: %s", "yes" if self.llm_api_key else "no")
+        ok = self.validate_llm_config()
+        logger.info("LLM config valid: %s", ok)
+        if not ok:
+            missing = []
+            if not (self.llm_api_key or "").strip(): missing.append("LLM_API_KEY")
+            if not (self.llm_model or "").strip(): missing.append("LLM_MODEL")
+            if not (self.llm_api_endpoint or "").strip(): missing.append("LLM_API_ENDPOINT")
+            logger.warning("Missing LLM keys: %s", ", ".join(missing) or "unknown")
 
-# Global settings instance
 settings = Settings()
+logger.setLevel(getattr(settings, "log_level", logging.INFO))
+
+# CLI self-test
+def _parse_args():
+    import argparse
+    ap = argparse.ArgumentParser(description="Settings self-test")
+    ap.add_argument("--verbose", action="store_true", help="DEBUG logs")
+    return ap.parse_args()
+
+def main():
+    args = _parse_args()
+    if args.verbose:
+        logger.setLevel(logging.DEBUG)
+        logging.getLogger().setLevel(logging.DEBUG)
+    logger.debug("PROJECT_ROOT=%s | .env.example exists=%s", PROJECT_ROOT, ENV_EXAMPLE.exists())
+    settings.log_summary()
+
+if __name__ == "__main__":
+    main()

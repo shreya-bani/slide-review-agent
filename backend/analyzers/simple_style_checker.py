@@ -1,25 +1,30 @@
 """
-Advanced Grammar & Word-List Style Checker
-Agentic AI approach with LLM enhancement and intelligent caching
+Restructured Grammar & Style Checker
+Single upfront LLM call for comprehensive protection categorization
 """
 
+from __future__ import annotations
 import json
-import os
 import re
 import sys
-import hashlib
-from typing import List, Dict, Any, Optional, Tuple
+from typing import List, Dict, Any, Optional, Set
 from dataclasses import dataclass, asdict
 from enum import Enum
-import requests
 import logging
+from typing import Union
 
-# Add this near the top of the file, after other imports
+from ..config.settings import settings
+from ..utils.llm_client import LLMClient
+
+# Logging setup
 logger = logging.getLogger(__name__)
-# ============================================================================
-# CONFIGURATION
-# ============================================================================
+logging.basicConfig(
+    level=getattr(settings, "log_level", logging.INFO),
+    format="%(asctime)s %(levelname)s %(name)s: %(message)s",
+    stream=sys.stdout,
+)
 
+# Data structures
 class Severity(Enum):
     ERROR = "error"
     WARNING = "warning"
@@ -43,383 +48,259 @@ class StyleIssue:
     element_index: int
     confidence: float = 1.0
     method: str = "rule-based"
-    
-    def to_dict(self):
+
+    def to_dict(self) -> Dict[str, Any]:
         d = asdict(self)
-        d['severity'] = self.severity.value
-        d['category'] = self.category.value
+        d["severity"] = self.severity.value
+        d["category"] = self.category.value
         return d
 
-# ============================================================================
-# LLM CLIENT WITH SMART CACHING
-# ============================================================================
 
-class LLMClient:
-    def __init__(self, api_key: str = None, cache_file: str = ".llm_cache.json"):
-        self.api_key = api_key or os.getenv("HF_API_KEY", "")
-        self.cache_file = cache_file
-        self.cache = self._load_cache()
-        self.endpoint = "https://router.huggingface.co/v1/chat/completions"
-        self.model = "google/gemma-2-2b-it:nebius"
-        
-    def _load_cache(self) -> Dict:
-        if os.path.exists(self.cache_file):
-            try:
-                with open(self.cache_file, 'r', encoding='utf-8') as f:
-                    return json.load(f)
-            except:
-                return {}
-        return {}
-    
-    def _save_cache(self):
-        try:
-            with open(self.cache_file, 'w', encoding='utf-8') as f:
-                json.dump(self.cache, f, indent=2)
-        except Exception as e:
-            print(f"Cache save failed: {e}", file=sys.stderr)
-    
-    def _cache_key(self, prompt: str, temperature: float) -> str:
-        return hashlib.md5(f"{self.model}:{temperature}:{prompt}".encode()).hexdigest()
-    
-    def call(self, prompt: str, system: str = "", temperature: float = 0.1, max_tokens: int = 512) -> Optional[str]:
-        if not self.api_key:
-            return None
-        
-        cache_key = self._cache_key(prompt, temperature)
-        if cache_key in self.cache:
-            return self.cache[cache_key]
-        
-        try:
-            messages = []
-            if system:
-                messages.append({"role": "system", "content": system})
-            messages.append({"role": "user", "content": prompt})
-            
-            response = requests.post(
-                self.endpoint,
-                headers={
-                    "Authorization": f"Bearer {self.api_key}",
-                    "Content-Type": "application/json"
-                },
-                json={
-                    "model": self.model,
-                    "messages": messages,
-                    "temperature": temperature,
-                    "max_tokens": max_tokens
-                },
-                timeout=30
-            )
-            response.raise_for_status()
-            
-            content = response.json()["choices"][0]["message"]["content"].strip()
-            self.cache[cache_key] = content
-            self._save_cache()
-            return content
-            
-        except Exception as e:
-            print(f"LLM call failed: {e}", file=sys.stderr)
-            return None
+# Comprehensive Protection Detector
+class ComprehensiveProtectionDetector:
+    """Single LLM call to categorize all protected content types (no rule-based fallback)"""
 
-# ============================================================================
-# GRAMMAR RULES ENGINE
-# ============================================================================
-
-class GrammarChecker:
     def __init__(self, llm_client: Optional[LLMClient] = None):
         self.llm = llm_client
+        self.protection_data: Dict[str, Any] = {}
+
+    def detect_all_protected_content(self, document: Dict[str, Any]) -> Dict[str, Any]:
+        """Single LLM call to categorize all protected content in document."""
+        all_texts = self._collect_document_texts(document)
+        if not all_texts:
+            return self._get_empty_protection_data()
+
+        if not self.llm:
+            logger.warning("LLM client not provided — skipping protection detection")
+            return self._get_empty_protection_data()
+
+        combined_text = "\n---PAGE BREAK---\n".join(all_texts[:10000])  # cap size
+        llm_result = self._llm_comprehensive_detection(combined_text)
+        if llm_result:
+            self.protection_data = llm_result
+            logger.info(
+                "LLM protection detection: names=%d technical=%d dates=%d numbers=%d ids=%d abbr=%d",
+                len(llm_result.get("protected_names", [])),
+                len(llm_result.get("technical_terms", [])),
+                len(llm_result.get("dates", [])),
+                len(llm_result.get("numbers", [])),
+                len(llm_result.get("ids", [])),
+                len(llm_result.get("abbreviations", [])),
+            )
+            return llm_result
+
+        logger.warning("LLM protection detection failed — using empty protection data")
+        return self._get_empty_protection_data()
+
+    def _collect_document_texts(self, document: Dict[str, Any]) -> List[str]:
+        texts = []
+        for page in document.get("pages", []):
+            for elem in page.get("elements", []):
+                text = (elem.get("text") or "").strip()
+                if text and len(text) >= 3:
+                    texts.append(text)
+        return texts
+
+    def _llm_comprehensive_detection(self, combined_text: str) -> Optional[Dict[str, Any]]:
+        """Single LLM call to detect all protected content using shared LLMClient.chat()."""
+        system_prompt = """
+You are a content analyzer that identifies items that should NOT be modified by grammar/word-list rules.
+
+TASK
+Analyze the provided text and extract protected items into SIX lists. Return ONLY raw JSON (no prose, no markdown), using the exact schema and key order shown below.
+
+CATEGORIES (precise definitions + examples)
+1) "protected_names": Proper names of people, organizations, products/brands, places, government entities, programs, and two-letter state abbreviations when used as names (e.g., "Amida", "NIST", "Medicaid", "Texas", "SC", "NC", "Kaplan", "Zach Woodard").
+   • Include multiword names/titles as they appear.
+   • Include product/initiative names (e.g., "Agentic AI" if used as a named concept).
+
+2) "technical_terms": Alphanumeric or symbolic identifiers and formal standards that look like codes, versions, SKUs, model names, or contract IDs (e.g., "DIR-CPO-5140", "VASRD-6846", "ICD-10", "ISO 9000", "RFC 7231", "v2.1.3", "A100", "GPT-4o", "DRE").
+   • Include hyphenated or slashed codes and those mixing letters/digits.
+   • Include agency/contract numbers, catalog numbers, and version strings.
+
+3) "dates": Any date/time-like expressions, including:
+   • Calendar forms: "May 2025", "April 30 2025", "August 28, 2025", "2025-04-30", "7/4/2025".
+   • Standalone years in the range 1900–2099 when used as dates: "2013", "2027", "2028".
+   • Ranges with hyphen/en dash/em dash: "2013-2049", "2023–3000".
+   • Fiscal/quarter formats: "FY2025", "Q3 2025".
+   • Decades: "1990s".
+   Treat all of the above as DATES (not numbers).
+
+4) "numbers": Numeric expressions that are not classified as dates, including:
+   • Plain numbers and decimals: "3.5", "2517".
+   • Numbers with separators or currency: "2,517", "$1,200".
+   • Percentages/words: "50%", "25 percent".
+   • Ranges: "1-20", "2–3".
+   • Ordinals and unit-bearing values: "1st", "90-day", "300M", "1M", "3 GB".
+   EXCLUDE anything already tagged as a date.
+
+5) "abbreviations": Abbreviations/initialisms that commonly constrain punctuation or casing in editing.
+   • Include dotted forms: "U.S.", "U.K.", "Dr.", "Mr.", "Prof."
+   • Also include common undotted initialisms when tightly bound to grammar choices: "IT", "ROI", "CTOs", "CDOs", "CIOs", "NLT".
+   • EXCLUDE Latin e.g./i.e. here (see Rules below).
+
+6) "ids": Unique instance identifiers that refer to a specific entity within a catalog, registry, or system.
+   • Examples: "DIR-CPO-5140", "DIR-CPO-5498", "EMP-0073", "INV-2025-1432", "JIRA-1234", "ID: 5f3b8c12".
+   • Distinction:
+     – "technical_terms" = standards or category codes (e.g., "ISO 9000").
+     – "ids" = specific assigned identifiers (e.g., "ISO-9000-2025-001").
+
+RULES & EDGE CASES
+• Do NOT infer or invent items. Extract only exact substrings present in the text.
+• Preserve the original text exactly (casing, punctuation, hyphens, spaces).
+• Years: Treat 1900–2099 as DATES unless clearly part of a code (e.g., "ISO 9000" → technical_terms).
+• Codes: Prefer "technical_terms" over "numbers" for mixed letter–digit tokens (e.g., DIR-CPO-5140).
+• Page refs: Do NOT classify numerals immediately preceded by "p." or "pp." as numbers/dates (they remain unclassified).
+• Ranges: Keep the entire range token (e.g., "2013–2026", "1-20", "2–3") as a single item in the appropriate category.
+• URLs, emails, file paths, and obvious hashes are NOT protected items—ignore them.
+• e.g./i.e.: Do NOT add them to "abbreviations". (They are handled by a separate rule in the checker.)
+• Duplicates: List each unique item only once, preserving first-seen order.
+• If a list has no items, return an empty array.
+• If anything is ambiguous, choose the most conservative category that prevents harmful edits (e.g., err toward "technical_terms" for letter–digit hybrids, and "dates" for 1900–2099 years).
+
+RESPONSE FORMAT
+Return ONLY a JSON object with these exact keys:
+{
+  "protected_names": [...],
+  "technical_terms": [...],
+  "dates": [...],
+  "numbers": [...],
+  "abbreviations": [...],
+  "ids": [...]
+}
+"""
+        prompt = f"Text to analyze:\n\n{combined_text[:10000]}"  # Limit text length
+
+        # Use the shared LLM client (OpenAI-style chat completions)
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": prompt},
+        ]
+        content = self.llm.chat(messages)  # returns str or None
+        if not content:
+            return None
+
+        try:
+            json_match = re.search(r'\{[\s\S]*\}', content)
+            if json_match:
+                data = json.loads(json_match.group(0))
+                required_keys = ["protected_names", "technical_terms", "dates", "numbers", "abbreviations", "ids"]
+                if all(k in data for k in required_keys):
+                    return data
+                logger.warning("LLM response missing required keys. Found: %s", list(data.keys()))
+        except Exception as e:
+            logger.warning("Failed to parse LLM protection response: %s", e)
+
+        return None
+
+    def _get_empty_protection_data(self) -> Dict[str, Any]:
+        return {
+            "protected_names": [],
+            "technical_terms": [],
+            "dates": [],
+            "numbers": [],
+            "abbreviations": [],
+            "ids": [],
+        }
+
+    def _is_protected(self, text: str, start: int, end: int) -> bool:
+        """Check if span overlaps any protected content (bidirectional, case-insensitive)."""
+        substring = text[start:end].strip()
+        if not substring:
+            return False
+        low_sub = substring.lower()
+        for category_items in self.protection_data.values():
+            for item in category_items:
+                li = str(item).strip().lower()
+                if not li:
+                    continue
+                if low_sub in li or li in low_sub:
+                    return True
+        return False
+
+
+# Grammar Checker (rules only)
+class GrammarChecker:
+    def __init__(self, protection_data: Dict[str, Any]):
+        self.protection_data = protection_data
         self.rules = self._initialize_rules()
-    
+
     def _initialize_rules(self):
         return {
-            'numerals': self._check_numerals,
-            'period_spacing': self._check_period_spacing,
-            'quotation_marks': self._check_quotation_marks,
-            'formal_writing': self._check_formal_writing,
-            'bullets': self._check_bullets,
-            'titles': self._check_titles,
+            "contractions": self._check_contractions,
+            "and_or": self._check_and_or,
+            "ampersand": self._check_ampersand,
+            "numerals": self._check_numerals,
+            "period_spacing": self._check_period_spacing,
+            "quotation_marks": self._check_quotation_marks,
+            "hyphens": self._check_hyphens,
         }
-    
+
+    _MONTHS = {"january","february","march","april","may","june","july","august","september","october","november","december"}
+
+    def _is_probable_year(self, text: str, start: int, end: int) -> bool:
+        token = text[start:end]
+        try:
+            n = int(token)
+        except ValueError:
+            return False
+        if not (1900 <= n <= 2099):
+            return False
+        left = text[max(0, start-40):start].lower()
+        right = text[end:min(len(text), end+40)].lower()
+        if any(m in left or m in right for m in self._MONTHS):
+            return True
+        if re.search(r'\b(?:fy|cy|period|spring|summer|fall|winter|q[1-4])\b', left+right):
+            return True
+        if re.search(r'^\s*[–-]\s*\d{4}\b', right) or re.search(r'\b\d{4}\s*[–-]\s*$', left):
+            return True
+        return True
+
+    def _in_code_token(self, text: str, start: int, end: int) -> bool:
+        left = text[max(0, start-6):start]
+        right = text[end:min(len(text), end+6)]
+        return bool(re.search(r'[A-Za-z]-?[A-Za-z]{1,5}$', left) or re.search(r'^[A-Za-z-]{1,6}', right))
+
+    def _is_page_ref(self, text: str, start: int) -> bool:
+        left = text[max(0, start-3):start]
+        return bool(re.search(r'(?:^|\s)p\.?$', left, re.IGNORECASE) or re.search(r'(?:^|\s)pp\.?$', left, re.IGNORECASE))
+
+    def _in_numeric_range(self, text: str, start: int, end: int) -> bool:
+        before = text[max(0, start-1):start]
+        after = text[end:end+1]
+        return (before in {'-', '–'} or after in {'-', '–'})
+
     def check(self, text: str, elem: dict, slide_idx: int, element_index: int) -> List[StyleIssue]:
-        """Run all grammar checks on text"""
-        issues = []
+        issues: List[StyleIssue] = []
         for rule_name, rule_func in self.rules.items():
             try:
-                result = rule_func(text, elem, slide_idx, element_index)
-                if result:
-                    issues.extend(result if isinstance(result, list) else [result])
+                res = rule_func(text, elem, slide_idx, element_index)
+                if res:
+                    issues.extend(res if isinstance(res, list) else [res])
             except Exception as e:
-                print(f"Rule {rule_name} failed: {e}", file=sys.stderr)
+                logger.exception("Rule %s failed: %s", rule_name, e)
         return issues
-    
-    # ========================================================================
-    # NUMERAL RULES
-    # ========================================================================
-    
-    def _check_numerals(self, text: str, elem: dict, slide_idx: int, elem_idx: int) -> List[StyleIssue]:
-        """Check numeral spelling and comma formatting"""
-        issues = []
-        
-        # Spell out numbers 1-99
-        spell_patches = self._collect_numeral_spelling(text)
-        if spell_patches:
-            issues.append(StyleIssue(
-                rule_name="numerals",
-                severity=Severity.SUGGESTION,
-                category=Category.GRAMMAR,
-                description="Spell out numbers <100 (and at sentence start). Keep numerals for percent/million/billion unless sentence start.",
-                location=f"slide {slide_idx} - element {elem_idx}",
-                found_text=text,
-                suggestion=self._apply_patches(text, spell_patches),
-                page_or_slide_index=slide_idx,
-                element_index=elem_idx,
-                confidence=0.95
-            ))
-        
-        # Add commas to 4+ digit numbers
-        comma_patches = self._collect_comma_formatting(text)
-        if comma_patches:
-            issues.append(StyleIssue(
-                rule_name="numerals",
-                severity=Severity.SUGGESTION,
-                category=Category.GRAMMAR,
-                description="Use commas for 4+ digits (except dates/IDs/URLs/years).",
-                location=f"slide {slide_idx} - element {elem_idx}",
-                found_text=text,
-                suggestion=self._apply_patches(text, comma_patches),
-                page_or_slide_index=slide_idx,
-                element_index=elem_idx,
-                confidence=0.9
-            ))
-        
-        return issues
-    
-    def _collect_numeral_spelling(self, text: str) -> List[Tuple[int, int, str]]:
-        """Collect patches for spelling out numbers 1-99"""
-        patches = []
-        num_pattern = re.compile(r'\b(\d+)\b')
-        
-        for m in num_pattern.finditer(text):
-            num_str = m.group(1)
-            start, end = m.span(1)
-            
-            # Skip if in excluded context
-            if self._is_excluded_context(text, start, end):
-                continue
-            
-            try:
-                n = int(num_str)
-                if 1 <= n <= 99:
-                    # Check if sentence start or if followed by unit word
-                    at_start = self._is_sentence_start(text, start)
-                    next_word = self._next_word(text, end)
-                    
-                    # Spell out if at sentence start or not followed by unit
-                    if at_start or next_word not in {'percent', '%', 'million', 'billion'}:
-                        patches.append((start, end, self._number_to_words(n)))
-            except ValueError:
-                continue
-        
-        return patches
-    
-    def _collect_comma_formatting(self, text: str) -> List[Tuple[int, int, str]]:
-        """Add commas to numbers with 4+ digits"""
-        patches = []
-        
-        for m in re.finditer(r'\b(\d{4,})\b', text):
-            start, end = m.span(1)
-            num_str = m.group(1)
-            
-            if self._is_excluded_context(text, start, end):
-                continue
-            
-            if ',' not in num_str:
-                formatted = f"{int(num_str):,}"
-                patches.append((start, end, formatted))
-        
-        return patches
-    
-    def _is_excluded_context(self, text: str, start: int, end: int) -> bool:
-        """Check if number is in excluded context (date, URL, ID, etc)"""
-        window = text[max(0, start-30):min(len(text), end+30)]
-        
-        # Check for dates
-        if self._looks_like_date(text, start, end):
-            return True
-        
-        # Check for URLs/paths
-        if re.search(r'(https?://|www\.|\.com|\.org|/|\\)', window, re.IGNORECASE):
-            return True
-        
-        # Check for IDs (e.g., "ID-12345")
-        if re.search(r'\b[A-Z]{2,}-[A-Z\d-]+', window):
-            return True
-        
-        # Check for page numbers
-        prev_word = self._prev_word(text, start)
-        if prev_word in {'page', 'p', 'sec', 'section', 'schedule'}:
-            return True
-        
+
+    def _is_protected(self, text: str, start: int, end: int) -> bool:
+        substring = text[start:end]
+        for category_items in self.protection_data.values():
+            for item in category_items:
+                if item in substring:
+                    return True
         return False
-    
-    def _looks_like_date(self, text: str, start: int, end: int) -> bool:
-        """Check if number looks like a year or date"""
-        num_str = text[start:end]
-        
-        # 4-digit year
-        if len(num_str) == 4 and num_str.isdigit():
-            year = int(num_str)
-            if 1900 <= year <= 2100:
-                return True
-        
-        # Month name nearby
-        months = {'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec',
-                  'january', 'february', 'march', 'april', 'june', 'july', 'august', 
-                  'september', 'october', 'november', 'december'}
-        
-        prev = self._prev_word(text, start)
-        if prev in months:
-            return True
-        
-        return False
-    
-    def _is_sentence_start(self, text: str, pos: int) -> bool:
-        """Check if position is at sentence start"""
-        i = pos - 1
-        while i >= 0 and text[i].isspace():
-            i -= 1
-        if i < 0:
-            return True
-        return text[i] in {'.', '!', '?', '\n', ':', ';'}
-    
-    def _prev_word(self, text: str, pos: int) -> str:
-        """Get word immediately before position"""
-        m = re.search(r'(\w+)\W*$', text[:pos])
-        return m.group(1).lower() if m else ""
-    
-    def _next_word(self, text: str, pos: int) -> str:
-        """Get word immediately after position"""
-        m = re.search(r'^\W*(\w+)', text[pos:])
-        return m.group(1).lower() if m else ""
-    
-    def _number_to_words(self, n: int) -> str:
-        """Convert number to words (1-99)"""
-        ones = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine',
-                'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen',
-                'seventeen', 'eighteen', 'nineteen']
-        tens = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety']
-        
-        if n < 20:
-            return ones[n]
-        
-        tens_digit, ones_digit = divmod(n, 10)
-        if ones_digit == 0:
-            return tens[tens_digit]
-        return f"{tens[tens_digit]}-{ones[ones_digit]}"
-    
-    # ========================================================================
-    # SPACING RULES
-    # ========================================================================
-    
-    def _check_period_spacing(self, text: str, elem: dict, slide_idx: int, elem_idx: int) -> Optional[StyleIssue]:
-        """Check for single space after periods"""
-        pattern = r'(?:[.!?…]|\.{3}) {2,}'
-        matches = list(re.finditer(pattern, text))
-        
-        if not matches:
-            return None
-        
-        patches = []
-        for m in matches:
-            start, end = m.span()
-            punct = text[start:start+1] if text[start] in '.!?' else '…'
-            patches.append((start, end, punct + ' '))
-        
-        return StyleIssue(
-            rule_name="period_spacing",
-            severity=Severity.SUGGESTION,
-            category=Category.GRAMMAR,
-            description="Use exactly one space after sentence-ending punctuation.",
-            location=f"slide {slide_idx} - element {elem_idx}",
-            found_text=text,
-            suggestion=self._apply_patches(text, patches),
-            page_or_slide_index=slide_idx,
-            element_index=elem_idx,
-            confidence=1.0
-        )
-    
-    # ========================================================================
-    # QUOTATION MARK RULES
-    # ========================================================================
-    
-    def _check_quotation_marks(self, text: str, elem: dict, slide_idx: int, elem_idx: int) -> Optional[StyleIssue]:
-        """Fix quotation mark punctuation placement"""
-        patches = []
-        
-        # Pattern 1: Comma/period OUTSIDE closing quote → move INSIDE
-        pattern1 = r'([\"”’])\s*([.,])(?=\s|$)'
-        for m in re.finditer(pattern1, text):
-            quote_part = m.group(1).strip()
-            punct = m.group(2)
-            
-            # Verify there's an opening quote before this
-            before = text[:m.start()]
-            if self._has_matching_open_quote(before, quote_part):
-                patches.append((m.start(), m.end(), punct + quote_part))
-        
-        # Pattern 2: Semicolon/colon INSIDE closing quote → move OUTSIDE  
-        pattern2 = r'([;:])([\"”’])(?=\s|$)'
-        for m in re.finditer(pattern2, text):
-            punct = m.group(1)
-            quote = m.group(2)
-            
-            # Verify this is actually closing a quote
-            before = text[:m.start()]
-            if self._has_matching_open_quote(before, quote):
-                patches.append((m.start(), m.end(), quote + punct))
-        
+
+    def _apply_patches(self, text: str, patches: List[tuple]) -> str:
         if not patches:
-            return None
-        
-        return StyleIssue(
-            rule_name="quotation_marks",
-            severity=Severity.SUGGESTION,
-            category=Category.GRAMMAR,
-            description="Place commas/periods inside closing quotes; semicolons/colons outside.",
-            location=f"slide {slide_idx} - element {elem_idx}",
-            found_text=text,
-            suggestion=self._apply_patches(text, patches),
-            page_or_slide_index=slide_idx,
-            element_index=elem_idx,
-            confidence=0.85
-        )
-    
-    def _has_matching_open_quote(self, before_text: str, close_quote: str) -> bool:
-        """Check if there's a matching opening quote"""
-# Check if there's a matching opening quote
-        quote_map = {
-            '"': '"',     # straight double
-            '“': '“',     # opening curly double
-            '”': '“',     # closing curly double → maps to opening curly
-            "'": "'",     # straight single
-            "‘": "‘",     # opening curly single
-            "’": "‘",     # closing curly single → maps to opening curly
-        }
-        open_quote = quote_map.get(close_quote, close_quote)
-        
-        # Simple check: is there an unmatched opening quote?
-        opens = before_text.count(open_quote)
-        closes = before_text.count(close_quote)
-        return opens > closes
-    
-    # ========================================================================
-    # FORMAL WRITING RULES
-    # ========================================================================
-    
-    def _check_formal_writing(self, text: str, elem: dict, slide_idx: int, elem_idx: int) -> Optional[StyleIssue]:
-        """Check for contractions, and/or, etc., &"""
-        patches = []
-        
-        # Contractions
+            return text
+        patches.sort(key=lambda p: p[0], reverse=True)
+        result = text
+        for start, end, replacement in patches:
+            result = result[:start] + replacement + result[end:]
+        return result
+
+    # rules
+    def _check_contractions(self, text: str, elem: dict, slide_idx: int, elem_idx: int) -> Optional[StyleIssue]:
+        patches: List[tuple] = []
         contractions = {
             "can't": "cannot", "won't": "will not", "don't": "do not",
             "doesn't": "does not", "didn't": "did not", "isn't": "is not",
@@ -427,567 +308,436 @@ class GrammarChecker:
             "hasn't": "has not", "haven't": "have not", "hadn't": "had not",
             "couldn't": "could not", "shouldn't": "should not", "wouldn't": "would not",
             "it's": "it is", "that's": "that is", "there's": "there is",
+            "we're": "we are", "they're": "they are", "you're": "you are",
         }
-        
         for contraction, expansion in contractions.items():
-            for m in re.finditer(rf'\b{re.escape(contraction)}\b', text, re.IGNORECASE):
-                match_text = m.group()
-                # Preserve capitalization
-                if match_text[0].isupper():
-                    repl = expansion[0].upper() + expansion[1:]
-                else:
-                    repl = expansion
-                patches.append((m.start(), m.end(), repl))
-        
-        # and/or
-        for m in re.finditer(r'\band/or\b', text):
-            patches.append((m.start(), m.end(), 'or'))
-        
-        # & in formal text
-        for m in re.finditer(r'\s+&\s+', text):
-            patches.append((m.start(), m.end(), ' and '))
-        
+            for m in re.finditer(rf"\b{re.escape(contraction)}\b", text, re.IGNORECASE):
+                if not self._is_protected(text, m.start(), m.end()):
+                    matched = m.group(0)
+                    replacement = expansion.capitalize() if matched[0].isupper() else expansion
+                    patches.append((m.start(), m.end(), replacement))
         if not patches:
             return None
-        
         return StyleIssue(
-            rule_name="formal_writing",
+            rule_name="contractions",
             severity=Severity.WARNING,
             category=Category.GRAMMAR,
-            description="Avoid contractions, 'and/or', 'etc.', and '&' in formal writing.",
+            description="Do not use contractions in formal writing (Amida Style Guide p.6)",
             location=f"slide {slide_idx} - element {elem_idx}",
             found_text=text,
             suggestion=self._apply_patches(text, patches),
             page_or_slide_index=slide_idx,
             element_index=elem_idx,
-            confidence=1.0
+            confidence=1.0,
         )
-    
-    # ========================================================================
-    # BULLET RULES
-    # ========================================================================
-    
-    def _check_bullets(self, text: str, elem: dict, slide_idx: int, elem_idx: int) -> List[StyleIssue]:
-        """Check bullet formatting"""
-        # Only process if this looks like bullet content
-        if not self._is_bullet_element(text, elem):
-            return []
-        
-        issues = []
-        segments = self._extract_bullet_lines(text)
-        
-        for start, end, line in segments:
-            # Check 1: Multiple sentences (no auto-fix)
-            if self._has_multiple_sentences(line):
-                issues.append(StyleIssue(
-                    rule_name="bullets",
-                    severity=Severity.SUGGESTION,
-                    category=Category.GRAMMAR,
-                    description="This bullet contains multiple sentences. Consider splitting into separate bullets or sub-bullets.",
-                    location=f"slide {slide_idx} - element {elem_idx}",
-                    found_text=text,
-                    suggestion=text,  # No auto-fix
-                    page_or_slide_index=slide_idx,
-                    element_index=elem_idx,
-                    confidence=0.9,
-                    method="rule-based"
-                ))
-                continue
-            
-            # Check 2: Capitalization and period removal
-            fixed = line
-            if fixed and fixed[0].isalpha() and fixed[0].islower():
-                fixed = fixed[0].upper() + fixed[1:]
-            
-            if fixed.rstrip().endswith('.'):
-                fixed = fixed.rstrip('.').rstrip()
-            
-            if fixed != line:
-                suggestion = text[:start] + fixed + text[end:]
-                issues.append(StyleIssue(
-                    rule_name="bullets",
-                    severity=Severity.SUGGESTION,
-                    category=Category.GRAMMAR,
-                    description="Bullets: capitalize the first word; avoid periods at the end of bullet points.",
-                    location=f"slide {slide_idx} - element {elem_idx}",
-                    found_text=text,
-                    suggestion=suggestion,
-                    page_or_slide_index=slide_idx,
-                    element_index=elem_idx,
-                    confidence=0.95
-                ))
-        
-        return issues
-    
-    def _is_bullet_element(self, text: str, elem: dict) -> bool:
-        """Determine if element contains bullet content"""
-        loc = elem.get("locator", {})
-        if (loc.get("element_type") or "").lower() == "bullet":
-            return True
-        
-        # Check for bullet markers
-        bullet_pattern = r'^\s*[•◦▪◾○\-–—*]\s+'
-        if re.match(bullet_pattern, text):
-            return True
-        
-        # Check for numbered list
-        if re.match(r'^\s*(?:\(?\d+\)?[.)]|\d+\))\s+', text):
-            return True
-        
-        return False
-    
-    def _extract_bullet_lines(self, text: str) -> List[Tuple[int, int, str]]:
-        """Extract individual bullet items from text"""
-        lines = []
-        offset = 0
-        
-        for raw_line in text.splitlines(keepends=True):
-            line = raw_line.rstrip('\n\r')
-            
-            # Match bullet markers
-            m_bullet = re.match(r'^\s*[•◦▪◾○\-–—*]\s+(.*)$', line)
-            m_numbered = re.match(r'^\s*(?:\(?\d+\)?[.)]|\d+\))\s+(.*)$', line)
-            
-            if m_bullet or m_numbered:
-                inner = (m_bullet or m_numbered).group(1)
-                start = offset + (m_bullet.start(1) if m_bullet else m_numbered.start(1))
-                end = offset + (m_bullet.end(1) if m_bullet else m_numbered.end(1))
-                lines.append((start, end, inner))
-            
-            offset += len(raw_line)
-        
-        return lines
-    
-    def _has_multiple_sentences(self, text: str) -> bool:
-        """Check if text contains multiple sentences"""
-        # Pattern: period/!/?  followed by space and capital letter
-        return bool(re.search(r'[.!?]\s+[A-Z]', text))
-    
-    # ========================================================================
-    # TITLE CASE RULES
-    # ========================================================================
-    
-    def _check_titles(self, text: str, elem: dict, slide_idx: int, elem_idx: int) -> Optional[StyleIssue]:
-        """Check title case for title elements"""
-        if not self._is_title_element(elem):
+
+    def _check_and_or(self, text: str, elem: dict, slide_idx: int, elem_idx: int) -> Optional[StyleIssue]:
+        patches: List[tuple] = []
+        for m in re.finditer(r"\band/or\b", text, re.IGNORECASE):
+            if not self._is_protected(text, m.start(), m.end()):
+                patches.append((m.start(), m.end(), "or"))
+        if not patches:
             return None
-        
-        title_cased = self._to_title_case(text)
-        if title_cased == text:
-            return None
-        
         return StyleIssue(
-            rule_name="titles",
-            severity=Severity.SUGGESTION,
+            rule_name="and_or",
+            severity=Severity.WARNING,
             category=Category.GRAMMAR,
-            description="Use Title Case for titles.",
+            description="Do not use 'and/or' in formal writing (Amida Style Guide p.6)",
             location=f"slide {slide_idx} - element {elem_idx}",
             found_text=text,
-            suggestion=title_cased,
+            suggestion=self._apply_patches(text, patches),
             page_or_slide_index=slide_idx,
             element_index=elem_idx,
-            confidence=0.9
+            confidence=1.0,
         )
-    
-    def _is_title_element(self, elem: dict) -> bool:
-        """Check if element is a title"""
-        role = (elem.get("role") or "").lower()
-        if role == "title":
-            return True
-        
-        if elem.get("heading_level") == 1:
-            return True
-        
-        st = elem.get("style", {})
-        size = st.get("font_size") or elem.get("font_size")
-        weight = (st.get("font_weight") or elem.get("font_weight") or "").lower()
-        
-        return size and isinstance(size, (int, float)) and size >= 18 and "bold" in weight
-    
-    def _to_title_case(self, text: str) -> str:
-        """Convert text to title case per Amida style"""
-        small_words = {
-            'a', 'an', 'the', 'and', 'but', 'or', 'nor', 'so', 'yet',
-            'as', 'at', 'by', 'for', 'in', 'of', 'off', 'on', 'per', 'to', 'up', 'via',
-            'v.', 'vs.', 'v', 'vs'
-        }
-        
-        tokens = re.findall(r"\w[\w'/-]*|\s+|[^\w\s]", text, flags=re.UNICODE)
-        words = [t for t in tokens if re.match(r'\w', t)]
-        
-        if not words:
-            return text
-        
-        result = []
-        word_positions = [i for i, t in enumerate(tokens) if re.match(r'\w', t)]
-        first_pos = word_positions[0] if word_positions else -1
-        last_pos = word_positions[-1] if word_positions else -1
-        
-        for i, token in enumerate(tokens):
-            if not re.match(r'\w', token):
-                result.append(token)
-                continue
-            
-            is_first = (i == first_pos)
-            is_last = (i == last_pos)
-            
-            # Always capitalize first and last
-            if is_first or is_last:
-                result.append(self._capitalize_word(token))
-                continue
-            
-            # Capitalize if >3 chars or not a small word
-            if len(token) > 3 or token.lower() not in small_words:
-                result.append(self._capitalize_word(token))
-            else:
-                result.append(token.lower())
-        
-        return ''.join(result)
-    
-    def _capitalize_word(self, word: str) -> str:
-        """Capitalize a word, handling hyphens and apostrophes"""
-        if word.isupper():
-            return word
-        
-        if '-' in word:
-            return '-'.join(self._capitalize_word(part) for part in word.split('-'))
-        
-        if "'" in word:
-            parts = word.split("'", 1)
-            return parts[0][:1].upper() + parts[0][1:].lower() + "'" + parts[1]
-        
-        return word[:1].upper() + word[1:].lower()
-    
-    # ========================================================================
-    # UTILITIES
-    # ========================================================================
-    
-    def _apply_patches(self, text: str, patches: List[Tuple[int, int, str]]) -> str:
-        """Apply patches to text in reverse order"""
+
+    def _check_ampersand(self, text: str, elem: dict, slide_idx: int, elem_idx: int) -> Optional[StyleIssue]:
+        patches: List[tuple] = []
+        for m in re.finditer(r"\s+&\s+", text):
+            if not self._is_protected(text, m.start(), m.end()):
+                patches.append((m.start(), m.end(), " and "))
         if not patches:
-            return text
-        
-        patches.sort(key=lambda p: p[0], reverse=True)
-        result = text
-        
-        for start, end, replacement in patches:
-            result = result[:start] + replacement + result[end:]
-        
-        return result
+            return None
+        return StyleIssue(
+            rule_name="ampersand",
+            severity=Severity.WARNING,
+            category=Category.GRAMMAR,
+            description="Avoid the use of '&' in formal writing (Amida Style Guide p.6)",
+            location=f"slide {slide_idx} - element {elem_idx}",
+            found_text=text,
+            suggestion=self._apply_patches(text, patches),
+            page_or_slide_index=slide_idx,
+            element_index=elem_idx,
+            confidence=0.9,
+        )
 
-# ============================================================================
-# WORD LIST CHECKER
-# ============================================================================
+    def _check_numerals(self, text: str, elem: dict, slide_idx: int, elem_idx: int) -> List[StyleIssue]:
+        issues: List[StyleIssue] = []
+        spell_patches: List[tuple] = []
+        for m in re.finditer(r"\b(\d{1,2})\b", text):
+            start, end = m.span(1)
+            if self._is_protected(text, start, end):
+                continue
+            if not self._is_sentence_start(text, start):
+                continue
+            if self._in_numeric_range(text, start, end):
+                continue
+            if self._in_code_token(text, start, end) or self._is_page_ref(text, start):
+                continue
+            nxt = self._next_word(text, end)
+            if nxt in {"percent", "%", "million", "billion", "trillion"}:
+                continue
+            n = int(m.group(1))
+            if 1 <= n <= 99:
+                spell_patches.append((start, end, self._number_to_words(n)))
+        if spell_patches:
+            issues.append(StyleIssue(
+                rule_name="numerals_spell_out",
+                severity=Severity.SUGGESTION,
+                category=Category.GRAMMAR,
+                description="Spell out numbers below 100 in non-technical writing (Amida Style Guide p.5)",
+                location=f"slide {slide_idx} - element {elem_idx}",
+                found_text=text,
+                suggestion=self._apply_patches(text, spell_patches),
+                page_or_slide_index=slide_idx,
+                element_index=elem_idx,
+                confidence=0.85,
+            ))
 
+        comma_patches: List[tuple] = []
+        for m in re.finditer(r"\b(\d{4,})\b", text):
+            start, end = m.span(1)
+            if self._is_protected(text, start, end):
+                continue
+            if self._is_probable_year(text, start, end):
+                continue
+            if self._in_code_token(text, start, end) or self._is_page_ref(text, start):
+                continue
+            num = m.group(1)
+            if "," not in num:
+                comma_patches.append((start, end, f"{int(num):,}"))
+        if comma_patches:
+            issues.append(StyleIssue(
+                rule_name="numerals_commas",
+                severity=Severity.SUGGESTION,
+                category=Category.GRAMMAR,
+                description="Use commas for numbers of 4+ digits (Amida Style Guide p.5)",
+                location=f"slide {slide_idx} - element {elem_idx}",
+                found_text=text,
+                suggestion=self._apply_patches(text, comma_patches),
+                page_or_slide_index=slide_idx,
+                element_index=elem_idx,
+                confidence=0.95,
+            ))
+        return issues
+
+    def _number_to_words(self, n: int) -> str:
+        ones = [
+            "zero","one","two","three","four","five","six","seven","eight","nine",
+            "ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen",
+            "seventeen","eighteen","nineteen"
+        ]
+        tens = ["","","twenty","thirty","forty","fifty","sixty","seventy","eighty","ninety"]
+        if n < 20:
+            return ones[n]
+        t, o = divmod(n, 10)
+        return tens[t] if o == 0 else f"{tens[t]}-{ones[o]}"
+
+    def _is_sentence_start(self, text: str, pos: int) -> bool:
+        i = pos - 1
+        while i >= 0 and text[i].isspace():
+            i -= 1
+        if i < 0:
+            return True
+        return text[i] in {'.', '!', '?', '\n', ':', ';'}
+
+    def _next_word(self, text: str, pos: int) -> str:
+        m = re.search(r"^\W*(\w+)", text[pos:])
+        return m.group(1).lower() if m else ""
+
+    def _check_period_spacing(self, text: str, elem: dict, slide_idx: int, elem_idx: int) -> Optional[StyleIssue]:
+        patches: List[tuple] = []
+        for m in re.finditer(r"(?:[.!?]) {2,}", text):
+            start, end = m.span()
+            if not self._is_protected(text, start, end):
+                punct = text[start]
+                patches.append((start, end, punct + " "))
+        if not patches:
+            return None
+        return StyleIssue(
+            rule_name="period_spacing",
+            severity=Severity.SUGGESTION,
+            category=Category.GRAMMAR,
+            description="Only one space after period (Amida Style Guide p.5)",
+            location=f"slide {slide_idx} - element {elem_idx}",
+            found_text=text,
+            suggestion=self._apply_patches(text, patches),
+            page_or_slide_index=slide_idx,
+            element_index=elem_idx,
+            confidence=1.0,
+        )
+
+    def _check_quotation_marks(self, text: str, elem: dict, slide_idx: int, elem_idx: int) -> Optional[StyleIssue]:
+        patches: List[tuple] = []
+        for m in re.finditer(r'(["\'])(\s*)([.,])', text):
+            q, spaces, punct = m.group(1), m.group(2), m.group(3)
+            start, end = m.span()
+            if self._is_protected(text, start, end):
+                continue
+            patches.append((start, end, f'{q}{punct}'))
+        for m in re.finditer(r'([;:])(["\'])', text):
+            punct, q = m.group(1), m.group(2)
+            start, end = m.span()
+            if self._is_protected(text, start, end):
+                continue
+            patches.append((start, end, f'{q}{punct}'))
+        if not patches:
+            return None
+        return StyleIssue(
+            rule_name="quotation_marks",
+            severity=Severity.SUGGESTION,
+            category=Category.GRAMMAR,
+            description="Commas/periods inside quotes; semicolons/colons outside (Amida Style Guide p.5)",
+            location=f"slide {slide_idx} - element {elem_idx}",
+            found_text=text,
+            suggestion=self._apply_patches(text, patches),
+            page_or_slide_index=slide_idx,
+            element_index=elem_idx,
+            confidence=0.9,
+        )
+
+    def _check_hyphens(self, text: str, elem: dict, slide_idx: int, elem_idx: int) -> Optional[StyleIssue]:
+        patches: List[tuple] = []
+        for m in re.finditer(r"—", text):
+            if not self._is_protected(text, m.start(), m.end()):
+                patches.append((m.start(), m.end(), "–"))
+        for m in re.finditer(r"--", text):
+            if not self._is_protected(text, m.start(), m.end()):
+                patches.append((m.start(), m.end(), "–"))
+        if not patches:
+            return None
+        return StyleIssue(
+            rule_name="hyphens",
+            severity=Severity.SUGGESTION,
+            category=Category.GRAMMAR,
+            description="Use en dashes (–), not em dashes (—) or double hyphens (--) (Amida Style Guide p.5)",
+            location=f"slide {slide_idx} - element {elem_idx}",
+            found_text=text,
+            suggestion=self._apply_patches(text, patches),
+            page_or_slide_index=slide_idx,
+            element_index=elem_idx,
+            confidence=1.0,
+        )
+
+# Word List Checker (Amida Style Guide)
 class WordListChecker:
-    def __init__(self):
-        self.word_list = self._load_word_list()
-        self.abbreviations = {
-            'e.g.': 'e.g.,',
-            'i.e.': 'i.e.,',
-        }
-    
-    def _load_word_list(self) -> Dict[str, str]:
-        """Load Amida word list preferences"""
+    def __init__(self, protection_data: Dict[str, Any]):
+        self.protection_data = protection_data
+        self.word_list = self._load_amida_word_list()
+        self.abbreviations = {"e.g.": "e.g.,", "i.e.": "i.e.,"}
+
+    def _load_amida_word_list(self) -> Dict[str, str]:
+        """Load Amida Style Guide word list (p.5-6)."""
         return {
-            # Hyphenation
-            'built in': 'built-in',
-            'cyber attacks': 'cyberattacks',
-            'cyber security': 'cybersecurity',
-            'cyber-security': 'cybersecurity',
-            'code sets': 'code sets',
-            'codesets': 'code sets',
-            'code-sets': 'code sets',
-            'end user': 'end user',  # noun
-            'end-user': 'end-user',  # adjective (context-dependent)
-            'health care': 'healthcare',
-            'open source': 'open source',  # noun
-            'open-source': 'open-source',  # adjective
-            'public-sector': 'public sector',
-            'user friendly': 'user-friendly',
-            'web based': 'web-based',
-            
-            # Capitalization
-            'machine learning': 'Machine Learning',
-            'artificial intelligence': 'Artificial Intelligence',
-            'natural language processing': 'Natural Language Processing',
+            # Hyphenation rules
+            "built in": "built-in",
+            "cyber attacks": "cyberattacks",
+            "cyber-attacks": "cyberattacks",
+            "cyber security": "cybersecurity",
+            "cyber-security": "cybersecurity",
+            "codesets": "code sets",
+            "code-sets": "code sets",
+            "health care": "healthcare",
+            "public-sector": "public sector",
+            "user friendly": "user-friendly",
+            "web based": "web-based",
+            # Abbreviations requiring commas (p.6)
+            "e.g.": "e.g.,",
+            "i.e.": "i.e.,",
+            # Capitalization preferences
+            "machine learning": "Machine Learning",
+            "artificial intelligence": "Artificial Intelligence",
+            "natural language processing": "Natural Language Processing",
         }
-    
+
     def check(self, text: str, elem: dict, slide_idx: int, elem_idx: int) -> List[StyleIssue]:
-        """Check text against word list"""
-        issues = []
-        patches = []
-        
-        # Simple word replacements
+        """Check text against Amida Style Guide word list rules."""
+        issues: List[StyleIssue] = []
+        patches: List[tuple] = []
+
         for wrong, correct in self.word_list.items():
-            pattern = r'\b' + re.escape(wrong) + r'\b'
-            for m in re.finditer(pattern, text, re.IGNORECASE):
-                matched = m.group()
-                if matched != correct:
-                    patches.append((m.start(), m.end(), correct))
-        
+            if "." in wrong:
+                pat = re.escape(wrong)  # exact match for abbreviations
+            else:
+                pat = r"\b" + re.escape(wrong) + r"\b"
+
+            for m in re.finditer(pat, text, re.IGNORECASE):
+                if not self._is_protected(text, m.start(), m.end()):
+                    matched = m.group(0)
+                    if matched != correct:
+                        patches.append((m.start(), m.end(), correct))
+
         if patches:
             issues.append(StyleIssue(
                 rule_name="word_list",
                 severity=Severity.SUGGESTION,
                 category=Category.WORD_LIST,
-                description="Apply Amida Word List preferences (hyphenation, noun/adj distinctions, capitalization).",
+                description="Apply Amida Word List preferences (Amida Style Guide p.5-6)",
                 location=f"slide {slide_idx} - element {elem_idx}",
                 found_text=text,
                 suggestion=self._apply_patches(text, patches),
                 page_or_slide_index=slide_idx,
                 element_index=elem_idx,
-                confidence=1.0
+                confidence=1.0,
             ))
-        
-        # Abbreviation formatting (e.g., i.e.)
-        abbr_patches = []
-        for abbr, correct in self.abbreviations.items():
-            pattern = re.escape(abbr) + r'\s*(?!,)'
-            for m in re.finditer(pattern, text, re.IGNORECASE):
-                abbr_patches.append((m.start(), m.end(), correct + ' '))
-        
-        if abbr_patches:
-            issues.append(StyleIssue(
-                rule_name="word_list",
-                severity=Severity.SUGGESTION,
-                category=Category.WORD_LIST,
-                description="Abbreviations like 'e.g.' and 'i.e.' should be followed by a comma.",
-                location=f"slide {slide_idx} - element {elem_idx}",
-                found_text=text,
-                suggestion=self._apply_patches(text, abbr_patches),
-                page_or_slide_index=slide_idx,
-                element_index=elem_idx,
-                confidence=1.0
-            ))
-        
+
         return issues
-    
-    def _apply_patches(self, text: str, patches: List[Tuple[int, int, str]]) -> str:
-        """Apply patches in reverse order"""
+
+    def _is_protected(self, text: str, start: int, end: int) -> bool:
+        """Check if span is in protected items."""
+        substring = text[start:end]
+        for category_items in self.protection_data.values():
+            for item in category_items:
+                if item in substring:
+                    return True
+        return False
+
+    def _apply_patches(self, text: str, patches: List[tuple]) -> str:
+        """Apply replacements safely in reverse order."""
         if not patches:
             return text
-        
         patches.sort(key=lambda p: p[0], reverse=True)
         result = text
-        
         for start, end, replacement in patches:
             result = result[:start] + replacement + result[end:]
-        
         return result
 
-# ============================================================================
-# AGENTIC DOCUMENT ANALYZER
-# ============================================================================
-
+# Orchestrator
 class AgenticStyleChecker:
-    """
-    Main agentic system that orchestrates grammar and word-list checking
-    with intelligent decision-making and LLM enhancement
-    """
-    
     def __init__(self, use_llm: bool = True):
         self.llm = LLMClient() if use_llm else None
-        self.grammar_checker = GrammarChecker(self.llm)
-        self.word_checker = WordListChecker()
+        self.protection_detector = ComprehensiveProtectionDetector(self.llm)
+        self.protection_data: Dict[str, Any] = {}
         self.stats = {
-            'total_elements': 0,
-            'llm_calls': 0,
-            'rule_based': 0,
-            'by_severity': {s.value: 0 for s in Severity},
-            'by_category': {c.value: 0 for c in Category},
+            "total_elements": 0,
+            "protected_items": {},
+            "by_severity": {s.value: 0 for s in Severity},
+            "by_category": {c.value: 0 for c in Category},
         }
-    
+
     def analyze_document(self, document: Dict[str, Any]) -> Dict[str, Any]:
-        """
-        Main agentic workflow:
-        1. Parse document structure
-        2. Identify elements requiring checking
-        3. Apply rule-based checks
-        4. Use LLM for complex cases
-        5. Deduplicate and rank issues
-        6. Return prioritized results
-        """
-        print("Agentic Style Checker initialized")
-        print(f"LLM enhancement: {'enabled' if self.llm else 'disabled'}")
-        print()
-        
-        all_issues = []
-        
-        for page in document.get('pages', []):
-            slide_idx = page.get('index', 0)
-            
-            for elem in page.get('elements', []):
-                text = (elem.get('text') or '').strip()
+        logger.info("AMIDA STYLE CHECKER - Starting document analysis")
+
+        # STEP 1: Single upfront LLM call for all protected content
+        logger.info("\nSTEP 1: Detecting protected content (LLM-only, no fallback)...")
+        self.protection_data = self.protection_detector.detect_all_protected_content(document)
+
+        total_protected = 0
+        for category, items in self.protection_data.items():
+            count = len(items)
+            self.stats["protected_items"][category] = count
+            total_protected += count
+            logger.info(f"> {category}: {count} items")
+        logger.info(f"\nTotal protected items: {total_protected}")
+
+        # STEP 2: Apply grammar and word list rules
+        logger.info("\nSTEP 2: Applying Amida Style Guide rules...")
+        grammar_checker = GrammarChecker(self.protection_data)
+        word_list_checker = WordListChecker(self.protection_data)
+
+        all_issues: List[StyleIssue] = []
+        for page in document.get("pages", []):
+            slide_idx = page.get("index", 0)
+            for elem in page.get("elements", []):
+                text = (elem.get("text") or "").strip()
                 if not text or len(text) < 3:
                     continue
-                
-                self.stats['total_elements'] += 1
-                loc = elem.get('locator', {})
-                elem_idx = loc.get('element_index', 0)
-                
-                # Run grammar checks
-                grammar_issues = self.grammar_checker.check(text, elem, slide_idx, elem_idx)
-                all_issues.extend(grammar_issues)
-                
-                # Run word-list checks
-                word_issues = self.word_checker.check(text, elem, slide_idx, elem_idx)
-                all_issues.extend(word_issues)
-                
-                # Progress indicator
-                if self.stats['total_elements'] % 10 == 0:
-                    print(f"Processed {self.stats['total_elements']} elements, found {len(all_issues)} issues")
-        
-        # Deduplicate issues
-        unique_issues = self._deduplicate_issues(all_issues)
-        
-        # Update statistics
-        for issue in unique_issues:
-            self.stats['by_severity'][issue.severity.value] += 1
-            self.stats['by_category'][issue.category.value] += 1
-            if issue.method == 'llm':
-                self.stats['llm_calls'] += 1
-            else:
-                self.stats['rule_based'] += 1
-        
-        print("Analysis completed.")
-        print(f"Total issues found: {len(unique_issues)}")
-        print()
-        
+
+                loc = elem.get("locator", {}) or {}
+                elem_idx = loc.get("element_index", 0)
+                self.stats["total_elements"] += 1
+
+                all_issues.extend(grammar_checker.check(text, elem, slide_idx, elem_idx))
+                all_issues.extend(word_list_checker.check(text, elem, slide_idx, elem_idx))
+
+                if self.stats["total_elements"] % 10 == 0:
+                    logger.info(
+                        "  Processed %d elements, found %d issues",
+                        self.stats["total_elements"],
+                        len(all_issues),
+                    )
+
+        for issue in all_issues:
+            self.stats["by_severity"][issue.severity.value] += 1
+            self.stats["by_category"][issue.category.value] += 1
+
+        logger.info("ANALYSIS COMPLETED!")
+        logger.info(f"Total elements analyzed: {self.stats['total_elements']}")
+        logger.info(f"Total issues found: {len(all_issues)}")
+        logger.info(f"Protected items: {total_protected}")
+
+        logger.info("\n> Issues by severity:")
+        for severity, count in sorted(self.stats["by_severity"].items()):
+            if count > 0:
+                logger.info(f"  {severity}: {count}")
+
+        logger.info("\n> Issues by category:")
+        for category, count in sorted(self.stats["by_category"].items()):
+            if count > 0:
+                logger.info(f"  {category}: {count}")
+
         return {
-            'issues': [issue.to_dict() for issue in unique_issues],
-            'statistics': self.stats,
-            'total_issues': len(unique_issues),
-            'document_metadata': document.get('document_metadata', {})
+            "issues": [i.to_dict() for i in all_issues],
+            "statistics": self.stats,
+            "protection_data": self.protection_data,
+            "total_issues": len(all_issues),
+            "document_metadata": document.get("metadata", {}),
         }
-    
-    def _deduplicate_issues(self, issues: List[StyleIssue]) -> List[StyleIssue]:
-        """Remove duplicate issues, keeping highest confidence"""
-        seen = {}
-        
-        for issue in issues:
-            key = (
-                issue.page_or_slide_index,
-                issue.element_index,
-                issue.rule_name,
-                issue.description[:50]  # Partial match on description
-            )
-            
-            if key not in seen or issue.confidence > seen[key].confidence:
-                seen[key] = issue
-        
-        return list(seen.values())
 
-# DOCUMENT CHECKER INTERFACE
-def check_document(document: Dict[str, Any]) -> List[Dict[str, Any]]:
-    """
-    Backward-compatible entry point for grammar/word-list only.
-    Returns: list of issue dicts (no wrapper dict).
-    """
-    grammar_checker = GrammarChecker()
-    word_checker = WordListChecker()
 
-    issues: List[Dict[str, Any]] = []
+def check_document(
+    document: Dict[str, Any],
+    *,
+    use_llm: bool = True,
+    return_wrapper: bool = False,
+    precomputed_protection: Optional[Dict[str, Any]] = None,
+) -> Union[List[Dict[str, Any]], Dict[str, Any]]:
+    checker = AgenticStyleChecker(use_llm=use_llm)
 
-    for page in document.get("pages", []):
-        slide_idx = page.get("index", 0)
-        for elem in page.get("elements", []):
-            text = (elem.get("text") or "").strip()
-            if not text or len(text) < 3:
-                continue
-            loc = elem.get("locator", {}) or {}
-            elem_idx = loc.get("element_index", 0)
+    if precomputed_protection is not None:
+        checker.protection_detector.protection_data = precomputed_protection
+        checker.protection_data = precomputed_protection
 
-            # grammar rules
-            for issue in grammar_checker.check(text, elem, slide_idx, elem_idx):
-                issues.append(issue.to_dict())
+        def _noop_detect(_doc: Dict[str, Any]) -> Dict[str, Any]:
+            return precomputed_protection
+        checker.protection_detector.detect_all_protected_content = _noop_detect  # type: ignore
 
-            # word list rules
-            for issue in word_checker.check(text, elem, slide_idx, elem_idx):
-                issues.append(issue.to_dict())
+    result = checker.analyze_document(document)
+    return result if return_wrapper else result.get("issues", [])
 
-    return issues
 
-# CLI INTERFACE
+# CLI entry-
 def main():
-    """Command-line interface"""
     import argparse
-    
-    parser = argparse.ArgumentParser(
-        description='Advanced Grammar & Word-List Style Checker',
-        formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog="""
-Examples:
-  python checker.py input.json
-  python checker.py input.json --output results.json
-  python checker.py input.json --no-llm
-  python checker.py input.json --stats-only
-        """
-    )
-    
-    parser.add_argument('input', help='Input JSON file (normalized document)')
-    parser.add_argument('-o', '--output', help='Output JSON file (default: input_issues.json)')
-    parser.add_argument('--no-llm', action='store_true', help='Disable LLM enhancement')
-    parser.add_argument('--stats-only', action='store_true', help='Show statistics only')
-    
+    parser = argparse.ArgumentParser(description="LLM-Only Style Checker")
+    parser.add_argument("input", help="Normalized document JSON")
+    parser.add_argument("-o", "--output", help="Output JSON file")
+    parser.add_argument("--no-llm", action="store_true", help="Disable LLM (will result in no protection)")
     args = parser.parse_args()
-    
-    # Load input
-    try:
-        with open(args.input, 'r', encoding='utf-8') as f:
-            document = json.load(f)
-    except Exception as e:
-        print(f"Error loading input: {e}", file=sys.stderr)
-        sys.exit(1)
-    
-    # Run checker
+
+    with open(args.input, "r", encoding="utf-8") as f:
+        document = json.load(f)
+
     checker = AgenticStyleChecker(use_llm=not args.no_llm)
     result = checker.analyze_document(document)
-    
-    # Save output
-    if not args.stats_only:
-        output_path = args.output or args.input.replace('.json', '_issues.json')
-        try:
-            with open(output_path, 'w', encoding='utf-8') as f:
-                json.dump(result, f, indent=2, ensure_ascii=False)
-            print(f"Results saved to: {output_path}")
-        except Exception as e:
-            print(f"Error saving output: {e}", file=sys.stderr)
-            sys.exit(1)
-    
-    # Print statistics
-    print()
-    print("=" * 70)
-    print("ANALYSIS STATISTICS")
-    print("=" * 70)
-    print(f"Total Elements Analyzed:  {result['statistics']['total_elements']}")
-    print(f"Total Issues Found:       {result['total_issues']}")
-    print()
-    print("By Method:")
-    print(f"  Rule-Based:             {result['statistics']['rule_based']}")
-    print(f"  LLM-Enhanced:           {result['statistics']['llm_calls']}")
-    print()
-    print("By Severity:")
-    for sev, count in sorted(result['statistics']['by_severity'].items()):
-        if count > 0:
-            print(f"  {sev.capitalize():20} {count}")
-    print()
-    print("By Category:")
-    for cat, count in sorted(result['statistics']['by_category'].items()):
-        if count > 0:
-            print(f"  {cat.capitalize():20} {count}")
-    print("=" * 70)
-    
-    # Print top issues
-    if not args.stats_only and result['issues']:
-        print()
-        print("TOP 5 ISSUES:")
-        print("-" * 70)
-        for i, issue in enumerate(result['issues'][:5], 1):
-            print(f"{i}. [{issue['severity'].upper()}] {issue['rule_name']}")
-            print(f"   Location: {issue['location']}")
-            print(f"   {issue['description']}")
-            print()
 
-if __name__ == '__main__':
+    output_path = args.output or args.input.replace(".json", "_analyzed.json")
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(result, f, indent=2, ensure_ascii=False)
+
+    logger.info("Results saved to: %s", output_path)
+    logger.info("Protected items: %s", result["protection_data"])
+
+
+if __name__ == "__main__":
     main()
