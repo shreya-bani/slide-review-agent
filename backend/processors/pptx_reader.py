@@ -10,6 +10,8 @@ from pptx import Presentation
 from pptx.text.text import TextFrame
 from pptx.enum.dml import MSO_COLOR_TYPE, MSO_THEME_COLOR
 from pptx.util import Pt
+from pptx.enum.text import PP_ALIGN
+
 
 import warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning)
@@ -37,14 +39,20 @@ class FormattingInfo:
     font_size: Optional[float] = None
     is_bold: Optional[bool] = None
     is_italic: Optional[bool] = None
+    # Font color
     font_color: Optional[str] = None
-    font_color_rgb: Optional[str] = None  # Resolved RGB
-    paragraph_spacing_before: Optional[float] = None
-    paragraph_spacing_after: Optional[float] = None
-    line_spacing: Optional[float] = None
-    
+    font_color_rgb: Optional[str] = None  # Resolved RGB hex if available
+    # Paragraph spacing
+    paragraph_spacing_before: Optional[float] = None  # points
+    paragraph_spacing_after: Optional[float] = None   # points
+    line_spacing: Optional[float] = None              # multiple (float) or exact (points)
+    # Extra paragraph layout fields
+    paragraph_alignment: Optional[str] = None         # e.g. 'LEFT', 'CENTER', 'RIGHT', 'JUSTIFY'
+    left_margin: Optional[float] = None               # points
+    first_line_indent: Optional[float] = None         # points
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
+
 
 
 @dataclass
@@ -238,139 +246,158 @@ class PPTXReader:
         
         return elements
     
+   
+            
     def _extract_formatting(self, paragraph) -> FormattingInfo:
         """Extract formatting information from paragraph with enhanced fallback."""
-        formatting = FormattingInfo()
-        
+        fmt = FormattingInfo()
+
         try:
-            # Extract paragraph-level spacing
-            if hasattr(paragraph, 'paragraph_format'):
-                para_format = paragraph.paragraph_format
-                
-                # Spacing before
+            # Paragraph-level spacing
+            pf = getattr(paragraph, "paragraph_format", None)
+
+            align = getattr(pf, "alignment", None)
+            if align is not None:
+                # store the enum name, e.g. 'LEFT', 'CENTER'
                 try:
-                    if hasattr(para_format, 'space_before') and para_format.space_before is not None:
-                        formatting.paragraph_spacing_before = float(para_format.space_before.pt)
-                except:
-                    pass
-                
-                # Spacing after
-                try:
-                    if hasattr(para_format, 'space_after') and para_format.space_after is not None:
-                        formatting.paragraph_spacing_after = float(para_format.space_after.pt)
-                except:
-                    pass
-                
-                # Line spacing
-                try:
-                    if hasattr(para_format, 'line_spacing') and para_format.line_spacing is not None:
-                        formatting.line_spacing = float(para_format.line_spacing)
-                except:
-                    pass
-            
-            # Extract run-level formatting - try all runs if needed
-            if paragraph.runs:
-                # Start with first run
-                run = paragraph.runs[0]
-                font = run.font
-                
-                # Font name - check multiple runs if first is None
-                formatting.font_name = font.name
-                if formatting.font_name is None and len(paragraph.runs) > 1:
-                    for r in paragraph.runs[1:]:
-                        if r.font.name:
-                            formatting.font_name = r.font.name
-                            break
-                
-                # Font size - check multiple runs if first is None
-                if font.size:
-                    formatting.font_size = float(font.size.pt)
-                elif len(paragraph.runs) > 1:
-                    for r in paragraph.runs[1:]:
-                        if r.font.size:
-                            formatting.font_size = float(r.font.size.pt)
-                            break
-                
-                # Bold and italic
-                formatting.is_bold = font.bold
-                formatting.is_italic = font.italic
-                
-                # Extract color information with enhanced handling
-                color_info = self._extract_color_enhanced(font, paragraph)
-                formatting.font_color = color_info['display']
-                formatting.font_color_rgb = color_info['rgb']
-                        
+                    fmt.paragraph_alignment = PP_ALIGN(align).name  # add a field to FormattingInfo if you want this
+                except Exception:
+                    fmt.paragraph_alignment = str(align)
+
+            lm = getattr(pf, "left_margin", None)
+            if lm is not None and hasattr(lm, "pt"):
+                fmt.left_margin = float(lm.pt)  # add fields in FormattingInfo if you want these
+
+            fi = getattr(pf, "first_line_indent", None)
+            if fi is not None and hasattr(fi, "pt"):
+                fmt.first_line_indent = float(fi.pt)
+
+            # spacing before/after (points)
+            if pf is not None:
+                sb = getattr(pf, "space_before", None)
+                if sb is not None and hasattr(sb, "pt"):
+                    fmt.paragraph_spacing_before = float(sb.pt)
+
+                sa = getattr(pf, "space_after", None)
+                if sa is not None and hasattr(sa, "pt"):
+                    fmt.paragraph_spacing_after = float(sa.pt)
+
+                # line spacing: float (multiplier) OR Length (exact pts)
+                ls = getattr(pf, "line_spacing", None)
+                if ls is not None:
+                    # float → store multiplier as-is
+                    if isinstance(ls, float) or isinstance(ls, int):
+                        fmt.line_spacing = float(ls)
+                    else:
+                        # likely a Length – keep points
+                        pt = getattr(ls, "pt", None)
+                        if pt is not None:
+                            fmt.line_spacing = float(pt)
+
+            # Run-level font info
+            runs = list(getattr(paragraph, "runs", []))
+            if runs:
+                # font family: take the first non-None across runs
+                for r in runs:
+                    name = getattr(r.font, "name", None)
+                    if name:
+                        fmt.font_name = name
+                        break
+
+                # font size: collect all defined sizes (points)
+                sizes = []
+                for r in runs:
+                    f = r.font
+                    try:
+                        if getattr(f, "size", None):
+                            sizes.append(float(f.size.pt))
+                    except Exception:
+                        pass
+
+                # choose your policy: first non-None, or max, etc.
+                # here we pick the first defined size for "effective" size
+                if sizes:
+                    fmt.font_size = sizes[0]
+
+                # bold/italic: if any run is explicitly True, mark True;
+                # if all None/False, stays None/False
+                is_bold = None
+                is_italic = None
+                for r in runs:
+                    b = r.font.bold
+                    i = r.font.italic
+                    if b is True:
+                        is_bold = True
+                    if i is True:
+                        is_italic = True
+                fmt.is_bold = is_bold
+                fmt.is_italic = is_italic
+
+                # color: resolve from the first run that yields something meaningful
+                for r in runs:
+                    color_info = self._extract_color_enhanced(r.font, paragraph)
+                    if color_info.get("rgb") or color_info.get("display") != "default":
+                        fmt.font_color = color_info.get("display")
+                        fmt.font_color_rgb = color_info.get("rgb")
+                        break
+
         except Exception as e:
             logger.debug(f"Could not extract formatting: {e}")
-        
-        return formatting
-    
+
+        return fmt
+
     def _extract_color_enhanced(self, font, paragraph) -> Dict[str, Optional[str]]:
-        """Enhanced color extraction with multiple fallback mechanisms."""
-        result = {'display': 'default', 'rgb': None}
-        
-        if not hasattr(font, 'color') or not font.color:
-            return result
-        
+        """
+        Robust color extraction.
+        Returns:
+        {
+            'display': 'default' | 'theme:ACCENT_1' | '#RRGGBB',
+            'rgb': '#RRGGBB' | None
+        }
+        """
+        out = {'display': 'default', 'rgb': None}
+
+        color = getattr(font, "color", None)
+        if not color:
+            return out
+
         try:
-            color = font.color
-            
-            # RGB Color - Direct
-            if color.type == MSO_COLOR_TYPE.RGB:
-                try:
-                    rgb = color.rgb
-                    rgb_str = f"RGB {rgb[0]}-{rgb[1]}-{rgb[2]}"
-                    result['display'] = rgb_str
-                    result['rgb'] = rgb_str
-                    return result
-                except:
-                    pass
-            
-            # Theme Color - Enhanced resolution attempts
-            elif color.type == MSO_COLOR_TYPE.SCHEME:
-                theme_color = color.theme_color
+            # Direct RGB?
+            # color.rgb is an RGBColor (int-like); convert to hex.
+            rgb = getattr(color, "rgb", None)
+            if rgb is not None:
+                hex_str = f"#{int(rgb):06X}"
+                out['display'] = hex_str
+                out['rgb'] = hex_str
+                return out
+
+            # Scheme (theme) color?
+            ctype = getattr(color, "type", None)
+            if ctype == MSO_COLOR_TYPE.SCHEME:
+                theme_color = getattr(color, "theme_color", None)
                 theme_name = self.THEME_COLOR_NAMES.get(theme_color, str(theme_color))
-                
-                rgb_str = None
-                
-                # Method 1: Try direct RGB property
-                try:
-                    rgb = color.rgb
-                    rgb_str = f"RGB {rgb[0]}-{rgb[1]}-{rgb[2]}"
-                except:
-                    pass
-                
-                # Method 2: Try brightness/tint adjusted color
-                if not rgb_str:
-                    try:
-                        # Some theme colors store adjusted values
-                        if hasattr(color, '_element'):
-                            # Access XML element for more details
-                            pass
-                    except:
-                        pass
-                
-                result['display'] = f"theme:{theme_name} ({theme_color})"
-                result['rgb'] = rgb_str
-                return result
-            
-            # HSL or other color types
+                out['display'] = f"theme:{theme_name}"
+                # Some themes also expose brightness/tint; python-pptx doesn't resolve final RGB reliably.
+                # You could attempt manual theme resolution here if you need exact RGB.
+                return out
+
+            # Other types: attempt hex if possible
+            hex_str = None
+            rgb = getattr(color, "rgb", None)
+            if rgb is not None:
+                hex_str = f"#{int(rgb):06X}"
+            if hex_str:
+                out['display'] = hex_str
+                out['rgb'] = hex_str
             else:
-                try:
-                    rgb = color.rgb
-                    rgb_str = f"RGB {rgb[0]}-{rgb[1]}-{rgb[2]}"
-                    result['display'] = rgb_str
-                    result['rgb'] = rgb_str
-                except:
-                    result['display'] = f"color_type:{color.type}"
-                    result['rgb'] = None
-                
-                return result
-                    
+                out['display'] = f"color_type:{ctype}"
+            return out
+
         except Exception as e:
             logger.debug(f"Color extraction failed: {e}")
-            return result
-    
+            return out
+        
+
     def _extract_notes(self, slide) -> Optional[str]:
         """Extract speaker notes."""
         try:
@@ -441,21 +468,21 @@ def process_pptx_file(file_path: str) -> Dict[str, Any]:
     return reader.extract_to_dict()
 
 
-# if __name__ == "__main__":
-#     import json
+if __name__ == "__main__":
+    import json
 
-#     try:
-#         result = process_pptx_file(
-#             r"C:\Users\Shreya B\Documents\GitHub\slide-review-agent\data\uploads\002_Amida_Agentic_AI_solution_Strategic_Plan_Draft_Aug.pptx"
-#         )
+    try:
+        result = process_pptx_file(
+            r"C:\Users\Shreya B\Documents\GitHub\slide-review-agent\data\uploads\amida vacm project presentation -may 2 2025 -final for mukundan.pptx"
+        )
 
-#         output_file = r'C:\Users\Shreya B\Documents\GitHub\slide-review-agent\data\logs\002_Amida_Agentic_AI_solution_Strategic_Plan_Draft_Aug.json'
-#         with open(output_file, "w", encoding="utf-8") as f:
-#             json.dump(result, f, indent=2, ensure_ascii=False)
+        output_file = r'C:\Users\Shreya B\Documents\GitHub\slide-review-agent\data\logs\try-10.json'
+        with open(output_file, "w", encoding="utf-8") as f:
+            json.dump(result, f, indent=2, ensure_ascii=False)
 
-#         print(f"JSON output saved to {output_file}")
+        print(f"JSON output saved to {output_file}")
 
-#     except Exception as e:
-#         print(f"Error: {e}")
-#         import traceback
-#         traceback.print_exc()
+    except Exception as e:
+        print(f"Error: {e}")
+        import traceback
+        traceback.print_exc()

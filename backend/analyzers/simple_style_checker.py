@@ -5,6 +5,8 @@ Single upfront LLM call for comprehensive protection categorization
 
 from __future__ import annotations
 import json
+from datetime import datetime
+from pathlib import Path
 import re
 import sys
 from typing import List, Dict, Any, Optional, Set
@@ -23,6 +25,8 @@ logging.basicConfig(
     format="%(asctime)s %(levelname)s %(name)s: %(message)s",
     stream=sys.stdout,
 )
+
+log_dir = settings.log_dir  or (Path(settings.output_dir) / "logs")
 
 # Data structures
 class Severity(Enum):
@@ -63,6 +67,8 @@ class ComprehensiveProtectionDetector:
     def __init__(self, llm_client: Optional[LLMClient] = None):
         self.llm = llm_client
         self.protection_data: Dict[str, Any] = {}
+
+
 
     def detect_all_protected_content(self, document: Dict[str, Any]) -> Dict[str, Any]:
         """Single LLM call to categorize all protected content in document."""
@@ -244,7 +250,7 @@ class GrammarChecker:
             n = int(token)
         except ValueError:
             return False
-        if not (1900 <= n <= 2099):
+        if not (1900 <= n <= 4000):
             return False
         left = text[max(0, start-40):start].lower()
         right = text[end:min(len(text), end+40)].lower()
