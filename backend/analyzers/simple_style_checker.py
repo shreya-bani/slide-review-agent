@@ -79,8 +79,9 @@ class ComprehensiveProtectionDetector:
         if not self.llm:
             logger.warning("LLM client not provided — skipping protection detection")
             return self._get_empty_protection_data()
-
-        combined_text = "\n---PAGE BREAK---\n".join(all_texts[:10000])  # cap size
+        
+        full_text = "\n---PAGE BREAK---\n".join(all_texts)
+        combined_text = full_text[:12000]  # cap by characters
         llm_result = self._llm_comprehensive_detection(combined_text)
         if llm_result:
             self.protection_data = llm_result
