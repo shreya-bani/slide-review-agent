@@ -1,0 +1,4534 @@
+{
+  "document_type": "pptx",
+  "metadata": {
+    "file_path": "data\\uploads\\002_amida_vacm_project_presentation_-may_2_2025_-final.pptx",
+    "total_slides": 78,
+    "layouts": [
+      "Intro slide image type 1",
+      "Thank you slide",
+      "1_Intro slide image type 2",
+      "Content slide+image type 1",
+      "Content text slide type 1"
+    ],
+    "title": "",
+    "author": "",
+    "created": "2025-03-10T13:40:18",
+    "modified": "2025-05-03T17:47:55"
+  },
+  "pages": [
+    {
+      "index": 1,
+      "title": null,
+      "elements": [
+        {
+          "text": "VASRD-to-Medical Code Mapping",
+          "locator": {
+            "page_or_slide_index": 1,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": 38.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Greeshmanjali Bandlamudi",
+          "locator": {
+            "page_or_slide_index": 1,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": 16.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Shreya Ganesh",
+          "locator": {
+            "page_or_slide_index": 1,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 1,
+            "position": "middle"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": 16.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Laura Johnson",
+          "locator": {
+            "page_or_slide_index": 1,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 2,
+            "position": "middle"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": 16.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Prashanth Kumar Manji",
+          "locator": {
+            "page_or_slide_index": 1,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 3,
+            "position": "bottom"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": 16.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Bhuvanesh Nagabhyru",
+          "locator": {
+            "page_or_slide_index": 1,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 4,
+            "position": "bottom"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": 16.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Peter L. Levin",
+          "locator": {
+            "page_or_slide_index": 1,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 5,
+            "position": "bottom"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": 16.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "May 2025",
+          "locator": {
+            "page_or_slide_index": 1,
+            "element_type": "bullet",
+            "element_index": 2,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": null,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Intro slide image type 1",
+      "element_count": 8
+    },
+    {
+      "index": 2,
+      "title": "Problem | Approach | Impact",
+      "elements": [
+        {
+          "text": "Insert Graphic Here and Remove Box",
+          "locator": {
+            "page_or_slide_index": 2,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Calibri",
+            "font_size": 18.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "theme:LIGHT_1",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Problem",
+          "locator": {
+            "page_or_slide_index": 2,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": null,
+            "is_bold": true,
+            "is_italic": null,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "The Department of Veterans Affairs (VA) lacks a structured, scalable system to map Veterans Affairs Schedule for Rating Disabilities (VASRD) codes to standardized medical codes. This gap makes it difficult for adjudicators to efficiently evaluate claims, leading to processing delays and inconsistent evaluations. Amida’s MCP team currently performs this mapping manually, which is time-consuming and not scalable.",
+          "locator": {
+            "page_or_slide_index": 2,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 1,
+            "position": "middle"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": null,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "​Our Approach",
+          "locator": {
+            "page_or_slide_index": 2,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 3,
+            "position": "bottom"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": null,
+            "is_bold": true,
+            "is_italic": null,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Amida developed a custom Extraction-Compaction-Expansion-Unified Medical Language System (UMLS) API (ECEU) workflow​ to map relevant medical codes to the VASRD. The process is as follows:",
+          "locator": {
+            "page_or_slide_index": 2,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 4,
+            "position": "bottom"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": null,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Extract medical concepts (e.g., diagnoses, medications, procedures, and labs) from eCFR/VASRD criteria and map them to standardized medical terminologies",
+          "locator": {
+            "page_or_slide_index": 2,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 5,
+            "position": "bottom"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": null,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Use LLM-driven keyword expansion and the UMLS API to identify relevant medical codes",
+          "locator": {
+            "page_or_slide_index": 2,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 6,
+            "position": "bottom"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": null,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Apply VASRD criteria-based filters to the medical codes to ensure result accuracy and clinical relevance",
+          "locator": {
+            "page_or_slide_index": 2,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 7,
+            "position": "bottom"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": null,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Impact",
+          "locator": {
+            "page_or_slide_index": 2,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 9,
+            "position": "bottom"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": null,
+            "is_bold": true,
+            "is_italic": null,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "​The VACM automation initiative enables the MCP team to accelerate the mapping process, expediting over 114,000 claims and reducing claim resolution time for more than 4.4 million veterans.",
+          "locator": {
+            "page_or_slide_index": 2,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 10,
+            "position": "bottom"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": null,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content slide+image type 1",
+      "element_count": 10
+    },
+    {
+      "index": 3,
+      "title": "VASRD to Medical Codes Workflow",
+      "elements": [
+        {
+          "text": "This workflow automates the Extraction, Compaction, and Expansion of VASRD keywords, followed by a UMLS API query (ECEU). In the initial phase, the Python script extracts raw terminology from the Code of Federal Regulations (CFR). In the second phase, the process removes non-essential words (e.g., prepositions, conjunctions) and use Llama 3.2 to generate and expand related medical terms. The following validation step filters out irrelevant keywords to ensure that only valid terms advance to the mapping stage. The final phase initiates UMLS API integration, maps clinical codes to the generated keyword set, and eliminates unrelated clinical codes to maximize result accuracy.",
+          "locator": {
+            "page_or_slide_index": 3,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 4,
+      "title": "ECEU Workflow Example",
+      "elements": [
+        {
+          "text": "This diagram illustrates the VACM ECEU (Extraction, Compaction, Expansion, and UMLS API) workflow. Medical concepts are extracted from eCFR data, as shown in the above figure, and processed through an LLM to generate relevant medical keywords such as \"Echocardiography,\" \"Prednisone,\" and \"Complete blood count.\" The expanded keywords are then mapped to standardized medical codes using the UMLS API, resulting in ICD-10 codes (e.g., R50.9 for Fever), CPT codes (e.g., 93306 for Echocardiography), RxNorm codes (e.g., 8640 for Prednisone), and LOINC codes (e.g., 718-7 for Complete Blood Count).",
+          "locator": {
+            "page_or_slide_index": 4,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 5,
+      "title": "Part 1: VASRD to Medical Codes Workflow",
+      "elements": [
+        {
+          "text": "This diagram illustrates the VACM workflow, with Part 1, Extracting eCFR/VASRD Data, highlighted. In this initial step, relevant medical information is extracted from the eCFR website.",
+          "locator": {
+            "page_or_slide_index": 5,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 6,
+      "title": "eCFR Data Extraction",
+      "elements": [
+        {
+          "text": "This table screenshot presents extracted eCFR data focused on VASRD Code 6846 for Sarcoidosis. Each row lists a specific condition with its associated disability rating, ranging from 0 to 100. This simplified format enables quick reference to the criteria and ratings outlined for Sarcoidosis.",
+          "locator": {
+            "page_or_slide_index": 6,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "This screenshot from the electronic Code of Federal Regulations (eCFR) shows the VA Schedule for Rating Disabilities (VASRD) Code 6846: Sarcoidosis. The table includes a detailed breakdown of rating criteria for various conditions and symptoms, with ratings ranging from 0 to 100.",
+          "locator": {
+            "page_or_slide_index": 6,
+            "element_type": "bullet",
+            "element_index": 2,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 2
+    },
+    {
+      "index": 7,
+      "title": "CFR Data Extraction",
+      "elements": [
+        {
+          "text": "This table screenshot provides the detailed schema for categorizing and managing VASRD data extracted from the eCFR, including labels, identifiers, conditions, associated VASRD codes and names, and context-relevant ratings. The schema also specifies the structure for major and minor ratings, supporting accurate classification and streamlined processing of disability evaluation data.",
+          "locator": {
+            "page_or_slide_index": 7,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Schema key for the extracted VASRD data structure.",
+          "locator": {
+            "page_or_slide_index": 7,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 2
+    },
+    {
+      "index": 8,
+      "title": "CFR Data Extraction Added to AWS RDS",
+      "elements": [
+        {
+          "text": "This code snippet illustrates how to connect to Amida's AWS RDS (Relational Database Service) PostgreSQL instance and retrieve data from a database table into a pandas DataFrame with proper column headers. The eCFR data is stored in RDS to provide centralized, easy access for any authorized user.",
+          "locator": {
+            "page_or_slide_index": 8,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Database extraction results that show VASRD data for Sarcoidosis (Code 6846), including code classifications, system labels, and associated medical conditions with their specific rating criteria from the Respiratory System section.",
+          "locator": {
+            "page_or_slide_index": 8,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 2
+    },
+    {
+      "index": 9,
+      "title": "Part 2: VASRD to Medical Codes Workflow",
+      "elements": [
+        {
+          "text": "This diagram illustrates the VACM workflow, with Part 2, LLM Keyword Generation, highlighted. This is the first step of Part 2, where relevant medical terms and keywords are compacted and expanded from the extracted eCFR data.",
+          "locator": {
+            "page_or_slide_index": 9,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 10,
+      "title": "Keyword Compaction",
+      "elements": [
+        {
+          "text": "Prompt Configuration for Keyword Compaction: Detailed instructions for the extraction of medical terminology from the eCFR description, including categorization rules and output formatting specifications.",
+          "locator": {
+            "page_or_slide_index": 10,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Keyword Compaction - Technical implementation that shows the prompt engineering for keyword compaction from the eCFR description (left) and Ollama integration using the Llama 3.2 model configuration (right).",
+          "locator": {
+            "page_or_slide_index": 10,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 14.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "The text below in red is the prompt.",
+          "locator": {
+            "page_or_slide_index": 10,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 1,
+            "position": "middle"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 14.0,
+            "is_bold": true,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Ollama Implementation Configuration Block: Technical integration of Ollama chat using the Llama 3.2 model, featuring temperature control and structured message formatting for precise keyword compaction.",
+          "locator": {
+            "page_or_slide_index": 10,
+            "element_type": "bullet",
+            "element_index": 2,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 4
+    },
+    {
+      "index": 11,
+      "title": "Keyword Expansion",
+      "elements": [
+        {
+          "text": "The text below in red is the prompt.",
+          "locator": {
+            "page_or_slide_index": 11,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 14.0,
+            "is_bold": true,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Expansion Prompt Template: Extracts comprehensive medical knowledge, from anatomical to pathological aspects, for specific diseases and conditions. The prompt focuses on six key areas: pathological process, anatomical involvement, clinical manifestations, diagnostic indicators, disease progression, and treatment response, including specific anatomical locations and systems (e.g., “Lungs, Heart, Brain, Ocular” instead of “Primary organs affected”). This template accepts disease names to capture multi-system involvement and broader medical terminology. Its structured format generates detailed medical analysis across primary mechanisms, organ systems, symptoms, diagnostic markers, progression patterns, and treatment outcomes. This approach enables more precise code mapping and captures the full spectrum of anatomical involvement in conditions (Example: Sarcoidosis).",
+          "locator": {
+            "page_or_slide_index": 11,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 2
+    },
+    {
+      "index": 12,
+      "title": "Part 2: VASRD to Medical Codes Workflow",
+      "elements": [
+        {
+          "text": "This diagram illustrates the VACM workflow, with Part 2, LLM Keyword Generation, highlighted. This is the second step of Part 2, where unrelated medical terms and keywords are removed from the expanded keyword set.",
+          "locator": {
+            "page_or_slide_index": 12,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 13,
+      "title": "Keywords Filtering",
+      "elements": [
+        {
+          "text": "Prompt Configuration for Keyword Filtering: The filter_disease_keywords function constructs a prompt to filter symptoms and disease-specific keywords from an LLM-generated keyword list based on a given disease name. The function ensures that only the identified keywords are returned as comma-separated values without additional commentary.",
+          "locator": {
+            "page_or_slide_index": 13,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Ollama Implementation Configuration Block: Technical integration of Ollama chat using the Llama 3.2 model, featuring temperature control and structured message formatting for accurate keyword filtering.",
+          "locator": {
+            "page_or_slide_index": 13,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "The text below in purple is the prompt.",
+          "locator": {
+            "page_or_slide_index": 13,
+            "element_type": "bullet",
+            "element_index": 2,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 14.0,
+            "is_bold": true,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 3
+    },
+    {
+      "index": 14,
+      "title": "Part 3: VASRD to Medical Codes Workflow",
+      "elements": [
+        {
+          "text": "This diagram illustrates the VACM workflow, with Part 3, UMLS API Query and Filtering, highlighted. This is the first step of Part 3, where relevant medical terms are used fetch the ICD-10 codes related to the condition.",
+          "locator": {
+            "page_or_slide_index": 14,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 15,
+      "title": "ICD-10 API Call",
+      "elements": [
+        {
+          "text": "This figure shows the output DataFrame, mapping keywords to corresponding ICD-10 codes and descriptions, and demonstrating how the function processes and organizes the data.",
+          "locator": {
+            "page_or_slide_index": 15,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "The screenshot below demonstrates the use of NLM and UMLS APIs to retrieve ICD-10 codes according to a provided list of keywords from the API call",
+          "locator": {
+            "page_or_slide_index": 15,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 14.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "The text below in red is the API URL and its parameters.",
+          "locator": {
+            "page_or_slide_index": 15,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 1,
+            "position": "middle"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 14.0,
+            "is_bold": true,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "This figure shows a Python code snippet that iterates through a list of medical keywords, sets API request parameters, and sends a GET request to the National Library of Medicine's ICD-10-CM API. The function uses get_umls_ticket() to authenticate and retrieve the data for each keyword.",
+          "locator": {
+            "page_or_slide_index": 15,
+            "element_type": "bullet",
+            "element_index": 2,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 4
+    },
+    {
+      "index": 16,
+      "title": "ICD-10 ECEU Results",
+      "elements": [
+        {
+          "text": "The Venn diagram illustrates the breadth of our results, with 2,517 ICD-10 codes identified by the automated process (larger circle) compared to the 147 codes identified by the SME's manual process (smaller circle). The intersection highlights 141 common codes, underscoring the alignment between approaches and the expanded coverage achieved by the automated method.",
+          "locator": {
+            "page_or_slide_index": 16,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 17,
+      "title": "Part 3: VASRD to Medical Codes Workflow",
+      "elements": [
+        {
+          "text": "This diagram illustrates the VACM workflow, with Part 3, UMLS API Query and Filtering, highlighted. This is the second step of Part 3, where unrelated ICD-10 codes are removed from the API results.",
+          "locator": {
+            "page_or_slide_index": 17,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 18,
+      "title": "Filtering of API Results",
+      "elements": [
+        {
+          "text": "The disease_related_codes function determines whether a given code description is directly or indirectly related to a specified VASRD disease (e.g., Sarcoidosis). It evaluates direct mentions, known manifestations, complications, affected organs, inflammatory conditions, symptoms, and treatments. The function returns “yes” if related, otherwise “no,” enforcing a strict binary output.",
+          "locator": {
+            "page_or_slide_index": 18,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "The text below in purple is the prompt.",
+          "locator": {
+            "page_or_slide_index": 18,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 14.0,
+            "is_bold": true,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 2
+    },
+    {
+      "index": 19,
+      "title": "Results After Post Filtering",
+      "elements": [
+        {
+          "text": "The refined Venn diagram illustrates the reduction of false positives in the ICD-10 code identification process. Additional filtering reduced ECEU results from 2,517 to 1,703 codes, improving precision while retaining alignment with 141 of the 147 source codes identified in the SME’s manual process. This refinement increases approach accuracy without sacrificing coverage.",
+          "locator": {
+            "page_or_slide_index": 19,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 20,
+      "title": "Results Comparison",
+      "elements": [
+        {
+          "text": "This table compares ECEU results across multiple medical conditions. Each row lists a condition and its associated VASRD code, detailing the clinical code mapping. The \"Source Codes\" column displays the initial validated codes, while the \"ECEU Results“ column captures the unfiltered mapping output. The \"Filtered ECEU Results\" column highlights the significant reduction in false positives after LLM processing, ranging from 43% (Sarcoidosis) to 77% (Irritable Bowel Syndrome). The \"Common Codes\" column confirms retention of over 90% of source codes for most conditions, while “Missing Codes” tracks minimal losses. This comparative analysis demonstrates how our approach substantially improves precision in VASRD-to-medical code and preserves comprehensive coverage across diverse medical conditions.",
+          "locator": {
+            "page_or_slide_index": 20,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 21,
+      "title": "Web Application (Step 1)",
+      "elements": [
+        {
+          "text": "These images show Step 1 of the VASRD-to-Medical Code Mapping Tool. Users enter three key inputs: a 4-digit VASRD code (comma-separated for multiples), the associated disability (e.g., “Sarcoidosis,” as shown in the right-hand image), and the desired coding standard (as shown within the dropdown menu in the right-hand image). After providing the necessary input, the users select the \"Step 2: Generate Keywords\" button to proceed.",
+          "locator": {
+            "page_or_slide_index": 21,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 22,
+      "title": "Web Application (Step 2)",
+      "elements": [
+        {
+          "text": "These images show Step 2 of the VASRD-to-Medical Code Mapping Tool, where the system generates and displays extracted and expanded keywords according to inputs from Step 1. After clicking \"Generate Keywords\" in the previous step, the system processes the given input and presents a table of relevant medical terms associated with the condition. LLMs automatically extract these terms from eCFR descriptions and expand them based on the specified disability. The system filters these keywords to retain only those relevant to the disability, removing any duplicates or unnecessary terms to create a focused set of medical mapping terminology.",
+          "locator": {
+            "page_or_slide_index": 22,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 23,
+      "title": "Web Application Options (Step 2)",
+      "elements": [
+        {
+          "text": "1",
+          "locator": {
+            "page_or_slide_index": 23,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 11.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "2",
+          "locator": {
+            "page_or_slide_index": 23,
+            "element_type": "bullet",
+            "element_index": 2,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 11.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "3",
+          "locator": {
+            "page_or_slide_index": 23,
+            "element_type": "bullet",
+            "element_index": 3,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 11.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "4",
+          "locator": {
+            "page_or_slide_index": 23,
+            "element_type": "bullet",
+            "element_index": 4,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 11.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "These images show Step 2 of the VASRD-to-Medical Code Mapping Tool, with various interactive features highlighted by numbered circles. The main table displays extracted keywords mapped to ICD-10 for a given VASRD code. Key functionalities highlighted in this view include: (1) Add Keyword – click the \"+\" button to add terms.",
+          "locator": {
+            "page_or_slide_index": 23,
+            "element_type": "bullet",
+            "element_index": 7,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 5
+    },
+    {
+      "index": 24,
+      "title": "Web Application Options (Step 2)",
+      "elements": [
+        {
+          "text": "1",
+          "locator": {
+            "page_or_slide_index": 24,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 11.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "2",
+          "locator": {
+            "page_or_slide_index": 24,
+            "element_type": "bullet",
+            "element_index": 2,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 11.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "3",
+          "locator": {
+            "page_or_slide_index": 24,
+            "element_type": "bullet",
+            "element_index": 3,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 11.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "4",
+          "locator": {
+            "page_or_slide_index": 24,
+            "element_type": "bullet",
+            "element_index": 4,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 11.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "These images show Step 2 of the VASRD-to-Medical Code Mapping Tool, with various interactive features highlighted by numbered circles. The main table displays extracted keywords mapped to ICD-10 for a given VASRD code. Key functionalities highlighted in this view include: (2) Column Selection – choose which columns to display in the table view.",
+          "locator": {
+            "page_or_slide_index": 24,
+            "element_type": "bullet",
+            "element_index": 5,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 5
+    },
+    {
+      "index": 25,
+      "title": "Web Application Options (Step 2)",
+      "elements": [
+        {
+          "text": "1",
+          "locator": {
+            "page_or_slide_index": 25,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 11.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "2",
+          "locator": {
+            "page_or_slide_index": 25,
+            "element_type": "bullet",
+            "element_index": 2,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 11.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "3",
+          "locator": {
+            "page_or_slide_index": 25,
+            "element_type": "bullet",
+            "element_index": 3,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 11.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "4",
+          "locator": {
+            "page_or_slide_index": 25,
+            "element_type": "bullet",
+            "element_index": 4,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 11.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "These images show Step 2 of the VASRD-to-Medical Code Mapping Tool, with various interactive features highlighted by numbered circles. The main table displays extracted keywords mapped to ICD-10 for a given VASRD code. Key functionalities highlighted in this view include: (3) Download – export the keyword data as a CSV file.",
+          "locator": {
+            "page_or_slide_index": 25,
+            "element_type": "bullet",
+            "element_index": 5,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 5
+    },
+    {
+      "index": 26,
+      "title": "Web Application Options (Step 2)",
+      "elements": [
+        {
+          "text": "1",
+          "locator": {
+            "page_or_slide_index": 26,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 11.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "2",
+          "locator": {
+            "page_or_slide_index": 26,
+            "element_type": "bullet",
+            "element_index": 2,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 11.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "3",
+          "locator": {
+            "page_or_slide_index": 26,
+            "element_type": "bullet",
+            "element_index": 3,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 11.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "4",
+          "locator": {
+            "page_or_slide_index": 26,
+            "element_type": "bullet",
+            "element_index": 4,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 11.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "These images show Step 2 of the VASRD-to-Medical Code Mapping Tool, with various interactive features highlighted by numbered circles. The main table displays extracted keywords mapped to ICD-10 for a given VASRD code. Key functionalities highlighted in this view include: (4) Search – locate specific keywords within the generated list. Users can apply changes and download the complete keyword list as a CSV file for reference.",
+          "locator": {
+            "page_or_slide_index": 26,
+            "element_type": "bullet",
+            "element_index": 5,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 5
+    },
+    {
+      "index": 27,
+      "title": "Web Application (Step 3)",
+      "elements": [
+        {
+          "text": "These images show Step 3 of the VASRD-to-Medical Code Mapping Tool, where users generate medical code mappings according to selected keywords. After reviewing the keywords in Step 2, users click the \"Step 3: Filter Medical Codes\" button to initiate the mapping process. The panel on the right-hand side shows the UMLS API actively processing the request.",
+          "locator": {
+            "page_or_slide_index": 27,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 28,
+      "title": "Web Application (Step 3)",
+      "elements": [
+        {
+          "text": "This image shows the final step (Step 3) of the VASRD-to-Medical Code Mapping Tool, which displays the complete VASRD to ICD-10 mapping results. After the UMLS API processes the keywords, the system presents a comprehensive table of filtered medical codes matched to the selected VASRD code and disability. The panel on the left-hand side shows a summary view of the results, while the image on the right-hand side displays the full expanded view, including all mapped codes. To save these mapping results, users click the \"Download Final Result CSV\" button.",
+          "locator": {
+            "page_or_slide_index": 28,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 29,
+      "title": "Current Roadmap",
+      "elements": [
+        {
+          "text": "This image depicts the VACM task status as of Phase 1 completion on April 30, 2025. Phase 1 includes finalized components such as the pipeline and web applications for all coding standards. Phase 2 highlights remaining tasks, including the continued development of mapping coding standards.​",
+          "locator": {
+            "page_or_slide_index": 29,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 30,
+      "title": "Theoretical Knowledge Graph",
+      "elements": [
+        {
+          "text": "This image shows a knowledge graph with VASRD codes 6846 and 5025 as central nodes linked to ICD-10 diagnoses, SNOMED CT terminology, CPT procedures, NDC medications, LOINC lab tests, and RxNorm pharmaceutical terms. The clinical codes are clustered by type, illustrating how VASRD disability ratings connect to standardized medical data and enabling comprehensive analysis of related clinical concepts.",
+          "locator": {
+            "page_or_slide_index": 30,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 31,
+      "title": "CPT Knowledge Graph",
+      "elements": [
+        {
+          "text": "These network visualizations depict the relationships between VASRD codes (purple hub nodes) and their associated CPT procedural codes (blue nodes). The directed arrows labelled \"HAS_CPT\" show which CPT codes map to each VASRD rating category, illustrating the medical classification mapping used in disability evaluation systems.",
+          "locator": {
+            "page_or_slide_index": 31,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 32,
+      "title": "SNOMED CT Knowledge Graph",
+      "elements": [
+        {
+          "text": "These network visualizations depict the relationships between VASRD codes (purple hub nodes) and their associated medical classification systems. The left panel shows connections to SNOMED CT codes (orange nodes) via \"HAS_SNOMED\" directed arrows, while the right panel maps VASRD codes to SNOMED CT (orange nodes) and ICD-10 diagnostic codes (yellow nodes) through \"HAS_SNOMED\" and \"HAS_ICD\" pathways, illustrating the comprehensive medical terminology mapping framework used in disability evaluation systems.",
+          "locator": {
+            "page_or_slide_index": 32,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 33,
+      "title": null,
+      "elements": [
+        {
+          "text": "Please let us know if you have any questions!",
+          "locator": {
+            "page_or_slide_index": 33,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 23.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "theme:LIGHT_1",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Thank you slide",
+      "element_count": 1
+    },
+    {
+      "index": 34,
+      "title": null,
+      "elements": [
+        {
+          "text": "Backup slides and",
+          "locator": {
+            "page_or_slide_index": 34,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato Black",
+            "font_size": null,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "theme:BACKGROUND_1",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "other experiments",
+          "locator": {
+            "page_or_slide_index": 34,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 1,
+            "position": "middle"
+          },
+          "formatting": {
+            "font_name": "Lato Black",
+            "font_size": null,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "theme:BACKGROUND_1",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "1_Intro slide image type 2",
+      "element_count": 2
+    },
+    {
+      "index": 35,
+      "title": "Cosine Similarity",
+      "elements": [
+        {
+          "text": "Figure 24 – The diagram illustrates a workflow for calculating cosine similarity between eCFR descriptions and ICD-10 descriptions. Step 1 involves obtaining the eCFR description, followed by preprocessing the textual data to clean and standardize it. In Step 2, both eCFR and ICD-10 descriptions are fed into an embedding model, which converts the text into numerical vector representations. The ICD-10 Description is extracted from the output retrieved through the UMLS API. In Step 4, vectors are stored for further use. Finally, Step 5 utilizes cosine similarity to measure the degree of similarity between the eCFR description and ICD-10 description.",
+          "locator": {
+            "page_or_slide_index": 35,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Step 1",
+          "locator": {
+            "page_or_slide_index": 35,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": null,
+            "is_bold": true,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Step 2",
+          "locator": {
+            "page_or_slide_index": 35,
+            "element_type": "bullet",
+            "element_index": 2,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": null,
+            "is_bold": true,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Step 3",
+          "locator": {
+            "page_or_slide_index": 35,
+            "element_type": "bullet",
+            "element_index": 3,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": null,
+            "is_bold": true,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Step 4",
+          "locator": {
+            "page_or_slide_index": 35,
+            "element_type": "bullet",
+            "element_index": 4,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": null,
+            "is_bold": true,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Step 5",
+          "locator": {
+            "page_or_slide_index": 35,
+            "element_type": "bullet",
+            "element_index": 5,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": null,
+            "is_bold": true,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 6
+    },
+    {
+      "index": 36,
+      "title": "Cosine Similarity - Step 1: Preprocessing",
+      "elements": [
+        {
+          "text": "Figure 25– This code snippet demonstrates a preprocessing function called preprocess_ecfr. The function tokenizes the input text into words, converts them to lowercase for uniformity, and removes common stopwords to focus on meaningful terms. It lemmatizes the tokens, reducing them to their base or root form, and removes punctuation and special characters to eliminate unnecessary noise. Additionally, duplicate words are removed while preserving the order of occurrence. Finally, the cleaned tokens are joined back into a single string. This cleaning process is crucial because the eCFR descriptions contain a lot of noise and repeated words, making them unsuitable for embedding and similarity measurement.",
+          "locator": {
+            "page_or_slide_index": 36,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 37,
+      "title": "Cosine Similarity - Step 2: Embedding Models",
+      "elements": [
+        {
+          "text": "Figure 26– This image showcases the four embedding models used for vector embedding: text-embedding-ada-002, all-MiniLM-L6-v2, PubMedBERT, and BioBERT. These models were carefully selected to determine which one performs best for the project. text-embedding-ada-002 is a powerful general-purpose model, while all-MiniLM-L6-v2 offers efficiency and speed. PubMedBERT and BioBERT are domain-specific models designed for biomedical and clinical text. Vector embedding is performed using four models, the best model is finalized by analyzing the results to determine the most effective one for the project.",
+          "locator": {
+            "page_or_slide_index": 37,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Embedding Model 1",
+          "locator": {
+            "page_or_slide_index": 37,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 16.0,
+            "is_bold": true,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "text-embedding-ada-002",
+          "locator": {
+            "page_or_slide_index": 37,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 2,
+            "position": "middle"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 16.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Embedding Model 2",
+          "locator": {
+            "page_or_slide_index": 37,
+            "element_type": "bullet",
+            "element_index": 2,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 16.0,
+            "is_bold": true,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "all-MiniLM-L6-v2",
+          "locator": {
+            "page_or_slide_index": 37,
+            "element_type": "bullet",
+            "element_index": 2,
+            "sub_index": 2,
+            "position": "middle"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 16.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Embedding Model 3",
+          "locator": {
+            "page_or_slide_index": 37,
+            "element_type": "bullet",
+            "element_index": 3,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 16.0,
+            "is_bold": true,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "PubMedBERT",
+          "locator": {
+            "page_or_slide_index": 37,
+            "element_type": "bullet",
+            "element_index": 3,
+            "sub_index": 2,
+            "position": "middle"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 16.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Embedding Model 4",
+          "locator": {
+            "page_or_slide_index": 37,
+            "element_type": "bullet",
+            "element_index": 4,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 16.0,
+            "is_bold": true,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "BioBERT",
+          "locator": {
+            "page_or_slide_index": 37,
+            "element_type": "bullet",
+            "element_index": 4,
+            "sub_index": 2,
+            "position": "middle"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 16.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 9
+    },
+    {
+      "index": 38,
+      "title": "Cosine Similarity - Step 3 & 4: Vector Embedding and Vector Store",
+      "elements": [
+        {
+          "text": "Figure 27– This slide demonstrates the implementation of vector embedding using the text-embedding-ada-002 model. The embeddings are computed for both the cleaned eCFR descriptions and the ICD-10 \"Code Description\" column. After computation, the embeddings are saved into a DataFrame for future use. The image shows the embedding process using text-embedding-ada-002, but embeddings were also created using the other three models: all-MiniLM-L6-v2, PubMedBERT, and BioBERT, to ensure a complete comparison.",
+          "locator": {
+            "page_or_slide_index": 38,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 39,
+      "title": "Cosine Similarity - Step 5: Cosine Similarity",
+      "elements": [
+        {
+          "text": "Figure 28– This code demonstrates the implementation of function cosine_similarity to measure the similarity between two vector embeddings. Although there are existing libraries for cosine similarity, this manual implementation provides better transparency. This approach has now prepared the dataset for meaningful comparisons based on cosine similarity.",
+          "locator": {
+            "page_or_slide_index": 39,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 40,
+      "title": "Cosine Similarity - Comparison of Code Matching Across Models for Sarcoidosis",
+      "elements": [
+        {
+          "text": "Figure 29– This stacked bar chart compares the performance of four embedding models - text-embedding-ada-002, BioBERT, PubMedBERT, and all-MiniLM-L6-v2 - in aligning ICD-10 code descriptions with the ECFR description of VASRD Code: 6846 (Sarcoidosis) using cosine similarity. Each bar represents 147 ICD-10 codes split into 'Matched Codes' (blue) and 'Missing Codes' (dark blue). text-embedding-ada-002 achieved 33 matches, all-MiniLM-L6-v2 had 28 matches, while BioBERT and PubMedBERT each matched only 1 code. PubMedBERT and BioBERT yielded fewer matches in the top 200 results because their embeddings focus on biomedical text, which may not align well with the regulatory and clinical language in the ECFR description, resulting in weaker semantic connections",
+          "locator": {
+            "page_or_slide_index": 40,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 41,
+      "title": "Cosine Similarity",
+      "elements": [
+        {
+          "text": "Figure 30 -  Cosine similarity analysis was implemented to quantify the textual relationship between Sarcoidosis (Condition) and ICD-10 code descriptions. The computed similarity scores exhibited a range from 0.6876 to 0.8870 in the API output results, while Hannah's codes demonstrated scores from 0.7099 to 0.8870. Although cosine similarity excels at measuring textual alignment between vector representations, the substantial overlap in score distributions suggests its limitations in distinctly separating the approved codes from the broader API output set. This overlap presents a significant challenge in reliably identifying and ranking the 147 validated codes within the top 500 results.",
+          "locator": {
+            "page_or_slide_index": 41,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 42,
+      "title": "Euclidean Distance",
+      "elements": [
+        {
+          "text": "Figure 31 – Euclidean distance is used to measure the similarity between two points. In this analysis, vector embeddings were generated for the Sarcoidosis ECFR description and approximately 75,000 ICD-10 code descriptions using the text-embedding-3-large. Without applying normalization or dimensionality reduction, the L2 norm is calculated. ICD-10 Codes were sorted based on their L2 norm scores, with lower scores indicating higher similarity. The top 200 codes with the lowest L2 norm scores were compared to a curated list of 147 Sarcoidosis-related ICD-10 codes. Among the top 200 codes, 20 matched the curated list, and in the top 500, 29 codes matched. While the match is limited, refining the ECFR description by incorporating all known symptoms of Sarcoidosis using a LLM has the potential to improve the relevance and accuracy of the results.",
+          "locator": {
+            "page_or_slide_index": 42,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 43,
+      "title": "Euclidean Distance",
+      "elements": [
+        {
+          "text": "Figure 32 -  In our analysis, Euclidean distance serves as a key metric to evaluate the semantic relationship between Sarcoidosis (Condition) and ICD-10 code descriptions across two distinct datasets: API output results and Hannah's codes. The API output encompasses 2,564 codes, while Hannah's dataset contains 147 thoroughly validated codes. Our Euclidean distance calculations revealed a distribution ranging from 0.4754 to 0.7904 in the API dataset and 0.4754 to 0.7617 in Hannah's dataset. Notably, the overlapping distance ranges indicate that Euclidean distance, may not provide optimal differentiation for identifying the 147 validated codes within the broader API Output Results.",
+          "locator": {
+            "page_or_slide_index": 43,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 44,
+      "title": "Voronoi Partitioning",
+      "elements": [
+        {
+          "text": "Figure 33 - The process begins by using data from two sources: ECFR descriptions as seed points and approximately 75,000 ICD-10 code descriptions as data points. Vector embeddings for both the data sources are generated using the text-embedding-3-large model, converting textual information into numeric vectors. These embeddings are then reduced to two dimensions using Principal Component Analysis (PCA), allowing for normalized visualization. Subsequently, the Voronoi methodology is applied, which partitions the 2D space based on Euclidean distances. Each seed point (ECFR description) becomes the center of a region, and all data points (ICD-10 code descriptions) within a region are closer to that seed point than to any other. This technique effectively clusters and organizes the data points around their respective seed points.",
+          "locator": {
+            "page_or_slide_index": 44,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 45,
+      "title": "Voronoi Partitioning Results for Sarcoidosis",
+      "elements": [
+        {
+          "text": "Figure 34 – The image shows the Voronoi polygon for Sarcoidosis. Voronoi is performed for 6 ECFR health conditions. For detailed analysis, we focused on one seed point, Sarcoidosis. From the Voronoi results, we identified 5,487 ICD-10 codes (data points) associated with Sarcoidosis (seed point). To evaluate these results, we compared them with Hannah's team's result, which contains 147 ICD-10 codes related to Sarcoidosis. Out of Voronoi's identified codes, 47 matched the existing list. While the match is limited, this result reflects some inherent challenges. Each data point is assigned to only one seed point region, which might not fully capture cases where data points could relate to multiple health conditions. Additionally, the dimensionality reduction step (PCA), though essential for visualization, may have contributed to minor distortions in the clustering.",
+          "locator": {
+            "page_or_slide_index": 45,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Data Points",
+          "locator": {
+            "page_or_slide_index": 45,
+            "element_type": "bullet",
+            "element_index": 2,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Seed Point",
+          "locator": {
+            "page_or_slide_index": 45,
+            "element_type": "bullet",
+            "element_index": 4,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Voronoi Polygon",
+          "locator": {
+            "page_or_slide_index": 45,
+            "element_type": "bullet",
+            "element_index": 5,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 4
+    },
+    {
+      "index": 46,
+      "title": "Voronoi Partitioning – Cosine Similarity",
+      "elements": [
+        {
+          "text": "Table 3 - The table illustrates how data points are distributed among four seed points: Sarcoidosis, Asthma, Brain Cancer, and Fibromyalgia, based on embeddings of ECFR descriptions. In total, there are approximately 73,500 data points representing vector embeddings of ICD-10 code descriptions. Voronoi partitioning was applied using cosine similarity, which assigns each data point to the seed point with the highest similarity. This method allows for the grouping of data points based on their similarity to the seed points, providing a structured way to categorize ECFR descriptions. By examining these groupings, we gain valuable insights into the relationships and relevance of ICD-10 codes to each seed point, shedding light on how medical conditions are distributed and interconnected based on their descriptions.",
+          "locator": {
+            "page_or_slide_index": 46,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 47,
+      "title": "Voronoi Partitioning – Euclidean Distance",
+      "elements": [
+        {
+          "text": "Table 4 - The table shows how data points are distributed among the four seed points: Sarcoidosis, Asthma, Brain Cancer, and Fibromyalgia, which are based on the embeddings of ECFR descriptions. In total, there are approximately 73,500 data points representing vector embeddings of ICD-10 code descriptions. To analyze the data, Voronoi partitioning was applied using Euclidean distance. This method assigns each data point to the nearest seed point by calculating the Euclidean distance between the data point and the seed points. This approach helps identify patterns and relationships between ECFR descriptions and their closest seed points, offering a structured way to group similar data. By analyzing these groupings, we gain insights into the relevance of each seed point to the ICD-10 codes, uncovering how medical conditions are distributed and interconnected based on their descriptions.",
+          "locator": {
+            "page_or_slide_index": 47,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 48,
+      "title": "Retrieval-Augmented Generation (RAG)",
+      "elements": [
+        {
+          "text": "Figure 35 - The figure illustrates the architecture of a Retrieval-Augmented Generation (RAG) system. The process begins by embedding ICD-10 code descriptions into a vector embeddings using text-embedding-3-large embedding model. These embeddings are stored in a vector database to enable efficient semantic search. When a user submits a health condition as a query, it is converted into a vector embedding and passed to a retriever, which searches the vector database to find the most relevant ICD-10 descriptions. The retrieved information is then fed into a large language model (LLM), which combines this contextual input with its pretrained knowledge to generate a comprehensive and query-specific response. This integrated process of retrieval and generation ensures precise, relevant, and highly contextualized outputs for medical code queries.",
+          "locator": {
+            "page_or_slide_index": 48,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 49,
+      "title": "Retrieval-Augmented Generation (RAG)",
+      "elements": [
+        {
+          "text": "Figure 36 – This work builds upon the concepts discussed in Slide 26, extending the implementation to refine the RAG pipeline for ICD-10 code retrieval and generation. The RAG pipeline combines vector embeddings and LLM to retrieve ICD-10 codes based on input queries. Vector embeddings are generated for ICD-10 code descriptions and stored in a FAISS index utilizing IndexFlatL2, which relies on L2 norm (Euclidean distance) for similarity searches. During the retrieval process, an embedding is generated for the input query and compared with the stored embeddings to retrieve the top k results. The retrieval process is configured with k=500, the top 500 most relevant ICD-10 codes are retained based on similarity ranking. Analysis shows that only 29 of the ICD-10 codes matched within the top 500 results, leaving 118 ICD-10 codes unretrieved. Since the generation process in RAG relies on the retrieved data, any missing codes in the retrieval stage are inherently excluded from the generation phase. This dependency emphasizes that the quality and completeness of the retrieved data directly impact the accuracy and comprehensiveness of the generated results. Without retrieving all relevant codes, the generated output may fail to capture the full scope of the input query, making the current RAG approach insufficient.",
+          "locator": {
+            "page_or_slide_index": 49,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 50,
+      "title": "RAG: ICD-10 Dataset",
+      "elements": [
+        {
+          "text": "Figure 37– This image shows how ICD-10 codes are collected from three different government healthcare websites: cms.gov, clinicaltables.nlm.nih.gov, and ftp.cdc.gov. The database contains 75,430 unique ICD-10 codes in total. This consolidated database is specifically designed to be used in a medical code retrieval system that will help match natural language queries to appropriate ICD-10 codes.",
+          "locator": {
+            "page_or_slide_index": 50,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 51,
+      "title": "Conceptual Framework for Graph-Based ICD-10 Filtering",
+      "elements": [
+        {
+          "text": "Figure 38 - This diagram demonstrates our conceptual framework for graph-based ICD-10 filtering. Here we visualize the (synthetic) connectivity patterns between ICD-10 (dark blue dots) and VASRD codes (light blue dots). The diagram showcases two distinct patterns of code relationships: Looking at the top section, we see examples of indiscriminate ICD-10 codes (marked in the red boxes) that are overconnected to multiple VASRD nodes. These create a complex web of relationships, indicating low selectivity and a high probability of false positives. Such codes are less useful for precise medical classification. In contrast, the middle and lower sections display ICD-10 codes (marked in the green boxes) that show selective connectivity to VASRD nodes. We expect this transform to significantly reduce false positives and improve the accuracy of our classification system.",
+          "locator": {
+            "page_or_slide_index": 51,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "ICD-10 Nodes",
+          "locator": {
+            "page_or_slide_index": 51,
+            "element_type": "bullet",
+            "element_index": 7,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "VASRD Nodes",
+          "locator": {
+            "page_or_slide_index": 51,
+            "element_type": "bullet",
+            "element_index": 9,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Edges",
+          "locator": {
+            "page_or_slide_index": 51,
+            "element_type": "bullet",
+            "element_index": 10,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "High-Quality ICD-10 Code",
+          "locator": {
+            "page_or_slide_index": 51,
+            "element_type": "bullet",
+            "element_index": 12,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Low-Quality ICD-10 Code",
+          "locator": {
+            "page_or_slide_index": 51,
+            "element_type": "bullet",
+            "element_index": 14,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Precise match with selective VASRD links: high relevance, low false positives.",
+          "locator": {
+            "page_or_slide_index": 51,
+            "element_type": "bullet",
+            "element_index": 15,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 11.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Overconnected to multiple VASRD codes: low selectivity, high",
+          "locator": {
+            "page_or_slide_index": 51,
+            "element_type": "bullet",
+            "element_index": 16,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 11.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "false positives.",
+          "locator": {
+            "page_or_slide_index": 51,
+            "element_type": "bullet",
+            "element_index": 16,
+            "sub_index": 1,
+            "position": "middle"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 11.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": "color_type:None",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 9
+    },
+    {
+      "index": 52,
+      "title": "Neo4j Graph Visualization",
+      "elements": [
+        {
+          "text": "Figure 39 - This graph visualizes the relationship between VASRD codes (blue dots on the left) and ICD-10 codes (red dots on the right), highlighting their connections. We observe that multiple ICD-10 codes are linked to both unique VASRD codes, which aligns with our theory that these shared ICD codes contribute significantly to false positives. By identifying and removing these overlapping ICD-10 codes, we aim to effectively reduce false positives.",
+          "locator": {
+            "page_or_slide_index": 52,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 53,
+      "title": "Graph Theory: Analysis of ICD-10 to VASRD Connections",
+      "elements": [
+        {
+          "text": "Figure 40 - This bar chart displays the 10 ICD-10 codes with the highest number of connections to VASRD codes. These ICD codes are linked to multiple VASRD codes, which may contribute to false positives.",
+          "locator": {
+            "page_or_slide_index": 53,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Figure 58 - The above  threshold calculation shows that 95% of ICD-10 codes are linked to fewer than 16 VASRD codes.",
+          "locator": {
+            "page_or_slide_index": 53,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Figure 41 - The above  threshold calculation shows that 85% of ICD-10 codes are linked to fewer than 10 VASRD codes.",
+          "locator": {
+            "page_or_slide_index": 53,
+            "element_type": "bullet",
+            "element_index": 2,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 3
+    },
+    {
+      "index": 54,
+      "title": "Graph Theory: Results of ICD-10 Codes with Maximum of 24 VASRD Connections (97.5%ile)",
+      "elements": [
+        {
+          "text": "Total number of unique ICD-10 Codes (ECE Output for 100 VASRD Codes): 44238 ICD-10 codes​",
+          "locator": {
+            "page_or_slide_index": 54,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": null,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "theme:TEXT_1",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Total number of unique ICD-10 codes (ECE Output + Graph Theory for 100 VASRD Codes): 43255 ICD-10 codes​",
+          "locator": {
+            "page_or_slide_index": 54,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 1,
+            "position": "middle"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": null,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "theme:TEXT_1",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "​",
+          "locator": {
+            "page_or_slide_index": 54,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 2,
+            "position": "middle"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": null,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "theme:TEXT_1",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Figure 42 - Our ECE process generated 44,238 unique ICD-10 codes for 100 VASRD codes. After applying graph theory, we retained the 97.5th percentile of total ICD-10 codes (ECE output), resulting in 43,255 ICD-10 codes. We applied graph theory to these six conditions: Sarcoidosis, Brain Cancer, Asthma, Fibromyalgia, Irritable Bowel Syndrome, and Breast Cancer. For Sarcoidosis, Hannah's original set of 147 codes was narrowed down to 117 codes. Similarly, our ECE output for Sarcoidosis was refined from 2,564 to 2,289 codes after applying the same graph theory filtering, which comprehensively included all 117 of Hannah's codes.",
+          "locator": {
+            "page_or_slide_index": 54,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": null,
+            "is_bold": true,
+            "is_italic": true,
+            "color": "theme:TEXT_1",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 4
+    },
+    {
+      "index": 55,
+      "title": "Graph Theory: Results of ICD-10 Codes with Maximum of 16 VASRD Connections (95%ile)",
+      "elements": [
+        {
+          "text": "Figure 43 - Our ECE process generated 44,238 unique ICD-10 codes for 100 VASRD codes. After applying the graph theory, we retained 95th percentile  of total ICD-10 codes (ECE output) resulting in 42,158 ICD-10 codes. We applied graph theory for these six conditions: Sarcoidosis, Brain Cancer, Asthma, Fibromyalgia, Irritable Bowel Syndrome, Breast Cancer. For Sarcoidosis, Hannah's original set of 147 codes were narrowed down to 72 codes. Similarly, our ECE output for Sarcoidosis was refined from 2,564 to 1,789 codes after applying the same graph theory filtering, which comprehensively included all 72 of Hannah's codes. The table shows similar results for Brain Cancer, Asthma, and other 3 conditions demonstrating how our methodology effectively balances comprehensive coverage.​",
+          "locator": {
+            "page_or_slide_index": 55,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": null,
+            "is_bold": true,
+            "is_italic": true,
+            "color": "theme:TEXT_1",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Total number of unique ICD-10 Codes (ECE Output for 100 VASRD Codes): 44238 ICD-10 codes​",
+          "locator": {
+            "page_or_slide_index": 55,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": null,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "theme:TEXT_1",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Total number of unique ICD-10 codes (ECE Output + Graph Theory for 100 VASRD Codes): 42158 ICD-10 codes​",
+          "locator": {
+            "page_or_slide_index": 55,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 1,
+            "position": "middle"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": null,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "theme:TEXT_1",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "​",
+          "locator": {
+            "page_or_slide_index": 55,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 2,
+            "position": "middle"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": null,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "theme:TEXT_1",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 4
+    },
+    {
+      "index": 56,
+      "title": "Graph Theory: Results of ICD-10 Codes with Maximum of 13 VASRD Connections (92.5%ile)",
+      "elements": [
+        {
+          "text": "Figure 44 -  By applying the 92.5th percentile threshold, which means including the ICD-10 codes connected to a maximum of 13 VASRD codes, we produced 41,188 ICD-10 codes. This filtering threshold achieved balanced results across our test conditions: Sarcoidosis codes were narrowed down from Hannah's original set of 147 to 69 codes, while our ECE output reduced from 2,564 to 1,639 codes. Similar precision improvements are shown for Brain Cancer, Asthma, Fibromyalgia, Irritable Bowel Syndrome, and Breast Cancer in the table.",
+          "locator": {
+            "page_or_slide_index": 56,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": null,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Total number of unique ICD-10 Codes (ECE Output for 100 VASRD Codes): 44238 ICD-10 codes​",
+          "locator": {
+            "page_or_slide_index": 56,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": null,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "theme:TEXT_1",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Total number of unique ICD-10 codes (ECE Output + Graph Theory for 100 VASRD Codes): 41188 ICD-10 codes​",
+          "locator": {
+            "page_or_slide_index": 56,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 1,
+            "position": "middle"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": null,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "theme:TEXT_1",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 3
+    },
+    {
+      "index": 57,
+      "title": "Graph Theory: Results of ICD-10 Codes with Maximum of 16 VASRD Connections (85%ile)",
+      "elements": [
+        {
+          "text": "Figure 45 -  By taking the 85th percentile threshold, which means by including the ICD-10 codes connected to a maximum of 10 VASRD codes resulted to 38,820 ICD-10 codes. This higher filtering threshold produced more focused results across our test conditions: Sarcoidosis codes were narrowed down from Hannah's original set of 147 to 53 codes, while our ECE output reduced from 2,564 to 1,320 codes. Similar precision improvements are shown for Brain Cancer, Asthma, Fibromyalgia, Irritable Bowel Syndrome and Breast Cancer in the table, demonstrating how adjusting the threshold can balance comprehensive coverage.",
+          "locator": {
+            "page_or_slide_index": 57,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": null,
+            "is_bold": true,
+            "is_italic": true,
+            "color": "theme:TEXT_1",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Total number of unique ICD-10 Codes (ECE Output for 100 VASRD Codes): 44238 ICD-10 codes​",
+          "locator": {
+            "page_or_slide_index": 57,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": null,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "theme:TEXT_1",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Total number of unique ICD-10 codes (ECE Output + Graph Theory for 100 VASRD Codes): 38820 ICD-10 codes​",
+          "locator": {
+            "page_or_slide_index": 57,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 1,
+            "position": "middle"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": null,
+            "is_bold": null,
+            "is_italic": null,
+            "color": "theme:TEXT_1",
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 3
+    },
+    {
+      "index": 58,
+      "title": "Next Steps: UI Flow Concept",
+      "elements": [
+        {
+          "text": "Figure 65-  The flow begins with the selection of a medical condition, which initiates the ECE (Extraction, Compaction, Expansion) process. Next, a keyword confirmation step allows the user to review and validate the extracted terms for relevance and accuracy. Following this, an API call and post-filtering process refines the data to ensure only the most relevant medical codes are retained. The final step presents the results, displaying the VASRD mappings and medical codes, in a clear and actionable format.",
+          "locator": {
+            "page_or_slide_index": 58,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": null,
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 59,
+      "title": "CPT Prompt",
+      "elements": [
+        {
+          "text": "The text below in purple is the prompt.​",
+          "locator": {
+            "page_or_slide_index": 59,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 14.0,
+            "is_bold": true,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "This figure presents a comprehensive CPT prompt template designed to extract procedure-related keywords for accurate medical coding. The prompt instructs users to input a specific disease name and receive a thorough, comma-separated list of relevant procedural terms that would facilitate CPT code searches.",
+          "locator": {
+            "page_or_slide_index": 59,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 2
+    },
+    {
+      "index": 60,
+      "title": "RxNorm Prompt",
+      "elements": [
+        {
+          "text": "This figure presents a specialized RxNorm prompt template designed to extract medication terminology for pharmaceutical coding and standardization. The prompt instructs users to input a specific disease name and generate a comma-separated list of relevant medication terminology keywords applicable to RxNorm concepts. This structured approach ensures complete coverage of all medication related terminology.",
+          "locator": {
+            "page_or_slide_index": 60,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Below text in purple is the prompt​",
+          "locator": {
+            "page_or_slide_index": 60,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 14.0,
+            "is_bold": true,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 2
+    },
+    {
+      "index": 61,
+      "title": "LOINC Prompt",
+      "elements": [
+        {
+          "text": "This figure presents a LOINC prompt template designed to extract comprehensive laboratory and clinical observation terminology for standardized medical coding. The prompt instructs users to input a specific disease name and generate a comma-separated list of relevant keywords compatible with LOINC standards. This structured approach ensures complete coverage of all laboratory and observational terminology needed for LOINC codes.",
+          "locator": {
+            "page_or_slide_index": 61,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Below text in purple is the prompt​",
+          "locator": {
+            "page_or_slide_index": 61,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 14.0,
+            "is_bold": true,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 2
+    },
+    {
+      "index": 62,
+      "title": "NDC Prompt",
+      "elements": [
+        {
+          "text": "This figure presents a comprehensive NDC prompt template designed to extract specific medication and drug product terminology for National Drug Code. The prompt instructs users to input a specific disease name and generate a comma-separated list of  relevant medication keywords. This approach ensures comprehensive identification of all drug-related terminology needed for accurate NDC coding.",
+          "locator": {
+            "page_or_slide_index": 62,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Below text in purple is the prompt​",
+          "locator": {
+            "page_or_slide_index": 62,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 14.0,
+            "is_bold": true,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 2
+    },
+    {
+      "index": 63,
+      "title": "SNOMED Prompt",
+      "elements": [
+        {
+          "text": "This figure showcases a comprehensive SNOMED CT prompt template designed to extract specific medical terminology for standardized clinical coding. The prompt directs users to input a disease name and generate a comma-separated list of relevant terminology keywords to generate SNOMED CT coding. This structured approach ensures thorough coverage of all clinically relevant terminology needed for SNOMED CT codes.",
+          "locator": {
+            "page_or_slide_index": 63,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Below text in purple is the prompt​",
+          "locator": {
+            "page_or_slide_index": 63,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 14.0,
+            "is_bold": true,
+            "is_italic": null,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 2
+    },
+    {
+      "index": 64,
+      "title": "Practical Knowledge Graph",
+      "elements": [
+        {
+          "text": "Network visualization depicting relationships between VASRD codes (purple hub nodes) and their associated ICD-10 diagnostic codes (yellow nodes). The directed arrows labeled \"HAS_ICD\" show which ICD-10 codes correspond to each VASRD rating category, illustrating the medical classification mapping used in disability evaluation systems.",
+          "locator": {
+            "page_or_slide_index": 64,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 65,
+      "title": "Web Application Interface",
+      "elements": [
+        {
+          "text": "Figure 24 -  The interface displays Step 1 of a multi-step process, titled 'Get VASRD Information'. The user is prompted to enter a 4-digit VASRD code(6846) in an input field to begin the process.",
+          "locator": {
+            "page_or_slide_index": 65,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Step 1",
+          "locator": {
+            "page_or_slide_index": 65,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 2
+    },
+    {
+      "index": 66,
+      "title": "Web Application Interface",
+      "elements": [
+        {
+          "text": "Figure 25 -  The interface shows Step 2 of our VASRD Code Mapping Tool: Users input the specific medical condition(Sarcoidosis) associated with the selected VASRD code(6846) and expanded the keyword set.",
+          "locator": {
+            "page_or_slide_index": 66,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Step 1",
+          "locator": {
+            "page_or_slide_index": 66,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Step 2",
+          "locator": {
+            "page_or_slide_index": 66,
+            "element_type": "bullet",
+            "element_index": 2,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 3
+    },
+    {
+      "index": 67,
+      "title": "Web Application Interface",
+      "elements": [
+        {
+          "text": "Figure 26 -  The interface shows Step 3 which allows users to review and enhance the automatically generated keyword set, with option to add custom terms that better reflect the specific medical manifestations of sarcoidosis.",
+          "locator": {
+            "page_or_slide_index": 67,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Step 1",
+          "locator": {
+            "page_or_slide_index": 67,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Step 2",
+          "locator": {
+            "page_or_slide_index": 67,
+            "element_type": "bullet",
+            "element_index": 2,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Step 3",
+          "locator": {
+            "page_or_slide_index": 67,
+            "element_type": "bullet",
+            "element_index": 3,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 4
+    },
+    {
+      "index": 68,
+      "title": "Web Application Interface",
+      "elements": [
+        {
+          "text": "Figure 27 -  The interface shows Step 3 in which users can augment the comprehensive automatically-generated keyword set with custom clinical terms like 'headache, edema' or remove few keywords to better capture specific manifestations of sarcoidosis for more precise medical code mapping.",
+          "locator": {
+            "page_or_slide_index": 68,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Step 1",
+          "locator": {
+            "page_or_slide_index": 68,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Step 2",
+          "locator": {
+            "page_or_slide_index": 68,
+            "element_type": "bullet",
+            "element_index": 2,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Step 3",
+          "locator": {
+            "page_or_slide_index": 68,
+            "element_type": "bullet",
+            "element_index": 3,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 4
+    },
+    {
+      "index": 69,
+      "title": "Web Application Interface",
+      "elements": [
+        {
+          "text": "Figure 28 -  The interface shows Step 4 which provides confirmation of successful keyword generation for the condition, with 59 medical terms now saved to a structured spreadsheet for further processing in the mapping workflow.",
+          "locator": {
+            "page_or_slide_index": 69,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Step 1",
+          "locator": {
+            "page_or_slide_index": 69,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Step 2",
+          "locator": {
+            "page_or_slide_index": 69,
+            "element_type": "bullet",
+            "element_index": 2,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Step 4",
+          "locator": {
+            "page_or_slide_index": 69,
+            "element_type": "bullet",
+            "element_index": 3,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Step 3",
+          "locator": {
+            "page_or_slide_index": 69,
+            "element_type": "bullet",
+            "element_index": 4,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 5
+    },
+    {
+      "index": 70,
+      "title": "Web Application Interface",
+      "elements": [
+        {
+          "text": "Figure 29 -  The interface shows Step 5 which initiates the critical data retrieval phase, where the system leverages UMLS API integration to fetch standardized medical codes using the 59 generated keywords, requiring the user to click 'Run API Call' before proceeding to ensure all relevant codes are properly fetched and processed.",
+          "locator": {
+            "page_or_slide_index": 70,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Step 1",
+          "locator": {
+            "page_or_slide_index": 70,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Step 2",
+          "locator": {
+            "page_or_slide_index": 70,
+            "element_type": "bullet",
+            "element_index": 2,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Step 5",
+          "locator": {
+            "page_or_slide_index": 70,
+            "element_type": "bullet",
+            "element_index": 3,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Step 3",
+          "locator": {
+            "page_or_slide_index": 70,
+            "element_type": "bullet",
+            "element_index": 4,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Step 4",
+          "locator": {
+            "page_or_slide_index": 70,
+            "element_type": "bullet",
+            "element_index": 5,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 6
+    },
+    {
+      "index": 71,
+      "title": "Web Application Interface",
+      "elements": [
+        {
+          "text": "Figure 30 -  The interface shows the final step of our filtering process, where we've successfully reduced 3794 raw UMLS API results to 2591 clinically relevant medical codes for sarcoidosis, readily available for download.",
+          "locator": {
+            "page_or_slide_index": 71,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Step 1",
+          "locator": {
+            "page_or_slide_index": 71,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Step 2",
+          "locator": {
+            "page_or_slide_index": 71,
+            "element_type": "bullet",
+            "element_index": 2,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Step 5",
+          "locator": {
+            "page_or_slide_index": 71,
+            "element_type": "bullet",
+            "element_index": 3,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Step 3",
+          "locator": {
+            "page_or_slide_index": 71,
+            "element_type": "bullet",
+            "element_index": 4,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Step 4",
+          "locator": {
+            "page_or_slide_index": 71,
+            "element_type": "bullet",
+            "element_index": 5,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "Step 6",
+          "locator": {
+            "page_or_slide_index": 71,
+            "element_type": "bullet",
+            "element_index": 6,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 13.0,
+            "is_bold": true,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 7
+    },
+    {
+      "index": 72,
+      "title": "Web Application (Step 1)",
+      "elements": [
+        {
+          "text": "This image shows Step 1 of the VASRD Code(s) to Medical Code Mapping Tool. In this initial step, users are prompted to enter three key inputs of information: a 4-digit VASRD Code (with comma separation for multiple codes), the Disease/Condition Name ('Sarcoidosis' is shown as an example), and the Medical Code Type ('ICD-10' is selected) to generate keywords.",
+          "locator": {
+            "page_or_slide_index": 72,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 73,
+      "title": "Web Application (Step 2)",
+      "elements": [
+        {
+          "text": "This image shows Step 2 of the VASRD Code(s) to Medical Code Mapping Tool where the system generates and displays extracted and expanded keywords based on inputs from Step 1. In the \"Extracted Keywords\" section, a table presents relevant medical terms associated with the condition, automatically extracted from eCFR descriptions and expanded using large language models based on the disease. The system has filtered these keywords to include only those relevant to the disease while removing duplicates and unnecessary terms, creating a focused set of medical terminology for mapping purposes.",
+          "locator": {
+            "page_or_slide_index": 73,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 74,
+      "title": "Web Application (Step 3)",
+      "elements": [
+        {
+          "text": "This image displays Step 3 of the VASRD code(s) to Medical Code Mapping Tool, showing the final mapping from VASRD Code to ICD-10 codes. The \"Filtered Clinical Codes\" section presents a table of ICD-10 codes that have been identified as relevant to the disease(Sarcoidosis, VASRD code 6846). In this final step, the keywords generated in Step 2 are sent to the UMLS API, which maps them to relevant medical codes. These API results are then processed through a language model for post-filtering, which retains only the codes specifically related to the disease based on code descriptions while removing unrelated results.",
+          "locator": {
+            "page_or_slide_index": 74,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 75,
+      "title": "ICD-10 Results",
+      "elements": [
+        {
+          "text": "This table displays several completed conditions and their results. The \"ICD-10 Missing Codes\" column compares our automated results with Hannah’s team’s manually mapped results, highlighting any missing codes.",
+          "locator": {
+            "page_or_slide_index": 75,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        },
+        {
+          "text": "The image shows our “ICD-10 Results Progress.” We completed 200 out of 789 VASRD codes, reaching 25.3% completion.",
+          "locator": {
+            "page_or_slide_index": 75,
+            "element_type": "bullet",
+            "element_index": 1,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 2
+    },
+    {
+      "index": 76,
+      "title": "SNOMED Results",
+      "elements": [
+        {
+          "text": "This table displays several completed conditions and their results. The \"SNOMED Missing Codes\" column compares our automated results with Hannah’s team’s manually mapped results, indicating any missing codes.",
+          "locator": {
+            "page_or_slide_index": 76,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 77,
+      "title": "Deliverables",
+      "elements": [
+        {
+          "text": "This table screenshot lists conditions with their associated VASRD codes and code mappings across ICD-10, CPT, RxNorm, LOINC, SNOMED, and NDC. The “yes\" and \"no\" fields indicate the presence or absence of codes for each condition in the respective medical coding system. This reference supports our pipeline development for code mapping between multiple standardized medical terminologies.",
+          "locator": {
+            "page_or_slide_index": 77,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    },
+    {
+      "index": 78,
+      "title": "UI Design",
+      "elements": [
+        {
+          "text": "This screen showcases the updated UI design for Step 2 of the VASRD-to-Medical Code Mapping Tool. Currently in development, the interface aligns with Amida’s design system, visual style, and brand guidelines. The improved UI layout streamlines user input for VASRD codes, associated medical conditions, and code types, enhancing usability and consistency across the application.",
+          "locator": {
+            "page_or_slide_index": 78,
+            "element_type": "bullet",
+            "element_index": 0,
+            "sub_index": 0,
+            "position": "top"
+          },
+          "formatting": {
+            "font_name": "Lato",
+            "font_size": 12.0,
+            "is_bold": null,
+            "is_italic": true,
+            "color": null,
+            "hierarchy_level": 0
+          },
+          "confidence": 1.0,
+          "source_type": "pptx"
+        }
+      ],
+      "notes": null,
+      "layout_info": "Content text slide type 1",
+      "element_count": 1
+    }
+  ],
+  "extraction_info": {
+    "total_slides": 78,
+    "slides_with_content": 78,
+    "slides_with_notes": 0,
+    "total_elements": 190
+  },
+  "normalized_at": "2025-10-06T12:55:22.698088",
+  "summary": {
+    "total_pages": 78,
+    "pages_with_content": 78,
+    "total_elements": 190
+  }
+}

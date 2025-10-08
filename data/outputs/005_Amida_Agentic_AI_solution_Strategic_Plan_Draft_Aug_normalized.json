@@ -4,12 +4,12 @@
     "file_path": "data\\uploads\\005_Amida_Agentic_AI_solution_Strategic_Plan_Draft_Aug.pptx",
     "total_slides": 33,
     "layouts": [
-      "1_Content slide smartArt Type 1",
-      "Title slide graphic 1",
-      "1_Content text slide type 1",
-      "Content slide empty Type 1",
       "1_Content slide empty Type 1",
-      "TITLE"
+      "Content slide empty Type 1",
+      "TITLE",
+      "1_Content text slide type 1",
+      "Title slide graphic 1",
+      "1_Content slide smartArt Type 1"
     ],
     "title": "",
     "author": "Nuno Pereira",
@@ -34,22 +34,12 @@
             "font_name": "Lato",
             "font_size": 28.0,
             "is_bold": true,
-            "is_italic": false,
-            "color": "theme:LIGHT_1 (LIGHT_1 (2))",
+            "is_italic": null,
+            "color": "theme:LIGHT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 28.0,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "theme:LIGHT_1 (LIGHT_1 (2))",
-            "style_name": "Lato Bold"
-          },
-          "heading_level": 1,
-          "heading_name": "Heading 1"
+          "source_type": "pptx"
         },
         {
           "text": "Amida Agentic AI Strategy Map and OKRs",
@@ -63,21 +53,13 @@
           "formatting": {
             "font_name": "Lato",
             "font_size": 28.0,
-            "is_bold": false,
-            "is_italic": false,
-            "color": "theme:LIGHT_1 (LIGHT_1 (2))",
+            "is_bold": null,
+            "is_italic": null,
+            "color": "theme:LIGHT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 28.0,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "theme:LIGHT_1 (LIGHT_1 (2))",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "August 28, 2025",
@@ -91,21 +73,13 @@
           "formatting": {
             "font_name": "Lato",
             "font_size": 14.0,
-            "is_bold": false,
-            "is_italic": false,
-            "color": "theme:LIGHT_1 (LIGHT_1 (2))",
+            "is_bold": null,
+            "is_italic": null,
+            "color": "theme:LIGHT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 14.0,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "theme:LIGHT_1 (LIGHT_1 (2))",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         }
       ],
       "notes": null,
@@ -134,15 +108,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "The market is in the hype cycle with rapid buying of persuasive ideas from branded commercial players and large systems integrators that offer a commercial solution for resale on existing contracts. Large government systems integrators use the terms AI agents and Agentic AI interchangeably, creating confusion and mis-understanding by government procurement staff and other stakeholders.",
@@ -158,19 +124,11 @@
             "font_size": null,
             "is_bold": null,
             "is_italic": null,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "theme:TEXT_1 (TEXT_1 (13))",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "States contracts are using a pilot approach, and some are adding AI general capabilities into existing large IT infrastructure contracts in parallel to pilots; both government and industry are seeing little gains from initial pilots due to data issues and planning gaps",
@@ -186,19 +144,11 @@
             "font_size": null,
             "is_bold": null,
             "is_italic": null,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "theme:TEXT_1 (TEXT_1 (13))",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Amida needs to be aggressive and visible in the market (with solutions proof points, endorsements, and outreach). Selling new solutions to existing agency customers or previously deployed solutions to new agencies is beating companies that try to sell a new solution to new customers. Key differentiators are credibility and value of a new solution:",
@@ -214,19 +164,11 @@
             "font_size": null,
             "is_bold": null,
             "is_italic": null,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "theme:TEXT_1 (TEXT_1 (13))",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Credibility equates to low risk that can be verified by a working prototype with dummy data or existing deployed use case that is easily ported to a similar use case; in addition, there is growing demand for information protection and security certifications (e.g. FedRAMP; Secure By Design; HITRUST)",
@@ -242,19 +184,11 @@
             "font_size": 14.0,
             "is_bold": null,
             "is_italic": null,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 1
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 14.0,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "theme:TEXT_1 (TEXT_1 (13))",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "High value must be measurable impact statement such as reduced cost/increased productivity, accelerated cycle time, process quality gains (reduced errors, customer satisfaction), and/or unique decision insights. While specific AI agents have mission impact measures, NIST (under the President Trump’s AI EO) is newly charged with developing a new metrics environment for scalability and interoperability that will be useful for agentic AI models.",
@@ -270,19 +204,11 @@
             "font_size": 14.0,
             "is_bold": null,
             "is_italic": null,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 1
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 14.0,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "theme:TEXT_1 (TEXT_1 (13))",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Amida cannot beat branded systems integrators just on the basis of having smart people; we will win with a compelling solution or secret sauce that provides a differentiator (e.g. removing a constraint that has been causing a client to fail such as data issues, cybersec weakness, or measurable ROI). Governance solutions are a greenfield opportunity.",
@@ -298,19 +224,11 @@
             "font_size": null,
             "is_bold": null,
             "is_italic": null,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "theme:TEXT_1 (TEXT_1 (13))",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Key areas of differentiation for Amida are:",
@@ -326,19 +244,11 @@
             "font_size": null,
             "is_bold": null,
             "is_italic": true,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": "Italic",
-            "color_rgb": "theme:TEXT_1 (TEXT_1 (13))",
-            "style_name": "Lato Italic"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "AI solutions for optimizing workflows (health, benefits, and regulatory compliance) and providing governance over AI agents",
@@ -354,19 +264,11 @@
             "font_size": 14.0,
             "is_bold": null,
             "is_italic": true,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 2
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 14.0,
-            "font_weight": "Regular",
-            "font_style": "Italic",
-            "color_rgb": "theme:TEXT_1 (TEXT_1 (13))",
-            "style_name": "Lato Italic"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Provide secure-by-design AI agents that prevent data loss and unintended or erroneous use",
@@ -382,19 +284,11 @@
             "font_size": 14.0,
             "is_bold": null,
             "is_italic": true,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 2
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 14.0,
-            "font_weight": "Regular",
-            "font_style": "Italic",
-            "color_rgb": "theme:TEXT_1 (TEXT_1 (13))",
-            "style_name": "Lato Italic"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Rapid prototyping that engages clients and demonstrates mission ROI",
@@ -410,19 +304,11 @@
             "font_size": 14.0,
             "is_bold": null,
             "is_italic": true,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 2
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 14.0,
-            "font_weight": "Regular",
-            "font_style": "Italic",
-            "color_rgb": "theme:TEXT_1 (TEXT_1 (13))",
-            "style_name": "Lato Italic"
-          }
+          "source_type": "pptx"
         }
       ],
       "notes": null,
@@ -451,15 +337,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Objective: Provide team members with a common understanding of the methods being used to develop the business plan for the Amida Agentic AI Marketplace solution",
@@ -479,15 +357,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Approach: Kaplan & Norton Strategic Map for a New Product",
@@ -507,15 +377,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Workplan and Status:",
@@ -535,15 +397,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Set Objective using “Measure What Matters” Outcome Objectives and Key Results",
@@ -559,19 +413,11 @@
             "font_size": null,
             "is_bold": null,
             "is_italic": null,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "theme:TEXT_1 (TEXT_1 (13))",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Identify Total Accessible Market and Initial Target Customers",
@@ -587,19 +433,11 @@
             "font_size": null,
             "is_bold": null,
             "is_italic": null,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "theme:TEXT_1 (TEXT_1 (13))",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Competitor analysis",
@@ -615,19 +453,11 @@
             "font_size": null,
             "is_bold": null,
             "is_italic": null,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "theme:TEXT_1 (TEXT_1 (13))",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Pick Strategy Approach: Best Total Cost Solution; Market Leader; Complete Solution; System Lock-in",
@@ -643,19 +473,11 @@
             "font_size": null,
             "is_bold": null,
             "is_italic": null,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "theme:TEXT_1 (TEXT_1 (13))",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Evaluate our Strengths, Weaknesses, Opportunities, and Threats using the four Balanced Scorecard Perspectives: Financial; Customer; Internal Process; Learning & Growth",
@@ -671,19 +493,11 @@
             "font_size": null,
             "is_bold": null,
             "is_italic": null,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "theme:TEXT_1 (TEXT_1 (13))",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Assess Opportunities and Map Actions for Achievement of OKRs",
@@ -699,19 +513,11 @@
             "font_size": null,
             "is_bold": null,
             "is_italic": null,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "theme:TEXT_1 (TEXT_1 (13))",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         }
       ],
       "notes": null,
@@ -740,15 +546,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Objective: Become the premier partner for state governments in delivering agentic AI that provide substantial improvements in state government operations rapidly, with high quality, and profitability leading to bookings that generate at least $300M backlog by July 2028.",
@@ -768,15 +566,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Initial OKRs",
@@ -796,15 +586,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "2–3 states have Amida initial projects underway within 12 months.",
@@ -824,15 +606,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "NLT 2027, we secure at least one project greater than $1M outside of Healthcare, such as analytics or AI governance",
@@ -852,15 +626,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Amida clients achieve at least 50% faster time-to-value than traditional custom developed software approaches.",
@@ -880,15 +646,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Amida achieves 30% gross margin within 24 months.",
@@ -908,15 +666,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "By 2028, at least one top-five IT spending state (e.g. Texas, California, New York, Florida, Illinois) engages in a contract for Amida’s agentic AI platform.",
@@ -936,15 +686,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         }
       ],
       "notes": null,
@@ -973,15 +715,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Agentic AI Definition: “Agentic AI comprises systems of foundation models, rules, architectures, and tools which enable software to flexibly plan and adapt to resolve goals by taking action in their environment, with increasing levels of autonomy.” (Forrester Report: Agentic AI Is Rising And Will Reforge Businesses That Embrace It, May 7, 205)",
@@ -1001,15 +735,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "In contrast, AI Agents are designed for specific, predefined tasks. They operate within strict boundaries, following programmed rules or workflows. These agents excel in repetitive or structured environments, such as customer support chatbots or recommendation systems. However, they lack the ability to adapt or learn independently.",
@@ -1029,15 +755,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Problem Statement:",
@@ -1057,15 +775,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "State governments face increasing demand for digital services and decision support but are constrained by legacy systems and workforce shortages.",
@@ -1085,15 +795,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "AI Interest is growing, but procurement and IT adoption methods (including governance) lag behind the technology.",
@@ -1113,15 +815,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "State Government Customer Targeting:",
@@ -1141,15 +835,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Green field applications: Permitting agencies looking to reduce cycle time (permit evaluator app); forms intensive approval processes and certification processes (including visual inspections); grants indirect cost reduction.",
@@ -1169,15 +855,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Brown field applications: Medicaid; FEMA Public Assistance recovery/repair grant approvals (including engineering drawings and visual inspections).",
@@ -1197,15 +875,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "IT environment: data base analytics, visualizations, code base migration, code reviews; data migration, data pipeline management, data quality management; multi-modal integration and operations.",
@@ -1225,15 +895,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Champion: Tech savvy mission Political Appointees (Department Secretaries/Deputy Secretaries) such Medicaid Directors, Transportation Dept. heads, State Hospital Associations, Governors).",
@@ -1253,15 +915,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Buyer: State CIOs/CDOs/CTOs seeking modernization.",
@@ -1281,15 +935,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Initial Target States: SC, NC, MD, VA, plus IL, Texas, and/or another top 5 state.",
@@ -1309,15 +955,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         }
       ],
       "notes": null,
@@ -1346,15 +984,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Source information: Forecasted Spending is based on state government shares of global and US spending on Agentic AI and AI Agents using analysis by Zach Woodard amida agentic ai tam analysis - aug 14 2025 -zdw.docx",
@@ -1374,15 +1004,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         }
       ],
       "notes": "Market share refers to US State government portion of total US spending on Agentic AI. See Zach’s Whitepaper. Clarify/replace wording of “Market Share”",
@@ -1411,15 +1033,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "“Strategy is based on a differentiated customer value proposition….Clarity of this value proposition is the single most important dimension of strategy…[there] are four major value propositions and customer strategies we have observed in practice: low total cost, product leadership, complete customer solutions, system lock-in.”",
@@ -1435,19 +1049,11 @@
             "font_size": null,
             "is_bold": true,
             "is_italic": true,
-            "color": "theme:LIGHT_1 (LIGHT_1 (2))",
+            "color": "theme:LIGHT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": "Italic",
-            "color_rgb": "theme:LIGHT_1 (LIGHT_1 (2))",
-            "style_name": "Lato Bold Italic"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Kaplan and Norton, STRATEGY MAPS: CONVERTING INTANGIBLE ASSETS INTO TANGIBLE OUTCOMES, p.10",
@@ -1463,19 +1069,11 @@
             "font_size": null,
             "is_bold": true,
             "is_italic": true,
-            "color": "theme:LIGHT_1 (LIGHT_1 (2))",
+            "color": "theme:LIGHT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": "Italic",
-            "color_rgb": "theme:LIGHT_1 (LIGHT_1 (2))",
-            "style_name": "Lato Bold Italic"
-          }
+          "source_type": "pptx"
         }
       ],
       "notes": null,
@@ -1504,15 +1102,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Additional Targets",
@@ -1532,15 +1122,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "For Regulatory Streamlining agent:",
@@ -1560,15 +1142,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Red State regulatory reform leads and their CIOs/CDOs (start with FL, also VA governor, SC, TX)",
@@ -1588,15 +1162,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Small Business Administration Dep Administrator and Small Business Administration Small Business Advocate",
@@ -1616,15 +1182,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Federal SSA: ITSC (w/SAIC; focus on EHR data integration into workflows)",
@@ -1644,15 +1202,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Virginia: Regulatory/Licensing Streamlining, AI Agent governance platform",
@@ -1672,15 +1222,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "South Carolina: AI Agent DMV pilot; Regulatory/Licensing Streamlining; AI Agent governance",
@@ -1700,15 +1242,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Maryland: Medicaid AI Agent pilot; AI Agent governance platform",
@@ -1728,15 +1262,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "North Carolina: exploit AI BPA with governance platform and agent pilots that are derivatives of Medicaid work",
@@ -1756,15 +1282,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Illinois: AI governance and pilots from mid-Atlantic",
@@ -1784,15 +1302,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         }
       ],
       "notes": null,
@@ -1821,15 +1331,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         }
       ],
       "notes": null,
@@ -1858,15 +1360,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Key Strengths",
@@ -1886,15 +1380,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "We are focused on leading edge projects in target states",
@@ -1908,21 +1394,13 @@
           "formatting": {
             "font_name": "Lato",
             "font_size": null,
-            "is_bold": null,
+            "is_bold": true,
             "is_italic": null,
             "color": "color_type:None",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "We can bid compelling pricing, with flexible pricing for client hosting needs",
@@ -1942,15 +1420,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Our graph technology is proven to be successful at removing bias in AI/ML model development and training that is directly applicable to agents and agentic AI",
@@ -1970,15 +1440,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "We have deep understanding of the government regulatory environment and requirements, especially in cybersec and interoperability and can produce secure-by-design solutions",
@@ -1998,15 +1460,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "From an organization standpoint, AI initiatives have strong support from leadership, especially for leading edge AI solutions that reflect our values",
@@ -2026,15 +1480,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Key Weaknesses",
@@ -2054,15 +1500,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "We have limited resources available for investment with staffing growth tightly coupled to contract wins",
@@ -2082,15 +1520,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Our sales content is vey technical and not consumable for non-IT mission, procurement, or program office staff",
@@ -2110,15 +1540,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Our focus has been on technology versus program impact, so we do not have solutions with mission impact proof points",
@@ -2138,15 +1560,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "We need further development of a repeatable process for identifying target client agentic AI needs and creating direct engagement with target state POCs and stakeholders",
@@ -2166,15 +1580,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "We have multiple single points of failure in product development that create an inability to scale (e.g. development, bid and proposal, partnership relations, validation/approval of solution features and functionality)",
@@ -2194,15 +1600,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Key Opportunities",
@@ -2222,15 +1620,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Package solutions using market benchmarks for proof points (including technical, mission and productivity impact)",
@@ -2250,15 +1640,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Investing in relationship building and BD for in target states, including one of the big 5 IT spending states with a specific path to a contract for that state",
@@ -2278,15 +1660,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Develop partnerships with key companies (e.g. Google, Snowflake, ServiceNow) that have strong presence in target states and leverage relationships to increase understanding and initial wins",
@@ -2306,15 +1680,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Create ai.amida.com interactive website to showcase our videos – could include client pick a use case and see how it works",
@@ -2334,15 +1700,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Focus product development on prototypes for greenfield opportunities, including emerging best practices in agentic AI governance",
@@ -2362,15 +1720,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         }
       ],
       "notes": null,
@@ -2407,15 +1757,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "$300M Sales, $100M Backlog, $30M OP",
@@ -2430,20 +1772,12 @@
             "font_name": "Lato",
             "font_size": 14.0,
             "is_bold": true,
-            "is_italic": false,
+            "is_italic": null,
             "color": "color_type:PRESET (102)",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 14.0,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:PRESET (102)",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Productivity Strategy",
@@ -2458,20 +1792,12 @@
             "font_name": "Lato",
             "font_size": 14.0,
             "is_bold": true,
-            "is_italic": false,
-            "color": "theme:BACKGROUND_1 (BACKGROUND_1 (14))",
+            "is_italic": null,
+            "color": "theme:BACKGROUND_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 14.0,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "theme:BACKGROUND_1 (BACKGROUND_1 (14))",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Revenue Growth Strategy",
@@ -2486,20 +1812,12 @@
             "font_name": "Lato",
             "font_size": 14.0,
             "is_bold": true,
-            "is_italic": false,
-            "color": "theme:BACKGROUND_1 (BACKGROUND_1 (14))",
+            "is_italic": null,
+            "color": "theme:BACKGROUND_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 14.0,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "theme:BACKGROUND_1 (BACKGROUND_1 (14))",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Fill customer need for AI Governance Platform to Win Multi-year large contracts in at least 3 mid-Atlantic states and one top 5 IT spending state (e.g. Illinois)",
@@ -2515,19 +1833,11 @@
             "font_size": 11.0,
             "is_bold": null,
             "is_italic": null,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 11.0,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "theme:TEXT_1 (TEXT_1 (13))",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Deploy rapid secure by design AI agents and Agentic AI pilots (Medicaid, regulatory, IT Ops) at multiple agencies in target states (Medicaid, regulatory, IT Ops)",
@@ -2543,19 +1853,11 @@
             "font_size": 11.0,
             "is_bold": null,
             "is_italic": null,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 11.0,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "theme:TEXT_1 (TEXT_1 (13))",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Manage Life Cycle Product Development Costs",
@@ -2569,21 +1871,13 @@
           "formatting": {
             "font_name": "Lato",
             "font_size": 11.0,
-            "is_bold": false,
-            "is_italic": false,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "is_bold": null,
+            "is_italic": null,
+            "color": "theme:TEXT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 11.0,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "theme:TEXT_1 (TEXT_1 (13))",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Customer",
@@ -2598,20 +1892,12 @@
             "font_name": "Lato",
             "font_size": 12.0,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 0-44-81",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 12.0,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 0-44-81",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Perspective",
@@ -2626,20 +1912,12 @@
             "font_name": "Lato",
             "font_size": 12.0,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 0-44-81",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 12.0,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 0-44-81",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Capture and exploit AI-related Contract vehicles",
@@ -2659,15 +1937,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 11.0,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:PRESET (102)",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Internal Process",
@@ -2682,20 +1952,12 @@
             "font_name": "Lato",
             "font_size": 12.0,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 0-44-81",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 12.0,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 0-44-81",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Perspective",
@@ -2710,20 +1972,12 @@
             "font_name": "Lato",
             "font_size": 12.0,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 0-44-81",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 12.0,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 0-44-81",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Business Development",
@@ -2738,20 +1992,12 @@
             "font_name": "Lato",
             "font_size": 11.0,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 11.0,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Identify and engage with legislative and executive branch AI champions and stakeholders by offering governance, rapid POCs, Peter’s training, and whitepapers",
@@ -2765,21 +2011,13 @@
           "formatting": {
             "font_name": "Lato",
             "font_size": 11.0,
-            "is_bold": false,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 11.0,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Mine AI and IT strategies to identify governance needs and roadmaps",
@@ -2795,19 +2033,11 @@
             "font_size": 11.0,
             "is_bold": null,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 11.0,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Client Engagement and Delivery Services",
@@ -2822,20 +2052,12 @@
             "font_name": "Lato",
             "font_size": 11.0,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 11.0,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Develop compelling 30 and 90-day Amida-client highly interactive POC offering",
@@ -2855,15 +2077,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 11.0,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:PRESET (102)",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Engage with NASCIO, MESC, and other stakeholder organizations",
@@ -2883,15 +2097,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 11.0,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:PRESET (102)",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Develop partnerships to help scale delivery (e.g. AWS, Neo4j, etc.)",
@@ -2911,15 +2117,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 11.0,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:PRESET (102)",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Product Development",
@@ -2934,20 +2132,12 @@
             "font_name": "Lato",
             "font_size": 11.0,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 11.0,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Develop repeatable rapid prototype dev process",
@@ -2963,19 +2153,11 @@
             "font_size": 11.0,
             "is_bold": null,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 11.0,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Provide mini business case assessment with  each solutions and tie prototyping to benchmarks",
@@ -2989,21 +2171,13 @@
           "formatting": {
             "font_name": "Lato",
             "font_size": 11.0,
-            "is_bold": false,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 11.0,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "With Marketing, create ai.amida.com interactive website to showcase our videos (could include client pick a use case and see how it works)",
@@ -3019,19 +2193,11 @@
             "font_size": 11.0,
             "is_bold": null,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 11.0,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Operations",
@@ -3046,20 +2212,12 @@
             "font_name": "Lato",
             "font_size": 11.0,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 11.0,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Leverage ISO and HITrust",
@@ -3073,21 +2231,13 @@
           "formatting": {
             "font_name": "Lato",
             "font_size": 11.0,
-            "is_bold": false,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 11.0,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Define Licensing Model and pricing in line with market",
@@ -3101,21 +2251,13 @@
           "formatting": {
             "font_name": "Lato",
             "font_size": 11.0,
-            "is_bold": false,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 11.0,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Innovation and Growth",
@@ -3130,20 +2272,12 @@
             "font_name": "Lato",
             "font_size": 12.0,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 0-44-81",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 12.0,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 0-44-81",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Perspective",
@@ -3158,20 +2292,12 @@
             "font_name": "Lato",
             "font_size": 12.0,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 0-44-81",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 12.0,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 0-44-81",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Knowledge Growth",
@@ -3186,20 +2312,12 @@
             "font_name": "Lato",
             "font_size": 11.0,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 11.0,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Provide training on agentic AI as technology and practices evolve",
@@ -3213,21 +2331,13 @@
           "formatting": {
             "font_name": "Lato",
             "font_size": 11.0,
-            "is_bold": false,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 11.0,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Conduct monthly brainstorming session with client team to identify emerging needs/use cases that can result in on-contract growth",
@@ -3243,19 +2353,11 @@
             "font_size": 11.0,
             "is_bold": null,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 11.0,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Product Growth",
@@ -3270,20 +2372,12 @@
             "font_name": "Lato",
             "font_size": 11.0,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 11.0,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Continue to support a dedicated R&D team focused on agentic AI development and a set of high payoff AI agent use cases that reflect demand trends",
@@ -3299,19 +2393,11 @@
             "font_size": 11.0,
             "is_bold": null,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 11.0,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Focus prototyping and use case demos to address client concerns with ROI and security",
@@ -3325,21 +2411,13 @@
           "formatting": {
             "font_name": "Lato",
             "font_size": 11.0,
-            "is_bold": false,
-            "is_italic": false,
+            "is_bold": null,
+            "is_italic": null,
             "color": "color_type:PRESET (102)",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 11.0,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:PRESET (102)",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Use Platform Offering to support evolving state and federal AI governance concerns and strategies",
@@ -3359,15 +2437,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 11.0,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:PRESET (102)",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Continuously evolve product for client mission and productivity value",
@@ -3387,15 +2457,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 11.0,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:PRESET (102)",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         }
       ],
       "notes": null,
@@ -3424,15 +2486,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "In the commercial world, many analysts believe that AI agents will be acquired by consumers and companies via an app store model. The equivalent for government is GitLab and other gov cloud services broadly and a TRM platform at the agency level. The Amida Agentic AI platform may be best sold as an AI Agent+ app store for agencies.",
@@ -3452,15 +2506,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Companies developing AI Agents are concerned about the low barriers to entry for competitors and are using the term “MOAT” to reflect an AI agent offering, set of offerings, or platform that is protected from competitor. For Amida, the MOAT could be a result of our understanding and integration of data quality, standard-based interoperability, unique application of graph, or embedding of information protections.",
@@ -3480,15 +2526,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Much like the early days of social media, there is a race to create as many as possible AI agents covering use cases that implement a company or government strategic reform initiatives. The thinking is that AI agents will be orchestrated across worklfows in the near term and Agentic AI will optimize workflows using interconnected AI agents that are continuously being improved manually or by the Agentic AI platform.  One-off AI agents will have little value in the emerging vision called the “Agentic Enterprise”. An Amida AI Platform that includes AI agent creation, on-boarding or integration, and continuing optimization with orchestration and governance will be a winning position with a sustainable Moat.",
@@ -3508,15 +2546,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         }
       ],
       "notes": null,
@@ -3545,15 +2575,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         }
       ],
       "notes": null,
@@ -3582,15 +2604,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Revenues: Exceed $100M Revenues from the construct of converting AI Agent deals/customers into an Agentic AI Platform business",
@@ -3610,15 +2624,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Strengths: Focused approach -- bidding on leading edge projects in target states; widely applicable framework for custom agents (auditability, observabliity, compliance, compatibility, enterprise-level) enabling land and expand growth",
@@ -3638,15 +2644,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Weaknesses: Development team size limitation; staffing growth tightly coupled with contract wins",
@@ -3666,15 +2664,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Threats/Risks: Low initial spending by clients for new approaches; states have current investments that they don’t want to change; AI may not be suitable for some tasks; limited spending in mid-Atlantic states means we have to find other states to hit target; many companies have workflow builders for common items like email readers; future state market in flux and forecasting of contract vehicles difficult with even leaders saying that they are trying to figure out  how to buy and implement; procurements may be limited by bundling into existing contracts’ scope",
@@ -3694,15 +2684,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Opportunities: have good benchmarks for testing and developing proof points; investing in relationship building and BD for states; apply framework to many use cases; partnerships;",
@@ -3722,15 +2704,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Profitability: Reach or Exceed 30% Gross Margin",
@@ -3750,15 +2724,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Strengths: compelling pricing, able to go low on entry pricing with easy and profitable upsell of additional features or use cases; flexible pricing for client hosting needs",
@@ -3778,15 +2744,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Weaknesses: We have initial HITrust environment",
@@ -3806,15 +2764,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Threats/Risks: developer wages explode; wage increases are speeding up",
@@ -3834,15 +2784,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Opportunities: install on premise/in client environment (data doesn’t leave client environment); partnering to reduce our costs",
@@ -3862,15 +2804,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         }
       ],
       "notes": null,
@@ -3899,15 +2833,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Differentiated Products/ Services Value (price, quality, functionality)",
@@ -3927,15 +2853,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": "Italic",
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold Italic"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Strengths: Domain knowledge on healthcare/Medicaid, benefits enrollment, and microelectronic security; framework allows for price differentiation; quality and functionality tailored to explicit use case needs versus pre-canned product",
@@ -3955,15 +2873,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Weaknesses: No unique knowledge outside healthcare and benefits; small client footprint outside mid-Atlantic and none with big 5 IT spending states",
@@ -3983,15 +2893,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Threats/Risks: platform is industry agnostic with limited barriers; many states have preferred vendors",
@@ -4011,15 +2913,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Opportunities: formulate relationships and getting initial contracts in one of big 5 states",
@@ -4039,15 +2933,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Growing/Viral Branding:",
@@ -4067,15 +2953,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": "Italic",
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold Italic"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Strengths: lots of materials and content",
@@ -4095,15 +2973,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Weaknesses: our content is vey technical so not consumable for broader market",
@@ -4123,15 +2993,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Threats/Risks: OpenAI, others create first mover; clients simply add AI work to existing long-term contracts",
@@ -4151,15 +3013,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Opportunities: re-work content to target political and non-technical stakeholders; create ai.amida.com and showcase our videos – could include client pick a use case and see how it works",
@@ -4179,15 +3033,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Successful Client Relationships (contracts, on-contract growth, customer satisfaction)",
@@ -4203,19 +3049,11 @@
             "font_size": null,
             "is_bold": true,
             "is_italic": true,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": "Italic",
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold Italic"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Strengths: Existing clients view Amida as thought leader and are open to leading edge ideas we present",
@@ -4230,20 +3068,12 @@
             "font_name": "Lato",
             "font_size": null,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Weaknesses: no contract base or strong personal relationships in top 5 IT spending states",
@@ -4258,20 +3088,12 @@
             "font_name": "Lato",
             "font_size": null,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Threats/Risks: Ecosystem is rapidly growing with both legacy and new vendors; unqualified vendors may saturate market with low-bids or systems that don’t work leading to backlash and resistance to working with new vendors; states may fear complexity or vendor lock-in",
@@ -4286,20 +3108,12 @@
             "font_name": "Lato",
             "font_size": null,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Opportunities: rapid deployment engagement (6 figure, 90 days or less); provide white paper roadmap to success that highlights our framework; develop roadmap that integrates state AI roadmap with our product/framework development; 30 boot camp exercise with client (like Palantir)",
@@ -4314,20 +3128,12 @@
             "font_name": "Lato",
             "font_size": null,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         }
       ],
       "notes": null,
@@ -4356,15 +3162,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Regulatory and Social Processes (Environment, Community)",
@@ -4384,15 +3182,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": "Italic",
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Italic"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Strengths: understand the Medicaid regulatory envt. and interoperability; ISO 9000 Certification; our graph technology is successful at removing bias in AI/ML model devt and training is directly applicable to agents and agentic AI",
@@ -4412,15 +3202,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Weaknesses: HITRUST limited to initial level security environment",
@@ -4440,15 +3222,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Threats/Risks: Significant inconsistency across States and Federal AI governance and legislative approaches",
@@ -4468,15 +3242,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Opportunities: Pradeep’s dashboard could be expanded to implement AI governance; add agentic AI to EPS and other Medicaid contracts",
@@ -4496,15 +3262,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Customer Management (Selection, Acquisition, Retention, Growth)",
@@ -4520,19 +3278,11 @@
             "font_size": null,
             "is_bold": null,
             "is_italic": true,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": "Italic",
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Italic"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Strengths: leveraging conferences to generate leads; GovWin and Ramesh finding/tracking AI leads; existing relationships with VA, NC, SC",
@@ -4547,20 +3297,12 @@
             "font_name": "Lato",
             "font_size": null,
             "is_bold": null,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Weaknesses: need compelling licensing model that fits govt procurement; need identification and direct engagement with target state POCs and stakeholders",
@@ -4575,20 +3317,12 @@
             "font_name": "Lato",
             "font_size": null,
             "is_bold": null,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Threats/Risks: clients bundle into existing contracts that we cannot access",
@@ -4603,20 +3337,12 @@
             "font_name": "Lato",
             "font_size": null,
             "is_bold": null,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Opportunities: licensing model; identify organizational contacts, understand client roadmaps, and engage clients",
@@ -4631,20 +3357,12 @@
             "font_name": "Lato",
             "font_size": null,
             "is_bold": null,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Innovation Processes (Opportunity ID, R&D mgmt., Product Launch)",
@@ -4660,19 +3378,11 @@
             "font_size": null,
             "is_bold": null,
             "is_italic": true,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": "Italic",
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Italic"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Strengths: key engineering and leadership understanding of tech trends",
@@ -4687,20 +3397,12 @@
             "font_name": "Lato",
             "font_size": null,
             "is_bold": null,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Weaknesses: limited development team capacity for creating products;",
@@ -4715,20 +3417,12 @@
             "font_name": "Lato",
             "font_size": null,
             "is_bold": null,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Threats/Risks: competitors (e.g. infosys) have demonstrable models; state govts create own agents organically",
@@ -4743,20 +3437,12 @@
             "font_name": "Lato",
             "font_size": null,
             "is_bold": null,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Opportunities: hire additional developers; green field opportunity",
@@ -4771,20 +3457,12 @@
             "font_name": "Lato",
             "font_size": null,
             "is_bold": null,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         }
       ],
       "notes": null,
@@ -4813,15 +3491,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Human Capital",
@@ -4841,15 +3511,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": "Italic",
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold Italic"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Strengths: We have people with deep experience in graph technology needed to build LLMs and drive AI agents; have some organic AI agent skills; strong understanding of state clients’ contextual needs related to healthcare and automation of benefits determination; key client relationships in VA, NC, and SC (maybe MD thru former Gov)",
@@ -4869,15 +3531,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Weaknesses: we only have limited dedicated development resources",
@@ -4897,15 +3551,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Threats/Risks: competitors scale solution and delivery capabilities faster than we can",
@@ -4925,15 +3571,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Opportunities: develop partnerships with COTS providers (e.g. Neo4j, Snowflake) or intensive certification/training company for training/ certification and scaling help; leverage relationships in target states to increase understanding and initial wins",
@@ -4953,15 +3591,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Organization (leadership, teamwork, culture)",
@@ -4981,15 +3611,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": "Italic",
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold Italic"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Strengths: strong support from leadership; strong corporate values that are relevant for leading edge AI solutions",
@@ -5009,15 +3631,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Weaknesses: lack of dedicated resources; inability to scale and multiple single points of failure (e.g. development, bid and proposal, validation/approval of solution features and functionality)",
@@ -5037,15 +3651,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Threats/Risks: highly competitive labor market driving wages up and making it hard to acquire talent and scale at government labor rates (validate with Amy and Josh)",
@@ -5065,15 +3671,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Opportunities: create and fund a dedicated R&D team focused on agentic AI and set of high payoff AI agent use cases that reflect demand trends",
@@ -5093,15 +3691,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Knowledge/IT Environment",
@@ -5117,19 +3707,11 @@
             "font_size": null,
             "is_bold": true,
             "is_italic": true,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": "Italic",
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold Italic"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Strengths: ability to rapidly prototype solutions and use cases",
@@ -5144,20 +3726,12 @@
             "font_name": "Lato",
             "font_size": null,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Weaknesses: HITrust",
@@ -5172,20 +3746,12 @@
             "font_name": "Lato",
             "font_size": null,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Threats/Risks: substantial resources invested by competitors",
@@ -5200,20 +3766,12 @@
             "font_name": "Lato",
             "font_size": null,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Opportunities: formulate partnerships with key agentic AI and AI agent related SW providers (e.g. Neo4j, other)",
@@ -5228,20 +3786,12 @@
             "font_name": "Lato",
             "font_size": null,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         }
       ],
       "notes": null,
@@ -5270,15 +3820,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Document Tagging Automation: SAIC's Data and AI Operation X (DAX) automates the tagging of unstructured documents, such as mission reports and intelligence briefs. This solution has been assessed as 'awardable' for Department of Defense work in the CDAO’s Tradewinds Solutions Marketplace.",
@@ -5298,15 +3840,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Cybersecurity Enhancements: SAIC provides cybersecurity monitoring and management services to state agencies, including the maintenance and deployment of security tools, risk assessment, and compliance with state, federal, and industry regulations.",
@@ -5326,15 +3860,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Current State and Local Government Contracts",
@@ -5354,15 +3880,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "SAIC has secured several contracts with state and local governments to implement agentic AI solutions:",
@@ -5382,15 +3900,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Texas Department of Information Resources (DIR)",
@@ -5410,15 +3920,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Contract Value: $170.9 million",
@@ -5434,19 +3936,11 @@
             "font_size": 14.0,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 14.0,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Scope: Providing cybersecurity services, including monitoring and management of state agency networks, risk management, and compliance with regulations.",
@@ -5462,19 +3956,11 @@
             "font_size": 14.0,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 14.0,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "General Services Administration (GSA) IT Schedule 70",
@@ -5494,15 +3980,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Contract Vehicle: GS-35F-486BA",
@@ -5518,19 +3996,11 @@
             "font_size": 14.0,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 14.0,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Scope: Offering innovative IT solutions to federal, state, and local governments' information technology needs.",
@@ -5546,19 +4016,11 @@
             "font_size": 14.0,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 14.0,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         }
       ],
       "notes": "Search to see if they have anything in the state of Virginia - any awards",
@@ -5595,15 +4057,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Generative AI Integration: Deloitte is scaling generative AI in U.S. state and local governments to enhance technological infrastructure, engage the workforce, and support governance structures.",
@@ -5623,15 +4077,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "AI-Powered Procurement: Deloitte's AI solutions assist procurement officials by screening proposals for compliance, identifying optimal offers, and comparing proposals to market data, thereby improving efficiency and effectiveness in government procurement. Deloitte",
@@ -5651,15 +4097,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Human Services Transformation: Leveraging generative AI, Deloitte aims to transform human services by automating tasks, enhancing case management, and improving program delivery, thereby addressing capacity deficits in state and local agencies. Deloitte",
@@ -5679,15 +4117,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Emergency Management Enhancement: Deloitte applies generative AI to amplify the effectiveness of emergency preparedness and response teams by providing personalized outputs and harnessing AI's vast scalability. Deloitte",
@@ -5707,15 +4137,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Current State and Local Government Contracts",
@@ -5735,15 +4157,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Deloitte has secured several contracts with state and local governments to implement agentic AI solutions:",
@@ -5763,15 +4177,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Texas Department of Information Resources (DIR) Contracts:",
@@ -5791,15 +4197,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "DIR-CPO-5139: Offers Artificial Intelligence (AI) Services, including Machine Learning (ML), Robotic Process Automation (RPA), Natural Language Processing (NLP), Computer Vision (CV), and Digital Assistant (DA). Texas DIR+1",
@@ -5815,19 +4213,11 @@
             "font_size": 14.0,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 14.0,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "DIR-CPO-5691: Provides Comprehensive Web Development and Managed Services, including website design, development, and maintenance. Texas DIR",
@@ -5843,19 +4233,11 @@
             "font_size": 14.0,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": "color_type:None",
             "hierarchy_level": 1
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 14.0,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "DIR-ESS-TGOV-SVCS-254: Serves as a Service Component Provider for Texas.gov Services, offering application development, testing, implementation, operations, and maintenance. Texas DIR",
@@ -5871,19 +4253,11 @@
             "font_size": 14.0,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 14.0,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "DIR-TSS-MSA-435: Delivers Technology Solution Services, including technical strategy management and solution design for Data Center Services. Texas DIR",
@@ -5899,19 +4273,11 @@
             "font_size": 14.0,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 14.0,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "AWS Generative AI Collaboration:",
@@ -5931,15 +4297,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Partnership with Amazon Web Services (AWS): Deloitte and AWS have teamed up to use Generative AI to help state and local health and human services agencies simplify and refine the delivery of essential programs. PR Newswire",
@@ -5955,19 +4313,11 @@
             "font_size": 14.0,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 14.0,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         }
       ],
       "notes": null,
@@ -6000,19 +4350,11 @@
             "font_size": null,
             "is_bold": null,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Interactive AI: Implementing AI-powered virtual assistants for administrative tasks, enabling government employees to focus on higher-value activities. CGI Inc.",
@@ -6028,19 +4370,11 @@
             "font_size": null,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": "theme:HYPERLINK",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Intelligent Discovery and Insights: Utilizing AI to analyze data and provide actionable insights, improving decision-making processes within state and local agencies.",
@@ -6056,19 +4390,11 @@
             "font_size": null,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Hyper automation: Automating complex workflows and processes to increase efficiency and reduce operational costs.",
@@ -6084,19 +4410,11 @@
             "font_size": null,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Intelligent Operations: Enhancing day-to-day operations with AI-driven solutions that streamline tasks and improve service delivery.",
@@ -6112,19 +4430,11 @@
             "font_size": null,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Current State and Local Government Contracts",
@@ -6140,19 +4450,11 @@
             "font_size": null,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "DIR-CPO-5140 – Texas Department of Information Resources (DIR)",
@@ -6168,19 +4470,11 @@
             "font_size": null,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Scope: Offers Artificial Intelligence (AI) services, including Machine Learning (ML), Robotic Process Automation (RPA), Natural Language Processing (NLP), Computer Vision (CV), and Digital Assistant (DA).",
@@ -6196,19 +4490,11 @@
             "font_size": null,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Period of Performance: Ongoing",
@@ -6224,19 +4510,11 @@
             "font_size": null,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "DIR-CPO-5498 – Texas Department of Information Resources (DIR) - most likely not relevant but check their website if they have any other contracts",
@@ -6252,19 +4530,11 @@
             "font_size": null,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Scope: Provides Information Technology Staff Augmentation Contract (ITSAC) services at set not-to-exceed labor rates.",
@@ -6280,19 +4550,11 @@
             "font_size": null,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Period of Performance: Ongoing",
@@ -6308,19 +4570,11 @@
             "font_size": null,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         }
       ],
       "notes": "see if they have anything in Virginia, Arizona -",
@@ -6357,15 +4611,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 30.15,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Foundry: A platform that enables organizations to integrate, manage, and analyze data, facilitating decision-making processes.",
@@ -6385,17 +4631,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 30.15,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          },
-          "heading_level": 1,
-          "heading_name": "Heading 1"
+          "source_type": "pptx"
         },
         {
           "text": "Gotham: Designed for intelligence and defense sectors, Gotham assists in counterterrorism and law enforcement operations by analyzing large datasets. Wikipedia",
@@ -6415,17 +4651,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 30.15,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          },
-          "heading_level": 1,
-          "heading_name": "Heading 1"
+          "source_type": "pptx"
         },
         {
           "text": "Apollo: A continuous integration and delivery system that supports software deployment across various environments.",
@@ -6445,17 +4671,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 30.15,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          },
-          "heading_level": 1,
-          "heading_name": "Heading 1"
+          "source_type": "pptx"
         },
         {
           "text": "AI Platform (AIP): Facilitates the development and deployment of AI models, enhancing predictive analytics and decision-making capabilities.",
@@ -6475,17 +4691,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 30.15,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          },
-          "heading_level": 1,
-          "heading_name": "Heading 1"
+          "source_type": "pptx"
         },
         {
           "text": "Current State and Local Government Contracts",
@@ -6505,17 +4711,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 30.15,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          },
-          "heading_level": 1,
-          "heading_name": "Heading 1"
+          "source_type": "pptx"
         },
         {
           "text": "Palantir has secured several contracts with state and local governments to implement agentic AI solutions:",
@@ -6535,15 +4731,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 30.15,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Texas Department of Information Resources (DIR)\u000bContract Number: DIR-CPO-5140",
@@ -6563,17 +4751,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 30.15,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          },
-          "heading_level": 1,
-          "heading_name": "Heading 1"
+          "source_type": "pptx"
         },
         {
           "text": "Scope: Offers Artificial Intelligence (AI) services, including Machine Learning (ML), Robotic Process Automation (RPA), Natural Language Processing (NLP), Computer Vision (CV), and Digital Assistant (DA).",
@@ -6589,19 +4767,11 @@
             "font_size": 30.15,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 30.15,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Period of Performance: Ongoing City Journal",
@@ -6617,19 +4787,11 @@
             "font_size": 30.15,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": "theme:HYPERLINK",
             "hierarchy_level": 1
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 30.15,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Texas Department of Information Resources (DIR)",
@@ -6649,17 +4811,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 30.15,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          },
-          "heading_level": 1,
-          "heading_name": "Heading 1"
+          "source_type": "pptx"
         },
         {
           "text": "Contract Number: DIR-CPO-5498",
@@ -6675,19 +4827,11 @@
             "font_size": 30.15,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 30.15,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Scope: Provides Information Technology Staff Augmentation Contract (ITSAC) services at set not-to-exceed labor rates.",
@@ -6703,19 +4847,11 @@
             "font_size": 30.15,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 30.15,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Period of Performance: Ongoing",
@@ -6731,19 +4867,11 @@
             "font_size": 30.15,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 30.15,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         }
       ],
       "notes": null,
@@ -6780,15 +4908,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "AI Centers of Excellence: GDIT has expanded its AI, cyber, and mission software Centers of Excellence to accelerate the development and deployment of mission solutions for government agencies. These centers focus on core areas such as AI, cyber, and mission software to enhance government operations. gdit.com+1",
@@ -6808,15 +4928,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Agentic AI Adoption: GDIT is actively promoting the adoption of agentic AI in government agencies. According to Dave Vennergrund, Vice President of GDIT’s AI Center of Excellence, agentic AI involves purpose-built intelligent tools that utilize large language models and non-LLM capabilities to perform specific tasks. GDIT provides guidance to agencies on how to incorporate agentic AI into their workflows. ExecutiveBiz",
@@ -6836,15 +4948,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Current State and Local Government Contracts",
@@ -6864,15 +4968,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Texas Department of Information Resources (DIR)",
@@ -6892,15 +4988,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Contract Number: DIR-CPO-5140",
@@ -6916,19 +5004,11 @@
             "font_size": 14.0,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 14.0,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Scope: Offers Artificial Intelligence (AI) services, including Machine Learning (ML), Robotic Process Automation (RPA), Natural Language Processing (NLP), Computer Vision (CV), and Digital Assistant (DA).",
@@ -6944,19 +5024,11 @@
             "font_size": 14.0,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 14.0,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Period of Performance: Ongoing",
@@ -6972,19 +5044,11 @@
             "font_size": 14.0,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 14.0,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Texas Department of Information Resources (DIR)",
@@ -7004,15 +5068,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Contract Number: DIR-CPO-5498 gdit.com+15gdit.com+15gdit.com+15",
@@ -7028,19 +5084,11 @@
             "font_size": 14.0,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": "theme:HYPERLINK",
             "hierarchy_level": 1
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 14.0,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Scope: Provides Information Technology Staff Augmentation Contract (ITSAC) services at set not-to-exceed labor rates.",
@@ -7056,19 +5104,11 @@
             "font_size": 14.0,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 14.0,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Period of Performance: Ongoing",
@@ -7084,19 +5124,11 @@
             "font_size": 14.0,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 14.0,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         }
       ],
       "notes": "Lockheed Martin News\u000b\nCDO Magazine\u000b\nMilitary Embedded",
@@ -7133,15 +5165,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Red State regulatory reform leads and their CIOs/CDOs (start with FL, also VA governor, SC, TX)",
@@ -7161,15 +5185,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Small Business Administration Dep Administrator and Small Business Administration Small Business Advocate",
@@ -7189,15 +5205,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "For SSA: ITSC (w/SAIC; focus on EHR data integration into workflows)",
@@ -7217,15 +5225,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "For Virginia: Regulatory Streamlining, AI Agent governance platform",
@@ -7245,15 +5245,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "For SC: AI Agent pilot; AI Agent governance",
@@ -7273,15 +5265,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "For MD: Medicaid AI Agent pilot; AI Agent governance platform",
@@ -7301,15 +5285,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "For NC: exploit AI BPA with governance platform and agent pilots that are derivatives of Medicaid work",
@@ -7329,15 +5305,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "For Illinois: AI governance and pilots from mid-Atlantic",
@@ -7357,15 +5325,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         }
       ],
       "notes": null,
@@ -7394,15 +5354,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "AI Refinery™ Distiller (2025): Enterprise framework for building and scaling AI agents. Features memory management, multi-agent collaboration, orchestration, governance. Works across cloud, on-prem, and sovereign infrastructure with NVIDIA optimization.\u000bPhysical AI SDK (2025): Processes real-world signals (cameras, sensors) for anomaly detection, infrastructure monitoring, traffic, and safety. Built with NVIDIA + KION Group.",
@@ -7422,15 +5374,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Accenture Advanced Technology Agent (AATA): Award-winning orchestration platform bridging human and digital systems. Enables open standards, consistent prompt layer, and custom AI agents—scales across fragmented government IT.",
@@ -7450,15 +5394,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Trusted Agent Huddle & Builder: Creates domain-specific AI copilots for government workflows (benefits, permitting, case management) without backend complexity.",
@@ -7478,15 +5414,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Current State and Local Government Contracts",
@@ -7506,15 +5434,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "California Department of Social Services (CDSS) – GenAI Casework Enhancement",
@@ -7534,15 +5454,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "AI copilots for eligibility and documentation.",
@@ -7558,19 +5470,11 @@
             "font_size": 14.0,
             "is_bold": null,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 14.0,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Period: 2023 – Ongoing.",
@@ -7586,19 +5490,11 @@
             "font_size": 14.0,
             "is_bold": null,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 14.0,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "New York City Department of Health – GovConnect™ + HealthPrism™",
@@ -7618,15 +5514,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "AI-enabled citizen health engagement + predictive analytics.",
@@ -7640,21 +5528,13 @@
           "formatting": {
             "font_name": "Lato",
             "font_size": 14.0,
-            "is_bold": null,
+            "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 14.0,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Period: 2023 – 2026.",
@@ -7670,19 +5550,11 @@
             "font_size": 14.0,
             "is_bold": null,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 14.0,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "State of Illinois – Workforce Connect™ Modernization",
@@ -7702,15 +5574,7 @@
             "hierarchy_level": 0
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": null,
-            "font_weight": "Bold",
-            "font_style": null,
-            "color_rgb": "color_type:None",
-            "style_name": "Lato Bold"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "AI copilots for workforce/employment services.",
@@ -7726,19 +5590,11 @@
             "font_size": 14.0,
             "is_bold": null,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 14.0,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         },
         {
           "text": "Period: 2022 – 2025.",
@@ -7754,19 +5610,11 @@
             "font_size": 14.0,
             "is_bold": null,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
-          "source_type": "pptx",
-          "style": {
-            "font": "Lato",
-            "font_size": 14.0,
-            "font_weight": "Regular",
-            "font_style": null,
-            "color_rgb": "RGB 85-85-85",
-            "style_name": "Lato"
-          }
+          "source_type": "pptx"
         }
       ],
       "notes": null,
@@ -7804,7 +5652,7 @@
     "slides_with_notes": 7,
     "total_elements": 267
   },
-  "normalized_at": "2025-10-04T18:21:04.503015",
+  "normalized_at": "2025-10-07T15:38:28.737993",
   "summary": {
     "total_pages": 33,
     "pages_with_content": 24,

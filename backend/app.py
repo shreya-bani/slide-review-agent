@@ -15,6 +15,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import JSONResponse, FileResponse
 
 from .config.settings import settings
+from .utils.llm_health import check_llm 
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -174,11 +175,12 @@ async def health_check():
 async def upload_document(
     request: Request,
     file: UploadFile = File(...),
-    user_info: Optional[str] = Form(None)
+    user_info: str = Form(...)
 ):
     """Upload and analyze a document with complete pipeline."""
-    user_info = user_info or "Anonymous"
-
+    user_info = user_info.strip()
+    if not user_info:
+        raise HTTPException(400, "Error: Uploader name/email is required.")
     # Validate file
     allowed_extensions = ['.pptx', '.pdf']
     file_extension = Path(file.filename).suffix.lower()

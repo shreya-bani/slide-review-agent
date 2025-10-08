@@ -20,13 +20,10 @@ const elements = {
   logsPage: document.getElementById('logs-page'),
   fileUploadArea: document.getElementById('file-upload-area'),
   browseBtn: document.getElementById('browse-btn'),
-  fileInput: document.getElementById('file-input'),
   selectedFileDiv: document.getElementById('selected-file'),
   fileName: document.getElementById('file-name'),
   fileSize: document.getElementById('file-size'),
   clearFileBtn: document.getElementById('clear-file'),
-  userInfo: document.getElementById('user-info'),
-  analyzeBtn: document.getElementById('analyze-btn'),
   statusLine: document.getElementById('status-line'),
   statusMessage: document.getElementById('status-message'),
   startTimeEl: document.getElementById('start-time'),
@@ -60,7 +57,19 @@ const elements = {
   playIcon: document.getElementById('play-icon'),
   severityFilter: document.getElementById('severity-filter'),
   categoryFilter: document.getElementById('category-filter'),
+  fileInput: document.getElementById('file-input'),
+  analyzeBtn: document.getElementById('analyze-btn'),
+  userInfo: document.getElementById('user-info'),
+  metaTitle: document.getElementById('meta-title'), 
 };
+
+function updateAnalyzeEnabled() {
+  const hasFile = !!elements.fileInput?.files?.[0];
+  const hasName = !!elements.userInfo?.value.trim();
+  elements.analyzeBtn.disabled = !(hasFile && hasName);
+}
+elements.fileInput?.addEventListener('change', updateAnalyzeEnabled);
+elements.userInfo?.addEventListener('input', updateAnalyzeEnabled);
 
 function ensureToastContainer() {
   let tc = document.getElementById('toast-container');
@@ -666,14 +675,34 @@ function showToast(message, type = 'info') {
 }
 
 function setupEventListeners() {
-  elements.fileUploadArea?.addEventListener('click', () => elements.fileInput?.click());
-  elements.browseBtn?.addEventListener('click', () => elements.fileInput?.click());
+  if (elements.fileUploadArea) {
+    elements.fileUploadArea.addEventListener('click', (e) => {
+      if (e.target === e.currentTarget) {
+        elements.fileInput?.click();
+      }
+    });
+  }
+
+  elements.browseBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    elements.fileInput?.click();
+  });
+
   elements.fileInput?.addEventListener('change', (e) => {
-    const file = e.target.files[0];
+    const file = e.target.files?.[0];
     if (file) handleFileSelect(file);
   });
-  elements.clearFileBtn?.addEventListener('click', clearFile);
-  elements.analyzeBtn?.addEventListener('click', startAnalysis);
+
+  elements.analyzeBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    startAnalysis();
+  });
+
+  elements.clearFileBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    clearFile();
+  });
+
   elements.visualViewBtn?.addEventListener('click', () => toggleView('visual'));
   elements.jsonViewBtn?.addEventListener('click', () => toggleView('json'));
   elements.copyJsonBtn?.addEventListener('click', copyToClipboard);
@@ -690,6 +719,7 @@ function setupEventListeners() {
   elements.clearLogsBtn?.addEventListener('click', clearLogs);
   elements.downloadLogsBtn?.addEventListener('click', downloadLogs);
 }
+
 
 function init() {
   initTheme();

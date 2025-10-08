@@ -10,6 +10,7 @@ from __future__ import annotations
 import logging
 from pathlib import Path
 from typing import Optional
+from urllib.parse import urlparse
 
 from pydantic import Field
 from pydantic_settings import BaseSettings
@@ -34,17 +35,21 @@ class Settings(BaseSettings):
     app_name: str = Field(default="slide-review-agent", alias="APP_NAME")
     environment: str = Field(default="development", alias="ENVIRONMENT")
     debug: bool = Field(default=True, alias="DEBUG")
+    
+    max_file_size_mb: int = Field(default=50, alias="MAX_FILE_SIZE_MB")
 
     # DB
     database_url: str = Field(default=f"sqlite:///{PROJECT_ROOT}/data/slide_review.db",
                               alias="DATABASE_URL")
-
+    log_dir: str = Field(default=f"{PROJECT_ROOT}/logs", alias="LOG_DIR")
+    output_dir: str = Field(default=f"{PROJECT_ROOT}/outputs", alias="OUTPUT_DIR")
+    upload_dir: str = Field(default=f"{PROJECT_ROOT}/uploads", alias="UPLOAD_DIR")
+    
     # SINGLE LLM CONFIG
     llm_provider: str = Field(default="huggingface", alias="LLM_PROVIDER")
     llm_api_key: Optional[str] = Field(default=None, alias="LLM_API_KEY")
     llm_model: str = Field(default="google/gemma-2-2b-it", alias="LLM_MODEL")
-    llm_api_endpoint: str = Field(default="https://router.huggingface.co/v1/chat/completions",
-                                  alias="LLM_API_ENDPOINT")
+    llm_api_endpoint: str = Field(default="https://router.huggingface.co/v1/chat/completions", alias="LLM_API_ENDPOINT")
 
     # Logging
     log_level: int = Field(default=logging.INFO, alias="LOG_LEVEL")
@@ -73,6 +78,34 @@ class Settings(BaseSettings):
             if not (self.llm_model or "").strip(): missing.append("LLM_MODEL")
             if not (self.llm_api_endpoint or "").strip(): missing.append("LLM_API_ENDPOINT")
             logger.warning("Missing LLM keys: %s", ", ".join(missing) or "unknown")
+
+
+    def ensure_directories(self):
+        """Create required directories if they don't exist."""
+        directories = [
+            self.upload_dir,
+            self.output_dir,
+            self.log_dir,
+        ]
+        
+        logger.info(f"Creating directories from project root: {PROJECT_ROOT}")
+        for directory in directories:
+            if directory:  # skip None
+                Path(directory).mkdir(parents=True, exist_ok=True)
+                logger.debug(f" - {directory}")
+
+    @property
+    def database_path(self) -> Path:
+        """Return a filesystem Path for sqlite URLs; best-effort fallback otherwise."""
+        prefix = "sqlite:///"
+        if self.database_url.startswith(prefix):
+            return Path(self.database_url[len(prefix):])
+        parsed = urlparse(self.database_url)
+        if parsed.scheme == "sqlite" and parsed.path:
+            return Path(parsed.path)
+        # Fallback (non-sqlite): point at default data file so health can still pass path checks
+        return Path(PROJECT_ROOT) / "data" / "slide_review.db"
+
 
 settings = Settings()
 logger.setLevel(getattr(settings, "log_level", logging.INFO))

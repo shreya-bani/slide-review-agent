@@ -106,9 +106,7 @@ class AdvancedStyleAnalyzer:
         # Single LLM entrypoint
         self.llm = LLMClient()
 
-    # ----------------------------
     # LLM wrapper
-    # ----------------------------
     def _llm_chat(self, system_msg: str, user_msg: str) -> Optional[str]:
         """Route all LLM calls through LLMClient; return text or None."""
         try:
@@ -122,9 +120,7 @@ class AdvancedStyleAnalyzer:
             logger.warning("LLM chat failed: %s", e)
             return None
 
-    # ----------------------------
     # HEADING HELPERS
-    # ----------------------------
     def _is_heading_only(self, s: str) -> bool:
         return bool(_HEADING_ONLY_RE.match((s or "").strip()))
 
@@ -163,9 +159,7 @@ class AdvancedStyleAnalyzer:
             return f"{heading} {body}".strip()
         return body
 
-    # ----------------------------
     # SENTENCE / QUOTE FILTERS
-    # ----------------------------
     def _is_sentence_like(self, text: str) -> bool:
         """Prefer content with a verb or closing punctuation; avoids noun-only bullets."""
         text = (text or "").strip()
@@ -189,9 +183,7 @@ class AdvancedStyleAnalyzer:
             return True
         return False
 
-    # ----------------------------
     # NORMALIZATION
-    # ----------------------------
     @staticmethod
     def _normalize_text(text: str) -> str:
         return re.sub(r'[^\w\s]', '', (text or '').lower()).strip()
@@ -205,9 +197,7 @@ class AdvancedStyleAnalyzer:
             s += "."
         return s
 
-    # ----------------------------
     # NEGATION / PASSIVE / HEDGING
-    # ----------------------------
     def _has_negation(self, text: str) -> bool:
         return bool(ANY_NEGATION.search(text or ""))
 
@@ -263,9 +253,7 @@ class AdvancedStyleAnalyzer:
     def _is_mushy(self, sent: spacy.tokens.Span) -> bool:
         return self._has_hedging(sent.text)
 
-    # ----------------------------
     # MASK / UNMASK
-    # ----------------------------
     def _mask_preserve(self, text: str) -> Tuple[str, Dict[str, str]]:
         repl: Dict[str, str] = {}
 
@@ -287,9 +275,7 @@ class AdvancedStyleAnalyzer:
             text = text.replace(k, v)
         return text
 
-    # ----------------------------
     # CONSTRAINTS & PROMPTS
-    # ----------------------------
     def _extract_preserve_constraints_fast(self, texts: List[str]) -> List[Dict[str, Any]]:
         constraints = []
         for text in texts:
@@ -401,9 +387,7 @@ Return ONLY the rewritten sentences, numbered 1..N, one per line."""
         user_msg += "Rewritten:"
         return system_msg, user_msg
 
-    # ----------------------------
     # VALIDATION
-    # ----------------------------
     def _semantic_similarity_check(self, original: str, suggestion: str) -> bool:
         orig_words = set(re.findall(r'\b[a-z]{4,}\b', (original or '').lower()))
         sug_words = set(re.findall(r'\b[a-z]{4,}\b', (suggestion or '').lower()))
@@ -464,9 +448,7 @@ Return ONLY the rewritten sentences, numbered 1..N, one per line."""
 
         return True, "valid"
 
-    # ----------------------------
     # FALLBACKS
-    # ----------------------------
     def _fallback_positive_improved(self, s: str, context: str = "neutral") -> str:
         """Conservative edits; avoid meaning flips, avoid introducing new negations."""
         t = s
@@ -530,9 +512,7 @@ Return ONLY the rewritten sentences, numbered 1..N, one per line."""
         t = re.sub(r'\s+', ' ', t).strip()
         return t if t.strip() and self._normalize_text(t) != self._normalize_text(s) else s
 
-    # ----------------------------
     # CORE PIPELINE
-    # ----------------------------
     def _iter_elements(self, normalized: Dict[str, Any]) -> Iterable[Tuple[int, int, Dict[str, Any]]]:
         slides = normalized.get("slides", normalized.get("pages", []))
         for slide_idx, slide in enumerate(slides):
@@ -675,9 +655,7 @@ Return ONLY the rewritten sentences, numbered 1..N, one per line."""
         logger.info(f"Active voice issues: {len(issues)}")
         return issues
 
-    # ----------------------------
     # LLM REWRITE (BATCH)
-    # ----------------------------
     def _rewrite_batch_llm_improved(
         self,
         items: List[Tuple[int, str, str, Optional[str], Optional[float], Optional[str]]],
@@ -760,9 +738,7 @@ Return ONLY the rewritten sentences, numbered 1..N, one per line."""
 
         return results
 
-    # ----------------------------
     # SUGGESTION GENERATION
-    # ----------------------------
     def _generate_suggestions_for_all(self, issues: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         pos_queue: List[Tuple[int, str, str, Optional[str], Optional[float], Optional[str]]] = []
         act_queue: List[Tuple[int, str, str, Optional[str], Optional[float], Optional[str]]] = []
@@ -857,9 +833,7 @@ Return ONLY the rewritten sentences, numbered 1..N, one per line."""
         logger.info("Rewrite complete")
         return issues
 
-    # ----------------------------
     # PUBLIC API
-    # ----------------------------
     def analyze(self, input_json: Dict[str, Any]) -> Dict[str, Any]:
         all_sents = self._collect_sentences(input_json)
         if not all_sents:

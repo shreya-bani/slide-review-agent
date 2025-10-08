@@ -5,11 +5,11 @@
     "total_slides": 33,
     "layouts": [
       "1_Content slide empty Type 1",
-      "TITLE",
-      "1_Content slide smartArt Type 1",
+      "1_Content text slide type 1",
       "Title slide graphic 1",
       "Content slide empty Type 1",
-      "1_Content text slide type 1"
+      "1_Content slide smartArt Type 1",
+      "TITLE"
     ],
     "title": "",
     "author": "Nuno Pereira",
@@ -34,8 +34,8 @@
             "font_name": "Lato",
             "font_size": 28.0,
             "is_bold": true,
-            "is_italic": false,
-            "color": "theme:LIGHT_1 (LIGHT_1 (2))",
+            "is_italic": null,
+            "color": "theme:LIGHT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -53,9 +53,9 @@
           "formatting": {
             "font_name": "Lato",
             "font_size": 28.0,
-            "is_bold": false,
-            "is_italic": false,
-            "color": "theme:LIGHT_1 (LIGHT_1 (2))",
+            "is_bold": null,
+            "is_italic": null,
+            "color": "theme:LIGHT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -73,9 +73,9 @@
           "formatting": {
             "font_name": "Lato",
             "font_size": 14.0,
-            "is_bold": false,
-            "is_italic": false,
-            "color": "theme:LIGHT_1 (LIGHT_1 (2))",
+            "is_bold": null,
+            "is_italic": null,
+            "color": "theme:LIGHT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -124,7 +124,7 @@
             "font_size": null,
             "is_bold": null,
             "is_italic": null,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -144,7 +144,7 @@
             "font_size": null,
             "is_bold": null,
             "is_italic": null,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -164,7 +164,7 @@
             "font_size": null,
             "is_bold": null,
             "is_italic": null,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -184,7 +184,7 @@
             "font_size": 14.0,
             "is_bold": null,
             "is_italic": null,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 1
           },
           "confidence": 1.0,
@@ -204,7 +204,7 @@
             "font_size": 14.0,
             "is_bold": null,
             "is_italic": null,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 1
           },
           "confidence": 1.0,
@@ -224,7 +224,7 @@
             "font_size": null,
             "is_bold": null,
             "is_italic": null,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -244,7 +244,7 @@
             "font_size": null,
             "is_bold": null,
             "is_italic": true,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -264,7 +264,7 @@
             "font_size": 14.0,
             "is_bold": null,
             "is_italic": true,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 2
           },
           "confidence": 1.0,
@@ -284,7 +284,7 @@
             "font_size": 14.0,
             "is_bold": null,
             "is_italic": true,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 2
           },
           "confidence": 1.0,
@@ -304,7 +304,7 @@
             "font_size": 14.0,
             "is_bold": null,
             "is_italic": true,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 2
           },
           "confidence": 1.0,
@@ -413,7 +413,7 @@
             "font_size": null,
             "is_bold": null,
             "is_italic": null,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -433,7 +433,7 @@
             "font_size": null,
             "is_bold": null,
             "is_italic": null,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -453,7 +453,7 @@
             "font_size": null,
             "is_bold": null,
             "is_italic": null,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -473,7 +473,7 @@
             "font_size": null,
             "is_bold": null,
             "is_italic": null,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -493,7 +493,7 @@
             "font_size": null,
             "is_bold": null,
             "is_italic": null,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -513,7 +513,7 @@
             "font_size": null,
             "is_bold": null,
             "is_italic": null,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -1049,7 +1049,7 @@
             "font_size": null,
             "is_bold": true,
             "is_italic": true,
-            "color": "theme:LIGHT_1 (LIGHT_1 (2))",
+            "color": "theme:LIGHT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -1069,7 +1069,7 @@
             "font_size": null,
             "is_bold": true,
             "is_italic": true,
-            "color": "theme:LIGHT_1 (LIGHT_1 (2))",
+            "color": "theme:LIGHT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -1394,7 +1394,7 @@
           "formatting": {
             "font_name": "Lato",
             "font_size": null,
-            "is_bold": null,
+            "is_bold": true,
             "is_italic": null,
             "color": "color_type:None",
             "hierarchy_level": 0
@@ -1772,7 +1772,7 @@
             "font_name": "Lato",
             "font_size": 14.0,
             "is_bold": true,
-            "is_italic": false,
+            "is_italic": null,
             "color": "color_type:PRESET (102)",
             "hierarchy_level": 0
           },
@@ -1792,8 +1792,8 @@
             "font_name": "Lato",
             "font_size": 14.0,
             "is_bold": true,
-            "is_italic": false,
-            "color": "theme:BACKGROUND_1 (BACKGROUND_1 (14))",
+            "is_italic": null,
+            "color": "theme:BACKGROUND_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -1812,8 +1812,8 @@
             "font_name": "Lato",
             "font_size": 14.0,
             "is_bold": true,
-            "is_italic": false,
-            "color": "theme:BACKGROUND_1 (BACKGROUND_1 (14))",
+            "is_italic": null,
+            "color": "theme:BACKGROUND_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -1833,7 +1833,7 @@
             "font_size": 11.0,
             "is_bold": null,
             "is_italic": null,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -1853,7 +1853,7 @@
             "font_size": 11.0,
             "is_bold": null,
             "is_italic": null,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "color": "theme:TEXT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -1871,9 +1871,9 @@
           "formatting": {
             "font_name": "Lato",
             "font_size": 11.0,
-            "is_bold": false,
-            "is_italic": false,
-            "color": "theme:TEXT_1 (TEXT_1 (13))",
+            "is_bold": null,
+            "is_italic": null,
+            "color": "theme:TEXT_1",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -1892,8 +1892,8 @@
             "font_name": "Lato",
             "font_size": 12.0,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 0-44-81",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -1912,8 +1912,8 @@
             "font_name": "Lato",
             "font_size": 12.0,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 0-44-81",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -1952,8 +1952,8 @@
             "font_name": "Lato",
             "font_size": 12.0,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 0-44-81",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -1972,8 +1972,8 @@
             "font_name": "Lato",
             "font_size": 12.0,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 0-44-81",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -1992,8 +1992,8 @@
             "font_name": "Lato",
             "font_size": 11.0,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -2011,9 +2011,9 @@
           "formatting": {
             "font_name": "Lato",
             "font_size": 11.0,
-            "is_bold": false,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -2033,7 +2033,7 @@
             "font_size": 11.0,
             "is_bold": null,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -2052,8 +2052,8 @@
             "font_name": "Lato",
             "font_size": 11.0,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -2132,8 +2132,8 @@
             "font_name": "Lato",
             "font_size": 11.0,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -2153,7 +2153,7 @@
             "font_size": 11.0,
             "is_bold": null,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -2171,9 +2171,9 @@
           "formatting": {
             "font_name": "Lato",
             "font_size": 11.0,
-            "is_bold": false,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -2193,7 +2193,7 @@
             "font_size": 11.0,
             "is_bold": null,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -2212,8 +2212,8 @@
             "font_name": "Lato",
             "font_size": 11.0,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -2231,9 +2231,9 @@
           "formatting": {
             "font_name": "Lato",
             "font_size": 11.0,
-            "is_bold": false,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -2251,9 +2251,9 @@
           "formatting": {
             "font_name": "Lato",
             "font_size": 11.0,
-            "is_bold": false,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -2272,8 +2272,8 @@
             "font_name": "Lato",
             "font_size": 12.0,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 0-44-81",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -2292,8 +2292,8 @@
             "font_name": "Lato",
             "font_size": 12.0,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 0-44-81",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -2312,8 +2312,8 @@
             "font_name": "Lato",
             "font_size": 11.0,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -2331,9 +2331,9 @@
           "formatting": {
             "font_name": "Lato",
             "font_size": 11.0,
-            "is_bold": false,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_bold": null,
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -2353,7 +2353,7 @@
             "font_size": 11.0,
             "is_bold": null,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -2372,8 +2372,8 @@
             "font_name": "Lato",
             "font_size": 11.0,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -2393,7 +2393,7 @@
             "font_size": 11.0,
             "is_bold": null,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -2411,8 +2411,8 @@
           "formatting": {
             "font_name": "Lato",
             "font_size": 11.0,
-            "is_bold": false,
-            "is_italic": false,
+            "is_bold": null,
+            "is_italic": null,
             "color": "color_type:PRESET (102)",
             "hierarchy_level": 0
           },
@@ -3049,7 +3049,7 @@
             "font_size": null,
             "is_bold": true,
             "is_italic": true,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -3068,8 +3068,8 @@
             "font_name": "Lato",
             "font_size": null,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -3088,8 +3088,8 @@
             "font_name": "Lato",
             "font_size": null,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -3108,8 +3108,8 @@
             "font_name": "Lato",
             "font_size": null,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -3128,8 +3128,8 @@
             "font_name": "Lato",
             "font_size": null,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -3278,7 +3278,7 @@
             "font_size": null,
             "is_bold": null,
             "is_italic": true,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -3297,8 +3297,8 @@
             "font_name": "Lato",
             "font_size": null,
             "is_bold": null,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -3317,8 +3317,8 @@
             "font_name": "Lato",
             "font_size": null,
             "is_bold": null,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -3337,8 +3337,8 @@
             "font_name": "Lato",
             "font_size": null,
             "is_bold": null,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -3357,8 +3357,8 @@
             "font_name": "Lato",
             "font_size": null,
             "is_bold": null,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -3378,7 +3378,7 @@
             "font_size": null,
             "is_bold": null,
             "is_italic": true,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -3397,8 +3397,8 @@
             "font_name": "Lato",
             "font_size": null,
             "is_bold": null,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -3417,8 +3417,8 @@
             "font_name": "Lato",
             "font_size": null,
             "is_bold": null,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -3437,8 +3437,8 @@
             "font_name": "Lato",
             "font_size": null,
             "is_bold": null,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -3457,8 +3457,8 @@
             "font_name": "Lato",
             "font_size": null,
             "is_bold": null,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -3707,7 +3707,7 @@
             "font_size": null,
             "is_bold": true,
             "is_italic": true,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -3726,8 +3726,8 @@
             "font_name": "Lato",
             "font_size": null,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -3746,8 +3746,8 @@
             "font_name": "Lato",
             "font_size": null,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -3766,8 +3766,8 @@
             "font_name": "Lato",
             "font_size": null,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -3786,8 +3786,8 @@
             "font_name": "Lato",
             "font_size": null,
             "is_bold": true,
-            "is_italic": false,
-            "color": "RGB 85-85-85",
+            "is_italic": null,
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -3936,7 +3936,7 @@
             "font_size": 14.0,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
@@ -3956,7 +3956,7 @@
             "font_size": 14.0,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
@@ -3996,7 +3996,7 @@
             "font_size": 14.0,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
@@ -4016,7 +4016,7 @@
             "font_size": 14.0,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
@@ -4213,7 +4213,7 @@
             "font_size": 14.0,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
@@ -4233,7 +4233,7 @@
             "font_size": 14.0,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": "color_type:None",
             "hierarchy_level": 1
           },
           "confidence": 1.0,
@@ -4253,7 +4253,7 @@
             "font_size": 14.0,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
@@ -4273,7 +4273,7 @@
             "font_size": 14.0,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
@@ -4313,7 +4313,7 @@
             "font_size": 14.0,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
@@ -4350,7 +4350,7 @@
             "font_size": null,
             "is_bold": null,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -4370,7 +4370,7 @@
             "font_size": null,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": "theme:HYPERLINK",
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -4390,7 +4390,7 @@
             "font_size": null,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -4410,7 +4410,7 @@
             "font_size": null,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -4430,7 +4430,7 @@
             "font_size": null,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -4450,7 +4450,7 @@
             "font_size": null,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -4470,7 +4470,7 @@
             "font_size": null,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -4490,7 +4490,7 @@
             "font_size": null,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
@@ -4510,7 +4510,7 @@
             "font_size": null,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
@@ -4530,7 +4530,7 @@
             "font_size": null,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 0
           },
           "confidence": 1.0,
@@ -4550,7 +4550,7 @@
             "font_size": null,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
@@ -4570,7 +4570,7 @@
             "font_size": null,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
@@ -4767,7 +4767,7 @@
             "font_size": 30.15,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
@@ -4787,7 +4787,7 @@
             "font_size": 30.15,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": "theme:HYPERLINK",
             "hierarchy_level": 1
           },
           "confidence": 1.0,
@@ -4827,7 +4827,7 @@
             "font_size": 30.15,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
@@ -4847,7 +4847,7 @@
             "font_size": 30.15,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
@@ -4867,7 +4867,7 @@
             "font_size": 30.15,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
@@ -5004,7 +5004,7 @@
             "font_size": 14.0,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
@@ -5024,7 +5024,7 @@
             "font_size": 14.0,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
@@ -5044,7 +5044,7 @@
             "font_size": 14.0,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
@@ -5084,7 +5084,7 @@
             "font_size": 14.0,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": "theme:HYPERLINK",
             "hierarchy_level": 1
           },
           "confidence": 1.0,
@@ -5104,7 +5104,7 @@
             "font_size": 14.0,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
@@ -5124,7 +5124,7 @@
             "font_size": 14.0,
             "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
@@ -5470,7 +5470,7 @@
             "font_size": 14.0,
             "is_bold": null,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
@@ -5490,7 +5490,7 @@
             "font_size": 14.0,
             "is_bold": null,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
@@ -5528,9 +5528,9 @@
           "formatting": {
             "font_name": "Lato",
             "font_size": 14.0,
-            "is_bold": null,
+            "is_bold": true,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
@@ -5550,7 +5550,7 @@
             "font_size": 14.0,
             "is_bold": null,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
@@ -5590,7 +5590,7 @@
             "font_size": 14.0,
             "is_bold": null,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
@@ -5610,7 +5610,7 @@
             "font_size": 14.0,
             "is_bold": null,
             "is_italic": null,
-            "color": "RGB 85-85-85",
+            "color": null,
             "hierarchy_level": 1
           },
           "confidence": 1.0,
@@ -5652,7 +5652,7 @@
     "slides_with_notes": 7,
     "total_elements": 267
   },
-  "normalized_at": "2025-10-05T14:01:27.549811",
+  "normalized_at": "2025-10-07T15:49:03.073433",
   "summary": {
     "total_pages": 33,
     "pages_with_content": 24,

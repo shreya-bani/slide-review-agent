@@ -12,7 +12,7 @@ from mcp.server.stdio import stdio_server
 from mcp.types import Tool, TextContent, ImageContent, EmbeddedResource
 
 from .processors.document_normalizer import DocumentNormalizer
-from .analyzers.simple_style_checker import check_document
+from .analyzers.backup_simple_style_checker import check_document
 from .config.settings import settings
 
 # Initialize MCP server
