@@ -1,0 +1,49 @@
+# Virtual environments
+.venv/
+venv/
+
+# Environment variables
+.env
+.env.example
+
+# Python cache & build
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+*.egg-info/
+build/
+dist/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data & logs
+data/
+logs/
+outputs/
+uploads/
+
+# Cache files
+*.log
+*.tmp
+*.cache
+*.sqlite3
+*.db
+.DS_Store
+llm_cache.json
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Docker
+*.pid
+*.seed
+*.pid.lock
+
+# Backup folders
+backend/backup/

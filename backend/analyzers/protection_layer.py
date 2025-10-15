@@ -32,10 +32,12 @@ class ProtectionLayer:
       - data property (current protection data)
     """
 
-    def __init__(self, llm_client: Optional[LLMClient] = None, cap_chars: int = 12000):
+    def __init__(self, llm_client: Optional[LLMClient] = None, cap_chars: Optional[int] = None):
         self.llm = llm_client
-        self.cap_chars = max(2000, int(cap_chars))  # safety lower bound
+        base = cap_chars if cap_chars is not None else getattr(settings, "llm_chunk_size", 30000)
+        self.cap_chars = max(20000, int(base))
         self._data: Dict[str, List[str]] = get_empty_protection_data()
+        logger.debug("ProtectionLayer initialized with cap_chars=%d", self.cap_chars)
 
     # Properties
     @property
@@ -68,10 +70,10 @@ class ProtectionLayer:
             return self._data
 
         combined = combine_texts_with_breaks(texts)
-        chunk_size = min(self.cap_chars, 5000)
+        chunk_size = self.cap_chars
         chunks = [combined[i:i+chunk_size] for i in range(0, len(combined), chunk_size)]
-
         logger.info("ProtectionLayer: splitting into %d chunks (size=%d)", len(chunks), chunk_size)
+
 
         merged: Dict[str, List[str]] = {k: [] for k in PROTECTION_KEYS}
         seen: Dict[str, set] = {k: set() for k in PROTECTION_KEYS}
@@ -146,6 +148,15 @@ class ProtectionLayer:
         logger.info("ProtectionLayer: total API calls made = %d", api_calls)
 
         self._data = merged
+        if not any(self._data.values()):
+            logger.info("ProtectionLayer: no protected items detected in document.")
+         # Log all protected items by category
+        for key, items in self._data.items():
+            if items:
+                logger.info("ProtectionLayer: %s → %s", key, items)
+            else:
+                logger.info("ProtectionLayer: %s → [empty]", key)
+
         return self._data
 
 

@@ -1,5 +1,4 @@
-// Backend API base URL
-const API_BASE_URL = 'http://localhost:8000';
+const API_BASE_URL = window.location.origin;
 
 // Application state
 let currentFile = null;
@@ -60,12 +59,12 @@ const elements = {
   fileInput: document.getElementById('file-input'),
   analyzeBtn: document.getElementById('analyze-btn'),
   userInfo: document.getElementById('user-info'),
-  metaTitle: document.getElementById('meta-title'), 
+  metaUploader: document.getElementById('meta-uploader'),
 };
 
 function updateAnalyzeEnabled() {
   const hasFile = !!elements.fileInput?.files?.[0];
-  const hasName = !!elements.userInfo?.value.trim();
+  const hasName = !!elements.userInfo?.value?.trim();
   elements.analyzeBtn.disabled = !(hasFile && hasName);
 }
 elements.fileInput?.addEventListener('change', updateAnalyzeEnabled);
@@ -129,6 +128,7 @@ function handleFileSelect(file) {
   elements.selectedFileDiv.classList.remove('hidden');
   elements.analyzeBtn.disabled = false;
   elements.analyzeBtn.textContent = 'Analyze Document';
+  updateAnalyzeEnabled();
 }
 
 function clearFile() {
@@ -205,6 +205,10 @@ function updateTimes() {
 async function startAnalysis() {
   if (!currentFile) return;
   console.log('Starting analysis for:', currentFile.name, 'User:', elements.userInfo?.value);
+
+  // Immediately reflect "Uploaded by" in the UI (pre-backend)
+  elements.metaUploader.textContent = elements.userInfo.value.trim() || '--';
+
   startTime = new Date();
   endTime = null;
   updateStatus('processing', 'Uploading and analyzing document...');
@@ -220,7 +224,7 @@ async function startAnalysis() {
 
     const formData = new FormData();
     formData.append('file', currentFile);
-    formData.append('user_info', elements.userInfo?.value || 'Anonymous');
+    formData.append('user_info', elements.userInfo?.value);
     updateStatus('processing', 'Uploading file to server...');
 
     const uploadResponse = await fetch(`${API_BASE_URL}/upload-document`, {
@@ -241,6 +245,8 @@ async function startAnalysis() {
     endTime = new Date();
 
     analysisResult = result;
+    console.log('user_info in response:', analysisResult.user_info);
+    console.log('Full response:', analysisResult);
 
     updateStatus('completed', 'Document analysis completed successfully');
     updateTimes();
@@ -282,14 +288,14 @@ function displayVisualReport() {
   const summary = analysisResult.analysis_summary || {};
   const metadata = analysisResult.metadata || {};
   
+
   // Overall score (calculate from severity breakdown)
   const severity = summary.severity_breakdown || {};
   const total = summary.total_issues || 0;
-  
+
   // Calculate score: fewer issues = higher score
-  // Scale: 0 issues = 100, proportionally decrease with more issues
   const score = total === 0 ? 100 : Math.max(0, 100 - (total / 10));
-  
+
   const scoreEl = document.getElementById('overall-score');
   if (scoreEl) scoreEl.textContent = score.toFixed(1);
 
@@ -318,11 +324,11 @@ function displayVisualReport() {
   // Severity breakdown
   const totalIssuesEl = document.getElementById('total-issues');
   if (totalIssuesEl) totalIssuesEl.textContent = `${total} issue${total !== 1 ? 's' : ''}`;
-  
+
   const errorCount = document.getElementById('error-count');
   const warningCount = document.getElementById('warning-count');
   const infoCount = document.getElementById('info-count');
-  
+
   if (errorCount) errorCount.textContent = severity.error || 0;
   if (warningCount) warningCount.textContent = severity.warning || 0;
   if (infoCount) infoCount.textContent = severity.info || severity.suggestion || 0;
@@ -361,18 +367,24 @@ function displayVisualReport() {
 
   // Metadata
   const metaFilename = document.getElementById('meta-filename');
-  const metaType = document.getElementById('meta-type');
-  const metaTitle = document.getElementById('meta-title');
-  const metaAuthor = document.getElementById('meta-author');
-  const metaSlides = document.getElementById('meta-slides');
-  const metaTimestamp = document.getElementById('meta-timestamp');
+  const metaType     = document.getElementById('meta-type');
+  const metaAuthor   = document.getElementById('meta-author');
+  const metaSlides   = document.getElementById('meta-slides');
+  const metaTimestamp= document.getElementById('meta-timestamp');
+
+  const uploadedBy =
+  analysisResult?.metadata?.uploaded_by ||
+  analysisResult?.user_info ||
+  elements.userInfo?.value?.trim() ||
+  '--';
 
   if (metaFilename) metaFilename.textContent = analysisResult.original_filename || '--';
-  if (metaType) metaType.textContent = metadata.document_type?.toUpperCase() || '--';
-  if (metaTitle) metaTitle.textContent = metadata.title || '--';
-  if (metaAuthor) metaAuthor.textContent = metadata.author || '--';
-  if (metaSlides) metaSlides.textContent = analysisResult.content_statistics?.total_pages || '--';
-  if (metaTimestamp) metaTimestamp.textContent = new Date(analysisResult.processed_at || Date.now()).toLocaleString();
+  if (metaType)     metaType.textContent     = metadata.document_type?.toUpperCase() || '--';
+  if (metaAuthor)   metaAuthor.textContent   = metadata.author || '--';
+  if (metaSlides)   metaSlides.textContent   = analysisResult.content_statistics?.total_pages || '--';
+  if (metaTimestamp)metaTimestamp.textContent= new Date(analysisResult.processed_at || Date.now()).toLocaleString();
+  if (elements.metaUploader) elements.metaUploader.textContent = uploadedBy;
+
 
   // Findings
   filteredFindings = analysisResult.findings || [];
@@ -395,18 +407,15 @@ function displayFindings() {
   filteredFindings.forEach((finding, index) => {
     const row = document.createElement('div');
     row.className = 'finding-row';
-    
-    // Use found_text for summary instead of description
+
     const summaryText = finding.found_text || finding.description || 'No text available';
     const truncatedText = summaryText.length > 80 ? summaryText.substring(0, 80) + '...' : summaryText;
-    
-    // Map severity to display correctly
+
     const severity = finding.severity || 'info';
-    
-    // Format location correctly
+
     const slideNum = (finding.page_or_slide_index || 0) + 1;
     const location = `Slide ${slideNum}`;
-    
+
     row.innerHTML = `
       <div class="finding-summary" data-finding-index="${index}">
         <div class="finding-severity">
@@ -486,6 +495,7 @@ function toggleView(view) {
     elements.jsonViewBtn?.classList.add('active');
   }
 }
+
 
 function displayJsonResult() {
   if (!analysisResult) return;
@@ -691,17 +701,32 @@ function setupEventListeners() {
   elements.fileInput?.addEventListener('change', (e) => {
     const file = e.target.files?.[0];
     if (file) handleFileSelect(file);
+    updateAnalyzeEnabled(); // keep button disabled until name/email present
   });
 
   elements.analyzeBtn?.addEventListener('click', (e) => {
     e.stopPropagation();
+    if (!elements.userInfo?.value?.trim()) {
+      elements.userInfo?.reportValidity?.(); // shows native tooltip if `required` is set
+      return;
+    }
+    if (!elements.fileInput?.files?.[0]) {
+      showToast('Please choose a .pptx or .pdf file', 'error');
+      return;
+    }
+    if (elements.metaUploader) {
+      elements.metaUploader.textContent = elements.userInfo.value.trim() || '--';
+    }
     startAnalysis();
   });
+
 
   elements.clearFileBtn?.addEventListener('click', (e) => {
     e.stopPropagation();
     clearFile();
+    updateAnalyzeEnabled();
   });
+
 
   elements.visualViewBtn?.addEventListener('click', () => toggleView('visual'));
   elements.jsonViewBtn?.addEventListener('click', () => toggleView('json'));

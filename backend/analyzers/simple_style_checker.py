@@ -149,7 +149,7 @@ class GrammarChecker:
             result = result[:start] + replacement + result[end:]
         return result
 
-    # -------- Rules ----------
+    #----- Rules-------
     def _check_contractions(self, text: str, elem: dict, slide_idx: int, elem_idx: int) -> Optional[StyleIssue]:
         patches: List[tuple] = []
         contractions = {
@@ -221,11 +221,20 @@ class GrammarChecker:
             element_index=elem_idx,
             confidence=0.9,
         )
+    
+    def _adjacent_decimal(self, text: str, start: int, end: int) -> bool:
+        # digit '.' <here>  or  <here> '.' digit
+        return (
+            (start >= 2 and text[start-1] == '.' and text[start-2].isdigit()) or
+            (end+1 < len(text) and text[end] == '.' and text[end+1].isdigit())
+        )
 
     def _check_numerals(self, text: str, elem: dict, slide_idx: int, elem_idx: int) -> List[StyleIssue]:
         issues: List[StyleIssue] = []
         spell_patches: List[tuple] = []
-        for m in re.finditer(r"\b(\d{1,2})\b", text):
+
+        # NEW (skip decimals/versions like 8.9, 2.3.4, and comma decimals 8,9):
+        for m in re.finditer(r"(?<![\d.,])(\d{1,2})(?![\d.,])", text):
             start, end = m.span(1)
             if self._is_protected(text, start, end):
                 continue
@@ -235,12 +244,15 @@ class GrammarChecker:
                 continue
             if self._in_code_token(text, start, end) or self._is_page_ref(text, start):
                 continue
+            if self._adjacent_decimal(text, start, end):
+                continue
             nxt = self._next_word(text, end)
             if nxt in {"percent", "%", "million", "billion", "trillion"}:
                 continue
             n = int(m.group(1))
             if 1 <= n <= 99:
                 spell_patches.append((start, end, self._number_to_words(n)))
+
         if spell_patches:
             issues.append(StyleIssue(
                 rule_name="numerals_spell_out",
@@ -255,10 +267,14 @@ class GrammarChecker:
                 confidence=0.85,
             ))
 
+        # Thousands separators for integers (skip decimals/years/etc.)
         comma_patches: List[tuple] = []
-        for m in re.finditer(r"\b(\d{4,})\b", text):
+        for m in re.finditer(r"(?<![\d.])(\d{4,})(?!\d)", text):
             start, end = m.span(1)
             if self._is_protected(text, start, end):
+                continue
+            # Skip if this run of digits is adjacent to a decimal point, e.g., 0.8870
+            if self._adjacent_decimal(text, start, end):
                 continue
             if self._is_probable_year(text, start, end):
                 continue
@@ -267,6 +283,7 @@ class GrammarChecker:
             num = m.group(1)
             if "," not in num:
                 comma_patches.append((start, end, f"{int(num):,}"))
+
         if comma_patches:
             issues.append(StyleIssue(
                 rule_name="numerals_commas",
@@ -280,6 +297,7 @@ class GrammarChecker:
                 element_index=elem_idx,
                 confidence=0.95,
             ))
+
         return issues
 
     def _number_to_words(self, n: int) -> str:
@@ -330,20 +348,30 @@ class GrammarChecker:
 
     def _check_quotation_marks(self, text: str, elem: dict, slide_idx: int, elem_idx: int) -> Optional[StyleIssue]:
         patches: List[tuple] = []
-        for m in re.finditer(r'(["\'])(\s*)([.,])', text):
+
+        # Accept straight and smart closing quotes
+        QUOTE = r"[\"'\u2019\u201D]"
+
+        # 1) Move commas/periods INSIDE quotes:  'Title'.  ->  'Title.'
+        for m in re.finditer(rf"({QUOTE})(\s*)([.,])", text):
             q, spaces, punct = m.group(1), m.group(2), m.group(3)
             start, end = m.span()
             if self._is_protected(text, start, end):
                 continue
-            patches.append((start, end, f'{q}{punct}'))
-        for m in re.finditer(r'([;:])(["\'])', text):
+            # NOTE: order swapped so punctuation goes before the quote
+            patches.append((start, end, f"{punct}{q}"))
+
+        # 2) Keep semicolons/colons OUTSIDE quotes:  'Title';  (already correct)
+        for m in re.finditer(rf"([;:])({QUOTE})", text):
             punct, q = m.group(1), m.group(2)
             start, end = m.span()
             if self._is_protected(text, start, end):
                 continue
-            patches.append((start, end, f'{q}{punct}'))
+            patches.append((start, end, f"{q}{punct}"))
+
         if not patches:
             return None
+
         return StyleIssue(
             rule_name="quotation_marks",
             severity=Severity.SUGGESTION,
@@ -356,6 +384,7 @@ class GrammarChecker:
             element_index=elem_idx,
             confidence=0.9,
         )
+
 
     def _check_hyphens(self, text: str, elem: dict, slide_idx: int, elem_idx: int) -> Optional[StyleIssue]:
         patches: List[tuple] = []
@@ -386,7 +415,12 @@ class WordListChecker:
     def __init__(self, protection_data: Dict[str, Any]):
         self.protection_data = protection_data
         self.word_list = self._load_amida_word_list()
-        self.abbreviations = {"e.g.": "e.g.,", "i.e.": "i.e.,"}
+
+        # Handle e.g./i.e. separately with regex so we don't double-insert commas
+        self._abbrev_patterns = [
+            (re.compile(r'(?i)\b(e\.g\.)(?!\s*,)'), "e.g.,"),  # if not followed by comma
+            (re.compile(r'(?i)\b(i\.e\.)(?!\s*,)'), "i.e.,"),  # if not followed by comma
+        ]
 
     def _load_amida_word_list(self) -> Dict[str, str]:
         """Load Amida Style Guide word list (p.5-6)."""
@@ -403,9 +437,7 @@ class WordListChecker:
             "public-sector": "public sector",
             "user friendly": "user-friendly",
             "web based": "web-based",
-            # Abbreviations requiring commas (p.6)
-            "e.g.": "e.g.,",
-            "i.e.": "i.e.,",
+            # NOTE: remove "e.g." and "i.e." from here so we can control commas via regex
             # Capitalization preferences
             "machine learning": "Machine Learning",
             "artificial intelligence": "Artificial Intelligence",
@@ -413,16 +445,23 @@ class WordListChecker:
         }
 
     def check(self, text: str, elem: dict, slide_idx: int, elem_idx: int) -> List[StyleIssue]:
-        """Check text against Amida Style Guide word list rules."""
         issues: List[StyleIssue] = []
         patches: List[tuple] = []
 
-        for wrong, correct in self.word_list.items():
-            if "." in wrong:
-                pat = re.escape(wrong)  # exact match for abbreviations
-            else:
-                pat = r"\b" + re.escape(wrong) + r"\b"
+        # 1) Abbreviation fix: add comma only if missing
+        for rx, replacement in self._abbrev_patterns:
+            for m in rx.finditer(text):
+                start, end = m.span(1)  # only replace the matched token, not the following char
+                if not self._is_protected(text, start, end):
+                    # If already exactly "e.g.," / "i.e.,", skip (the negative lookahead should already avoid these)
+                    patches.append((start, end, replacement[:-1]))  # replace 'e.g.' with 'e.g.'; comma added next line
+                    # Insert the comma after the match
+                    # NOTE: place the comma at 'end' position (after optional spaces is trickier; keep it simple)
+                    patches.append((end, end, ","))
 
+        # 2) Word list replacements (unchanged logic, but without e.g./i.e.)
+        for wrong, correct in self.word_list.items():
+            pat = r"\b" + re.escape(wrong) + r"\b"
             for m in re.finditer(pat, text, re.IGNORECASE):
                 if not self._is_protected(text, m.start(), m.end()):
                     matched = m.group(0)
@@ -434,7 +473,7 @@ class WordListChecker:
                 rule_name="word_list",
                 severity=Severity.SUGGESTION,
                 category=Category.WORD_LIST,
-                description="Apply Amida Word List preferences (Amida Style Guide p.5-6)",
+                description="Apply Amida Word List preferences (with safe e.g./i.e. comma handling)",
                 location=f"slide {slide_idx} - element {elem_idx}",
                 found_text=text,
                 suggestion=self._apply_patches(text, patches),
@@ -442,8 +481,9 @@ class WordListChecker:
                 element_index=elem_idx,
                 confidence=1.0,
             ))
-
         return issues
+
+
 
     def _is_protected(self, text: str, start: int, end: int) -> bool:
         """Check if span is in protected items."""

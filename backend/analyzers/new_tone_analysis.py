@@ -1,40 +1,37 @@
 """
-Advanced Style Analyzer - REFINED VERSION (2025-10-06)
+Advanced Style Analyzer — Model-Calibrated (2025-10-15)
 
 Two rules:
-  1) positive_language  – n-gram + VADER-based negativity with safety rails
-  2) active_voice       – passive/hedging detection and rewrites
+  1) positive_language  – document-calibrated valence + negation/hedging gates
+  2) active_voice       – passive/hedging detection with minimal rewrites
 
-Key Improvements in this version:
-- Robust heading detection (with/without colon), incl. SWOT markers → skipped
-- "Sentence-like" gating (avoid noun-only bullets)
-- VADER hard threshold & neutral-word whitelist to reduce false positives
-- Skip positive rewrites for SWOT/weakness headings
-- Stronger fallbacks that avoid meaning flips
-- LLM batch prompting with masking, constraint extraction, and VALIDATION
-- Tolerant LLM output parsing (numbered OR plain lines)
-- Accurate counts: do not count "no_improvement" as a suggestion
-- Detailed rejection-reason logging for LLM outputs
-
-CLI:
-    python -m backend.analyzers.advance_style_analyzer <normalized.json> [--no-rewrite] [-v]
+Upgrades vs prior version:
+- Transformer sentiment + per-document calibration (robust z-scores)
+- Tone vector (valence, hedging, voice) to reduce false positives
+- LLM returns 3 options (1a/1b/1c); we rank by valence, anti-hedge, anti-passive, and closeness
+- spaCy NER-based preserve constraints (names/dates/ORG/etc.)
+- Keeps original CLI and output schema; excludes micro-edits from counts
 """
 
 from __future__ import annotations
 
+import argparse
+import difflib
 import json
 import logging
 import re
+import sys
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple, Union
 
 import spacy
-from tqdm import tqdm
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 # SETTINGS / CLIENT
-from ..config.settings import settings  # project settings
+from ..config.settings import settings
 from ..utils.llm_client import LLMClient
+
+# Sentiment scorer
+from .sentiment_scorer import SentimentScorer, calibrate_doc
 
 # LOGGER
 logger = logging.getLogger(__name__)
@@ -44,11 +41,10 @@ logger.setLevel(getattr(settings, "log_level", logging.INFO))
 INCLUDE_NOTES: bool = bool(getattr(settings, "analyzer_include_notes", False))
 ENABLE_REWRITE: bool = bool(getattr(settings, "enable_rewrite", True))
 USE_PROGRESS_BAR: bool = bool(getattr(settings, "debug", False))
-MAX_BATCH_ITEMS: int = int(getattr(settings, "rewrite_batch_limit", 50))
+MAX_BATCH_ITEMS: int = int(getattr(settings, "rewrite_batch_limit", 5000))
 
-VADER_NEG_THRESHOLD: float = float(getattr(settings, "vader_neg_threshold", -0.05))
-# Harder sentiment threshold for *purely sentiment* flags (<= baseline).
-VADER_HARD_NEG: float = -0.40 if VADER_NEG_THRESHOLD > -0.40 else VADER_NEG_THRESHOLD
+NEG_CONF_MIN: float = float(getattr(settings, "neg_conf_min", 0.15))  # low-confidence => neutral
+NEG_Z_K: float = float(getattr(settings, "neg_z_k", 1.5))            # threshold k for mu - k*sigma
 
 # Regex helpers for masking non-editable facts
 NUM_PATTERN = re.compile(r"\b(?:\d{1,3}(?:[,\d]{0,3})*(?:\.\d+)?|\d+%|\$\d[\d,\.]*)\b")
@@ -59,7 +55,7 @@ DATE_PATTERN = re.compile(
 )
 EMAIL_URL_PATTERN = re.compile(r"(?:(?:mailto:)?[\w\.-]+@[\w\.-]+\.\w+|https?://\S+)", re.IGNORECASE)
 
-# Negation patterns
+# Negation / hedging
 NEGATOR_WORDS = r"(?:not|no|never|hardly|barely|scarcely|rarely|seldom|without|lack|lacks|lacking)"
 NEGATOR_CONTRACTIONS = (
     r"(?:can't|cannot|won't|don't|doesn't|didn't|isn't|aren't|wasn't|weren't|hasn't|haven't|hadn't|"
@@ -79,36 +75,34 @@ _SWOT_MARKERS = re.compile(
     re.IGNORECASE
 )
 
-# Passive voice quick patterns (used in additional heuristic)
+# Passive voice quick patterns
 PASSIVE_PATTERNS = [
     re.compile(r'\b(is|are|was|were|been|being)\s+\w+ed\b', re.IGNORECASE),
     re.compile(r'\b(is|are|was|were|been|being)\s+\w+en\b', re.IGNORECASE),
 ]
 
-# Domain neutral words that VADER can misread as negative
+# Domain neutral words sometimes misread as negative (kept for extra safety)
 _NEG_WHITELIST = re.compile(r'\b(exploit|governance|weakness(?:es)?|risk(?:s)?|threats?)\b', re.IGNORECASE)
 
 TokenSeq = Union[spacy.tokens.Doc, spacy.tokens.Span, Iterable[spacy.tokens.Token]]
 
 
 class AdvancedStyleAnalyzer:
-    """
-    Two-rule style analyzer with improved prompts, validation, and robust parsing.
-    """
-
     def __init__(self) -> None:
-        self.analyzer = SentimentIntensityAnalyzer()
+        # spaCy
         nlp = spacy.load("en_core_web_sm")
-        keep = {"tok2vec", "tagger", "attribute_ruler", "parser", "lemmatizer"}
+        keep = {"tok2vec", "tagger", "attribute_ruler", "parser", "lemmatizer", "ner"}
         nlp.disable_pipes(*[p for p in nlp.pipe_names if p not in keep])
         self.nlp = nlp
 
-        # Single LLM entrypoint
+        # LLM
         self.llm = LLMClient()
 
-    # LLM wrapper
+        # Sentiment scorer (transformer)
+        self.sent_scorer = SentimentScorer(getattr(settings, "sent_model_name", None))
+
+    # -------------- LLM wrapper --------------
     def _llm_chat(self, system_msg: str, user_msg: str) -> Optional[str]:
-        """Route all LLM calls through LLMClient; return text or None."""
         try:
             return self.llm.chat(
                 [
@@ -120,7 +114,7 @@ class AdvancedStyleAnalyzer:
             logger.warning("LLM chat failed: %s", e)
             return None
 
-    # HEADING HELPERS
+    # -------------- Headings & sentences --------------
     def _is_heading_only(self, s: str) -> bool:
         return bool(_HEADING_ONLY_RE.match((s or "").strip()))
 
@@ -159,9 +153,7 @@ class AdvancedStyleAnalyzer:
             return f"{heading} {body}".strip()
         return body
 
-    # SENTENCE / QUOTE FILTERS
     def _is_sentence_like(self, text: str) -> bool:
-        """Prefer content with a verb or closing punctuation; avoids noun-only bullets."""
         text = (text or "").strip()
         if not text:
             return False
@@ -171,7 +163,6 @@ class AdvancedStyleAnalyzer:
         return any(t.pos_ in {"VERB", "AUX"} for t in doc)
 
     def _is_quoted_block(self, text: str) -> bool:
-        """Detect direct quotes / epigraphs we should not rewrite."""
         t = (text or "").strip()
         if not t:
             return False
@@ -183,7 +174,7 @@ class AdvancedStyleAnalyzer:
             return True
         return False
 
-    # NORMALIZATION
+    # -------------- Basic text utils --------------
     @staticmethod
     def _normalize_text(text: str) -> str:
         return re.sub(r'[^\w\s]', '', (text or '').lower()).strip()
@@ -197,7 +188,7 @@ class AdvancedStyleAnalyzer:
             s += "."
         return s
 
-    # NEGATION / PASSIVE / HEDGING
+    # -------------- Negation / passive / hedging --------------
     def _has_negation(self, text: str) -> bool:
         return bool(ANY_NEGATION.search(text or ""))
 
@@ -253,7 +244,7 @@ class AdvancedStyleAnalyzer:
     def _is_mushy(self, sent: spacy.tokens.Span) -> bool:
         return self._has_hedging(sent.text)
 
-    # MASK / UNMASK
+    # -------------- Mask/unmask --------------
     def _mask_preserve(self, text: str) -> Tuple[str, Dict[str, str]]:
         repl: Dict[str, str] = {}
 
@@ -275,119 +266,70 @@ class AdvancedStyleAnalyzer:
             text = text.replace(k, v)
         return text
 
-    # CONSTRAINTS & PROMPTS
+    # -------------- Constraints & prompts --------------
     def _extract_preserve_constraints_fast(self, texts: List[str]) -> List[Dict[str, Any]]:
-        constraints = []
+        cons = []
         for text in texts:
-            preserve_facts: List[str] = []
-            context = "neutral"
-            key_constraint = ""
-
-            # Names (very rough)
-            names = re.findall(r'\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*\b', text)
-            preserve_facts.extend(names[:3])
-
-            # Numbers / percents
-            numbers = re.findall(r'\b\d+%?\b', text)
-            preserve_facts.extend(numbers[:2])
-
+            doc = self.nlp(text)
+            keep = []
+            for ent in doc.ents:
+                if ent.label_ in {"PERSON", "ORG", "PRODUCT", "GPE", "DATE", "PERCENT", "MONEY", "CARDINAL", "NORP"}:
+                    keep.append(ent.text)
+            tech = re.findall(r'\b(?:AI|ML|API|HITRUST|SWOT|LLM|ECFR|RAG|BERT)\b', text)
+            facts = list(dict.fromkeys(keep + tech))[:5]
             tl = text.lower().strip()
             if tl.startswith(("weakness", "threat", "risk")):
                 context = "weakness"
-                key_constraint = "Preserve negative nature; do not flip to positive."
             elif tl.startswith(("strength", "opportunit")):
                 context = "strength"
-                key_constraint = "Preserve positive nature."
-            elif any(neg in tl for neg in ["lack", "limited", "no ", "not ", "unable", "insufficient", "cannot"]):
-                context = "weakness"
-                key_constraint = "This describes a limitation; keep it clear."
-
-            tech_terms = re.findall(r'\b(?:AI|ML|API|BPA|HITRUST|SWOT|IT|FWA|LLM|EPS)\b', text)
-            preserve_facts.extend(tech_terms[:2])
-
-            constraints.append({
-                "preserve_facts": list(dict.fromkeys(preserve_facts))[:5],  # dedupe + cap
-                "context": context,
-                "key_constraint": key_constraint
-            })
-        return constraints
+            else:
+                context = "neutral"
+            cons.append({"preserve_facts": facts, "context": context, "key_constraint": ""})
+        return cons
 
     @staticmethod
     def _create_positive_prompt(texts: List[str], constraints: List[Dict[str, Any]]) -> Tuple[str, str]:
-        system_msg = """You are an expert editor for positive, constructive writing.
-
-RULES
-- Preserve all facts in each [PRESERVE] list.
-- Do not change meaning, scope, or certainty unless the original already had it.
-- Keep placeholders like [NUM_*], [DATE_*], [LINK_*] exactly.
-- Maintain similar length and style; finish sentences with appropriate punctuation.
-- For rule=positive_language: make language constructive/clear; do NOT flip weaknesses into strengths.
-- For rule=active_voice: prefer active voice; do NOT strengthen modality (e.g., 'may' → 'is') or add claims.
-- If no improvement is needed, still return a minimally improved line that differs from input (clarity/typo).
-- Improve positivity without changing actual meaning (e.g., "not clear" → "unclear", "not sure" → "unsure").
-
-GOOD REWRITES (minimal, preserve meaning)
-- "We cannot achieve this without more resources" → "We can achieve this with additional resources"
-- "The system is not user-friendly" → "The system needs improved usability"
-- "No significant progress was made" → "Progress has been limited"
-
-BAD REWRITES (too different, changed meaning)
-- "exploit AI BPA for NC" → "Our focus on program impact will help clients" ❌
-- "Our sales content is very technical" → "We will develop accessible solutions" ❌
-
-Return ONLY the rewritten sentences, numbered 1..N, one per line."""
+        system_msg = (
+            "You are an expert editor.\n"
+            "RULES\n"
+            "- Preserve all facts in each [PRESERVE].\n"
+            "- Keep placeholders like [NUM_*], [DATE_*], [LINK_*].\n"
+            "- Maintain meaning, scope, and certainty; do not flip weaknesses into strengths.\n"
+            "- Prefer constructive, neutral phrasing. Finish sentences with proper punctuation.\n"
+            "- For each line, return THREE alternatives labeled 1a/1b/1c ... N a/b/c. Keep similar length."
+        )
         user_msg = "Rewrite these lines:\n\n"
         for i, (text, c) in enumerate(zip(texts, constraints), 1):
             pres = ", ".join(c.get("preserve_facts", [])[:5])
             ctx = c.get("context", "neutral")
-            key = c.get("key_constraint", "")
             user_msg += f"{i}. {text}\n"
             user_msg += f"   [PRESERVE: {pres}]\n"
-            user_msg += f"   [CONTEXT: {ctx}]\n"
-            if key:
-                user_msg += f"   [KEY: {key}]\n"
-            user_msg += "\n"
-        user_msg += "Rewritten:"
+            user_msg += f"   [CONTEXT: {ctx}]\n\n"
+        user_msg += "Return only the numbered alternatives as 1a/1b/1c etc."
         return system_msg, user_msg
 
     @staticmethod
     def _create_active_prompt(texts: List[str], constraints: List[Dict[str, Any]]) -> Tuple[str, str]:
-        system_msg = """You are an expert editor for active, direct writing.
-
-RULES:
-1) Preserve facts in [PRESERVE].
-2) Convert passive to active voice.
-3) Remove hedging words (might, could, probably, perhaps, maybe, sort of, kind of, may be).
-4) If context is "weakness" or "threat", keep negative nature but clearer.
-5) Maintain similar length.
-6) Keep placeholders: [NUM_*], [DATE_*], [LINK_*].
-
-GOOD REWRITES (preserve meaning)
-- "The report was written by the team" → "The team wrote the report"
-- "Improvements might be seen in Q3" → "Improvements will occur in Q3"
-- "We are looking for engineers" → "We seek engineers"
-- "States contracts are using a pilot approach" → "States use contracts in a pilot approach"
-
-BAD REWRITES (changed meaning)
-- "We are looking for engineers" → "We will hire top talent in Q3" ❌
-- "could be expanded" → "is expanded" ❌
-
-Return ONLY the rewritten sentences, numbered 1..N, one per line."""
+        system_msg = (
+            "You are an expert editor for active, direct writing.\n"
+            "RULES:\n"
+            "1) Preserve [PRESERVE].\n"
+            "2) Convert passive to active; reduce hedging (might/could/probably/perhaps/maybe/sort of/kind of/may be).\n"
+            "3) If context is weakness/threat, keep negative nature but clearer.\n"
+            "4) Keep similar length and placeholders. End with proper punctuation.\n"
+            "For each line, return THREE alternatives labeled 1a/1b/1c ...\n"
+        )
         user_msg = "Convert to active voice:\n\n"
         for i, (text, c) in enumerate(zip(texts, constraints), 1):
             pres = ", ".join(c.get("preserve_facts", [])[:5])
             ctx = c.get("context", "neutral")
-            key = c.get("key_constraint", "")
             user_msg += f"{i}. {text}\n"
             user_msg += f"   [PRESERVE: {pres}]\n"
-            user_msg += f"   [CONTEXT: {ctx}]\n"
-            if key:
-                user_msg += f"   [KEY: {key}]\n"
-            user_msg += "\n"
-        user_msg += "Rewritten:"
+            user_msg += f"   [CONTEXT: {ctx}]\n\n"
+        user_msg += "Return only the numbered alternatives as 1a/1b/1c etc."
         return system_msg, user_msg
 
-    # VALIDATION
+    # -------------- Validation --------------
     def _semantic_similarity_check(self, original: str, suggestion: str) -> bool:
         orig_words = set(re.findall(r'\b[a-z]{4,}\b', (original or '').lower()))
         sug_words = set(re.findall(r'\b[a-z]{4,}\b', (suggestion or '').lower()))
@@ -448,71 +390,7 @@ Return ONLY the rewritten sentences, numbered 1..N, one per line."""
 
         return True, "valid"
 
-    # FALLBACKS
-    def _fallback_positive_improved(self, s: str, context: str = "neutral") -> str:
-        """Conservative edits; avoid meaning flips, avoid introducing new negations."""
-        t = s
-        if context in ("weakness", "threat"):
-            replacements = [
-                (r"\bvey\b", "very"),  # typo example
-                (r"\s{2,}", " "),
-            ]
-        else:
-            replacements = [
-                (r"\bcan't\b", "cannot"),
-                (r"\bnot\s+able\s+to\b", "unable to"),
-                (r"\bdo\s+not\s+have\b", "lack"),
-                (r"\bdoes\s+not\s+have\b", "lacks"),
-                (r"\bnot\s+enough\b", "insufficient"),
-                (r"\bno\s+significant\b", "limited"),
-                (r"\s{2,}", " "),
-            ]
-
-        for pattern, repl in replacements:
-            t2 = re.sub(pattern, repl, t, flags=re.IGNORECASE)
-            if t2 != t:
-                t = t2
-
-        return t if t.strip() and self._normalize_text(t) != self._normalize_text(s) else s
-
-    def _fallback_active_improved(self, s: str) -> str:
-        t = s
-
-        # Remove hedging
-        hedges = [
-            (r"\bmight\s+be\b", "is"),
-            (r"\bcould\s+be\b", "is"),
-            (r"\bwould\s+be\b", "is"),
-            (r"\bshould\s+be\b", "is"),
-            (r"\bmay\s+be\b", "is"),
-            (r"\bprobably\s+", ""),
-            (r"\bperhaps\s+", ""),
-            (r"\bmaybe\s+", ""),
-            (r"\bsort\s+of\s+", ""),
-            (r"\bkind\s+of\s+", ""),
-            (r"\blooking\s+for\b", "seek"),
-            (r"\blooking\s+to\b", "seeking to"),
-        ]
-        for pattern, repl in hedges:
-            t = re.sub(pattern, repl, t, flags=re.IGNORECASE)
-
-        # Straightforward passive fixes
-        passive_fixes = [
-            (r"\b(is|are|was|were)\s+created\b", "creates"),
-            (r"\b(is|are|was|were)\s+developed\b", "develops"),
-            (r"\b(is|are|was|were)\s+built\b", "builds"),
-            (r"\b(is|are|was|were)\s+used\b", "uses"),
-            (r"\b(is|are|was|were)\s+needed\b", "needs"),
-            (r"\b(is|are|was|were)\s+applied\b", "applies"),
-            (r"\bbeing\s+(\w+ed|made|done)\b", r"\1"),
-        ]
-        for pattern, repl in passive_fixes:
-            t = re.sub(pattern, repl, t, flags=re.IGNORECASE)
-
-        t = re.sub(r'\s+', ' ', t).strip()
-        return t if t.strip() and self._normalize_text(t) != self._normalize_text(s) else s
-
-    # CORE PIPELINE
+    # -------------- Collection helpers --------------
     def _iter_elements(self, normalized: Dict[str, Any]) -> Iterable[Tuple[int, int, Dict[str, Any]]]:
         slides = normalized.get("slides", normalized.get("pages", []))
         for slide_idx, slide in enumerate(slides):
@@ -548,8 +426,7 @@ Return ONLY the rewritten sentences, numbered 1..N, one per line."""
             return []
 
         sents: List[Tuple[int, int, Dict[str, Any], spacy.tokens.Span]] = []
-        iterator = self.nlp.pipe(texts, batch_size=64)
-        for (slide_idx, element_idx, element), doc in zip(meta, iterator):
+        for (slide_idx, element_idx, element), doc in zip(meta, self.nlp.pipe(texts, batch_size=1000)):
             for sent in doc.sents:
                 if sent.text.strip():
                     sents.append((slide_idx, element_idx, element, sent))
@@ -564,85 +441,102 @@ Return ONLY the rewritten sentences, numbered 1..N, one per line."""
         elem = loc.get("element_index") or (element_idx + 1)
         return int(page), int(elem), str(etype), f"slide {page}, element {elem}"
 
-    def _detect_negative_language(self, sents) -> List[Dict[str, Any]]:
-        issues: List[Dict[str, Any]] = []
-        iterator = tqdm(sents, desc="Negative check", unit="sent") if USE_PROGRESS_BAR else sents
+    # -------------- Tone scoring helpers --------------
+    def _tone_vector(self, text: str, sent_val: float) -> Tuple[float, float, float]:
+        # valence in [-1,1] (approx), assertiveness = 1 - hedging, voice = passive prob proxy (0 or 1)
+        hedging = 1.0 if self._has_hedging(text) else 0.0
+        assertiveness = 1.0 - hedging
+        voice = 1.0 if self._is_passive_text(text) else 0.0
+        return sent_val, assertiveness, voice
 
-        for slide_idx, element_idx, element, sent in iterator:
+    # -------------- Detection --------------
+    def _detect_negative_language(self, all_sents) -> List[Dict[str, Any]]:
+        """
+        Document-calibrated negativity detection with:
+        - transformer valence + robust z-score
+        - absolute floor (neg_abs_floor)
+        - minor-negativity guard (requires hedging or explicit negation)
+        - whitelist bypass for domain terms
+        """
+        # Build candidate list for one-shot sentiment scoring
+        cand_idx_map: List[int] = []
+        cand_texts: List[str] = []
+        for i, (slide_idx, element_idx, element, sent) in enumerate(all_sents):
             txt = sent.text.strip()
-            if self._is_heading_like(txt):
+            if self._is_heading_like(txt) or not self._is_sentence_like(txt) or self._is_quoted_block(txt):
                 continue
-            if not self._is_sentence_like(txt):
-                continue
-            if self._is_quoted_block(txt):
-                continue
+            cand_idx_map.append(i)
+            cand_texts.append(txt)
 
+        # Early exit
+        if not cand_texts:
+            logger.info("Positive/constructive issues: 0 (no candidates)")
+            return []
+
+        # Score once (batched) and calibrate per document
+        batch = self.sent_scorer.score(cand_texts)
+        mu, scale = calibrate_doc(batch.score)
+
+        # Thresholds
+        z_thresh = mu - NEG_Z_K * max(scale, 1e-6)
+        abs_floor = float(getattr(settings, "neg_abs_floor", -0.15))  # configurable floor
+        issues: List[Dict[str, Any]] = []
+
+        for j, i in enumerate(cand_idx_map):
+            slide_idx, element_idx, element, sent = all_sents[i]
+            txt = cand_texts[j]
             p, e, etype, location = self._locator(element, slide_idx, element_idx)
 
-            # Explicit negation patterns
-            if self._negative_phrase_reason(txt, sent):
-                # Ignore whitelisted neutral domain words if no negation was detected
-                if _NEG_WHITELIST.search(txt) and not self._has_negation(txt):
-                    continue
+            # Doc-calibrated negativity with confidence gate
+            is_below_z = batch.score[j] < z_thresh
+            is_below_abs = batch.score[j] < abs_floor
+            is_neg_model = (is_below_z or is_below_abs) and (batch.conf[j] >= NEG_CONF_MIN)
 
-                issues.append({
-                    "rule_name": "positive_language",
-                    "severity": "warning",
-                    "category": "tone-issue",
-                    "description": "Use positive language to make communication clearer, more constructive, and solution-oriented.",
-                    "location": location,
-                    "found_text": txt,
-                    "suggestion": None,
-                    "page_or_slide_index": p - 1,
-                    "element_index": e - 1,
-                    "element_type": etype,
-                    "score": None,
-                })
+            # Linguistic gates
+            explicit_neg = self._negative_phrase_reason(txt, sent)
+            has_hedge = self._has_hedging(txt)
+
+            # Whitelist: if only model-negative and whitelist term appears without explicit negation, skip
+            if is_neg_model and _NEG_WHITELIST.search(txt) and not explicit_neg:
                 continue
 
-            # VADER-only negativity (strict threshold & whitelist)
-            vs = self.analyzer.polarity_scores(txt)
-            comp = vs.get("compound", 0.0)
-            if comp <= VADER_HARD_NEG:
-                if _NEG_WHITELIST.search(txt) and not self._has_negation(txt):
-                    continue
+            # Minor negativity (z-only, not under absolute floor) must co-occur with negation or hedging
+            minor_neg = (not is_below_abs) and is_below_z
+            if minor_neg and not (explicit_neg or has_hedge):
+                continue
+
+            if explicit_neg or is_neg_model:
                 issues.append({
                     "rule_name": "positive_language",
                     "severity": "warning",
                     "category": "tone-issue",
-                    "description": "Use positive language to make communication clearer, more constructive, and solution-oriented.",
+                    "description": "Use constructive, neutral phrasing without changing facts.",
                     "location": location,
                     "found_text": txt,
                     "suggestion": None,
                     "page_or_slide_index": p - 1,
                     "element_index": e - 1,
                     "element_type": etype,
-                    "score": comp,
+                    "score": batch.score[j],
                 })
 
-        logger.info(f"Positive language issues: {len(issues)}")
+        logger.info(f"Positive/constructive issues: {len(issues)} (mu={mu:.3f}, sigma={scale:.3f}, z_th={z_thresh:.3f}, floor={abs_floor:.3f})")
         return issues
+
 
     def _detect_active_voice(self, sents) -> List[Dict[str, Any]]:
         issues: List[Dict[str, Any]] = []
-        iterator = tqdm(sents, desc="Voice check", unit="sent") if USE_PROGRESS_BAR else sents
-
-        for slide_idx, element_idx, element, sent in iterator:
+        for slide_idx, element_idx, element, sent in sents:
             txt = sent.text.strip()
-            if self._is_heading_like(txt):
+            if self._is_heading_like(txt) or not self._is_sentence_like(txt) or self._is_quoted_block(txt):
                 continue
-            if not self._is_sentence_like(txt):
-                continue
-            if self._is_quoted_block(txt):
-                continue
-
             p, e, etype, location = self._locator(element, slide_idx, element_idx)
             if self._is_passive(sent) or self._is_mushy(sent):
                 issues.append({
                     "rule_name": "active_voice",
                     "severity": "info",
                     "category": "tone-issue",
-                    "description": "Use active voice to make writing direct, strong, and easy to understand.",
+                    "description": "Use active voice to make writing direct and clear.",
                     "location": location,
                     "found_text": txt,
                     "suggestion": None,
@@ -651,11 +545,19 @@ Return ONLY the rewritten sentences, numbered 1..N, one per line."""
                     "element_type": etype,
                     "score": None,
                 })
-
         logger.info(f"Active voice issues: {len(issues)}")
         return issues
 
-    # LLM REWRITE (BATCH)
+    # -------------- LLM rewrite (3 candidates + ranking) --------------
+    def _rank_candidate(self, original: str, candidate: str) -> float:
+        # features: sentiment, anti-hedge, anti-passive, closeness
+        s_val = self.sent_scorer.score([candidate]).score[0]
+        anti_hedge = 0.0 if self._has_hedging(candidate) else 1.0
+        anti_passive = 0.0 if self._is_passive_text(candidate) else 1.0
+        sim = difflib.SequenceMatcher(None, original.lower(), candidate.lower()).ratio()
+        # weights tuned lightly
+        return (1.2 * s_val) + (0.4 * sim) + (0.6 * anti_hedge) + (0.4 * anti_passive)
+
     def _rewrite_batch_llm_improved(
         self,
         items: List[Tuple[int, str, str, Optional[str], Optional[float], Optional[str]]],
@@ -687,7 +589,7 @@ Return ONLY the rewritten sentences, numbered 1..N, one per line."""
             headings.append(heading)
             contexts.append(context or "neutral")
 
-        # Constraints include context awareness
+        # Constraints include context awareness via NER
         constraints = self._extract_preserve_constraints_fast(masked_texts)
         for i, ctx in enumerate(contexts):
             if ctx and ctx != "neutral":
@@ -701,55 +603,75 @@ Return ONLY the rewritten sentences, numbered 1..N, one per line."""
             system_msg, user_msg = self._create_active_prompt(masked_texts, constraints)
             rule_name = "active_voice"
 
-        # Single call via LLMClient
         content = self._llm_chat(system_msg, user_msg)
         if not content:
             return [(None, "empty_response")] * len(items)
 
-        # Tolerant parsing
-        numbered = re.findall(r'^\s*(\d+)[\.\)]\s*(.+)$', content, flags=re.MULTILINE)
-        candidates: List[Optional[str]] = [None] * len(items)
-        if numbered:
+        # Parse 1a/1b/1c format (tolerant)
+        grouped: Dict[int, List[str]] = {i + 1: [] for i in range(len(items))}
+        for num, letter, textline in re.findall(r'^\s*(\d+)([a-c])[\.\)]\s*(.+)$', content, flags=re.MULTILINE):
+            idx = int(num)
+            if 1 <= idx <= len(items):
+                grouped[idx].append(textline.strip().strip('"').strip("'"))
+
+        # If model ignored a/b/c, fall back to standard 1..N lines
+        if all(len(v) == 0 for v in grouped.values()):
+            numbered = re.findall(r'^\s*(\d+)[\.\)]\s*(.+)$', content, flags=re.MULTILINE)
             for num_str, textline in numbered:
-                idx = int(num_str) - 1
-                if 0 <= idx < len(candidates) and not candidates[idx]:
-                    candidates[idx] = textline.strip().strip('"').strip("'")
-        else:
-            rough = [ln.strip().strip('"').strip("'") for ln in content.splitlines() if ln.strip()]
-            candidates = (rough + [None] * len(items))[:len(items)]
+                idx = int(num_str)
+                if 1 <= idx <= len(items):
+                    grouped[idx].append(textline.strip().strip('"').strip("'"))
 
         results: List[Tuple[Optional[str], str]] = []
-        for i, cand in enumerate(candidates):
-            if not cand:
+        for i in range(len(items)):
+            cands = grouped.get(i + 1, [])
+            if not cands:
                 results.append((None, "llm_no_parse"))
                 continue
 
-            cand = self._unmask(cand, masks[i])
-            cand = self._reattach_heading(headings[i], cand)
-            cand = self._finalize_sentence(cand)
+            # unmask & finalize all candidates, then rank
+            unmasked: List[str] = []
+            for cand in cands:
+                c = self._unmask(cand, masks[i])
+                c = self._finalize_sentence(c)
+                unmasked.append(c)
 
-            full_original = self._reattach_heading(headings[i], originals[i])
-            ok, reason = self._validate_suggestion_with_constraints(full_original, cand, rule_name, constraints[i])
+            # attach heading and validate
+            best_cand = None
+            best_score = -1e9
+            for c in unmasked:
+                sug_full = self._reattach_heading(headings[i], c)
+                orig_full = self._reattach_heading(headings[i], originals[i])
+                # quick pre-filter: avoid micro-edits (identical norm)
+                if self._normalize_text(sug_full) == self._normalize_text(orig_full):
+                    continue
+                s = self._rank_candidate(orig_full, sug_full)
+                if s > best_score:
+                    best_score, best_cand = s, sug_full
 
+            if not best_cand:
+                results.append((None, "llm_invalid_all"))
+                continue
+
+            # final validation
+            orig_full = self._reattach_heading(headings[i], originals[i])
+            ok, reason = self._validate_suggestion_with_constraints(orig_full, best_cand, rule_name, constraints[i])
             if ok:
-                results.append((cand, "llm_validated"))
+                results.append((best_cand, "llm_validated"))
             else:
                 results.append((None, f"llm_invalid_{reason}"))
 
         return results
 
-    # SUGGESTION GENERATION
+    # -------------- Suggestion assembly --------------
     def _generate_suggestions_for_all(self, issues: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         pos_queue: List[Tuple[int, str, str, Optional[str], Optional[float], Optional[str]]] = []
         act_queue: List[Tuple[int, str, str, Optional[str], Optional[float], Optional[str]]] = []
 
-        # Track LLM rejection reasons for logging
         failure_reasons: Dict[str, int] = {}
-
         def bump(reason: str):
             failure_reasons[reason] = failure_reasons.get(reason, 0) + 1
 
-        # Assemble queues
         for idx, issue in enumerate(issues):
             if issue.get("suggestion"):
                 continue
@@ -777,13 +699,10 @@ Return ONLY the rewritten sentences, numbered 1..N, one per line."""
         def process_queue(queue: List[Tuple[int, str, str, Optional[str], Optional[float], Optional[str]]]) -> Dict[str, int]:
             if not queue:
                 return {"llm": 0, "fallback": 0, "failed": 0}
-
             stats = {"llm": 0, "fallback": 0, "failed": 0}
             k = 0
             while k < len(queue):
                 batch = queue[k:k + MAX_BATCH_ITEMS]
-
-                # 1) Try LLM
                 llm_results = self._rewrite_batch_llm_improved(batch)
 
                 for (global_idx, body_only, _, heading, _, context), (sug, method) in zip(batch, llm_results):
@@ -798,28 +717,69 @@ Return ONLY the rewritten sentences, numbered 1..N, one per line."""
                     elif method:
                         bump(method)
 
-                    # 2) Fallback (conservative)
+                    # Conservative fallbacks
                     if batch[0][2] == "positive":
-                        sug_body = self._fallback_positive_improved(body_only, context=context or "neutral")
+                        # small neutralizing substitutions only
+                        t = body_only
+                        replacements = [
+                            (r"\s{2,}", " "),
+                            (r"\bdo\s+not\s+have\b", "lack"),
+                            (r"\bdoes\s+not\s+have\b", "lacks"),
+                            (r"\bnot\s+able\s+to\b", "unable to"),
+                            (r"\bno\s+significant\b", "limited"),
+                        ]
+                        for pat, rep in replacements:
+                            t2 = re.sub(pat, rep, t, flags=re.IGNORECASE)
+                            t = t2
+                        sug_body = t
                         rule_name = "positive_language"
                     else:
-                        sug_body = self._fallback_active_improved(body_only)
+                        # reduce hedging; trivial passive fixes
+                        t = body_only
+                        hedges = [
+                            (r"\bmight\s+be\b", "is"),
+                            (r"\bcould\s+be\b", "is"),
+                            (r"\bwould\s+be\b", "is"),
+                            (r"\bshould\s+be\b", "is"),
+                            (r"\bmay\s+be\b", "is"),
+                            (r"\bprobably\s+", ""),
+                            (r"\bperhaps\s+", ""),
+                            (r"\bmaybe\s+", ""),
+                            (r"\bsort\s+of\s+", ""),
+                            (r"\bkind\s+of\s+", ""),
+                            (r"\blooking\s+for\b", "seek"),
+                            (r"\blooking\s+to\b", "seeking to"),
+                        ]
+                        for pat, rep in hedges:
+                            t = re.sub(pat, rep, t, flags=re.IGNORECASE)
+                        passive_fixes = [
+                            (r"\b(is|are|was|were)\s+created\b", "creates"),
+                            (r"\b(is|are|was|were)\s+developed\b", "develops"),
+                            (r"\b(is|are|was|were)\s+built\b", "builds"),
+                            (r"\b(is|are|was|were)\s+used\b", "uses"),
+                            (r"\b(is|are|was|were)\s+needed\b", "needs"),
+                            (r"\b(is|are|was|were)\s+applied\b", "applies"),
+                            (r"\bbeing\s+(\w+ed|made|done)\b", r"\1"),
+                        ]
+                        for pat, rep in passive_fixes:
+                            t = re.sub(pat, rep, t, flags=re.IGNORECASE)
+                        sug_body = t
                         rule_name = "active_voice"
 
-                    sug_full = self._reattach_heading(heading, sug_body)
-                    sug_full = self._finalize_sentence(sug_full)
-
+                    sug_full = self._reattach_heading(heading, self._finalize_sentence(sug_body))
                     original_full = self._reattach_heading(heading, body_only)
                     ok, reason = self._validate_suggestion(original_full, sug_full, rule_name)
 
-                    if ok and self._normalize_text(sug_full) != self._normalize_text(original_full):
+                    # exclude micro-edits
+                    micro = (self._normalize_text(sug_full) == self._normalize_text(original_full))
+                    if ok and not micro:
                         issues[global_idx]["suggestion"] = sug_full
                         issues[global_idx]["method"] = "fallback"
                         stats["fallback"] += 1
                     else:
                         issues[global_idx]["method"] = "no_improvement"
                         stats["failed"] += 1
-                        bump(f"fallback_{reason}")
+                        bump(f"fallback_{reason}{'_micro' if micro else ''}")
 
                 k += MAX_BATCH_ITEMS
 
@@ -829,11 +789,10 @@ Return ONLY the rewritten sentences, numbered 1..N, one per line."""
 
         _ = process_queue(pos_queue)
         _ = process_queue(act_queue)
-
         logger.info("Rewrite complete")
         return issues
 
-    # PUBLIC API
+    # -------------- Public API --------------
     def analyze(self, input_json: Dict[str, Any]) -> Dict[str, Any]:
         all_sents = self._collect_sentences(input_json)
         if not all_sents:
@@ -864,7 +823,7 @@ Return ONLY the rewritten sentences, numbered 1..N, one per line."""
 
         issues = self._generate_suggestions_for_all(issues)
 
-        # Keep only issues with a real, different suggestion
+        # Keep only issues with a real, different suggestion (exclude micro-edits)
         def _is_real_suggestion(item: Dict[str, Any]) -> bool:
             sug = item.get("suggestion")
             if not sug:
@@ -885,14 +844,9 @@ Return ONLY the rewritten sentences, numbered 1..N, one per line."""
         }
 
 
-# CLI
+# -------------- CLI --------------
 if __name__ == "__main__":
-    import argparse
-    import sys
-
-    # Keep CLI logging self-contained to avoid duplicate handlers when used as a library.
     logging.basicConfig(level=getattr(settings, "log_level", logging.INFO), format="%(levelname)s: %(message)s")
-
     parser = argparse.ArgumentParser(description="Run style checks on normalized JSON.")
     parser.add_argument("input_json", help="Path to normalized JSON file")
     parser.add_argument("--no-rewrite", action="store_true", help="Disable LLM rewriting")

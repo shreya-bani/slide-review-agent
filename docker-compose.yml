@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  slide-review-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: slide-review-agent
+    ports:
+      - "8000:8000"
+    environment:
+      # Basic app settings
+      - APP_NAME=slide-review-agent
+      - ENVIRONMENT=production
+      - DEBUG=false
+
+      # LLM Configuration (REQUIRED - set these in .env file)
+      - LLM_PROVIDER=${LLM_PROVIDER:-huggingface}
+      - LLM_API_KEY=${LLM_API_KEY}
+      - LLM_MODEL=${LLM_MODEL:-google/gemma-2-2b-it}
+      - LLM_API_ENDPOINT=${LLM_API_ENDPOINT:-https://router.huggingface.co/v1/chat/completions}
+
+      # File settings
+      - MAX_FILE_SIZE_MB=${MAX_FILE_SIZE_MB:-50}
+      - UPLOAD_DIR=/app/data/uploads
+      - OUTPUT_DIR=/app/data/outputs
+      - LOGS_DIR=/app/data/logs
+
+      # Database
+      - DATABASE_URL=sqlite:////app/data/slide_review.db
+
+      # Analyzer settings
+      - DEMO_MODE=${DEMO_MODE:-false}
+      - ENABLE_REWRITE=${ENABLE_REWRITE:-true}
+      - REWRITE_BUDGET_MAX_CALLS=${REWRITE_BUDGET_MAX_CALLS:-5}
+      - REWRITE_BUDGET_WINDOW_HOURS=${REWRITE_BUDGET_WINDOW_HOURS:-24}
+      - BATCH_SIZE_LIMIT=${BATCH_SIZE_LIMIT:-50}
+      - USE_LLM_STYLE_CHECKER=${USE_LLM_STYLE_CHECKER:-true}
+      - VADER_NEG_THRESHOLD=${VADER_NEG_THRESHOLD:--0.05}
+      - ANALYZER_INCLUDE_NOTES=${ANALYZER_INCLUDE_NOTES:-false}
+      - TEMPERATURE=${TEMPERATURE:-0.3}
+
+      # Logging
+      - LOG_LEVEL=${LOG_LEVEL:-20}
+
+    volumes:
+      # Persist data across container restarts
+      - ./data/uploads:/app/data/uploads
+      - ./data/outputs:/app/data/outputs
+      - ./data/logs:/app/data/logs
+
+      # Optional: Mount .env file for local development
+      # - ./.env:/app/.env:ro
+
+    restart: unless-stopped
+
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+    # Resource limits (adjust based on your needs)
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4G
+        reservations:
+          cpus: '1'
+          memory: 2G
+
+# Volumes for persistent storage
+volumes:
+  uploads:
+  outputs:
+  logs:

@@ -16,6 +16,9 @@ from pydantic import Field
 from pydantic_settings import BaseSettings
 from dotenv import load_dotenv
 
+import os
+from openai import AzureOpenAI
+
 # logging bootstrap
 logger = logging.getLogger(__name__)
 if not logger.handlers:
@@ -35,24 +38,38 @@ class Settings(BaseSettings):
     app_name: str = Field(default="slide-review-agent", alias="APP_NAME")
     environment: str = Field(default="development", alias="ENVIRONMENT")
     debug: bool = Field(default=True, alias="DEBUG")
-    
+
+    # Server
+    host: str = Field(default="127.0.0.1", alias="HOST")
+    port: int = Field(default=8000, alias="PORT")
+    cors_origins: str = Field(default="*", alias="CORS_ORIGINS")
+
     max_file_size_mb: int = Field(default=50, alias="MAX_FILE_SIZE_MB")
 
     # DB
     database_url: str = Field(default=f"sqlite:///{PROJECT_ROOT}/data/slide_review.db",
                               alias="DATABASE_URL")
+    
     log_dir: str = Field(default=f"{PROJECT_ROOT}/logs", alias="LOG_DIR")
     output_dir: str = Field(default=f"{PROJECT_ROOT}/outputs", alias="OUTPUT_DIR")
     upload_dir: str = Field(default=f"{PROJECT_ROOT}/uploads", alias="UPLOAD_DIR")
     
     # SINGLE LLM CONFIG
-    llm_provider: str = Field(default="huggingface", alias="LLM_PROVIDER")
-    llm_api_key: Optional[str] = Field(default=None, alias="LLM_API_KEY")
-    llm_model: str = Field(default="google/gemma-2-2b-it", alias="LLM_MODEL")
-    llm_api_endpoint: str = Field(default="https://router.huggingface.co/v1/chat/completions", alias="LLM_API_ENDPOINT")
+    llm_provider: str = Field(default="azure", alias="LLM_PROVIDER")
+    # llm_api_key: Optional[str] = Field(default=None, alias="LLM_API_KEY")
+    # llm_model: str = Field(default="google/gemma-2-2b-it", alias="LLM_MODEL")
+    # llm_api_endpoint: str = Field(default="https://router.huggingface.co/v1/chat/completions", alias="LLM_API_ENDPOINT")
 
     # Logging
     log_level: int = Field(default=logging.INFO, alias="LOG_LEVEL")
+
+    # Azure OpenAI configuration
+    llm_model: str = Field(default="gpt-5-chat", alias="LLM_MODEL")
+    llm_deploy: str = Field(default="gpt-5-chat", alias="LLM_DEPLOY")
+    llm_api_key: str = Field(default="", alias="LLM_API_KEY")
+    llm_api_version: str = Field(default="2024-12-01-preview", alias="LLM_API_VERSION")
+    llm_api_endpoint: str = Field(default="", alias="LLM_API_ENDPOINT") 
+    llm_chunk_size: int = Field(default=30000, alias="LLM_CHUNK_SIZE")
 
     class Config:
         case_sensitive = False
@@ -65,6 +82,8 @@ class Settings(BaseSettings):
 
     def log_summary(self) -> None:
         logger.info("App: %s | Env: %s | Debug=%s", self.app_name, self.environment, self.debug)
+        logger.info("Server: %s:%s", self.host, self.port)
+        logger.info("CORS Origins: %s", self.cors_origins)
         logger.info("Database URL: %s", self.database_url)
         logger.info("LLM Provider: %s", self.llm_provider)
         logger.info("LLM Model: %s", self.llm_model)
@@ -119,10 +138,11 @@ def _parse_args():
 
 def main():
     args = _parse_args()
-    if args.verbose:
-        logger.setLevel(logging.DEBUG)
-        logging.getLogger().setLevel(logging.DEBUG)
-    logger.debug("PROJECT_ROOT=%s | .env.example exists=%s", PROJECT_ROOT, ENV_EXAMPLE.exists())
+    
+    logger.setLevel(logging.DEBUG)
+    logging.getLogger().setLevel(logging.DEBUG)
+
+    logger.info("PROJECT_ROOT=%s | .env.example exists=%s", PROJECT_ROOT, ENV_EXAMPLE.exists())
     settings.log_summary()
 
 if __name__ == "__main__":

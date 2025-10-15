@@ -4,11 +4,11 @@
     "file_path": "data\\uploads\\006_amida_vacm_project_presentation_-may_2_2025_-final.pptx",
     "total_slides": 78,
     "layouts": [
+      "Thank you slide",
       "Intro slide image type 1",
       "Content text slide type 1",
-      "1_Intro slide image type 2",
       "Content slide+image type 1",
-      "Thank you slide"
+      "1_Intro slide image type 2"
     ],
     "title": "",
     "author": "",
@@ -4525,7 +4525,7 @@
     "slides_with_notes": 0,
     "total_elements": 190
   },
-  "normalized_at": "2025-10-07T15:42:26.629924",
+  "normalized_at": "2025-10-10T11:05:13.233427",
   "summary": {
     "total_pages": 78,
     "pages_with_content": 78,

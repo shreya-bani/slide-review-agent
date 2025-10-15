@@ -51,9 +51,14 @@ def create_app() -> FastAPI:
         debug=settings.debug
     )
     
+    # Parse CORS origins from settings (comma-separated or "*")
+    cors_origins = ["*"] if settings.cors_origins == "*" else [
+        origin.strip() for origin in settings.cors_origins.split(",")
+    ]
+
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"] if settings.debug else ["http://localhost:3000"],
+        allow_origins=cors_origins,
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
@@ -228,7 +233,12 @@ async def upload_document(
     # Check cache
     if file_id in processed_files:
         logger.info(f"Document {file_id} already processed, returning cached result")
-        return JSONResponse(content=processed_files[file_id], status_code=200)
+        cached_result = processed_files[file_id].copy()
+        cached_result['user_info'] = user_info  # Update with current uploader
+        cached_result['processed_at'] = datetime.now().isoformat()
+        logger.info(f"Returning cached result with user_info: {cached_result.get('user_info')}")
+
+        return JSONResponse(content=cached_result, status_code=200)
 
     # Process and analyze document
     processing_result = await process_and_analyze_document(
@@ -262,11 +272,14 @@ async def process_and_analyze_document(
         clean_stem = Path(original_filename).stem.replace(" ", "_")[:50]
         
         # Check if analysis already exists
-        analysis_file = output_dir / f"{file_id}_{clean_stem}_combined_analysis.json"
-        if analysis_file.exists():
-            logger.info(f"Analysis file already exists: {analysis_file}")
-            with open(analysis_file, 'r', encoding='utf-8') as f:
-                return json.load(f)
+        result_file = output_dir / f"{file_id}_{clean_stem}_result.json"
+        if result_file.exists():
+            logger.info(f"Result file already exists: {result_file}")
+            with open(result_file, 'r', encoding='utf-8') as f:
+                cached_result = json.load(f)
+            cached_result['user_info'] = user_info  # Update with current uploader
+            logger.info(f"Returning cached result with user_info: {cached_result.get('user_info')}")
+            return cached_result
 
         # Step 1: Normalize document
         logger.info("Step 1: Normalizing document...")
@@ -296,10 +309,10 @@ async def process_and_analyze_document(
             "original_filename": original_filename,
             "user_info": user_info,
             "processed_at": datetime.now().isoformat(),
-            
+
             # Document metadata
             "metadata": analysis_report.get("document_metadata", {}),
-            
+
             # Analysis summary
             "analysis_summary": {
                 "total_issues": analysis_report["summary"]["total_issues"],
@@ -310,22 +323,24 @@ async def process_and_analyze_document(
                 "category_breakdown": analysis_report["summary"]["category_breakdown"],
                 "rule_breakdown": analysis_report["summary"]["rule_breakdown"],
             },
-            
+
             # Content statistics
             "content_statistics": analysis_report.get("content_statistics", {}),
-            
+
             # All issues for table display
             "findings": analysis_report.get("all_issues", []),
-            
+
             # Issues by slide for navigation
             "issues_by_slide": analysis_report.get("issues_by_slide", {}),
-            
+
             # Categorized issues
             "issues_by_category": analysis_report.get("issues_by_category", {}),
-            
+
             # Full analysis metadata
             "analysis_metadata": analysis_report.get("analysis_metadata", {}),
         }
+
+        logger.info(f"Created processing_result with user_info: {processing_result.get('user_info')}")
 
         # Step 4: Save all outputs
         logger.info(f"Saving outputs to: {output_dir}")
@@ -393,14 +408,3 @@ async def get_analysis_history():
         
     except Exception as e:
         return JSONResponse(content={"error": str(e)}, status_code=500)
-
-if __name__ == "__main__":
-    import uvicorn
-    
-    uvicorn_target = "backend.app:app" if settings.debug else app
-    uvicorn.run(
-        uvicorn_target,
-        host="127.0.0.1",
-        port=8000,
-        reload=settings.debug
-    )

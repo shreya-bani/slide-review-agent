@@ -27,6 +27,11 @@ uvicorn backend.app:app --reload --host 127.0.0.1 --port 8000
 ### Environment Setup
 The application uses `.env.example` as the default configuration source (loaded with `override=False`). Key settings:
 
+- **Server Configuration**:
+  - `HOST`: Server host address (default: `127.0.0.1`)
+  - `PORT`: Server port (default: `8000`)
+  - `CORS_ORIGINS`: CORS allowed origins (default: `*`, can be comma-separated list)
+
 - **LLM Configuration** (REQUIRED):
   - `LLM_PROVIDER`: Provider name (e.g., `huggingface`, `groq`)
   - `LLM_API_KEY`: API key for the LLM provider

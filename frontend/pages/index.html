@@ -84,7 +84,7 @@
 
                 <div class="input-group">
                     <label for="user-info">Your name or email (for audit log)</label>
-                    <input id="user-info" type="text" placeholder="john@company.com or John Doe" data-testid="input-user-info">
+                    <input id="user-info" name="user_info" type="text" placeholder="john@company.com or John Doe" required/>
                 </div>
 
                 <button id="analyze-btn" class="btn btn-primary full-width" disabled data-testid="button-start-analysis">
@@ -245,7 +245,7 @@
                             </div>
                             <div class="metadata-item">
                                 <span class="metadata-label">Uploaded by:</span>
-                                <span id="meta-title" class="metadata-value">--</span>
+                                <span id="meta-uploader" class="metadata-value">--</span>
                             </div>
                             <div class="metadata-item">
                                 <span class="metadata-label">Author:</span>
