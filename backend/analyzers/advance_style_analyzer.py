@@ -32,9 +32,9 @@ import spacy
 from tqdm import tqdm
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
-# SETTINGS / CLIENT
-from ..config.settings import settings  # project settings
+from ..config.settings import settings  
 from ..utils.llm_client import LLMClient
+from .protection_layer import ProtectionLayer, LLMConfigError
 
 # LOGGER
 logger = logging.getLogger(__name__)
@@ -44,7 +44,7 @@ logger.setLevel(getattr(settings, "log_level", logging.INFO))
 INCLUDE_NOTES: bool = bool(getattr(settings, "analyzer_include_notes", False))
 ENABLE_REWRITE: bool = bool(getattr(settings, "enable_rewrite", True))
 USE_PROGRESS_BAR: bool = bool(getattr(settings, "debug", False))
-MAX_BATCH_ITEMS: int = int(getattr(settings, "rewrite_batch_limit", 50))
+MAX_BATCH_ITEMS: int = int(getattr(settings, "rewrite_batch_limit", 5000))
 
 VADER_NEG_THRESHOLD: float = float(getattr(settings, "vader_neg_threshold", -0.05))
 # Harder sentiment threshold for *purely sentiment* flags (<= baseline).
@@ -96,7 +96,13 @@ class AdvancedStyleAnalyzer:
     Two-rule style analyzer with improved prompts, validation, and robust parsing.
     """
 
-    def __init__(self) -> None:
+    def __init__(
+            self,
+            *,
+            use_llm: bool = True,
+            protection_data: dict | None = None,
+            protection_cache_path: Path | None = None,
+        ):        
         self.analyzer = SentimentIntensityAnalyzer()
         nlp = spacy.load("en_core_web_sm")
         keep = {"tok2vec", "tagger", "attribute_ruler", "parser", "lemmatizer"}
@@ -105,6 +111,15 @@ class AdvancedStyleAnalyzer:
 
         # Single LLM entrypoint
         self.llm = LLMClient()
+
+        self.protection_layer = ProtectionLayer(llm_client=getattr(self, "llm", None))
+        if protection_data:
+            self.protection_layer.set_protection_data(protection_data)
+        elif protection_cache_path and protection_cache_path.exists():
+            self.protection_layer.load(protection_cache_path)
+
+        # Make a fast local alias to avoid attribute lookups in tight loops
+        self._prot = self.protection_layer
 
     # LLM wrapper
     def _llm_chat(self, system_msg: str, user_msg: str) -> Optional[str]:
@@ -158,6 +173,27 @@ class AdvancedStyleAnalyzer:
                 return heading.strip()
             return f"{heading} {body}".strip()
         return body
+    
+    # PROTECTED SPANS
+    def _is_protected_span(self, text: str, start: int, end: int) -> bool:
+        return self._prot.is_protected(text[start:end])
+    
+    def _collect_global_protect(self, texts: List[str], max_per_category: int = 50, hard_cap: int = 150) -> List[str]:
+        """
+        Return a short, deduped list of protected tokens that actually occur
+        in the batch's texts. Longest tokens first to reduce partial overlaps.
+        """
+        data = self._prot.data or {}
+        found: set[str] = set()
+        for _, items in data.items():
+            for tok in items[:max_per_category]:
+                if not tok:
+                    continue
+                for t in texts:
+                    if tok in t:
+                        found.add(tok)
+                        break
+        return sorted(found, key=len, reverse=True)[:hard_cap]
 
     # SENTENCE / QUOTE FILTERS
     def _is_sentence_like(self, text: str) -> bool:
@@ -693,6 +729,9 @@ Return ONLY the rewritten sentences, numbered 1..N, one per line."""
             if ctx and ctx != "neutral":
                 constraints[i]["context"] = ctx
 
+        # NEW: collect protection items that actually appear in this batch
+        global_protect = self._collect_global_protect(masked_texts)  # uses self._prot.data
+
         # Build prompts
         if mode == "positive":
             system_msg, user_msg = self._create_positive_prompt(masked_texts, constraints)
@@ -700,6 +739,16 @@ Return ONLY the rewritten sentences, numbered 1..N, one per line."""
         else:
             system_msg, user_msg = self._create_active_prompt(masked_texts, constraints)
             rule_name = "active_voice"
+
+        # NEW: minimally augment the prompt with protection items
+        if global_protect:
+            # Add a clear, single line directive the model will respect.
+            guard = "DO NOT ALTER these protected items if they appear in a line: " + "; ".join(global_protect)
+            # Strengthen the system rules a touch, without changing your function signatures:
+            system_msg += "\n\nAdditional RULE:\n- " + guard
+            # Also echo in the user message so it's close to the examples:
+            user_msg = guard + "\n\n" + user_msg
+
 
         # Single call via LLMClient
         content = self._llm_chat(system_msg, user_msg)
@@ -887,50 +936,41 @@ Return ONLY the rewritten sentences, numbered 1..N, one per line."""
 
 # CLI
 if __name__ == "__main__":
-    import argparse
-    import sys
+    import sys, json, logging
+    from pathlib import Path
 
-    # Keep CLI logging self-contained to avoid duplicate handlers when used as a library.
-    logging.basicConfig(level=getattr(settings, "log_level", logging.INFO), format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
-    parser = argparse.ArgumentParser(description="Run style checks on normalized JSON.")
-    parser.add_argument("input_json", help="Path to normalized JSON file")
-    parser.add_argument("--no-rewrite", action="store_true", help="Disable LLM rewriting")
-    parser.add_argument("--verbose", "-v", action="store_true", help="Verbose logging")
-    args = parser.parse_args()
+    if len(sys.argv) < 2:
+        sys.stderr.write("Usage: python -m backend.analyzers.advance_style_analyzer <normalized.json>\n")
+        sys.exit(1)
 
-    if args.verbose:
-        logger.setLevel(logging.DEBUG)
-
-    if args.no_rewrite:
-        ENABLE_REWRITE = False  # noqa: N816
-
-    in_path = Path(args.input_json)
+    in_path = Path(sys.argv[1])
     if not in_path.exists():
         sys.stderr.write(f"ERROR: File not found: {in_path}\n")
         sys.exit(1)
 
     try:
-        logger.info(f"Loading input file: {in_path}")
+        logger.info(f"Loading input: {in_path}")
         with in_path.open("r", encoding="utf-8") as f:
             normalized = json.load(f)
 
-        result = AdvancedStyleAnalyzer().analyze(normalized)
-        sys.stdout.write(json.dumps(result, ensure_ascii=False, indent=2))
-        sys.stdout.write("\n")
-        sys.stdout.flush()
+        # Ensure doc_id and protection cache path
+        meta = normalized.setdefault("metadata", {})
+        if "doc_id" not in meta:
+            stem = in_path.stem
+            prefix = stem.split("_", 1)[0] if "_" in stem else None
+            meta["doc_id"] = prefix if prefix and prefix.isdigit() else stem
 
-        total = result["counts"]["total"]
-        with_sug = result["counts"]["with_suggestions"]
-        logger.info(f"Total issues: {total}; with suggestions: {with_sug}")
-        sys.exit(0 if result["ok"] else 1)
+        cache_path = Path(settings.output_dir) / f"{meta['doc_id']}_protection.json"
 
-    except json.JSONDecodeError as e:
-        sys.stderr.write(f"ERROR: Invalid JSON: {e}\n")
-        sys.exit(1)
+        analyzer = AdvancedStyleAnalyzer(protection_cache_path=cache_path)
+        result = analyzer.analyze(normalized)
+
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+        counts = result.get("counts", {})
+        logger.info(f"Issues: {counts.get('total', 0)}, Suggestions: {counts.get('with_suggestions', 0)}")
+
     except Exception as e:
         sys.stderr.write(f"ERROR: {type(e).__name__}: {e}\n")
-        if args.verbose:
-            import traceback
-            traceback.print_exc(file=sys.stderr)
         sys.exit(1)

@@ -1,6 +1,8 @@
 from __future__ import annotations
 import logging
 from typing import Any, Dict, List, Optional
+from pathlib import Path
+import json
 
 from backend.config.settings import settings
 from backend.utils.helpers import (
@@ -92,13 +94,14 @@ class ProtectionLayer:
                 "- protected_names: proper names of people/organizations/products/brands/places/government entities/programs; also two-letter US states when used as names.\n"
                 "- technical_terms: standards/protocols/model names/version strings/category or contract codes (NOT unique instance IDs).\n"
                 "- dates: any date/time expression, incl. standalone years 1900–2099 used as dates and ranges.\n"
-                "- numbers: numeric expressions that are NOT dates (integers/decimals/currency/percentages/ranges/ordinals/units like 3 GB, 90-day, 300M).\n"
+                "- numbers: Numeric expressions that are NOT dates (integers/decimals/currency/percentages/ranges/ordinals/units), including compounds like 90-day, 2nd-order, 3 GB/s, 300M, $2.3B.\n"
                 "- abbreviations: items that constrain punctuation/casing (U.S., U.K., Dr., Mr., Prof., IT, ROI, CTOs, CIOs, NLT). EXCLUDE e.g. and i.e.\n"
                 "- ids: unique instance identifiers (tickets/invoices/asset IDs/concrete contract numbers).\n\n"
                 "RULES\n"
                 "- Extract EXACT substrings; preserve casing/punctuation/hyphens/spaces.\n"
                 "- Prefer technical_terms or ids for letter–digit hybrids; treat 1900–2099 as dates unless clearly part of a standard/code (e.g., ISO 9000).\n"
                 "- Keep ranges intact as one token (1–20, 2013–2026). Ignore URLs/emails/paths/hashes.\n"
+                "- Ignore plain numerals below 100 unless attached to a unit, symbol, or suffix (%, $, M, B, °, GB, etc.)."
                 "- Numerals preceded by 'p.' or 'pp.' are NOT numbers/dates.\n"
                 "- De-duplicate while preserving first-seen order.\n"
             )
@@ -173,7 +176,33 @@ class ProtectionLayer:
                 if s in ii or ii in s:
                     return True
         return False
+    
+    def save(self, path: str | Path) -> None:
+        """Save current protection data to JSON file."""
+        try:
+            p = Path(path)
+            p.parent.mkdir(parents=True, exist_ok=True)
+            with p.open("w", encoding="utf-8") as f:
+                json.dump(self.data, f, indent=2, ensure_ascii=False)
+            logger.info(f"ProtectionLayer: saved cache -> {p}")
+        except Exception as e:
+            logger.warning(f"ProtectionLayer: failed to save cache {path}: {e}")
 
+    def load(self, path: str | Path) -> bool:
+        """Load protection data from JSON cache if exists."""
+        p = Path(path)
+        if not p.exists():
+            logger.info(f"ProtectionLayer: cache not found -> {p}")
+            return False
+        try:
+            with p.open("r", encoding="utf-8") as f:
+                data = json.load(f)
+            self.set_protection_data(data)
+            logger.info(f"ProtectionLayer: loaded cache -> {p}")
+            return True
+        except Exception as e:
+            logger.warning(f"ProtectionLayer: failed to load cache {path}: {e}")
+            return False
 
 if __name__ == "__main__":
     import sys, json

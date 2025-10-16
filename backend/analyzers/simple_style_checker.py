@@ -388,19 +388,26 @@ class GrammarChecker:
 
     def _check_hyphens(self, text: str, elem: dict, slide_idx: int, elem_idx: int) -> Optional[StyleIssue]:
         patches: List[tuple] = []
+
+        # 1) Normalize any em dash (—) to en dash (–)
         for m in re.finditer(r"—", text):
             if not self._is_protected(text, m.start(), m.end()):
                 patches.append((m.start(), m.end(), "–"))
-        for m in re.finditer(r"--", text):
+
+        # 2) Normalize ANY run of 2+ ASCII hyphens (--, ---, ----, ...) to a single en dash (–)
+        # (keeps surrounding spaces intact; does not touch single hyphens used in hyphenation)
+        for m in re.finditer(r"-{2,}", text):
             if not self._is_protected(text, m.start(), m.end()):
                 patches.append((m.start(), m.end(), "–"))
+
         if not patches:
             return None
+
         return StyleIssue(
             rule_name="hyphens",
             severity=Severity.SUGGESTION,
             category=Category.GRAMMAR,
-            description="Use en dashes (–), not em dashes (—) or double hyphens (--) (Amida Style Guide p.5)",
+            description="Use en dashes (–) instead of em dashes (—) or multiple hyphens (--, ---, …) (Amida Style Guide p.5).",
             location=f"slide {slide_idx} - element {elem_idx}",
             found_text=text,
             suggestion=self._apply_patches(text, patches),
@@ -521,12 +528,36 @@ class AgenticStyleChecker:
     def analyze_document(self, document: Dict[str, Any]) -> Dict[str, Any]:
         logger.info("STYLE CHECKER - Starting document analysis")
 
-        # STEP 1: Protected content via ProtectionLayer
-        try:
-            self.protection_data = self.protection_layer.detect_all_protected_content(document)
-        except LLMConfigError as e:
-            logger.error("Protection detection skipped: %s", e)
-            self.protection_data = {}
+        # STEP 1: Protected content via ProtectionLayer (load cache first, else detect+save)
+        meta = document.get("metadata", {}) or {}
+        doc_id = meta.get("doc_id") or meta.get("file_id") or meta.get("id")
+        cache_path = None
+        if doc_id:
+            cache_path = Path(settings.output_dir) / f"{doc_id}_protection.json"
+
+        loaded = False
+        if cache_path:
+            try:
+                loaded = self.protection_layer.load(cache_path)
+                if loaded:
+                    self.protection_data = self.protection_layer.data
+                    logger.info("Protection cache loaded for doc_id=%s from %s", doc_id, cache_path)
+            except Exception as e:
+                logger.warning("Protection cache load failed (%s). Will re-detect.", e)
+
+        if not loaded:
+            try:
+                self.protection_data = self.protection_layer.detect_all_protected_content(document)
+                if cache_path:
+                    try:
+                        self.protection_layer.save(cache_path)
+                        logger.info("Protection cache saved for doc_id=%s to %s", doc_id, cache_path)
+                    except Exception as e:
+                        logger.warning("Failed to save protection cache to %s: %s", cache_path, e)
+            except LLMConfigError as e:
+                logger.error("Protection detection skipped: %s", e)
+                self.protection_data = {}
+
 
         # Log stats
         total_protected = 0
@@ -602,6 +633,20 @@ def main():
     # Load document
     with input_path.open("r", encoding="utf-8") as f:
         document = json.load(f)
+
+    # Ensure document.metadata.doc_id exists for cache path resolution
+    meta = document.setdefault("metadata", {})
+    if "doc_id" not in meta:
+        # Try to infer from filename pattern like "006_Amida_...json"
+        stem = input_path.stem
+        maybe_id = None
+        # If your normalized files start with a numeric id + underscore, use that:
+        if "_" in stem:
+            left = stem.split("_", 1)[0]
+            if left.isdigit():
+                maybe_id = left
+        # Fallback to full stem if nothing better is available
+        meta["doc_id"] = maybe_id or stem
 
     # Always use LLM protection
     checker = AgenticStyleChecker(use_llm=True)
