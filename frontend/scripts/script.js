@@ -9,8 +9,7 @@ let endTime = null;
 let logs = [];
 let isLogsRunning = true;
 let autoScroll = true;
-// let logsInterval = null; 
-let es = null
+let es = null;
 let currentView = 'visual';
 let filteredFindings = [];
 
@@ -217,7 +216,6 @@ async function startAnalysis() {
   elements.analyzeBtn.disabled = true;
   elements.analyzeBtn.textContent = 'Processing...';
   elements.visualReport?.classList.add('hidden');
-  // startLogsGeneration();
   connectLogsStream();
 
 
@@ -259,13 +257,6 @@ async function startAnalysis() {
     elements.analyzeBtn.disabled = false;
     elements.analyzeBtn.textContent = 'Analyze Document';
     showToast('Document processed successfully!', 'success');
-
-    addLogEntry({
-      level: 'INFO',
-      message: 'Document analysis completed',
-      component: 'DocumentProcessor',
-      timestamp: new Date().toISOString(),
-    });
   } catch (error) {
     console.error('Analysis error:', error);
     endTime = new Date();
@@ -274,13 +265,6 @@ async function startAnalysis() {
     showToast(`Analysis failed: ${error.message}`, 'error');
     elements.analyzeBtn.disabled = false;
     elements.analyzeBtn.textContent = 'Analyze Document';
-
-    addLogEntry({
-      level: 'ERROR',
-      message: `Analysis failed: ${error.message}`,
-      component: 'DocumentProcessor',
-      timestamp: new Date().toISOString(),
-    });
   }
 }
 
@@ -546,29 +530,7 @@ function exportReport() {
   showToast('Export functionality coming soon', 'info');
 }
 
-// function generateProcessingLog() {
-//   const processingLogs = [
-//     { level: 'INFO', message: 'Starting document upload', component: 'FileUploader' },
-//     { level: 'DEBUG', message: 'Validating file format and size', component: 'FileValidator' },
-//     { level: 'INFO', message: 'Document uploaded successfully', component: 'FileUploader' },
-//     { level: 'INFO', message: 'Initializing document processor', component: 'DocumentProcessor' },
-//     { level: 'DEBUG', message: 'Extracting text content from document', component: 'TextExtractor' },
-//     { level: 'DEBUG', message: 'Processing slide/page structure', component: 'StructureAnalyzer' },
-//     { level: 'INFO', message: 'Text extraction completed', component: 'TextExtractor' },
-//     { level: 'DEBUG', message: 'Analyzing document formatting', component: 'FormatAnalyzer' },
-//     { level: 'INFO', message: 'Style analysis initiated', component: 'StyleAnalyzer' },
-//     { level: 'DEBUG', message: 'Checking grammar rules', component: 'GrammarAnalyzer' },
-//     { level: 'DEBUG', message: 'Checking tone and voice', component: 'ToneAnalyzer' },
-//     { level: 'INFO', message: 'Generating AI-powered suggestions', component: 'SuggestionEngine' },
-//     { level: 'INFO', message: 'Creating analysis report', component: 'ReportGenerator' },
-//     { level: 'INFO', message: 'Analysis completed successfully', component: 'DocumentProcessor' },
-//   ];
-//   const randomLog = processingLogs[Math.floor(Math.random() * processingLogs.length)];
-//   return { ...randomLog, timestamp: new Date().toISOString() };
-// }
-
 function connectLogsStream() {
-  // close any existing stream first
   if (es) { try { es.close(); } catch (_) {} es = null; }
 
   if (elements.logsStatus) {
@@ -590,24 +552,20 @@ function connectLogsStream() {
       elements.logsStatus.textContent = 'Reconnecting…';
       elements.logsStatus.className = 'badge badge-secondary';
     }
-    // EventSource auto-retries; keep it open
   };
 
   es.onmessage = (evt) => {
     if (!evt || !evt.data) return;
     try {
-      const entry = JSON.parse(evt.data); // {timestamp, level, message, component}
+      const entry = JSON.parse(evt.data);
       if (isLogsRunning) addLogEntry(entry);
-    } catch (_) {
-      // ignore heartbeats or non-JSON events
-    }
+    } catch (_) {}
   };
 }
 
 function closeLogsStream() {
   if (es) { try { es.close(); } catch (_) {} es = null; }
 }
-
 
 function addLogEntry(logEntry) {
   logs.push(logEntry);
@@ -649,15 +607,6 @@ function updateLogsCount() {
   elements.logsCount && (elements.logsCount.textContent = `${count} log entries`);
   elements.logsCountBadge && (elements.logsCountBadge.textContent = `${count} entries`);
 }
-
-// function startLogsGeneration() {
-//   if (logsInterval) clearInterval(logsInterval);
-//   logsInterval = setInterval(() => {
-//     if (isLogsRunning && processingStatus === 'processing') {
-//       addLogEntry(generateProcessingLog());
-//     }
-//   }, 800);
-// }
 
 function toggleLogs() {
   isLogsRunning = !isLogsRunning;
@@ -709,8 +658,6 @@ function showLogsPage() {
 function showMainPage() {
   elements.logsPage?.classList.add('hidden');
   elements.mainPage?.classList.remove('hidden');
-  // Optional: close to save resources when user isn’t viewing logs
-  // closeLogsStream();
 }
 
 function showToast(message, type = 'info') {

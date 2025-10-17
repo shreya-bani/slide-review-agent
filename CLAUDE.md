@@ -49,7 +49,7 @@ The application uses `.env.example` as the default configuration source (loaded 
 python -m backend.config.settings --verbose
 
 # Test LLM connectivity
-python -m backend.utils.llm_health
+python -m backend.services.llm_health
 ```
 
 ## Architecture
@@ -130,9 +130,9 @@ backend/
 └── services/               # Additional extraction utilities
 
 frontend/
-├── pages/index.html        # Main application interface
+├── pages/main.html        # Main application interface
 ├── scripts/script.js       # Frontend logic and API calls
-└── styles/styles.css       # Application styling
+└── styles/main.css       # Application styling
 
 data/
 ├── uploads/                # Uploaded documents (auto-created)
@@ -226,7 +226,7 @@ The application may implement rate limiting via:
 
 ### Frontend Architecture
 The frontend is intentionally simple (vanilla JS, no framework):
-- Single-page application in `frontend/pages/index.html`
+- Single-page application in `frontend/pages/main.html`
 - Direct API calls via `fetch()` in `frontend/scripts/script.js`
 - Displays analysis results in tables with slide navigation
 - No build step required

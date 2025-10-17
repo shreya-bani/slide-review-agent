@@ -117,6 +117,7 @@ PAGES_DIR = FRONTEND_DIR / "pages"
 if STYLES_DIR.exists() and SCRIPTS_DIR.exists():
     app.mount("/styles", StaticFiles(directory=str(STYLES_DIR)), name="styles")
     app.mount("/scripts", StaticFiles(directory=str(SCRIPTS_DIR)), name="scripts")
+    app.mount("/pages", StaticFiles(directory=str(PAGES_DIR)), name="pages")
     app.mount("/static", StaticFiles(directory=str(FRONTEND_DIR)), name="static")
 
 def get_next_document_id() -> int:
@@ -172,7 +173,7 @@ async def root():
 @app.get("/app")
 async def serve_frontend():
     """Serve the frontend application."""
-    index_file = PAGES_DIR / "index.html"
+    index_file = PAGES_DIR / "main.html"
     if not index_file.exists():
         raise HTTPException(status_code=404, detail="Frontend not found")
     return FileResponse(str(index_file))

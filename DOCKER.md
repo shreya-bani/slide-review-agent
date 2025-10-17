@@ -149,7 +149,7 @@ Verify your LLM configuration:
 docker exec slide-review-agent env | grep LLM
 
 # Test LLM health
-docker exec slide-review-agent python -m backend.utils.llm_health
+docker exec slide-review-agent python -m backend.services.llm_health
 ```
 
 ### Permission issues with volumes

@@ -6,7 +6,7 @@ Simple LLM health check (AzureOpenAI SDK version).
 - Sends a 1-token ping via Chat Completions and reports success/latency.
 
 Run:
-    python -m backend.utils.llm_health
+    python -m backend.services.llm_health
 """
 
 import logging

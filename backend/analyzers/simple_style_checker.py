@@ -14,7 +14,7 @@ from enum import Enum
 from typing import List, Dict, Any, Optional, Union
 
 from ..config.settings import settings
-from ..utils.llm_client import LLMClient
+from ..services.llm_client import LLMClient
 from .protection_layer import ProtectionLayer, LLMConfigError
 
 # Logging setup

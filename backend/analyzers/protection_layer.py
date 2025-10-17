@@ -13,7 +13,7 @@ from backend.utils.helpers import (
     combine_texts_with_breaks,
     PROTECTION_KEYS,
 )
-from backend.utils.llm_client import LLMClient  
+from backend.services.llm_client import LLMClient  
 
 logger = logging.getLogger(__name__)
 
