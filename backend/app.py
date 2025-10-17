@@ -9,17 +9,19 @@ from pathlib import Path
 from typing import Optional
 from datetime import datetime
 
-from fastapi import FastAPI, HTTPException, UploadFile, File, Form, Request
+from fastapi import FastAPI, HTTPException, UploadFile, File, Form, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import JSONResponse, FileResponse
+from starlette.responses import StreamingResponse
+from logging import Handler, LogRecord
 
 from .config.settings import settings
-from .utils.llm_health import check_llm 
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
 
 # Import document processors
 try:
@@ -32,12 +34,48 @@ except Exception as e:
     PDFReader = None
     DocumentNormalizer = None
 
+
 # Import analyzers
 try:
     from .analyzers.combine_analysis import CombinedAnalyzer
 except Exception as e:
     logger.warning(f"Could not import analyzers: {e}")
     CombinedAnalyzer = None
+
+# Logging handler to broadcast logs via asyncio queue
+_broadcast_queue: "asyncio.Queue[dict]" = asyncio.Queue()
+_clients: set[asyncio.Queue] = set()
+
+class _QueueLogHandler(Handler):
+    def emit(self, record: LogRecord) -> None:
+        try:
+            payload = {
+                "timestamp": datetime.fromtimestamp(record.created).isoformat(timespec="seconds"),
+                "level": record.levelname,
+                "message": record.getMessage(),
+                "component": record.name,
+            }
+            # Non-blocking put: if the loop isn't running yet, drop silently
+            loop = asyncio.get_event_loop()
+            if loop.is_running():
+                loop.call_soon_threadsafe(_broadcast_queue.put_nowait, payload)
+        except Exception:
+            pass
+
+q_handler = _QueueLogHandler()
+q_handler.setLevel(logging.INFO)
+
+# Optional: drop extremely chatty 'uvicorn.access' lines
+class _NoAccessFilter(logging.Filter):
+    def filter(self, record: logging.LogRecord) -> bool:
+        return not record.name.startswith("uvicorn.access")
+
+q_handler.addFilter(_NoAccessFilter())
+
+root_logger = logging.getLogger()           # root
+if not any(isinstance(h, _QueueLogHandler) for h in root_logger.handlers):
+    root_logger.addHandler(q_handler)
+    root_logger.setLevel(logging.INFO)
 
 # Global cache
 processed_files = {}
@@ -408,3 +446,40 @@ async def get_analysis_history():
         
     except Exception as e:
         return JSONResponse(content={"error": str(e)}, status_code=500)
+    
+async def _fanout_logs():
+    while True:
+        item = await _broadcast_queue.get()
+        for q in list(_clients):
+            # each client has its own queue; don't await here
+            try:
+                q.put_nowait(item)
+            except asyncio.QueueFull:
+                pass
+
+# Start the fanout task on startup
+@app.on_event("startup")
+async def _startup_bg():
+    asyncio.create_task(_fanout_logs())
+
+# SSE endpoint that each browser subscribes to
+@app.get("/logs/stream")
+async def logs_stream():
+    client_q: asyncio.Queue = asyncio.Queue(maxsize=1000)
+    _clients.add(client_q)
+
+    async def event_gen():
+        try:
+            yield "event: hello\ndata: {}\n\n"
+            while True:
+                item = await client_q.get()
+                yield f"data: {json.dumps(item, ensure_ascii=False)}\n\n"
+        finally:
+            _clients.discard(client_q)
+
+    headers = {
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+        "X-Accel-Buffering": "no"  # Nginx: disable buffering
+    }
+    return StreamingResponse(event_gen(), media_type="text/event-stream", headers=headers)
