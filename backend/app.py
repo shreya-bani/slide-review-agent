@@ -304,8 +304,11 @@ async def process_and_analyze_document(
     try:
         if not DocumentNormalizer or not CombinedAnalyzer:
             raise Exception("Processors or analyzers not available")
+        
+        start_time = datetime.now()
+        logger.info(f"Time processing started at {start_time.isoformat(timespec='seconds')}")
 
-        logger.info(f"Starting complete analysis for document {doc_id}")
+        logger.info(f"Starting complete analysis for document_id {file_id}")
 
         output_dir = Path(settings.output_dir)
         clean_stem = Path(original_filename).stem.replace(" ", "_")[:50]
@@ -321,7 +324,7 @@ async def process_and_analyze_document(
             return cached_result
 
         # Step 1: Normalize document
-        logger.info("Step 1: Normalizing document...")
+        logger.info("Normalizing document into structured data format.")
         normalizer = DocumentNormalizer()
         normalized_obj = await asyncio.to_thread(normalizer.normalize_document, file_path)
         normalized_doc = normalized_obj.to_dict()
@@ -330,7 +333,7 @@ async def process_and_analyze_document(
                    f"{normalized_doc['summary']['total_elements']} elements")
 
         # Step 2: Run combined analysis (grammar + tone)
-        logger.info("Step 2: Running combined analysis (grammar + tone)...")
+        logger.info("Running combined analysis according to amida guidelines.")
         analyzer = CombinedAnalyzer()
         analysis_report = await asyncio.to_thread(
             analyzer.analyze, 
@@ -401,14 +404,22 @@ async def process_and_analyze_document(
             output_dir / f"{file_id}_{clean_stem}_result.json",
             processing_result
         )
+        # After all JSON writes are done
+        end_time = datetime.now()
+        duration = (end_time - start_time).total_seconds()
+        logger.info(
+            f"Finished processing at {end_time.isoformat(timespec='seconds')} "
+            f"(Duration: {duration:.2f}s)"
+        )
 
-        logger.info(f"Processing complete for document {doc_id}")
+        logger.info(f"Processing complete for document_id {file_id}")
         return processing_result
 
     except Exception as e:
-        logger.error(f"Processing error for document {doc_id}: {e}")
+        logger.error(f"Processing error for document_id {file_id}: {e}")
         import traceback
         traceback.print_exc()
+
         
         return {
             "success": False,

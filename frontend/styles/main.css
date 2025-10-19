@@ -1168,6 +1168,23 @@ body {
         max-height: 400px;
     }
 }
+
+
+.subtitle a {
+  color: inherit;              /* keep the same color as .subtitle */
+  text-decoration: none;       /* no underline */
+  font: inherit;               /* inherit font size/weight */
+}
+
+.subtitle a:hover,
+.subtitle a:focus-visible {
+  text-decoration: underline;  /* subtle affordance on hover/focus */
+  text-underline-offset: 2px;
+}
+
+.subtitle a:active {
+  opacity: .85;
+}
 /* === Login & Signup Page Styles (No Scrolling, Normal Fit) === */
 
 /* Container */

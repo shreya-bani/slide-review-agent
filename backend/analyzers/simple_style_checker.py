@@ -120,6 +120,12 @@ class GrammarChecker:
         before = text[max(0, start-1):start]
         after = text[end:end+1]
         return (before in {'-', '–'} or after in {'-', '–'})
+    
+    def _capitalize_number_words(self, s: str) -> str:
+        # "twenty-one" -> "Twenty-one"
+        if not s:
+            return s
+        return s[0].upper() + s[1:]
 
     def check(self, text: str, elem: dict, slide_idx: int, element_index: int) -> List[StyleIssue]:
         issues: List[StyleIssue] = []
@@ -250,8 +256,10 @@ class GrammarChecker:
             if nxt in {"percent", "%", "million", "billion", "trillion"}:
                 continue
             n = int(m.group(1))
-            if 1 <= n <= 99:
-                spell_patches.append((start, end, self._number_to_words(n)))
+            if 1 <= n <= 99 and self._is_sentence_start(text, start):
+                word = self._number_to_words(n)
+                word = self._capitalize_number_words(word)  # << capitalize if at sentence start
+                spell_patches.append((start, end, word))
 
         if spell_patches:
             issues.append(StyleIssue(
@@ -314,8 +322,16 @@ class GrammarChecker:
 
     def _is_sentence_start(self, text: str, pos: int) -> bool:
         i = pos - 1
+        # Skip spaces first
         while i >= 0 and text[i].isspace():
             i -= 1
+        # Also skip opening quotes/brackets immediately before the word
+        OPENERS = {'"', "'", '“', '‘', '(', '[', '{'}
+        while i >= 0 and text[i] in OPENERS:
+            i -= 1
+            # skip any whitespace before the opener too
+            while i >= 0 and text[i].isspace():
+                i -= 1
         if i < 0:
             return True
         return text[i] in {'.', '!', '?', '\n', ':', ';'}
