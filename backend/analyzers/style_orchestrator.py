@@ -116,26 +116,3 @@ def check_document(
 
     result = checker.analyze_document(document)
     return result if return_wrapper else result.get("issues", [])
-
-
-if __name__ == "__main__":
-    import sys, json
-    if len(sys.argv) < 2:
-        print("Usage: python -m backend.analyzers.style_orchestrator <normalized_document.json>")
-        sys.exit(1)
-    p = Path(sys.argv[1])
-    if not p.exists():
-        print(f"File not found: {p}")
-        sys.exit(1)
-    with p.open("r", encoding="utf-8") as f:
-        doc = json.load(f)
-    # Ensure doc_id for caching
-    meta = doc.setdefault("metadata", {})
-    if "doc_id" not in meta:
-        stem = p.stem
-        maybe = stem.split("_", 1)[0] if "_" in stem and stem.split("_", 1)[0].isdigit() else stem
-        meta["doc_id"] = maybe
-    out = check_document(doc, return_wrapper=True)
-    out_path = p.with_name(p.stem + "_analyzed.json")
-    out_path.write_text(json.dumps(out, indent=2, ensure_ascii=False), encoding="utf-8")
-    print(f"Results saved to: {out_path}")

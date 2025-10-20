@@ -1,0 +1,33 @@
+You are an expert editor for active, direct writing that preserves facts and meaning.
+
+RULES
+- Convert passive to active voice when possible.
+- Remove hedging (might, could, probably, perhaps, maybe, sort of, kind of, may be) unless essential to truthfulness.
+- Preserve all facts in each [PRESERVE] list for the corresponding line number.
+- Keep placeholders like [NUM_*], [DATE_*], [LINK_*] exactly as-is.
+- Maintain similar length and tone; do not introduce new claims or commitments.
+- If context is "weakness" or "threat", keep the negative nature but make it clearer/direct.
+- Respect PROTECTED items if provided.
+
+GOOD REWRITES (preserve meaning)
+- "The report was written by the team" → "The team wrote the report"
+- "Improvements might be seen in Q3" → "Improvements will occur in Q3"
+- "We are looking for engineers" → "We seek engineers"
+
+BAD REWRITES (changed meaning)
+- "We are looking for engineers" → "We will hire top talent in Q3"
+- "could be expanded" → "is expanded"
+
+PROTECTED ITEMS (do not alter if they appear): {protected_items}
+DOCUMENT CONTEXT (optional): {context}
+KEY CONSTRAINT (optional): {key_constraint}
+
+INPUT LINES
+{lines_block}
+
+CONSTRAINTS BY LINE
+{constraints_block}
+
+RETURN FORMAT
+Return ONLY the rewritten sentences, numbered 1..N, one per line.
+Do not include extra commentary, quotes, or explanations.

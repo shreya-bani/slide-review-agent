@@ -34,7 +34,8 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 from ..config.settings import settings  
 from ..services.llm_client import LLMClient
-from .protection_layer import ProtectionLayer, LLMConfigError
+from .protection_layer import ProtectionLayer
+from ..utils.prompt_loader import load_prompt
 
 # LOGGER
 logger = logging.getLogger(__name__)
@@ -44,7 +45,7 @@ logger.setLevel(getattr(settings, "log_level", logging.INFO))
 INCLUDE_NOTES: bool = bool(getattr(settings, "analyzer_include_notes", False))
 ENABLE_REWRITE: bool = bool(getattr(settings, "enable_rewrite", True))
 USE_PROGRESS_BAR: bool = bool(getattr(settings, "debug", False))
-MAX_BATCH_ITEMS: int = int(getattr(settings, "rewrite_batch_limit", 5000))
+MAX_BATCH_ITEMS: int = int(getattr(settings, "llm_chunk_size", 5000))
 
 VADER_NEG_THRESHOLD: float = float(getattr(settings, "vader_neg_threshold", -0.05))
 # Harder sentiment threshold for *purely sentiment* flags (<= baseline).
@@ -95,7 +96,6 @@ class AdvancedStyleAnalyzer:
     """
     Two-rule style analyzer with improved prompts, validation, and robust parsing.
     """
-
     def __init__(
             self,
             *,
@@ -348,79 +348,50 @@ class AdvancedStyleAnalyzer:
             })
         return constraints
 
+
     @staticmethod
-    def _create_positive_prompt(texts: List[str], constraints: List[Dict[str, Any]]) -> Tuple[str, str]:
-        system_msg = """You are an expert editor for positive, constructive writing.
+    def _build_blocks(texts, constraints, protected_items):
+        lines_block = "\n".join(f"{i}. {t}" for i, t in enumerate(texts, 1))
 
-RULES
-- Preserve all facts in each [PRESERVE] list.
-- Do not change meaning, scope, or certainty unless the original already had it.
-- Keep placeholders like [NUM_*], [DATE_*], [LINK_*] exactly.
-- Maintain similar length and style; finish sentences with appropriate punctuation.
-- For rule=positive_language: make language constructive/clear; do NOT flip weaknesses into strengths.
-- For rule=active_voice: prefer active voice; do NOT strengthen modality (e.g., 'may' → 'is') or add claims.
-- If no improvement is needed, still return a minimally improved line that differs from input (clarity/typo).
-- Improve positivity without changing actual meaning (e.g., "not clear" → "unclear", "not sure" → "unsure").
-
-GOOD REWRITES (minimal, preserve meaning)
-- "We cannot achieve this without more resources" → "We can achieve this with additional resources"
-- "The system is not user-friendly" → "The system needs improved usability"
-- "No significant progress was made" → "Progress has been limited"
-
-BAD REWRITES (too different, changed meaning)
-- "exploit AI BPA for NC" → "Our focus on program impact will help clients" ❌
-- "Our sales content is very technical" → "We will develop accessible solutions" ❌
-
-Return ONLY the rewritten sentences, numbered 1..N, one per line."""
-        user_msg = "Rewrite these lines:\n\n"
-        for i, (text, c) in enumerate(zip(texts, constraints), 1):
+        def one(i, c):
             pres = ", ".join(c.get("preserve_facts", [])[:5])
-            ctx = c.get("context", "neutral")
-            key = c.get("key_constraint", "")
-            user_msg += f"{i}. {text}\n"
-            user_msg += f"   [PRESERVE: {pres}]\n"
-            user_msg += f"   [CONTEXT: {ctx}]\n"
+            ctx  = c.get("context", "neutral")
+            key  = c.get("key_constraint", "")
+            parts = [f"[PRESERVE: {pres}]", f"[CONTEXT: {ctx}]"]
             if key:
-                user_msg += f"   [KEY: {key}]\n"
-            user_msg += "\n"
-        user_msg += "Rewritten:"
+                parts.append(f"[KEY: {key}]")
+            return f"{i}. " + " ".join(parts)
+
+        constraints_block = "\n".join(one(i, c) for i, c in enumerate(constraints, 1))
+        prot = "; ".join(protected_items) if protected_items else "None"
+        return lines_block, constraints_block, prot
+
+    @staticmethod
+    def _create_positive_prompt(texts, constraints, protected_items, *, context="", key_constraint=""):
+        template = load_prompt("positive_tone_prompt.txt")
+        lines_block, constraints_block, prot = AdvancedStyleAnalyzer._build_blocks(texts, constraints, protected_items)
+        system_msg = template.format(
+            lines_block=lines_block,
+            constraints_block=constraints_block,
+            protected_items=prot,
+            context=context or "neutral",
+            key_constraint=key_constraint or "",
+        )
+        user_msg = "Rewritten:"
         return system_msg, user_msg
 
     @staticmethod
-    def _create_active_prompt(texts: List[str], constraints: List[Dict[str, Any]]) -> Tuple[str, str]:
-        system_msg = """You are an expert editor for active, direct writing.
-
-RULES:
-1) Preserve facts in [PRESERVE].
-2) Convert passive to active voice.
-3) Remove hedging words (might, could, probably, perhaps, maybe, sort of, kind of, may be).
-4) If context is "weakness" or "threat", keep negative nature but clearer.
-5) Maintain similar length.
-6) Keep placeholders: [NUM_*], [DATE_*], [LINK_*].
-
-GOOD REWRITES (preserve meaning)
-- "The report was written by the team" → "The team wrote the report"
-- "Improvements might be seen in Q3" → "Improvements will occur in Q3"
-- "We are looking for engineers" → "We seek engineers"
-- "States contracts are using a pilot approach" → "States use contracts in a pilot approach"
-
-BAD REWRITES (changed meaning)
-- "We are looking for engineers" → "We will hire top talent in Q3" ❌
-- "could be expanded" → "is expanded" ❌
-
-Return ONLY the rewritten sentences, numbered 1..N, one per line."""
-        user_msg = "Convert to active voice:\n\n"
-        for i, (text, c) in enumerate(zip(texts, constraints), 1):
-            pres = ", ".join(c.get("preserve_facts", [])[:5])
-            ctx = c.get("context", "neutral")
-            key = c.get("key_constraint", "")
-            user_msg += f"{i}. {text}\n"
-            user_msg += f"   [PRESERVE: {pres}]\n"
-            user_msg += f"   [CONTEXT: {ctx}]\n"
-            if key:
-                user_msg += f"   [KEY: {key}]\n"
-            user_msg += "\n"
-        user_msg += "Rewritten:"
+    def _create_active_prompt(texts, constraints, protected_items, *, context="", key_constraint=""):
+        template = load_prompt("active_voice_prompt.txt")
+        lines_block, constraints_block, prot = AdvancedStyleAnalyzer._build_blocks(texts, constraints, protected_items)
+        system_msg = template.format(
+            lines_block=lines_block,
+            constraints_block=constraints_block,
+            protected_items=prot,
+            context=context or "neutral",
+            key_constraint=key_constraint or "",
+        )
+        user_msg = "Rewritten:"
         return system_msg, user_msg
 
     # VALIDATION
@@ -730,15 +701,16 @@ Return ONLY the rewritten sentences, numbered 1..N, one per line."""
                 constraints[i]["context"] = ctx
 
         # NEW: collect protection items that actually appear in this batch
-        global_protect = self._collect_global_protect(masked_texts)  # uses self._prot.data
+        global_protect = self._collect_global_protect(masked_texts)
 
         # Build prompts
         if mode == "positive":
-            system_msg, user_msg = self._create_positive_prompt(masked_texts, constraints)
+            system_msg, user_msg = self._create_positive_prompt(masked_texts, constraints, global_protect)
             rule_name = "positive_language"
         else:
-            system_msg, user_msg = self._create_active_prompt(masked_texts, constraints)
+            system_msg, user_msg = self._create_active_prompt(masked_texts, constraints, global_protect)
             rule_name = "active_voice"
+
 
         # NEW: minimally augment the prompt with protection items
         if global_protect:
