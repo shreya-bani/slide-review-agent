@@ -125,7 +125,7 @@ class GrammarChecker:
             result = result[:start] + replacement + result[end:]
         return result
 
-    # ---------- grammar rules (unchanged behavior) ----------
+    # grammar rules
     def _check_contractions(self, text, elem, slide_idx, elem_idx) -> Optional[StyleIssue]:
         patches: List[tuple] = []
         contractions = {

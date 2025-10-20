@@ -424,7 +424,7 @@ function displayFindings() {
         </div>
         <div class="finding-detail-section">
           <div class="finding-detail-label">Suggestion</div>
-          <div class="finding-suggestion">${finding.suggestion || 'No suggestion available'}</div>
+          <div class="finding-suggestion">${(finding.suggestion || 'No suggestion available').replace(/\n/g, '<br>')}</div>
         </div>
       </div>
     `;

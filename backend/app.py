@@ -332,13 +332,14 @@ async def process_and_analyze_document(
         logger.info(f"Normalized: {normalized_doc['summary']['total_pages']} pages, "
                    f"{normalized_doc['summary']['total_elements']} elements")
 
-        # Step 2: Run combined analysis (grammar + tone)
+        # Step 2: Run combined analysis (grammar + tone + filename)
         logger.info("Running combined analysis according to amida guidelines.")
         analyzer = CombinedAnalyzer()
         analysis_report = await asyncio.to_thread(
-            analyzer.analyze, 
-            normalized_doc, 
-            file_path
+            analyzer.analyze,
+            normalized_doc,
+            file_path,
+            original_filename
         )
         
         logger.info(f"Analysis complete: {analysis_report['summary']['total_issues']} issues found")

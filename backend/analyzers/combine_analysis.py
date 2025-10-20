@@ -22,6 +22,7 @@ from typing import Any, Dict, List, Optional
 
 from .style_orchestrator import check_document as run_grammar_check
 from .tone_analyzer import AdvancedStyleAnalyzer
+from .file_naming_check import FileNamingChecker
 
 logger = logging.getLogger(__name__)
 
@@ -33,25 +34,32 @@ class CombinedAnalyzer:
 
     def __init__(self):
         self.tone_analyzer = AdvancedStyleAnalyzer()
+        try:
+            self.filename_checker = FileNamingChecker()
+        except Exception as e:
+            logger.warning(f"Failed to initialize FileNamingChecker: {e}. Filename checks will be skipped.")
+            self.filename_checker = None
 
-    def analyze(self, normalized_doc: Dict[str, Any], 
-                input_filepath: Optional[str] = None) -> Dict[str, Any]:
+    def analyze(self, normalized_doc: Dict[str, Any],
+                input_filepath: Optional[str] = None,
+                original_filename: Optional[str] = None) -> Dict[str, Any]:
         """
         Run complete analysis pipeline on normalized document.
-        
+
         Args:
             normalized_doc: Normalized document structure
             input_filepath: Optional path to input file for metadata
-            
+            original_filename: Optional original filename (before normalization)
+
         Returns:
             Comprehensive analysis report
         """
         start_time = datetime.now()
-        
+
         logger.info("Starting combined analysis pipeline...")
-        
+
         # Extract document metadata
-        doc_metadata = self._extract_document_metadata(normalized_doc, input_filepath)
+        doc_metadata = self._extract_document_metadata(normalized_doc, input_filepath, original_filename)
         
         # Run grammar analysis first
         logger.info("Running grammar analysis...")
@@ -67,12 +75,22 @@ class CombinedAnalyzer:
         tone_duration = (datetime.now() - tone_start).total_seconds()
         tone_issues = tone_result.get("issues", [])
         logger.info(f"Tone analysis complete: {len(tone_issues)} issues found in {tone_duration:.2f}s")
-        
+
+        # Run file naming check
+        logger.info("Running file naming check...")
+        filename_start = datetime.now()
+        filename_result = self._check_filename(doc_metadata)
+        filename_duration = (datetime.now() - filename_start).total_seconds()
+        logger.info(f"File naming check complete in {filename_duration:.2f}s")
+
+        # Convert filename check to issues format
+        filename_issues = self._convert_filename_to_issues(filename_result)
+
         # Combine all issues
-        all_issues = grammar_issues + tone_issues
+        all_issues = grammar_issues + tone_issues + filename_issues
         
         # Generate statistics
-        stats = self._generate_statistics(grammar_issues, tone_issues, normalized_doc)
+        stats = self._generate_statistics(grammar_issues, tone_issues, filename_issues, normalized_doc)
         
         # Build comprehensive report
         total_duration = (datetime.now() - start_time).total_seconds()
@@ -83,12 +101,14 @@ class CombinedAnalyzer:
                 "total_duration_seconds": round(total_duration, 2),
                 "grammar_duration_seconds": round(grammar_duration, 2),
                 "tone_duration_seconds": round(tone_duration, 2),
+                "filename_duration_seconds": round(filename_duration, 2),
                 "analyzer_version": "1.0.0",
             },
             "summary": {
                 "total_issues": len(all_issues),
                 "grammar_issues": len(grammar_issues),
                 "tone_issues": len(tone_issues),
+                "filename_issues": len(filename_issues),
                 "issues_with_suggestions": sum(1 for i in all_issues if i.get("suggestion")),
                 "severity_breakdown": stats["severity_breakdown"],
                 "category_breakdown": stats["category_breakdown"],
@@ -98,22 +118,26 @@ class CombinedAnalyzer:
             "issues_by_category": {
                 "grammar": self._categorize_issues(grammar_issues),
                 "tone": self._categorize_issues(tone_issues),
+                "filename": self._categorize_issues(filename_issues),
             },
             "all_issues": all_issues,
             "issues_by_slide": self._group_by_slide(all_issues),
             "document_metadata": doc_metadata,
+            "filename_check": filename_result,
         }
         
         logger.info(f"Analysis complete: {len(all_issues)} total issues in {total_duration:.2f}s")
         return report
 
-    def _extract_document_metadata(self, doc: Dict[str, Any], 
-                                   filepath: Optional[str]) -> Dict[str, Any]:
+    def _extract_document_metadata(self, doc: Dict[str, Any],
+                                   filepath: Optional[str],
+                                   original_filename: Optional[str] = None) -> Dict[str, Any]:
         """Extract comprehensive document metadata."""
         metadata = doc.get("metadata", {}) or {}
-        
+
         return {
             "file_path": filepath or metadata.get("file_path"),
+            "original_filename": original_filename,  # Store original filename separately
             "document_type": doc.get("document_type"),
             "title": metadata.get("title"),
             "author": metadata.get("author"),
@@ -123,11 +147,12 @@ class CombinedAnalyzer:
             "normalized_at": doc.get("normalized_at"),
         }
 
-    def _generate_statistics(self, grammar_issues: List[Dict], 
+    def _generate_statistics(self, grammar_issues: List[Dict],
                             tone_issues: List[Dict],
+                            filename_issues: List[Dict],
                             doc: Dict[str, Any]) -> Dict[str, Any]:
         """Generate comprehensive statistics."""
-        all_issues = grammar_issues + tone_issues
+        all_issues = grammar_issues + tone_issues + filename_issues
         
         # Severity breakdown
         severity_counts = {}
@@ -195,9 +220,150 @@ class CombinedAnalyzer:
             if slide_idx not in by_slide:
                 by_slide[slide_idx] = []
             by_slide[slide_idx].append(issue)
-        
+
         # Sort by slide index
         return {k: by_slide[k] for k in sorted(by_slide.keys())}
+
+    def _check_filename(self, doc_metadata: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Check the document filename against Amida naming conventions.
+
+        Args:
+            doc_metadata: Document metadata containing original_filename
+
+        Returns:
+            Dictionary with filename check results
+        """
+        # Check if filename checker is available
+        if self.filename_checker is None:
+            logger.warning("FileNamingChecker not available, skipping filename check")
+            return {
+                "checked": False,
+                "reason": "FileNamingChecker not initialized",
+                "original_filename": None,
+                "suggestions": None
+            }
+
+        # Try to get original filename first, fallback to file_path
+        original_filename = doc_metadata.get("original_filename")
+
+        if not original_filename:
+            # Fallback to extracting from file_path
+            file_path = doc_metadata.get("file_path")
+            if file_path:
+                from pathlib import Path
+                original_filename = Path(file_path).name
+            else:
+                logger.warning("No original_filename or file_path in document metadata, skipping filename check")
+                return {
+                    "checked": False,
+                    "reason": "No filename available",
+                    "original_filename": None,
+                    "suggestions": None
+                }
+
+        logger.info(f"Checking filename: {original_filename}")
+
+        try:
+            # Use concise mode to get just the 4 options
+            suggestions = self.filename_checker.check_filename(original_filename, concise=True)
+
+            if suggestions:
+                # Parse the suggestions into a list (they should be line-separated)
+                suggestion_list = [s.strip() for s in suggestions.strip().split('\n') if s.strip()]
+
+                return {
+                    "checked": True,
+                    "original_filename": original_filename,
+                    "suggestions": suggestion_list,
+                    "compliant": self._is_filename_compliant(original_filename, suggestion_list)
+                }
+            else:
+                logger.warning("LLM returned no filename suggestions")
+                return {
+                    "checked": False,
+                    "reason": "LLM returned no response",
+                    "original_filename": original_filename,
+                    "suggestions": None
+                }
+
+        except Exception as e:
+            logger.error(f"Error checking filename: {e}")
+            return {
+                "checked": False,
+                "reason": f"Error: {str(e)}",
+                "original_filename": original_filename,
+                "suggestions": None
+            }
+
+    def _is_filename_compliant(self, original: str, suggestions: List[str]) -> bool:
+        """
+        Determine if the original filename is already compliant.
+
+        A filename is considered compliant if it matches one of the suggestions
+        or if all suggestions are very similar to the original (indicating minor issues).
+
+        Args:
+            original: Original filename
+            suggestions: List of suggested filenames
+
+        Returns:
+            True if filename is compliant, False otherwise
+        """
+        if not suggestions:
+            return False
+
+        # Normalize for comparison (lowercase, strip whitespace)
+        original_normalized = original.lower().strip()
+
+        # Check if original matches any suggestion exactly
+        for suggestion in suggestions:
+            if suggestion.lower().strip() == original_normalized:
+                return True
+
+        # If no exact match, the filename needs correction
+        return False
+
+    def _convert_filename_to_issues(self, filename_result: Dict[str, Any]) -> List[Dict[str, Any]]:
+        """
+        Convert filename check result into issues format for findings table.
+
+        Args:
+            filename_result: Result from _check_filename()
+
+        Returns:
+            List of issue dictionaries in standard format
+        """
+        issues = []
+
+        if not filename_result.get("checked", False):
+            # If check failed, return empty list
+            return issues
+
+        # Only create an issue if filename is not compliant
+        if not filename_result.get("compliant", True):
+            original_filename = filename_result.get("original_filename", "Unknown")
+            suggestions = filename_result.get("suggestions", [])
+
+            # Create a suggestion string with all options (with newlines for frontend display)
+            suggestion_text = "\n".join([f"Option {i+1}: {s}" for i, s in enumerate(suggestions)])
+
+            issue = {
+                "category": "filename",
+                "rule_name": "filename-convention",
+                "severity": "warning",
+                "page_or_slide_index": -1,  # Not tied to a specific slide
+                "element_index": -1,
+                "found_text": original_filename,  # Frontend expects 'found_text'
+                "description": "The filename does not fully comply with Amida’s naming policy (ADMIN-POL-1-1). Common issues include missing or misplaced hyphens, incorrect date format, extra words (e.g., “for [name]”), or missing owner initials. The assistant analyzed these patterns and suggested corrected versions based on standard rules.",  # Frontend expects 'description'
+                "suggestion": suggestion_text if suggestions else None,
+                "location": "Document filename",
+                "element_type": "filename"
+            }
+
+            issues.append(issue)
+
+        return issues
 
 def main():
     """Simple main function to run analysis from command line."""
