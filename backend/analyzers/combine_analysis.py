@@ -20,8 +20,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from .simple_style_checker import check_document as run_grammar_check
-from .advance_style_analyzer import AdvancedStyleAnalyzer
+from .style_orchestrator import check_document as run_grammar_check
+from .tone_analyzer import AdvancedStyleAnalyzer
 
 logger = logging.getLogger(__name__)
 
