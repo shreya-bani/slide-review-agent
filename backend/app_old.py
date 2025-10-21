@@ -9,27 +9,19 @@ from pathlib import Path
 from typing import Optional
 from datetime import datetime
 
-from fastapi import FastAPI, HTTPException, UploadFile, File, Form, Request, Response, Depends  # <-- added Depends
+from fastapi import FastAPI, HTTPException, UploadFile, File, Form, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import JSONResponse, FileResponse, RedirectResponse
+from fastapi.responses import JSONResponse, FileResponse
 from starlette.responses import StreamingResponse
 from logging import Handler, LogRecord
 
 from .config.settings import settings
-from .database.database import init_db
-
-# auth imports (new)
-from .services.auth_dependencies import (
-    get_current_user,
-    get_current_active_user,
-    # get_current_admin_user,   # uncomment if you want any admin-only routes here
-)
-from .database.models import User
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
 
 # Import document processors
 try:
@@ -41,6 +33,7 @@ except Exception as e:
     PPTXReader = None
     PDFReader = None
     DocumentNormalizer = None
+
 
 # Import analyzers
 try:
@@ -114,24 +107,6 @@ def create_app() -> FastAPI:
 
 app = create_app()
 
-# Initialize database
-@app.on_event("startup")
-async def startup_event():
-    """Initialize database and other startup tasks."""
-    try:
-        init_db()
-        logger.info("Database initialized successfully")
-    except Exception as e:
-        logger.error(f"Failed to initialize database: {e}")
-
-# Include authentication router
-try:
-    from .routers.auth_router import router as auth_router
-    app.include_router(auth_router)
-    logger.info("Authentication router included")
-except Exception as e:
-    logger.warning(f"Could not include auth router: {e}")
-
 # Frontend static files
 REPO_ROOT = Path(__file__).resolve().parent.parent
 FRONTEND_DIR = REPO_ROOT / "frontend"
@@ -187,12 +162,7 @@ def write_json(path: Path, obj: dict) -> None:
 # API Endpoints
 @app.get("/")
 async def root():
-    """Redirect root to login page."""
-    return RedirectResponse(url="/pages/login.html")
-
-@app.get("/api")
-async def api_root():
-    """API endpoint - health check."""
+    """Root endpoint - health check."""
     return {
         "app": settings.app_name,
         "version": "1.0.0",
@@ -200,10 +170,9 @@ async def api_root():
         "environment": settings.environment
     }
 
-# PROTECTED: user must be signed in
 @app.get("/app")
-async def serve_frontend(current_user: User = Depends(get_current_user)):
-    """Serve the frontend application (protected)."""
+async def serve_frontend():
+    """Serve the frontend application."""
     index_file = PAGES_DIR / "main.html"
     if not index_file.exists():
         raise HTTPException(status_code=404, detail="Frontend not found")
@@ -246,13 +215,11 @@ async def health_check():
             status_code=503
         )
 
-# PROTECTED: signed-in & active user required
 @app.post("/upload-document")
 async def upload_document(
     request: Request,
     file: UploadFile = File(...),
-    user_info: str = Form(...),
-    current_user: User = Depends(get_current_active_user),  # <-- added protection
+    user_info: str = Form(...)
 ):
     """Upload and analyze a document with complete pipeline."""
     user_info = user_info.strip()
@@ -438,8 +405,7 @@ async def process_and_analyze_document(
             output_dir / f"{file_id}_{clean_stem}_result.json",
             processing_result
         )
-
-        # Timing log
+        # After all JSON writes are done
         end_time = datetime.now()
         duration = (end_time - start_time).total_seconds()
         logger.info(
@@ -454,6 +420,8 @@ async def process_and_analyze_document(
         logger.error(f"Processing error for document_id {file_id}: {e}")
         import traceback
         traceback.print_exc()
+
+        
         return {
             "success": False,
             "error": str(e),
@@ -462,10 +430,9 @@ async def process_and_analyze_document(
             "original_filename": original_filename
         }
 
-# PROTECTED: signed-in user required
 @app.get("/analysis-history")
-async def get_analysis_history(current_user: User = Depends(get_current_user)):
-    """Get list of previous analyses (protected)."""
+async def get_analysis_history():
+    """Get list of previous analyses."""
     try:
         output_dir = Path(settings.output_dir)
         analysis_files = list(output_dir.glob("*_combined_analysis.json"))
@@ -492,7 +459,7 @@ async def get_analysis_history(current_user: User = Depends(get_current_user)):
         
     except Exception as e:
         return JSONResponse(content={"error": str(e)}, status_code=500)
-
+    
 async def _fanout_logs():
     while True:
         item = await _broadcast_queue.get()
@@ -508,9 +475,9 @@ async def _fanout_logs():
 async def _startup_bg():
     asyncio.create_task(_fanout_logs())
 
-# PROTECTED: require sign-in to stream logs
+# SSE endpoint that each browser subscribes to
 @app.get("/logs/stream")
-async def logs_stream(current_user: User = Depends(get_current_user)):
+async def logs_stream():
     client_q: asyncio.Queue = asyncio.Queue(maxsize=1000)
     _clients.add(client_q)
 

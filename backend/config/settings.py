@@ -61,7 +61,7 @@ class Settings(BaseSettings):
     # llm_api_endpoint: str = Field(default="https://router.huggingface.co/v1/chat/completions", alias="LLM_API_ENDPOINT")
 
     # Logging
-    log_level: int = Field(default=logging.INFO, alias="LOG_LEVEL")
+    log_level: str = Field(default="INFO", alias="LOG_LEVEL")
 
     # Azure OpenAI configuration
     llm_model: str = Field(default="gpt-5-chat", alias="LLM_MODEL")
@@ -75,6 +75,22 @@ class Settings(BaseSettings):
         case_sensitive = False
 
     # helpers
+    def get_log_level(self) -> int:
+        """
+        Convert string log level to logging constant.
+
+        Returns:
+            logging level constant (e.g., logging.INFO)
+        """
+        level_map = {
+            "DEBUG": logging.DEBUG,
+            "INFO": logging.INFO,
+            "WARNING": logging.WARNING,
+            "ERROR": logging.ERROR,
+            "CRITICAL": logging.CRITICAL
+        }
+        return level_map.get(self.log_level.upper(), logging.INFO)
+
     def validate_llm_config(self) -> bool:
         return bool((self.llm_api_key or "").strip()
                     and (self.llm_model or "").strip()

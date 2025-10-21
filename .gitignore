@@ -3,7 +3,6 @@
 venv/
 
 # Environment variables
-.env
 .env.example
 
 # Python cache & build
@@ -47,3 +46,5 @@ llm_cache.json
 
 # Backup folders
 backend/backup/
+
+.env.example

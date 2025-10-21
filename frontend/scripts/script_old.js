@@ -1,8 +1,5 @@
 const API_BASE_URL = window.location.origin;
 
-// Authentication state
-let currentUser = null;
-
 // Application state
 let currentFile = null;
 let analysisResult = null;
@@ -741,119 +738,7 @@ function setupEventListeners() {
 }
 
 
-// Authentication check
-async function checkAuthentication() {
-  try {
-    const response = await fetch(`${API_BASE_URL}/auth/me`, {
-      method: 'GET',
-      credentials: 'include'
-    });
-
-    if (!response.ok) {
-      console.warn('Not authenticated, redirecting to login...');
-      window.location.href = '/pages/login.html';
-      return false;
-    }
-
-    const data = await response.json();
-
-    if (!data.authenticated) {
-      console.warn('User not authenticated, redirecting to login...');
-      window.location.href = '/pages/login.html';
-      return false;
-    }
-
-    // User is authenticated
-    currentUser = data.user;
-    console.log('User authenticated:', currentUser.email);
-    updateUserDisplay();
-    return true;
-
-  } catch (error) {
-    console.error('Authentication check failed:', error);
-    window.location.href = '/pages/login.html';
-    return false;
-  }
-}
-
-// Update user display in UI
-function updateUserDisplay() {
-  if (!currentUser) return;
-
-  // Update meta-uploader field if it exists
-  if (elements.metaUploader) {
-    elements.metaUploader.value = currentUser.display_name || currentUser.email;
-  }
-
-  // Add user info to header if not already present
-  const header = document.querySelector('.header-content');
-  if (header && !document.getElementById('user-display')) {
-    const userDisplay = document.createElement('div');
-    userDisplay.id = 'user-display';
-    userDisplay.style.cssText = 'display: flex; align-items: center; gap: 12px; margin-left: auto;';
-
-    userDisplay.innerHTML = `
-      <div style="text-align: right;">
-        <div style="font-size: 14px; font-weight: 500; color: var(--text-primary);">${currentUser.display_name || 'User'}</div>
-        <div style="font-size: 12px; color: var(--text-secondary);">${currentUser.email}</div>
-      </div>
-      <button id="logout-btn" class="btn btn-outline" style="padding: 8px 16px;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-          <polyline points="16 17 21 12 16 7"></polyline>
-          <line x1="21" y1="12" x2="9" y2="12"></line>
-        </svg>
-        Logout
-      </button>
-    `;
-
-    // Insert before the existing header-actions div
-    const headerActions = header.querySelector('.header-actions');
-    if (headerActions) {
-      header.insertBefore(userDisplay, headerActions);
-    } else {
-      header.appendChild(userDisplay);
-    }
-
-    // Add logout event listener
-    const logoutBtn = document.getElementById('logout-btn');
-    if (logoutBtn) {
-      logoutBtn.addEventListener('click', handleLogout);
-    }
-  }
-}
-
-// Handle logout
-async function handleLogout() {
-  try {
-    const response = await fetch(`${API_BASE_URL}/auth/logout`, {
-      method: 'POST',
-      credentials: 'include'
-    });
-
-    if (response.ok) {
-      console.log('Logged out successfully');
-      window.location.href = '/pages/login.html';
-    } else {
-      console.error('Logout failed');
-      // Redirect anyway
-      window.location.href = '/pages/login.html';
-    }
-  } catch (error) {
-    console.error('Logout error:', error);
-    // Redirect anyway
-    window.location.href = '/pages/login.html';
-  }
-}
-
-async function init() {
-  // Check authentication first
-  const isAuthenticated = await checkAuthentication();
-  if (!isAuthenticated) {
-    return; // Stop initialization if not authenticated
-  }
-
-  // Continue with normal initialization
+function init() {
   initTheme();
   setupEventListeners();
   setupDragAndDrop();

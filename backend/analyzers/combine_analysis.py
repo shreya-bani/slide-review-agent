@@ -1,16 +1,22 @@
 """
 Combined Analysis Pipeline
-Orchestrates grammar and tone analysis to produce a comprehensive report.
+Orchestrates unified style analysis (grammar + word-list + tone) to produce a comprehensive report.
 
 Usage:
     python -m backend.analyzers.combine_analysis <normalized.json> [output.json]
-    
+
 Returns a detailed JSON report with:
 - Document metadata
-- Grammar issues (numerals, spacing, quotes, word list, headings, titles, bullets)
+- Grammar issues (numerals, spacing, quotes, headings, titles, bullets)
+- Word-list issues (terminology compliance)
 - Tone issues (positive language, active voice with LLM suggestions)
+- File naming convention check
 - Summary statistics
 - Processing timestamps
+
+Architecture:
+- Uses unified style_orchestrator which runs all analyzers with shared protection layer
+- Protection data is computed once and reused across all analyzers for efficiency
 """
 
 import json
@@ -21,24 +27,28 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from .style_orchestrator import check_document as run_grammar_check
-from .tone_analyzer import AdvancedStyleAnalyzer
 from .file_naming_check import FileNamingChecker
+from .models import Category
 
 logger = logging.getLogger(__name__)
 
 
 class CombinedAnalyzer:
     """
-    Orchestrates grammar and tone analysis to produce a unified report.
+    Orchestrates unified style analysis (grammar + word-list + tone) to produce a comprehensive report.
+    Uses the style_orchestrator which ensures all analyzers share the same protection data.
     """
 
     def __init__(self):
-        self.tone_analyzer = AdvancedStyleAnalyzer()
+        # Initialize filename checker (doesn't need protection data)
         try:
             self.filename_checker = FileNamingChecker()
         except Exception as e:
             logger.warning(f"Failed to initialize FileNamingChecker: {e}. Filename checks will be skipped.")
             self.filename_checker = None
+
+        # Note: All style analyzers (grammar, word-list, tone) are now unified in style_orchestrator
+        # They automatically share protection data for efficiency
 
     def analyze(self, normalized_doc: Dict[str, Any],
                 input_filepath: Optional[str] = None,
@@ -60,21 +70,24 @@ class CombinedAnalyzer:
 
         # Extract document metadata
         doc_metadata = self._extract_document_metadata(normalized_doc, input_filepath, original_filename)
-        
-        # Run grammar analysis first
-        logger.info("Running grammar analysis...")
-        grammar_start = datetime.now()
-        grammar_issues = run_grammar_check(normalized_doc)
-        grammar_duration = (datetime.now() - grammar_start).total_seconds()
-        logger.info(f"Grammar analysis complete: {len(grammar_issues)} issues found in {grammar_duration:.2f}s")
-        
-        # Run tone analysis second
-        logger.info("Running tone analysis...")
-        tone_start = datetime.now()
-        tone_result = self.tone_analyzer.analyze(normalized_doc)
-        tone_duration = (datetime.now() - tone_start).total_seconds()
-        tone_issues = tone_result.get("issues", [])
-        logger.info(f"Tone analysis complete: {len(tone_issues)} issues found in {tone_duration:.2f}s")
+
+        # Run unified style check (grammar + word-list + tone with shared protection layer)
+        logger.info("Running unified style analysis (grammar + word-list + tone)...")
+        style_start = datetime.now()
+        style_result = run_grammar_check(normalized_doc, include_tone=True, return_wrapper=True)
+        all_style_issues = style_result.get("issues", [])
+        protection_data = style_result.get("protection_data", {})
+        style_duration = (datetime.now() - style_start).total_seconds()
+
+        # Separate issues by category for reporting
+        grammar_issues = [i for i in all_style_issues if i.get("category") in [Category.GRAMMAR.value, Category.WORD_LIST.value]]
+        tone_issues = [i for i in all_style_issues if i.get("category") == Category.TONE.value]
+
+        grammar_duration = style_duration * 0.4  # Approximate split for backward compatibility
+        tone_duration = style_duration * 0.6
+
+        logger.info(f"Style analysis complete: {len(grammar_issues)} grammar/word-list issues, "
+                   f"{len(tone_issues)} tone issues in {style_duration:.2f}s")
 
         # Run file naming check
         logger.info("Running file naming check...")
@@ -88,7 +101,7 @@ class CombinedAnalyzer:
 
         # Combine all issues
         all_issues = grammar_issues + tone_issues + filename_issues
-        
+
         # Generate statistics
         stats = self._generate_statistics(grammar_issues, tone_issues, filename_issues, normalized_doc)
         
@@ -349,13 +362,13 @@ class CombinedAnalyzer:
             suggestion_text = "\n".join([f"Option {i+1}: {s}" for i, s in enumerate(suggestions)])
 
             issue = {
-                "category": "filename",
+                "category": Category.FILENAME.value,
                 "rule_name": "filename-convention",
                 "severity": "warning",
                 "page_or_slide_index": -1,  # Not tied to a specific slide
                 "element_index": -1,
                 "found_text": original_filename,  # Frontend expects 'found_text'
-                "description": "The filename does not fully comply with Amida’s naming policy (ADMIN-POL-1-1). Common issues include missing or misplaced hyphens, incorrect date format, extra words (e.g., “for [name]”), or missing owner initials. The assistant analyzed these patterns and suggested corrected versions based on standard rules.",  # Frontend expects 'description'
+                "description": "The filename does not fully comply with Amida's naming policy (ADMIN-POL-1-1). Common issues include missing or misplaced hyphens, incorrect date format, extra words (e.g., 'for [name]'), or missing owner initials. The assistant analyzed these patterns and suggested corrected versions based on standard rules.",  # Frontend expects 'description'
                 "suggestion": suggestion_text if suggestions else None,
                 "location": "Document filename",
                 "element_type": "filename"
@@ -416,10 +429,11 @@ def main():
         print("\n" + "="*60)
         print("ANALYSIS SUMMARY")
         print("="*60)
-        print(f"Total Issues:        {summary['total_issues']}")
-        print(f"  Grammar Issues:    {summary['grammar_issues']}")
-        print(f"  Tone Issues:       {summary['tone_issues']}")
-        print(f"With Suggestions:    {summary['issues_with_suggestions']}")
+        print(f"Total Issues:          {summary['total_issues']}")
+        print(f"  Grammar Issues:      {summary['grammar_issues']}")
+        print(f"  Tone Issues:         {summary['tone_issues']}")
+        print(f"  Filename Issues:     {summary['filename_issues']}")
+        print(f"With Suggestions:      {summary['issues_with_suggestions']}")
         print("\nBy Severity:")
         for sev, count in summary['severity_breakdown'].items():
             print(f"  {sev:15s}: {count}")

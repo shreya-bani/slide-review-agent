@@ -21,7 +21,7 @@ from ..config.settings import settings
 
 # LOGGER
 logger = logging.getLogger(__name__)
-logger.setLevel(getattr(settings, "log_level", logging.INFO))
+logger.setLevel(settings.get_log_level())
 
 
 class FileNamingChecker:
