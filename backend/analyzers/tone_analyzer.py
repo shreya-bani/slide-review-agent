@@ -32,14 +32,15 @@ import spacy
 from tqdm import tqdm
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
-from ..config.settings import settings  
+from ..config.settings import settings
 from ..services.llm_client import LLMClient
 from .protection_layer import ProtectionLayer
 from ..utils.prompt_loader import load_prompt
+from .models import Category
 
 # LOGGER
 logger = logging.getLogger(__name__)
-logger.setLevel(getattr(settings, "log_level", logging.INFO))
+logger.setLevel(settings.get_log_level())
 
 # CONFIG
 INCLUDE_NOTES: bool = bool(getattr(settings, "analyzer_include_notes", False))
@@ -595,7 +596,7 @@ class AdvancedStyleAnalyzer:
                 issues.append({
                     "rule_name": "positive_language",
                     "severity": "warning",
-                    "category": "tone-issue",
+                    "category": Category.TONE.value,
                     "description": "Use positive language to make communication clearer, more constructive, and solution-oriented.",
                     "location": location,
                     "found_text": txt,
@@ -616,7 +617,7 @@ class AdvancedStyleAnalyzer:
                 issues.append({
                     "rule_name": "positive_language",
                     "severity": "warning",
-                    "category": "tone-issue",
+                    "category": Category.TONE.value,
                     "description": "Use positive language to make communication clearer, more constructive, and solution-oriented.",
                     "location": location,
                     "found_text": txt,
@@ -648,7 +649,7 @@ class AdvancedStyleAnalyzer:
                 issues.append({
                     "rule_name": "active_voice",
                     "severity": "info",
-                    "category": "tone-issue",
+                    "category": Category.TONE.value,
                     "description": "Use active voice to make writing direct, strong, and easy to understand.",
                     "location": location,
                     "found_text": txt,

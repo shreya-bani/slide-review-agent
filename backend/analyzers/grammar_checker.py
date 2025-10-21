@@ -1,41 +1,11 @@
 from __future__ import annotations
 import re
 import logging
-from dataclasses import dataclass, asdict
-from enum import Enum
 from typing import Any, Dict, List, Optional
 
+from .models import Severity, Category, StyleIssue
+
 logger = logging.getLogger(__name__)
-
-class Severity(Enum):
-    ERROR = "error"
-    WARNING = "warning"
-    SUGGESTION = "suggestion"
-    INFO = "info"
-
-class Category(Enum):
-    GRAMMAR = "grammar"
-    WORD_LIST = "word-list"
-
-@dataclass
-class StyleIssue:
-    rule_name: str
-    severity: Severity
-    category: Category
-    description: str
-    location: str
-    found_text: str
-    suggestion: str
-    page_or_slide_index: int
-    element_index: int
-    confidence: float = 1.0
-    method: str = "rule-based"
-
-    def to_dict(self) -> Dict[str, Any]:
-        d = asdict(self)
-        d["severity"] = self.severity.value
-        d["category"] = self.category.value
-        return d
 
 
 class GrammarChecker:

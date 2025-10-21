@@ -34,7 +34,7 @@ def calculate_quality_score(
         >>> calculate_quality_score(
         ...     {
         ...         "total_issues": 25,
-        ...         "category_breakdown": {"grammar": 10, "tone-issue": 8},
+        ...         "category_breakdown": {"grammar": 10, "tone": 8},
         ...         "severity_breakdown": {"error": 5, "warning": 12}
         ...     },
         ...     {"total_pages": 10}
@@ -52,7 +52,7 @@ def calculate_quality_score(
     # These weights determine how much each category contributes to overall score
     CATEGORY_WEIGHTS = {
         "grammar": 25,          # Grammar, punctuation, spelling
-        "tone-issue": 40,       # Tone, voice, sentiment
+        "tone": 40,             # Tone, voice, sentiment
         "inclusivity": 10,      # Inclusive language, person-first
         "formatting": 15,       # Visual formatting, style
         "word-list": 10,        # Word preferences, terminology
@@ -159,7 +159,7 @@ if __name__ == "__main__":
         "total_issues": 25,
         "category_breakdown": {
             "grammar": 10,
-            "tone-issue": 8,
+            "tone": 8,
             "inclusivity": 2,
             "formatting": 5,
             "word-list": 0

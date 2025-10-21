@@ -1,7 +1,8 @@
 from __future__ import annotations
 import re
 from typing import Any, Dict, List, Optional
-from .grammar_checker import StyleIssue, Severity, Category
+
+from .models import StyleIssue, Severity, Category
 
 class WordListChecker:
     """
