@@ -785,40 +785,40 @@ function updateUserDisplay() {
     elements.metaUploader.value = currentUser.display_name || currentUser.email;
   }
 
-  // Add user info to header if not already present
-  const header = document.querySelector('.header-content');
-  if (header && !document.getElementById('user-display')) {
-    const userDisplay = document.createElement('div');
-    userDisplay.id = 'user-display';
-    userDisplay.style.cssText = 'display: flex; align-items: center; gap: 12px; margin-left: auto;';
-
-    userDisplay.innerHTML = `
-      <div style="text-align: right;">
-        <div style="font-size: 14px; font-weight: 500; color: var(--text-primary);">${currentUser.display_name || 'User'}</div>
-        <div style="font-size: 12px; color: var(--text-secondary);">${currentUser.email}</div>
+  // Update user info in header
+  const userInfoDisplay = document.getElementById('user-info-display');
+  if (userInfoDisplay) {
+    userInfoDisplay.innerHTML = `
+      <div class="user-info-text">
+        <div class="user-name">${currentUser.display_name || 'User'}</div>
+        <div class="user-email">${currentUser.email}</div>
       </div>
-      <button id="logout-btn" class="btn btn-outline" style="padding: 8px 16px;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-          <polyline points="16 17 21 12 16 7"></polyline>
-          <line x1="21" y1="12" x2="9" y2="12"></line>
-        </svg>
-        Logout
-      </button>
     `;
+  }
 
-    // Insert before the existing header-actions div
-    const headerActions = header.querySelector('.header-actions');
-    if (headerActions) {
-      header.insertBefore(userDisplay, headerActions);
-    } else {
-      header.appendChild(userDisplay);
+  // Add logout event listener to header button
+  const logoutBtnHeader = document.getElementById('logout-btn-header');
+  if (logoutBtnHeader && !logoutBtnHeader.hasAttribute('data-listener')) {
+    logoutBtnHeader.addEventListener('click', handleLogout);
+    logoutBtnHeader.setAttribute('data-listener', 'true');
+  }
+
+  // Show admin buttons if user is admin
+  if (currentUser.role === 'ADMIN') {
+    const adminDashboardBtn = document.getElementById('admin-dashboard-btn');
+    const logsBtn = document.getElementById('logs-btn');
+
+    if (adminDashboardBtn) {
+      adminDashboardBtn.style.display = 'flex';
+      adminDashboardBtn.classList.remove('hidden');
+      adminDashboardBtn.addEventListener('click', () => {
+        window.location.href = '/pages/admin.html';
+      });
     }
 
-    // Add logout event listener
-    const logoutBtn = document.getElementById('logout-btn');
-    if (logoutBtn) {
-      logoutBtn.addEventListener('click', handleLogout);
+    if (logsBtn) {
+      logsBtn.style.display = 'flex';
+      logsBtn.classList.remove('hidden');
     }
   }
 }

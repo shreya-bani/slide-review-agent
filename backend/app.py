@@ -23,7 +23,7 @@ from .database.database import init_db
 from .services.auth_dependencies import (
     get_current_user,
     get_current_active_user,
-    # get_current_admin_user,   # uncomment if you want any admin-only routes here
+    get_current_admin_user,  # Admin-only routes protection
 )
 from .database.models import User
 
@@ -131,6 +131,14 @@ try:
     logger.info("Authentication router included")
 except Exception as e:
     logger.warning(f"Could not include auth router: {e}")
+
+# Include admin router
+try:
+    from .routers.admin_router import router as admin_router
+    app.include_router(admin_router)
+    logger.info("Admin router included")
+except Exception as e:
+    logger.warning(f"Could not include admin router: {e}")
 
 # Frontend static files
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -508,9 +516,10 @@ async def _fanout_logs():
 async def _startup_bg():
     asyncio.create_task(_fanout_logs())
 
-# PROTECTED: require sign-in to stream logs
+# PROTECTED: Admin-only endpoint to stream logs
 @app.get("/logs/stream")
-async def logs_stream(current_user: User = Depends(get_current_user)):
+async def logs_stream(current_admin: User = Depends(get_current_admin_user)):
+    """Stream server logs in real-time. Admin only."""
     client_q: asyncio.Queue = asyncio.Queue(maxsize=1000)
     _clients.add(client_q)
 

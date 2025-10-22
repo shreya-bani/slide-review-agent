@@ -57,7 +57,7 @@
 
 /* Fonts reduced ~40–50% */
 .login-title {
-    font-size: clamp(13px, 1.8vw, 16px); /* was up to 32px */
+    font-size: clamp(18px, 1.8vw, 20px);
     font-weight: 700;
     color: var(--text);
     margin: 0 0 6px 0;
@@ -230,7 +230,7 @@
 /* Features Panel (Right Side) — reduced everything */
 .features-panel {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    padding: clamp(14px, 3vh, 18px) clamp(12px, 2vw, 18px);
+    padding: clamp(14px, 3vh, 18px) clamp(8px, 1.6vw, 10px);
     display: flex;
     flex-direction: column;
     justify-content: center;

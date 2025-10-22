@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Slide Review Agent</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <style>
+        /* Admin Dashboard Specific Styles */
+        .admin-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .dashboard-header h1 {
+            margin: 0;
+            color: #333;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card.green {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+
+        .stat-card.orange {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .stat-card.blue {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .stat-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat-card .value {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-card .label {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .content-section {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .content-section h2 {
+            margin: 0 0 20px 0;
+            color: #333;
+            font-size: 20px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table th {
+            background: #f8f9fa;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #333;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        table td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge.admin {
+            background: #667eea;
+            color: white;
+        }
+
+        .badge.user {
+            background: #38ef7d;
+            color: white;
+        }
+
+        .badge.active {
+            background: #38ef7d;
+            color: white;
+        }
+
+        .badge.inactive {
+            background: #f5576c;
+            color: white;
+        }
+
+        .terminal-section {
+            background: #1e1e1e;
+            border-radius: 12px;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .terminal-header {
+            background: #2d2d2d;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .terminal-header h2 {
+            margin: 0;
+            color: #fff;
+            font-size: 16px;
+            border: none;
+            padding: 0;
+        }
+
+        .terminal-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .terminal-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.2s;
+        }
+
+        .terminal-btn:hover {
+            background: #5568d3;
+        }
+
+        .terminal-btn.clear {
+            background: #f5576c;
+        }
+
+        .terminal-btn.clear:hover {
+            background: #e04153;
+        }
+
+        .terminal-logs {
+            padding: 20px;
+            height: 400px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #d4d4d4;
+        }
+
+        .log-entry {
+            margin-bottom: 4px;
+            word-wrap: break-word;
+        }
+
+        .log-entry.info {
+            color: #4fc3f7;
+        }
+
+        .log-entry.warning {
+            color: #ffb74d;
+        }
+
+        .log-entry.error {
+            color: #ff5252;
+        }
+
+        .log-entry.success {
+            color: #69f0ae;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #999;
+        }
+
+        .error-message {
+            background: #fff3cd;
+            color: #856404;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ffeeba;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .nav-tab {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .nav-tab:hover {
+            color: #667eea;
+        }
+
+        .nav-tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .action-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .action-btn.deactivate {
+            background: #ff5252;
+            color: white;
+        }
+
+        .action-btn.activate {
+            background: #69f0ae;
+            color: #333;
+        }
+
+        .action-btn:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="dashboard-header">
+            <h1>🛡️ Admin Dashboard</h1>
+            <div>
+                <button class="terminal-btn" onclick="window.location.href='/app'">Back to App</button>
+                <button class="terminal-btn" onclick="handleLogout()">Logout</button>
+            </div>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Users</h3>
+                <div class="value" id="stat-total-users">0</div>
+                <div class="label" id="stat-user-breakdown">Loading...</div>
+            </div>
+            <div class="stat-card green">
+                <h3>Active Sessions</h3>
+                <div class="value" id="stat-active-sessions">0</div>
+                <div class="label">Currently logged in</div>
+            </div>
+            <div class="stat-card orange">
+                <h3>24h Activity</h3>
+                <div class="value" id="stat-24h-logins">0</div>
+                <div class="label">Logins in last 24 hours</div>
+            </div>
+            <div class="stat-card blue">
+                <h3>Documents</h3>
+                <div class="value" id="stat-total-docs">0</div>
+                <div class="label">Total uploaded</div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="switchTab('users')">Users</button>
+            <button class="nav-tab" onclick="switchTab('sessions')">Active Sessions</button>
+            <button class="nav-tab" onclick="switchTab('documents')">Documents</button>
+            <button class="nav-tab" onclick="switchTab('terminal')">Terminal Logs</button>
+        </div>
+
+        <!-- Users Tab -->
+        <div id="tab-users" class="tab-content active">
+            <div class="content-section">
+                <h2>Recent User Logins</h2>
+                <div class="table-container">
+                    <table id="users-table">
+                        <thead>
+                            <tr>
+                                <th>Email</th>
+                                <th>Display Name</th>
+                                <th>Role</th>
+                                <th>Last Login</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-tbody">
+                            <tr><td colspan="6" class="loading">Loading users...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sessions Tab -->
+        <div id="tab-sessions" class="tab-content">
+            <div class="content-section">
+                <h2>Active User Sessions</h2>
+                <div class="table-container">
+                    <table id="sessions-table">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Email</th>
+                                <th>IP Address</th>
+                                <th>Started At</th>
+                                <th>Expires At</th>
+                                <th>User Agent</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sessions-tbody">
+                            <tr><td colspan="6" class="loading">Loading sessions...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Documents Tab -->
+        <div id="tab-documents" class="tab-content">
+            <div class="content-section">
+                <h2>Recent Document Uploads</h2>
+                <div class="table-container">
+                    <table id="documents-table">
+                        <thead>
+                            <tr>
+                                <th>Doc ID</th>
+                                <th>Filename</th>
+                                <th>Type</th>
+                                <th>Size</th>
+                                <th>Uploaded At</th>
+                            </tr>
+                        </thead>
+                        <tbody id="documents-tbody">
+                            <tr><td colspan="5" class="loading">Loading documents...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Terminal Tab -->
+        <div id="tab-terminal" class="tab-content">
+            <div class="terminal-section">
+                <div class="terminal-header">
+                    <h2>📊 Live Server Logs</h2>
+                    <div class="terminal-controls">
+                        <button class="terminal-btn" onclick="toggleLogStream()">
+                            <span id="stream-status">Connect</span>
+                        </button>
+                        <button class="terminal-btn clear" onclick="clearLogs()">Clear</button>
+                    </div>
+                </div>
+                <div class="terminal-logs" id="terminal-logs">
+                    <div class="empty-state">Click "Connect" to start streaming logs...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/scripts/auth.js"></script>
+    <script>
+        // Global state
+        let logStreamEventSource = null;
+        let isStreaming = false;
+
+        // Load analytics overview
+        async function loadAnalytics() {
+            try {
+                const response = await fetch('/admin/analytics/overview', {
+                    credentials: 'include',
+                    headers: buildAuthHeaders()
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to load analytics');
+                }
+
+                const data = await response.json();
+
+                // Update stats cards
+                document.getElementById('stat-total-users').textContent = data.users.total;
+                document.getElementById('stat-user-breakdown').textContent =
+                    `${data.users.admins} admins, ${data.users.regular_users} users`;
+                document.getElementById('stat-active-sessions').textContent = data.sessions.active_now;
+                document.getElementById('stat-24h-logins').textContent = data.activity.logins_last_24h;
+                document.getElementById('stat-total-docs').textContent = data.documents.total_uploaded;
+
+            } catch (error) {
+                console.error('Error loading analytics:', error);
+            }
+        }
+
+        // Load recent users
+        async function loadUsers() {
+            try {
+                const response = await fetch('/admin/users/recent-logins?limit=20', {
+                    credentials: 'include',
+                    headers: buildAuthHeaders()
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to load users');
+                }
+
+                const users = await response.json();
+                const tbody = document.getElementById('users-tbody');
+
+                if (users.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No users found</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = users.map(user => `
+                    <tr>
+                        <td>${escapeHtml(user.email)}</td>
+                        <td>${escapeHtml(user.display_name)}</td>
+                        <td><span class="badge ${user.role.toLowerCase()}">${user.role}</span></td>
+                        <td>${formatDateTime(user.last_login)}</td>
+                        <td><span class="badge ${user.is_active ? 'active' : 'inactive'}">${user.is_active ? 'Active' : 'Inactive'}</span></td>
+                        <td>
+                            ${user.is_active
+                                ? `<button class="action-btn deactivate" onclick="toggleUserStatus('${user.id}', false)">Deactivate</button>`
+                                : `<button class="action-btn activate" onclick="toggleUserStatus('${user.id}', true)">Activate</button>`
+                            }
+                        </td>
+                    </tr>
+                `).join('');
+
+            } catch (error) {
+                console.error('Error loading users:', error);
+                document.getElementById('users-tbody').innerHTML =
+                    '<tr><td colspan="6" class="error-message">Failed to load users</td></tr>';
+            }
+        }
+
+        // Load active sessions
+        async function loadSessions() {
+            try {
+                const response = await fetch('/admin/sessions/active?limit=50', {
+                    credentials: 'include',
+                    headers: buildAuthHeaders()
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to load sessions');
+                }
+
+                const sessions = await response.json();
+                const tbody = document.getElementById('sessions-tbody');
+
+                if (sessions.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No active sessions</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = sessions.map(session => `
+                    <tr>
+                        <td>${escapeHtml(session.user_name)}</td>
+                        <td>${escapeHtml(session.user_email)}</td>
+                        <td>${escapeHtml(session.ip_address || 'N/A')}</td>
+                        <td>${formatDateTime(session.created_at)}</td>
+                        <td>${formatDateTime(session.expires_at)}</td>
+                        <td title="${escapeHtml(session.user_agent || '')}">${truncate(session.user_agent, 50)}</td>
+                    </tr>
+                `).join('');
+
+            } catch (error) {
+                console.error('Error loading sessions:', error);
+                document.getElementById('sessions-tbody').innerHTML =
+                    '<tr><td colspan="6" class="error-message">Failed to load sessions</td></tr>';
+            }
+        }
+
+        // Load recent documents
+        async function loadDocuments() {
+            try {
+                const response = await fetch('/admin/documents/recent?limit=50', {
+                    credentials: 'include',
+                    headers: buildAuthHeaders()
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to load documents');
+                }
+
+                const documents = await response.json();
+                const tbody = document.getElementById('documents-tbody');
+
+                if (documents.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" class="empty-state">No documents uploaded yet</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = documents.map(doc => `
+                    <tr>
+                        <td>${escapeHtml(doc.doc_id)}</td>
+                        <td title="${escapeHtml(doc.filename)}">${truncate(doc.filename, 50)}</td>
+                        <td>${doc.type.toUpperCase()}</td>
+                        <td>${doc.size_mb} MB</td>
+                        <td>${formatDateTime(doc.uploaded_at)}</td>
+                    </tr>
+                `).join('');
+
+            } catch (error) {
+                console.error('Error loading documents:', error);
+                document.getElementById('documents-tbody').innerHTML =
+                    '<tr><td colspan="5" class="error-message">Failed to load documents</td></tr>';
+            }
+        }
+
+        // Toggle user activation status
+        async function toggleUserStatus(userId, activate) {
+            const endpoint = activate ? 'activate' : 'deactivate';
+
+            try {
+                const response = await fetch(`/admin/users/${userId}/${endpoint}`, {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: buildAuthHeaders()
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Failed to ${endpoint} user`);
+                }
+
+                // Reload users table
+                loadUsers();
+                loadAnalytics(); // Update stats
+
+            } catch (error) {
+                console.error(`Error ${endpoint} user:`, error);
+                alert(`Failed to ${endpoint} user`);
+            }
+        }
+
+        // Terminal log streaming
+        function toggleLogStream() {
+            if (isStreaming) {
+                stopLogStream();
+            } else {
+                startLogStream();
+            }
+        }
+
+        function startLogStream() {
+            const token = getAuthToken();
+            if (!token) {
+                alert('Not authenticated');
+                return;
+            }
+
+            try {
+                logStreamEventSource = new EventSource(`/logs/stream?token=${token}`);
+
+                logStreamEventSource.onmessage = function(event) {
+                    try {
+                        const data = JSON.parse(event.data);
+                        appendLog(data.msg || data.message || JSON.stringify(data), data.level || 'info');
+                    } catch {
+                        appendLog(event.data, 'info');
+                    }
+                };
+
+                logStreamEventSource.onerror = function(error) {
+                    console.error('EventSource error:', error);
+                    stopLogStream();
+                    appendLog('Connection lost. Click Connect to reconnect.', 'error');
+                };
+
+                isStreaming = true;
+                document.getElementById('stream-status').textContent = 'Disconnect';
+
+                const logsDiv = document.getElementById('terminal-logs');
+                logsDiv.innerHTML = '<div class="log-entry info">Connected to log stream...</div>';
+            } catch (error) {
+                console.error('Failed to start log stream:', error);
+                alert('Failed to connect to log stream');
+            }
+        }
+
+        function stopLogStream() {
+            if (logStreamEventSource) {
+                logStreamEventSource.close();
+                logStreamEventSource = null;
+            }
+            isStreaming = false;
+            document.getElementById('stream-status').textContent = 'Connect';
+            appendLog('Disconnected from log stream.', 'warning');
+        }
+
+        function appendLog(message, level = 'info') {
+            const logsDiv = document.getElementById('terminal-logs');
+
+            // Remove empty state if present
+            if (logsDiv.querySelector('.empty-state')) {
+                logsDiv.innerHTML = '';
+            }
+
+            const logEntry = document.createElement('div');
+            logEntry.className = `log-entry ${level}`;
+
+            const timestamp = new Date().toISOString().substring(11, 19);
+            logEntry.textContent = `[${timestamp}] ${message}`;
+
+            logsDiv.appendChild(logEntry);
+            logsDiv.scrollTop = logsDiv.scrollHeight;
+
+            // Keep only last 500 log entries
+            while (logsDiv.children.length > 500) {
+                logsDiv.removeChild(logsDiv.firstChild);
+            }
+        }
+
+        function clearLogs() {
+            const logsDiv = document.getElementById('terminal-logs');
+            logsDiv.innerHTML = '<div class="empty-state">Logs cleared. Stream still active.</div>';
+        }
+
+        // Tab switching
+        function switchTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Update tab content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+
+            // Load data for the selected tab
+            if (tabName === 'users') {
+                loadUsers();
+            } else if (tabName === 'sessions') {
+                loadSessions();
+            } else if (tabName === 'documents') {
+                loadDocuments();
+            }
+        }
+
+        // Utility functions
+        function getAuthToken() {
+            return localStorage.getItem('session_token') ||
+                   document.cookie.split('; ').find(row => row.startsWith('slide_review_session='))?.split('=')[1];
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function formatDateTime(isoString) {
+            if (!isoString) return 'N/A';
+            const date = new Date(isoString);
+            return date.toLocaleString();
+        }
+
+        function truncate(str, maxLength) {
+            if (!str) return 'N/A';
+            if (str.length <= maxLength) return escapeHtml(str);
+            return escapeHtml(str.substring(0, maxLength) + '...');
+        }
+
+        // Helper function to build fetch headers with optional auth token
+        function buildAuthHeaders() {
+            const token = getAuthToken();
+            const headers = {};
+            if (token) {
+                headers['Authorization'] = `Bearer ${token}`;
+            }
+            return headers;
+        }
+
+        function handleLogout() {
+            stopLogStream();
+            localStorage.removeItem('session_token');
+            document.cookie = 'slide_review_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            window.location.href = '/';
+        }
+
+        // Check admin access on page load
+        async function checkAdminAccess() {
+            try {
+                console.log('=== Admin Access Check Debug ===');
+                const token = getAuthToken();
+                console.log('1. Token retrieved:', token ? 'YES (length: ' + token.length + ')' : 'NO');
+
+                const response = await fetch('/auth/me', {
+                    method: 'GET',
+                    credentials: 'include',
+                    headers: buildAuthHeaders()
+                });
+
+                console.log('2. Response status:', response.status, response.statusText);
+
+                if (!response.ok) {
+                    console.error('Response not OK:', response.status);
+                    throw new Error('Not authenticated');
+                }
+
+                const data = await response.json();
+                console.log('3. Response data:', JSON.stringify(data, null, 2));
+                console.log('4. data.authenticated:', data.authenticated);
+                console.log('5. data.user exists:', !!data.user);
+                if (data.user) {
+                    console.log('6. data.user.role:', data.user.role);
+                    console.log('7. data.user.email:', data.user.email);
+                }
+
+                // Check if authenticated
+                if (!data.authenticated || !data.user) {
+                    console.error('FAILED: Not authenticated or no user data');
+                    console.error('   data.authenticated =', data.authenticated);
+                    console.error('   data.user =', data.user);
+                    throw new Error('Not authenticated');
+                }
+
+                // Check if admin role
+                if (data.user.role !== 'ADMIN') {
+                    console.error('FAILED: User role is not ADMIN');
+                    console.error('   Expected: ADMIN');
+                    console.error('   Actual:', data.user.role);
+                    alert('Access denied. Admin privileges required.');
+                    window.location.href = '/app';
+                    return false;
+                }
+
+                console.log('✓ SUCCESS: Admin access granted');
+                console.log('================================');
+
+                return true;
+            } catch (error) {
+                console.error('Error checking admin access:', error);
+                window.location.href = '/';
+                return false;
+            }
+        }
+
+        // Initialize dashboard
+        async function initDashboard() {
+            const hasAccess = await checkAdminAccess();
+            if (!hasAccess) return;
+
+            loadAnalytics();
+            loadUsers();
+
+            // Refresh analytics every 30 seconds
+            setInterval(loadAnalytics, 30000);
+        }
+
+        // Run on page load
+        document.addEventListener('DOMContentLoaded', initDashboard);
+
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', () => {
+            stopLogStream();
+        });
+    </script>
+</body>
+</html>

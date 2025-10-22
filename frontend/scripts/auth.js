@@ -137,18 +137,52 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Handle OAuth callback if present
     handleOAuthCallback();
 
-    // Check if already authenticated
-    const isAuthenticated = await checkAuth();
+    // Only auto-redirect on login page, not on admin or other pages
+    const isLoginPage = window.location.pathname.includes('/login') ||
+                        window.location.pathname === '/' ||
+                        window.location.pathname === '/pages/login.html';
 
-    if (!isAuthenticated && microsoftLoginBtn) {
-        // Setup login button event listener
-        microsoftLoginBtn.addEventListener('click', handleMicrosoftLogin);
+    if (isLoginPage) {
+        // Check if already authenticated and redirect to app if so
+        const isAuthenticated = await checkAuth();
+
+        if (!isAuthenticated && microsoftLoginBtn) {
+            // Setup login button event listener
+            microsoftLoginBtn.addEventListener('click', handleMicrosoftLogin);
+        }
+    } else {
+        // On non-login pages (like admin), just setup the button if present
+        if (microsoftLoginBtn) {
+            microsoftLoginBtn.addEventListener('click', handleMicrosoftLogin);
+        }
     }
 });
+
+// Utility function to get auth token from cookie or localStorage
+function getAuthToken() {
+    // Try to get from localStorage first
+    const localToken = localStorage.getItem('session_token');
+    if (localToken) {
+        return localToken;
+    }
+
+    // Try to get from cookie
+    const cookies = document.cookie.split('; ');
+    const sessionCookie = cookies.find(row => row.startsWith('slide_review_session='));
+    if (sessionCookie) {
+        return sessionCookie.split('=')[1];
+    }
+
+    return null;
+}
 
 // Export for use in other scripts
 window.auth = {
     checkAuth,
     showStatus,
-    hideStatus
+    hideStatus,
+    getAuthToken
 };
+
+// Make getAuthToken available globally for inline scripts
+window.getAuthToken = getAuthToken;
