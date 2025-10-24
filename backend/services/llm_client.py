@@ -18,7 +18,7 @@ if not logger.handlers:
     h = logging.StreamHandler()
     h.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(name)s: %(message)s"))
     logger.addHandler(h)
-logger.setLevel(getattr(settings, "log_level", logging.INFO))
+logger.setLevel(settings.get_log_level())
 
 
 class LLMClient:

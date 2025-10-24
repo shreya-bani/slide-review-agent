@@ -9,19 +9,37 @@ from pathlib import Path
 from typing import Optional
 from datetime import datetime
 
-from fastapi import FastAPI, HTTPException, UploadFile, File, Form, Request, Response
+from fastapi import FastAPI, HTTPException, UploadFile, File, Form, Request, Response, Depends  # <-- added Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import JSONResponse, FileResponse
+from fastapi.responses import JSONResponse, FileResponse, RedirectResponse
 from starlette.responses import StreamingResponse
 from logging import Handler, LogRecord
 
 from .config.settings import settings
+from .database.database import init_db, get_db_sync
+
+# auth imports (new)
+from .services.auth_dependencies import (
+    get_current_user,
+    get_current_active_user,
+    get_current_admin_user,  # Admin-only routes protection
+)
+from .database.models import (
+    User,
+    Document,
+    AnalysisResult,
+    StyleIssue,
+    AuditLog,
+    DocumentType,
+    IssueSeverity,
+    IssueCategory
+)
+from sqlalchemy.orm import Session
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
 
 # Import document processors
 try:
@@ -33,7 +51,6 @@ except Exception as e:
     PPTXReader = None
     PDFReader = None
     DocumentNormalizer = None
-
 
 # Import analyzers
 try:
@@ -107,6 +124,32 @@ def create_app() -> FastAPI:
 
 app = create_app()
 
+# Initialize database
+@app.on_event("startup")
+async def startup_event():
+    """Initialize database and other startup tasks."""
+    try:
+        init_db()
+        logger.info("Database initialized successfully")
+    except Exception as e:
+        logger.error(f"Failed to initialize database: {e}")
+
+# Include authentication router
+try:
+    from .routers.auth_router import router as auth_router
+    app.include_router(auth_router)
+    logger.info("Authentication router included")
+except Exception as e:
+    logger.warning(f"Could not include auth router: {e}")
+
+# Include admin router
+try:
+    from .routers.admin_router import router as admin_router
+    app.include_router(admin_router)
+    logger.info("Admin router included")
+except Exception as e:
+    logger.warning(f"Could not include admin router: {e}")
+
 # Frontend static files
 REPO_ROOT = Path(__file__).resolve().parent.parent
 FRONTEND_DIR = REPO_ROOT / "frontend"
@@ -162,7 +205,12 @@ def write_json(path: Path, obj: dict) -> None:
 # API Endpoints
 @app.get("/")
 async def root():
-    """Root endpoint - health check."""
+    """Redirect root to login page."""
+    return RedirectResponse(url="/pages/login.html")
+
+@app.get("/api")
+async def api_root():
+    """API endpoint - health check."""
     return {
         "app": settings.app_name,
         "version": "1.0.0",
@@ -170,9 +218,10 @@ async def root():
         "environment": settings.environment
     }
 
+# PROTECTED: user must be signed in
 @app.get("/app")
-async def serve_frontend():
-    """Serve the frontend application."""
+async def serve_frontend(current_user: User = Depends(get_current_user)):
+    """Serve the frontend application (protected)."""
     index_file = PAGES_DIR / "main.html"
     if not index_file.exists():
         raise HTTPException(status_code=404, detail="Frontend not found")
@@ -215,11 +264,14 @@ async def health_check():
             status_code=503
         )
 
+# PROTECTED: signed-in & active user required
 @app.post("/upload-document")
 async def upload_document(
     request: Request,
     file: UploadFile = File(...),
-    user_info: str = Form(...)
+    user_info: str = Form(...),
+    current_user: User = Depends(get_current_active_user),  # <-- added protection
+    db: Session = Depends(get_db_sync),  # <-- database session
 ):
     """Upload and analyze a document with complete pipeline."""
     user_info = user_info.strip()
@@ -256,18 +308,55 @@ async def upload_document(
                 written += len(chunk)
                 if written > max_bytes:
                     buffer.close()
-                    try: 
+                    try:
                         os.remove(file_path)
-                    except: 
+                    except:
                         pass
                     raise HTTPException(400, f"File too large. Maximum: {settings.max_file_size_mb}MB")
                 buffer.write(chunk)
     except Exception as e:
-        try: 
+        try:
             os.remove(file_path)
-        except: 
+        except:
             pass
         raise HTTPException(500, f"Failed to save file: {str(e)}")
+
+    # Create document record in database
+    try:
+        document_type = DocumentType.PPTX if file_extension == '.pptx' else DocumentType.PDF
+        db_document = Document(
+            file_id=file_id,
+            original_filename=file.filename,
+            clean_filename=clean_filename,
+            document_type=document_type,
+            file_size_bytes=written,
+            user_id=current_user.id,
+            user_info=user_info,
+            upload_path=clean_filename,  # Relative path in upload dir
+        )
+        db.add(db_document)
+        db.commit()
+        db.refresh(db_document)
+        logger.info(f"Document record created in database: ID={db_document.id}, file_id={file_id}")
+
+        # Log audit event
+        audit_log = AuditLog(
+            user_id=current_user.id,
+            action="upload_document",
+            resource_type="document",
+            resource_id=file_id,
+            ip_address=request.client.host if request.client else None,
+            user_agent=request.headers.get("user-agent"),
+            details={"filename": file.filename, "size_bytes": written}
+        )
+        db.add(audit_log)
+        db.commit()
+
+    except Exception as e:
+        db.rollback()
+        logger.error(f"Failed to create document record: {e}")
+        # Continue processing even if DB save fails
+        db_document = None
 
     # Check cache
     if file_id in processed_files:
@@ -285,26 +374,32 @@ async def upload_document(
         original_filename=file.filename,
         user_info=user_info,
         file_id=file_id,
-        doc_id=doc_id
+        doc_id=doc_id,
+        db=db,
+        db_document=db_document,
+        current_user=current_user
     )
-    
+
     # Cache result
     processed_files[file_id] = processing_result
-    
+
     return JSONResponse(content=processing_result, status_code=200)
 
 async def process_and_analyze_document(
-    file_path: str, 
+    file_path: str,
     original_filename: str,
-    user_info: str, 
-    file_id: str, 
-    doc_id: int
+    user_info: str,
+    file_id: str,
+    doc_id: int,
+    db: Session = None,
+    db_document: Document = None,
+    current_user: User = None
 ) -> dict:
     """Complete document processing and analysis pipeline."""
     try:
         if not DocumentNormalizer or not CombinedAnalyzer:
             raise Exception("Processors or analyzers not available")
-        
+
         start_time = datetime.now()
         logger.info(f"Time processing started at {start_time.isoformat(timespec='seconds')}")
 
@@ -405,13 +500,106 @@ async def process_and_analyze_document(
             output_dir / f"{file_id}_{clean_stem}_result.json",
             processing_result
         )
-        # After all JSON writes are done
+
+        # Timing log
         end_time = datetime.now()
         duration = (end_time - start_time).total_seconds()
         logger.info(
             f"Finished processing at {end_time.isoformat(timespec='seconds')} "
             f"(Duration: {duration:.2f}s)"
         )
+
+        # Save analysis results to database
+        if db and db_document:
+            try:
+                # Update document with processed timestamp and output path
+                db_document.processed_at = end_time
+                db_document.output_path = f"{file_id}_{clean_stem}_result.json"
+
+                # Create analysis result record
+                analysis_result = AnalysisResult(
+                    document_id=db_document.id,
+                    total_issues=analysis_report["summary"]["total_issues"],
+                    grammar_issues=analysis_report["summary"]["grammar_issues"],
+                    tone_issues=analysis_report["summary"]["tone_issues"],
+                    issues_with_suggestions=analysis_report["summary"]["issues_with_suggestions"],
+                    severity_breakdown=analysis_report["summary"]["severity_breakdown"],
+                    category_breakdown=analysis_report["summary"]["category_breakdown"],
+                    rule_breakdown=analysis_report["summary"]["rule_breakdown"],
+                    total_pages=normalized_doc["summary"]["total_pages"],
+                    total_elements=normalized_doc["summary"]["total_elements"],
+                    processing_time_seconds=duration
+                )
+                db.add(analysis_result)
+                db.commit()
+                db.refresh(analysis_result)
+                logger.info(f"Analysis result saved: ID={analysis_result.id}")
+
+                # Create style issue records
+                severity_map = {
+                    # Database enum values
+                    "critical": IssueSeverity.CRITICAL,
+                    "high": IssueSeverity.HIGH,
+                    "medium": IssueSeverity.MEDIUM,
+                    "low": IssueSeverity.LOW,
+                    "info": IssueSeverity.INFO,
+                    # Analyzer enum values -> map to database equivalents
+                    "error": IssueSeverity.HIGH,
+                    "warning": IssueSeverity.MEDIUM,
+                    "suggestion": IssueSeverity.LOW
+                }
+                category_map = {
+                    "grammar": IssueCategory.GRAMMAR,
+                    "tone": IssueCategory.TONE,
+                    "tone-issue": IssueCategory.TONE,  # Handle "tone-issue" from analyzer
+                    "style": IssueCategory.STYLE,
+                    "formatting": IssueCategory.FORMATTING,
+                    "content": IssueCategory.CONTENT,
+                    "filename": IssueCategory.STYLE  # Map filename issues to STYLE category
+                }
+
+                for issue in analysis_report.get("all_issues", []):
+                    try:
+                        style_issue = StyleIssue(
+                            analysis_id=analysis_result.id,
+                            category=category_map.get(issue.get("category", "grammar"), IssueCategory.GRAMMAR),
+                            severity=severity_map.get(issue.get("severity", "medium"), IssueSeverity.MEDIUM),
+                            rule_name=issue.get("rule_name", "unknown"),
+                            slide_number=issue.get("page_or_slide_index"),
+                            element_type=issue.get("element_type"),
+                            element_index=issue.get("element_index"),
+                            original_text=issue.get("found_text", ""),
+                            suggested_text=issue.get("suggestion"),
+                            explanation=issue.get("description")
+                        )
+                        db.add(style_issue)
+                    except Exception as e:
+                        logger.error(f"Failed to create style issue record: {e}")
+                        continue
+
+                db.commit()
+                logger.info(f"Saved {len(analysis_report.get('all_issues', []))} style issues to database")
+
+                # Log audit event for analysis completion
+                if current_user:
+                    audit_log = AuditLog(
+                        user_id=current_user.id,
+                        action="analyze_document",
+                        resource_type="document",
+                        resource_id=file_id,
+                        details={
+                            "total_issues": analysis_report["summary"]["total_issues"],
+                            "processing_time": duration
+                        }
+                    )
+                    db.add(audit_log)
+                    db.commit()
+
+            except Exception as e:
+                db.rollback()
+                logger.error(f"Failed to save analysis results to database: {e}")
+                import traceback
+                traceback.print_exc()
 
         logger.info(f"Processing complete for document_id {file_id}")
         return processing_result
@@ -420,8 +608,6 @@ async def process_and_analyze_document(
         logger.error(f"Processing error for document_id {file_id}: {e}")
         import traceback
         traceback.print_exc()
-
-        
         return {
             "success": False,
             "error": str(e),
@@ -430,9 +616,10 @@ async def process_and_analyze_document(
             "original_filename": original_filename
         }
 
+# PROTECTED: signed-in user required
 @app.get("/analysis-history")
-async def get_analysis_history():
-    """Get list of previous analyses."""
+async def get_analysis_history(current_user: User = Depends(get_current_user)):
+    """Get list of previous analyses (protected)."""
     try:
         output_dir = Path(settings.output_dir)
         analysis_files = list(output_dir.glob("*_combined_analysis.json"))
@@ -459,7 +646,7 @@ async def get_analysis_history():
         
     except Exception as e:
         return JSONResponse(content={"error": str(e)}, status_code=500)
-    
+
 async def _fanout_logs():
     while True:
         item = await _broadcast_queue.get()
@@ -475,9 +662,10 @@ async def _fanout_logs():
 async def _startup_bg():
     asyncio.create_task(_fanout_logs())
 
-# SSE endpoint that each browser subscribes to
+# PROTECTED: Admin-only endpoint to stream logs
 @app.get("/logs/stream")
-async def logs_stream():
+async def logs_stream(current_admin: User = Depends(get_current_admin_user)):
+    """Stream server logs in real-time. Admin only."""
     client_q: asyncio.Queue = asyncio.Queue(maxsize=1000)
     _clients.add(client_q)
 

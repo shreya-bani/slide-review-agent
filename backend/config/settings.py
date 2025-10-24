@@ -49,7 +49,14 @@ class Settings(BaseSettings):
     # DB
     database_url: str = Field(default=f"sqlite:///{PROJECT_ROOT}/data/slide_review.db",
                               alias="DATABASE_URL")
-    
+    database_url_sync: Optional[str] = Field(default=None, alias="DATABASE_URL_SYNC")
+    database_schema: str = Field(default="public", alias="DATABASE_SCHEMA")
+
+    # Database pool settings (for PostgreSQL)
+    db_pool_size: int = Field(default=20, alias="DB_POOL_SIZE")
+    db_max_overflow: int = Field(default=10, alias="DB_MAX_OVERFLOW")
+    db_pool_timeout: int = Field(default=30, alias="DB_POOL_TIMEOUT")
+
     log_dir: str = Field(default=f"{PROJECT_ROOT}/logs", alias="LOG_DIR")
     output_dir: str = Field(default=f"{PROJECT_ROOT}/outputs", alias="OUTPUT_DIR")
     upload_dir: str = Field(default=f"{PROJECT_ROOT}/uploads", alias="UPLOAD_DIR")
@@ -61,7 +68,7 @@ class Settings(BaseSettings):
     # llm_api_endpoint: str = Field(default="https://router.huggingface.co/v1/chat/completions", alias="LLM_API_ENDPOINT")
 
     # Logging
-    log_level: int = Field(default=logging.INFO, alias="LOG_LEVEL")
+    log_level: str = Field(default="INFO", alias="LOG_LEVEL")
 
     # Azure OpenAI configuration
     llm_model: str = Field(default="gpt-5-chat", alias="LLM_MODEL")
@@ -75,16 +82,44 @@ class Settings(BaseSettings):
         case_sensitive = False
 
     # helpers
+    def get_log_level(self) -> int:
+        """
+        Convert string log level to logging constant.
+
+        Returns:
+            logging level constant (e.g., logging.INFO)
+        """
+        level_map = {
+            "DEBUG": logging.DEBUG,
+            "INFO": logging.INFO,
+            "WARNING": logging.WARNING,
+            "ERROR": logging.ERROR,
+            "CRITICAL": logging.CRITICAL
+        }
+        return level_map.get(self.log_level.upper(), logging.INFO)
+
     def validate_llm_config(self) -> bool:
         return bool((self.llm_api_key or "").strip()
                     and (self.llm_model or "").strip()
                     and (self.llm_api_endpoint or "").strip())
 
+    def is_postgres(self) -> bool:
+        """Check if using PostgreSQL database."""
+        return "postgresql" in self.database_url.lower()
+
     def log_summary(self) -> None:
         logger.info("App: %s | Env: %s | Debug=%s", self.app_name, self.environment, self.debug)
         logger.info("Server: %s:%s", self.host, self.port)
         logger.info("CORS Origins: %s", self.cors_origins)
-        logger.info("Database URL: %s", self.database_url)
+
+        # Database info
+        db_type = "PostgreSQL" if self.is_postgres() else "SQLite"
+        logger.info("Database Type: %s", db_type)
+        logger.info("Database URL: %s", self.database_url[:50] + "..." if len(self.database_url) > 50 else self.database_url)
+        if self.is_postgres():
+            logger.info("Database Schema: %s", self.database_schema)
+            logger.info("Pool Size: %s | Max Overflow: %s", self.db_pool_size, self.db_max_overflow)
+
         logger.info("LLM Provider: %s", self.llm_provider)
         logger.info("LLM Model: %s", self.llm_model)
         logger.info("LLM Endpoint: %s", self.llm_api_endpoint)

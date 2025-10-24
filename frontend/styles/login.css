@@ -1,0 +1,353 @@
+/* === Login Page Specific Styles — 5x Smaller Variant === */
+
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(8px, 1.5vw, 12px);
+    background: var(--background);
+}
+
+/* Whole card shrunk from 1400px to ~560px total */
+.login-split-layout {
+    display: grid;
+    grid-template-columns: minmax(220px, 1fr) minmax(200px, 1fr); /* was 400px mins */
+    max-width: 850px;     /* ≈ 1400 / 2.5, keeps both sides visible */
+    width: 100%;
+    background: var(--card);
+    border-radius: clamp(8px, 1.2vw, 12px);
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
+    transition: box-shadow 0.3s ease;
+}
+
+@media (hover: hover) {
+    .login-split-layout:hover {
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+}
+
+/* Login Panel (Left Side) — tighter paddings */
+.login-panel {
+    padding: clamp(14px, 3vh, 18px) clamp(12px, 2vw, 18px); /* was big */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Form column narrower */
+.login-card {
+    max-width: 300px; /* was 520px */
+    margin: 0 auto;
+    width: 100%;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: clamp(14px, 2.5vh, 16px);
+}
+
+.login-logo {
+    display: inline-flex;
+    margin-bottom: clamp(8px, 1.5vh, 10px);
+    transition: transform 0.3s ease;
+}
+.login-logo:hover { transform: scale(1.04); }
+
+/* Fonts reduced ~40–50% */
+.login-title {
+    font-size: clamp(18px, 1.8vw, 20px);
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 6px 0;
+    line-height: 1.2;
+}
+
+.login-subtitle {
+    font-size: clamp(10px, 1.1vw, 12px);
+    color: var(--text-secondary);
+    margin: 0 auto;
+    line-height: 1.4;
+    max-width: 95%;
+}
+
+.login-content { margin-bottom: clamp(12px, 2.2vh, 16px); }
+
+.welcome-message { margin-bottom: clamp(10px, 2vh, 14px); }
+
+.welcome-message h2 {
+    font-size: clamp(11px, 1.4vw, 13px);
+    font-weight: 600;
+    color: var(--text);
+    margin: 0 0 6px 0;
+    line-height: 1.25;
+}
+
+.welcome-message p {
+    font-size: clamp(10px, 1.1vw, 12px);
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Microsoft Login Button — slimmer */
+.microsoft-btn {
+    width: 100%;
+    padding: clamp(8px, 1.8vh, 10px) clamp(10px, 2vw, 14px);
+    background: #ffffff;
+    color: #5E5E5E;
+    border: 1px solid #8C8C8C;  /* thinner */
+    border-radius: 4px;
+    font-size: clamp(11px, 1.2vw, 12px);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(6px, 1vw, 8px);
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+.microsoft-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+}
+.microsoft-btn:hover::before { transform: translateX(100%); }
+.microsoft-btn:hover {
+    background: #f8f8f8;
+    border-color: #6C6C6C;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+.microsoft-btn:active {
+    background: #e5e5e5;
+    transform: translateY(0);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+.microsoft-btn:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+.microsoft-icon { flex-shrink: 0; transition: transform 0.3s ease; }
+.microsoft-btn:hover .microsoft-icon { transform: scale(1.06); }
+
+/* Dark mode tweaks */
+[data-theme="dark"] .microsoft-btn {
+    background: #2b2b2b;
+    color: #ffffff;
+    border-color: #5E5E5E;
+}
+[data-theme="dark"] .microsoft-btn:hover { background: #3a3a3a; border-color: #7E7E7E; }
+[data-theme="dark"] .microsoft-btn:active { background: #444444; }
+[data-theme="dark"] .microsoft-btn::before {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
+}
+
+/* Status Message — scaled down */
+.status-message {
+    padding: 8px 10px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.status-message.error   { background: color-mix(in srgb, var(--error) 10%, var(--card));   color: var(--error);   border: 1px solid color-mix(in srgb, var(--error) 24%, transparent); }
+.status-message.success { background: color-mix(in srgb, var(--success) 10%, var(--card)); color: var(--success); border: 1px solid color-mix(in srgb, var(--success) 24%, transparent); }
+.status-message.info    { background: color-mix(in srgb, var(--primary) 10%, var(--card)); color: var(--primary); border: 1px solid color-mix(in srgb, var(--primary) 24%, transparent); }
+
+/* Divider — thinner */
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 12px 0;
+    text-align: center;
+}
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--border);
+}
+.divider span {
+    padding: 0 8px;
+    font-size: 10px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+/* Info Box — smaller */
+.info-box {
+    display: flex;
+    gap: 8px;
+    padding: 10px;
+    background: color-mix(in srgb, var(--primary) 5%, var(--card));
+    border: 1px solid color-mix(in srgb, var(--primary) 18%, transparent);
+    border-radius: 6px;
+    font-size: 11px;
+    line-height: 1.45;
+    color: var(--text-secondary);
+}
+.info-box svg { flex-shrink: 0; color: var(--primary); margin-top: 1px; }
+.info-text strong { color: var(--text); font-weight: 600; }
+
+/* Footer — compact */
+.login-footer {
+    text-align: center;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+}
+.login-footer p {
+    font-size: 10px;
+    color: var(--text-secondary);
+    margin: 0 0 6px 0;
+}
+.footer-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+.footer-link {
+    font-size: 10px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+.footer-link:hover { color: var(--primary); }
+.separator { color: var(--text-tertiary); font-size: 10px; }
+
+/* Features Panel (Right Side) — reduced everything */
+.features-panel {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: clamp(14px, 3vh, 18px) clamp(8px, 1.6vw, 10px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+.features-panel::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+}
+.features-content {
+    max-width: 350px; /* was 520px */
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+.features-title {
+    font-size: clamp(14px, 2.2vw, 18px); /* was up to 36px */
+    font-weight: 700;
+    margin: 0 0 clamp(14px, 3vh, 18px) 0;
+    color: white;
+    line-height: 1.2;
+}
+.feature-item {
+    display: flex;
+    gap: clamp(8px, 1.4vw, 10px);
+    margin-bottom: clamp(12px, 2.6vh, 16px);
+    transition: transform 0.3s ease;
+}
+.feature-item:last-child { margin-bottom: 0; }
+.feature-item:hover { transform: translateX(6px); }
+
+.feature-icon {
+    flex-shrink: 0;
+    width: clamp(24px, 4vw, 28px);
+    height: clamp(24px, 4vw, 28px);
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+.feature-item:hover .feature-icon {
+    background: rgba(255, 255, 255, 0.22);
+    transform: scale(1.04);
+}
+.feature-icon svg { color: white; width: clamp(14px, 2.4vw, 16px); height: clamp(14px, 2.4vw, 16px); }
+
+.feature-text h3 {
+    font-size: clamp(11px, 1.6vw, 13px);
+    font-weight: 600;
+    margin: 0 0 6px 0;
+    color: white;
+    line-height: 1.25;
+}
+.feature-text p {
+    font-size: clamp(10px, 1.4vw, 12px);
+    line-height: 1.45;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Responsive Design — still stacks on tablets/phones */
+@media (max-width: 1024px) {
+    .login-split-layout {
+        grid-template-columns: 1fr;
+        max-width: 360px; /* smaller single-column card */
+    }
+    .features-panel { display: none; }
+    .login-panel { padding: clamp(16px, 4vh, 20px) clamp(12px, 3vw, 16px); }
+}
+
+@media (max-width: 640px) {
+    .login-container { padding: 10px; }
+    .login-split-layout { border-radius: 10px; }
+    .login-panel { padding: 14px 12px; }
+    .login-header { margin-bottom: 14px; }
+    .login-logo { margin-bottom: 10px; }
+    .welcome-message { margin-bottom: 12px; }
+    .info-box { flex-direction: column; gap: 8px; }
+    .info-box svg { margin-top: 0; }
+}
+
+@media (max-width: 400px) {
+    .login-panel { padding: 12px 10px; }
+    .footer-links { flex-direction: column; gap: 6px; }
+    .separator { display: none; }
+}
+
+/* Theme Toggle Position for Login Page — keep small */
+.theme-toggle-wrapper {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    z-index: 1000;
+}
+.theme-toggle-wrapper .btn-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--card);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+.theme-toggle-wrapper .btn-icon:hover { background: var(--hover); border-color: var(--primary); }

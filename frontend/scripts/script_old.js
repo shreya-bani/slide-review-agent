@@ -1,8 +1,5 @@
 const API_BASE_URL = window.location.origin;
 
-// Authentication state
-let currentUser = null;
-
 // Application state
 let currentFile = null;
 let analysisResult = null;
@@ -208,9 +205,6 @@ function updateTimes() {
 async function startAnalysis() {
   if (!currentFile) return;
   console.log('Starting analysis for:', currentFile.name, 'User:', elements.userInfo?.value);
-
-  // Show the status line when analysis starts
-  elements.statusLine?.classList.remove('hidden');
 
   // Immediately reflect "Uploaded by" in the UI (pre-backend)
   elements.metaUploader.textContent = elements.userInfo.value.trim() || '--';
@@ -724,7 +718,7 @@ function setupEventListeners() {
     updateAnalyzeEnabled();
   });
 
-
+  
 
   elements.visualViewBtn?.addEventListener('click', () => toggleView('visual'));
   elements.jsonViewBtn?.addEventListener('click', () => toggleView('json'));
@@ -744,122 +738,12 @@ function setupEventListeners() {
 }
 
 
-// Authentication check
-async function checkAuthentication() {
-  try {
-    const response = await fetch(`${API_BASE_URL}/auth/me`, {
-      method: 'GET',
-      credentials: 'include'
-    });
-
-    if (!response.ok) {
-      console.warn('Not authenticated, redirecting to login...');
-      window.location.href = '/pages/login.html';
-      return false;
-    }
-
-    const data = await response.json();
-
-    if (!data.authenticated) {
-      console.warn('User not authenticated, redirecting to login...');
-      window.location.href = '/pages/login.html';
-      return false;
-    }
-
-    // User is authenticated
-    currentUser = data.user;
-    console.log('User authenticated:', currentUser.email);
-    updateUserDisplay();
-    return true;
-
-  } catch (error) {
-    console.error('Authentication check failed:', error);
-    window.location.href = '/pages/login.html';
-    return false;
-  }
-}
-
-// Update user display in UI
-function updateUserDisplay() {
-  if (!currentUser) return;
-
-  // Update meta-uploader field if it exists
-  if (elements.metaUploader) {
-    elements.metaUploader.value = currentUser.display_name || currentUser.email;
-  }
-
-  // Update user info in header
-  const userInfoDisplay = document.getElementById('user-info-display');
-  if (userInfoDisplay) {
-    userInfoDisplay.innerHTML = `
-      <div class="user-info-text">
-        <div class="user-name">${currentUser.display_name || 'User'}</div>
-        <div class="user-email">${currentUser.email}</div>
-      </div>
-    `;
-  }
-
-  // Add logout event listener to header button
-  const logoutBtnHeader = document.getElementById('logout-btn-header');
-  if (logoutBtnHeader && !logoutBtnHeader.hasAttribute('data-listener')) {
-    logoutBtnHeader.addEventListener('click', handleLogout);
-    logoutBtnHeader.setAttribute('data-listener', 'true');
-  }
-
-  // Show admin buttons if user is admin
-  if (currentUser.role === 'ADMIN') {
-    const adminDashboardBtn = document.getElementById('admin-dashboard-btn');
-    const logsBtn = document.getElementById('logs-btn');
-
-    if (adminDashboardBtn) {
-      adminDashboardBtn.style.display = 'flex';
-      adminDashboardBtn.classList.remove('hidden');
-      adminDashboardBtn.addEventListener('click', () => {
-        window.location.href = '/pages/admin.html';
-      });
-    }
-
-    if (logsBtn) {
-      logsBtn.style.display = 'flex';
-      logsBtn.classList.remove('hidden');
-    }
-  }
-}
-
-// Handle logout
-async function handleLogout() {
-  try {
-    const response = await fetch(`${API_BASE_URL}/auth/logout`, {
-      method: 'POST',
-      credentials: 'include'
-    });
-
-    if (response.ok) {
-      console.log('Logged out successfully');
-      window.location.href = '/pages/login.html';
-    } else {
-      console.error('Logout failed');
-      // Redirect anyway
-      window.location.href = '/pages/login.html';
-    }
-  } catch (error) {
-    console.error('Logout error:', error);
-    // Redirect anyway
-    window.location.href = '/pages/login.html';
-  }
-}
-
-async function init() {
-  // Check authentication first
-  const isAuthenticated = await checkAuthentication();
-  if (!isAuthenticated) {
-    return; // Stop initialization if not authenticated
-  }
-
-  // Continue with normal initialization
+function init() {
   initTheme();
   setupEventListeners();
   setupDragAndDrop();
+  updateStatus('idle');
+  updateTimes();
   updateLogsCount();
   testBackendConnection();
   console.log('Document Analysis Application initialized');
