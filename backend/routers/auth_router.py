@@ -8,7 +8,7 @@ from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
 from fastapi.responses import JSONResponse, RedirectResponse
 from sqlalchemy.orm import Session
 
-from ..database.database import get_db
+from ..database.database import get_db_sync
 from ..config.azure_config import azure_settings
 from ..services.auth_service import azure_ad_service
 from ..services.jwt_service import jwt_service
@@ -67,7 +67,7 @@ async def auth_callback(
     error: Optional[str] = None,
     error_description: Optional[str] = None,
     state: Optional[str] = None,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db_sync)
 ):
     """
     Azure AD OAuth callback endpoint.
@@ -226,7 +226,7 @@ async def logout(
     request: Request,
     response: Response,
     current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db_sync)
 ):
     """
     Logout current user - invalidate session and clear cookie.

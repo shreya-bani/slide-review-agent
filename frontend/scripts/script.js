@@ -209,6 +209,9 @@ async function startAnalysis() {
   if (!currentFile) return;
   console.log('Starting analysis for:', currentFile.name, 'User:', elements.userInfo?.value);
 
+  // Show the status line when analysis starts
+  elements.statusLine?.classList.remove('hidden');
+
   // Immediately reflect "Uploaded by" in the UI (pre-backend)
   elements.metaUploader.textContent = elements.userInfo.value.trim() || '--';
 
@@ -721,7 +724,7 @@ function setupEventListeners() {
     updateAnalyzeEnabled();
   });
 
-  
+
 
   elements.visualViewBtn?.addEventListener('click', () => toggleView('visual'));
   elements.jsonViewBtn?.addEventListener('click', () => toggleView('json'));
@@ -857,8 +860,6 @@ async function init() {
   initTheme();
   setupEventListeners();
   setupDragAndDrop();
-  updateStatus('idle');
-  updateTimes();
   updateLogsCount();
   testBackendConnection();
   console.log('Document Analysis Application initialized');

@@ -8,8 +8,8 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import func, desc
 from sqlalchemy.orm import Session
 
-from ..database.database import get_db
-from ..database.models import User, Session as DBSession, UserRole
+from ..database.database import get_db_sync
+from ..database.models import User, Session as DBSession, UserRole, Document, AnalysisResult
 from ..services.auth_dependencies import get_current_admin_user
 from ..config.settings import settings
 
@@ -21,7 +21,7 @@ router = APIRouter(prefix="/admin", tags=["admin"])
 @router.get("/analytics/overview")
 async def get_analytics_overview(
     current_admin: User = Depends(get_current_admin_user),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db_sync)
 ) -> Dict[str, Any]:
     """
     Get high-level analytics overview.
@@ -54,12 +54,15 @@ async def get_analytics_overview(
             User.last_login >= last_7d
         ).scalar()
 
-        # Get document count from filesystem
-        import glob
-        from pathlib import Path
-        upload_dir = Path(settings.upload_dir)
-        doc_count = len(list(glob.glob(str(upload_dir / "*.pptx")))) + \
-                   len(list(glob.glob(str(upload_dir / "*.pdf"))))
+        # Get document counts from database
+        total_documents = db.query(func.count(Document.id)).scalar()
+        processed_documents = db.query(func.count(Document.id)).filter(
+            Document.processed_at != None
+        ).scalar()
+
+        # Analysis statistics
+        total_analyses = db.query(func.count(AnalysisResult.id)).scalar()
+        total_issues = db.query(func.sum(AnalysisResult.total_issues)).scalar()
 
         return {
             "users": {
@@ -77,7 +80,13 @@ async def get_analytics_overview(
                 "logins_last_7d": weekly_logins or 0
             },
             "documents": {
-                "total_uploaded": doc_count
+                "total_uploaded": total_documents or 0,
+                "processed": processed_documents or 0,
+                "pending": (total_documents or 0) - (processed_documents or 0)
+            },
+            "analysis": {
+                "total_analyses": total_analyses or 0,
+                "total_issues_found": int(total_issues) if total_issues else 0
             },
             "system": {
                 "uptime_hours": "N/A",  # Can be implemented with process tracking
@@ -95,7 +104,7 @@ async def get_analytics_overview(
 @router.get("/users")
 async def list_all_users(
     current_admin: User = Depends(get_current_admin_user),
-    db: Session = Depends(get_db),
+    db: Session = Depends(get_db_sync),
     limit: int = 100,
     offset: int = 0
 ) -> Dict[str, Any]:
@@ -127,7 +136,7 @@ async def list_all_users(
 @router.get("/users/recent-logins")
 async def get_recent_logins(
     current_admin: User = Depends(get_current_admin_user),
-    db: Session = Depends(get_db),
+    db: Session = Depends(get_db_sync),
     limit: int = 20
 ) -> List[Dict[str, Any]]:
     """
@@ -156,7 +165,7 @@ async def get_recent_logins(
 @router.get("/sessions/active")
 async def get_active_sessions(
     current_admin: User = Depends(get_current_admin_user),
-    db: Session = Depends(get_db),
+    db: Session = Depends(get_db_sync),
     limit: int = 50
 ) -> List[Dict[str, Any]]:
     """
@@ -194,51 +203,52 @@ async def get_active_sessions(
 @router.get("/documents/recent")
 async def get_recent_documents(
     current_admin: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db_sync),
     limit: int = 50
 ) -> List[Dict[str, Any]]:
     """
-    Get recent document uploads.
+    Get recent document uploads from database.
     Admin only.
     """
     try:
-        import glob
-        from pathlib import Path
+        # Query documents from database, ordered by upload time
+        documents = db.query(Document).order_by(desc(Document.uploaded_at)).limit(limit).all()
 
-        upload_dir = Path(settings.upload_dir)
+        result = []
+        for doc in documents:
+            # Get associated user if available
+            user = db.query(User).filter(User.id == doc.user_id).first() if doc.user_id else None
 
-        # Get all documents with metadata
-        documents = []
+            # Get analysis results if available
+            analysis = db.query(AnalysisResult).filter(
+                AnalysisResult.document_id == doc.id
+            ).first()
 
-        # Get PPTX files
-        for filepath in glob.glob(str(upload_dir / "*.pptx")):
-            path = Path(filepath)
-            stat = path.stat()
-            documents.append({
-                "filename": path.name,
-                "type": "pptx",
-                "size_bytes": stat.st_size,
-                "size_mb": round(stat.st_size / (1024 * 1024), 2),
-                "uploaded_at": datetime.fromtimestamp(stat.st_mtime).isoformat(),
-                "doc_id": path.stem.split("_")[0] if "_" in path.stem else "unknown"
+            result.append({
+                "id": doc.id,
+                "file_id": doc.file_id,
+                "filename": doc.original_filename,
+                "clean_filename": doc.clean_filename,
+                "type": doc.document_type.value,
+                "size_bytes": doc.file_size_bytes,
+                "size_mb": round(doc.file_size_bytes / (1024 * 1024), 2) if doc.file_size_bytes else 0,
+                "uploaded_at": doc.uploaded_at.isoformat() if doc.uploaded_at else None,
+                "processed_at": doc.processed_at.isoformat() if doc.processed_at else None,
+                "is_processed": doc.processed_at is not None,
+                "uploaded_by": {
+                    "email": user.email if user else None,
+                    "display_name": user.display_name if user else None,
+                    "user_info": doc.user_info  # Legacy uploader info
+                },
+                "analysis": {
+                    "total_issues": analysis.total_issues if analysis else None,
+                    "grammar_issues": analysis.grammar_issues if analysis else None,
+                    "tone_issues": analysis.tone_issues if analysis else None,
+                    "processing_time": analysis.processing_time_seconds if analysis else None
+                } if analysis else None
             })
 
-        # Get PDF files
-        for filepath in glob.glob(str(upload_dir / "*.pdf")):
-            path = Path(filepath)
-            stat = path.stat()
-            documents.append({
-                "filename": path.name,
-                "type": "pdf",
-                "size_bytes": stat.st_size,
-                "size_mb": round(stat.st_size / (1024 * 1024), 2),
-                "uploaded_at": datetime.fromtimestamp(stat.st_mtime).isoformat(),
-                "doc_id": path.stem.split("_")[0] if "_" in path.stem else "unknown"
-            })
-
-        # Sort by upload time (most recent first)
-        documents.sort(key=lambda x: x["uploaded_at"], reverse=True)
-
-        return documents[:limit]
+        return result
     except Exception as e:
         logger.error(f"Error fetching recent documents: {e}")
         raise HTTPException(
@@ -251,7 +261,7 @@ async def get_recent_documents(
 async def deactivate_user(
     user_id: str,
     current_admin: User = Depends(get_current_admin_user),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db_sync)
 ) -> Dict[str, Any]:
     """
     Deactivate a user account.
@@ -297,7 +307,7 @@ async def deactivate_user(
 async def activate_user(
     user_id: str,
     current_admin: User = Depends(get_current_admin_user),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db_sync)
 ) -> Dict[str, Any]:
     """
     Activate a user account.

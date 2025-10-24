@@ -49,7 +49,14 @@ class Settings(BaseSettings):
     # DB
     database_url: str = Field(default=f"sqlite:///{PROJECT_ROOT}/data/slide_review.db",
                               alias="DATABASE_URL")
-    
+    database_url_sync: Optional[str] = Field(default=None, alias="DATABASE_URL_SYNC")
+    database_schema: str = Field(default="public", alias="DATABASE_SCHEMA")
+
+    # Database pool settings (for PostgreSQL)
+    db_pool_size: int = Field(default=20, alias="DB_POOL_SIZE")
+    db_max_overflow: int = Field(default=10, alias="DB_MAX_OVERFLOW")
+    db_pool_timeout: int = Field(default=30, alias="DB_POOL_TIMEOUT")
+
     log_dir: str = Field(default=f"{PROJECT_ROOT}/logs", alias="LOG_DIR")
     output_dir: str = Field(default=f"{PROJECT_ROOT}/outputs", alias="OUTPUT_DIR")
     upload_dir: str = Field(default=f"{PROJECT_ROOT}/uploads", alias="UPLOAD_DIR")
@@ -96,11 +103,23 @@ class Settings(BaseSettings):
                     and (self.llm_model or "").strip()
                     and (self.llm_api_endpoint or "").strip())
 
+    def is_postgres(self) -> bool:
+        """Check if using PostgreSQL database."""
+        return "postgresql" in self.database_url.lower()
+
     def log_summary(self) -> None:
         logger.info("App: %s | Env: %s | Debug=%s", self.app_name, self.environment, self.debug)
         logger.info("Server: %s:%s", self.host, self.port)
         logger.info("CORS Origins: %s", self.cors_origins)
-        logger.info("Database URL: %s", self.database_url)
+
+        # Database info
+        db_type = "PostgreSQL" if self.is_postgres() else "SQLite"
+        logger.info("Database Type: %s", db_type)
+        logger.info("Database URL: %s", self.database_url[:50] + "..." if len(self.database_url) > 50 else self.database_url)
+        if self.is_postgres():
+            logger.info("Database Schema: %s", self.database_schema)
+            logger.info("Pool Size: %s | Max Overflow: %s", self.db_pool_size, self.db_max_overflow)
+
         logger.info("LLM Provider: %s", self.llm_provider)
         logger.info("LLM Model: %s", self.llm_model)
         logger.info("LLM Endpoint: %s", self.llm_api_endpoint)

@@ -17,7 +17,7 @@ from starlette.responses import StreamingResponse
 from logging import Handler, LogRecord
 
 from .config.settings import settings
-from .database.database import init_db
+from .database.database import init_db, get_db_sync
 
 # auth imports (new)
 from .services.auth_dependencies import (
@@ -25,7 +25,17 @@ from .services.auth_dependencies import (
     get_current_active_user,
     get_current_admin_user,  # Admin-only routes protection
 )
-from .database.models import User
+from .database.models import (
+    User,
+    Document,
+    AnalysisResult,
+    StyleIssue,
+    AuditLog,
+    DocumentType,
+    IssueSeverity,
+    IssueCategory
+)
+from sqlalchemy.orm import Session
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -261,6 +271,7 @@ async def upload_document(
     file: UploadFile = File(...),
     user_info: str = Form(...),
     current_user: User = Depends(get_current_active_user),  # <-- added protection
+    db: Session = Depends(get_db_sync),  # <-- database session
 ):
     """Upload and analyze a document with complete pipeline."""
     user_info = user_info.strip()
@@ -297,18 +308,55 @@ async def upload_document(
                 written += len(chunk)
                 if written > max_bytes:
                     buffer.close()
-                    try: 
+                    try:
                         os.remove(file_path)
-                    except: 
+                    except:
                         pass
                     raise HTTPException(400, f"File too large. Maximum: {settings.max_file_size_mb}MB")
                 buffer.write(chunk)
     except Exception as e:
-        try: 
+        try:
             os.remove(file_path)
-        except: 
+        except:
             pass
         raise HTTPException(500, f"Failed to save file: {str(e)}")
+
+    # Create document record in database
+    try:
+        document_type = DocumentType.PPTX if file_extension == '.pptx' else DocumentType.PDF
+        db_document = Document(
+            file_id=file_id,
+            original_filename=file.filename,
+            clean_filename=clean_filename,
+            document_type=document_type,
+            file_size_bytes=written,
+            user_id=current_user.id,
+            user_info=user_info,
+            upload_path=clean_filename,  # Relative path in upload dir
+        )
+        db.add(db_document)
+        db.commit()
+        db.refresh(db_document)
+        logger.info(f"Document record created in database: ID={db_document.id}, file_id={file_id}")
+
+        # Log audit event
+        audit_log = AuditLog(
+            user_id=current_user.id,
+            action="upload_document",
+            resource_type="document",
+            resource_id=file_id,
+            ip_address=request.client.host if request.client else None,
+            user_agent=request.headers.get("user-agent"),
+            details={"filename": file.filename, "size_bytes": written}
+        )
+        db.add(audit_log)
+        db.commit()
+
+    except Exception as e:
+        db.rollback()
+        logger.error(f"Failed to create document record: {e}")
+        # Continue processing even if DB save fails
+        db_document = None
 
     # Check cache
     if file_id in processed_files:
@@ -326,26 +374,32 @@ async def upload_document(
         original_filename=file.filename,
         user_info=user_info,
         file_id=file_id,
-        doc_id=doc_id
+        doc_id=doc_id,
+        db=db,
+        db_document=db_document,
+        current_user=current_user
     )
-    
+
     # Cache result
     processed_files[file_id] = processing_result
-    
+
     return JSONResponse(content=processing_result, status_code=200)
 
 async def process_and_analyze_document(
-    file_path: str, 
+    file_path: str,
     original_filename: str,
-    user_info: str, 
-    file_id: str, 
-    doc_id: int
+    user_info: str,
+    file_id: str,
+    doc_id: int,
+    db: Session = None,
+    db_document: Document = None,
+    current_user: User = None
 ) -> dict:
     """Complete document processing and analysis pipeline."""
     try:
         if not DocumentNormalizer or not CombinedAnalyzer:
             raise Exception("Processors or analyzers not available")
-        
+
         start_time = datetime.now()
         logger.info(f"Time processing started at {start_time.isoformat(timespec='seconds')}")
 
@@ -454,6 +508,98 @@ async def process_and_analyze_document(
             f"Finished processing at {end_time.isoformat(timespec='seconds')} "
             f"(Duration: {duration:.2f}s)"
         )
+
+        # Save analysis results to database
+        if db and db_document:
+            try:
+                # Update document with processed timestamp and output path
+                db_document.processed_at = end_time
+                db_document.output_path = f"{file_id}_{clean_stem}_result.json"
+
+                # Create analysis result record
+                analysis_result = AnalysisResult(
+                    document_id=db_document.id,
+                    total_issues=analysis_report["summary"]["total_issues"],
+                    grammar_issues=analysis_report["summary"]["grammar_issues"],
+                    tone_issues=analysis_report["summary"]["tone_issues"],
+                    issues_with_suggestions=analysis_report["summary"]["issues_with_suggestions"],
+                    severity_breakdown=analysis_report["summary"]["severity_breakdown"],
+                    category_breakdown=analysis_report["summary"]["category_breakdown"],
+                    rule_breakdown=analysis_report["summary"]["rule_breakdown"],
+                    total_pages=normalized_doc["summary"]["total_pages"],
+                    total_elements=normalized_doc["summary"]["total_elements"],
+                    processing_time_seconds=duration
+                )
+                db.add(analysis_result)
+                db.commit()
+                db.refresh(analysis_result)
+                logger.info(f"Analysis result saved: ID={analysis_result.id}")
+
+                # Create style issue records
+                severity_map = {
+                    # Database enum values
+                    "critical": IssueSeverity.CRITICAL,
+                    "high": IssueSeverity.HIGH,
+                    "medium": IssueSeverity.MEDIUM,
+                    "low": IssueSeverity.LOW,
+                    "info": IssueSeverity.INFO,
+                    # Analyzer enum values -> map to database equivalents
+                    "error": IssueSeverity.HIGH,
+                    "warning": IssueSeverity.MEDIUM,
+                    "suggestion": IssueSeverity.LOW
+                }
+                category_map = {
+                    "grammar": IssueCategory.GRAMMAR,
+                    "tone": IssueCategory.TONE,
+                    "tone-issue": IssueCategory.TONE,  # Handle "tone-issue" from analyzer
+                    "style": IssueCategory.STYLE,
+                    "formatting": IssueCategory.FORMATTING,
+                    "content": IssueCategory.CONTENT,
+                    "filename": IssueCategory.STYLE  # Map filename issues to STYLE category
+                }
+
+                for issue in analysis_report.get("all_issues", []):
+                    try:
+                        style_issue = StyleIssue(
+                            analysis_id=analysis_result.id,
+                            category=category_map.get(issue.get("category", "grammar"), IssueCategory.GRAMMAR),
+                            severity=severity_map.get(issue.get("severity", "medium"), IssueSeverity.MEDIUM),
+                            rule_name=issue.get("rule_name", "unknown"),
+                            slide_number=issue.get("page_or_slide_index"),
+                            element_type=issue.get("element_type"),
+                            element_index=issue.get("element_index"),
+                            original_text=issue.get("found_text", ""),
+                            suggested_text=issue.get("suggestion"),
+                            explanation=issue.get("description")
+                        )
+                        db.add(style_issue)
+                    except Exception as e:
+                        logger.error(f"Failed to create style issue record: {e}")
+                        continue
+
+                db.commit()
+                logger.info(f"Saved {len(analysis_report.get('all_issues', []))} style issues to database")
+
+                # Log audit event for analysis completion
+                if current_user:
+                    audit_log = AuditLog(
+                        user_id=current_user.id,
+                        action="analyze_document",
+                        resource_type="document",
+                        resource_id=file_id,
+                        details={
+                            "total_issues": analysis_report["summary"]["total_issues"],
+                            "processing_time": duration
+                        }
+                    )
+                    db.add(audit_log)
+                    db.commit()
+
+            except Exception as e:
+                db.rollback()
+                logger.error(f"Failed to save analysis results to database: {e}")
+                import traceback
+                traceback.print_exc()
 
         logger.info(f"Processing complete for document_id {file_id}")
         return processing_result

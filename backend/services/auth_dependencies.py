@@ -7,7 +7,7 @@ from fastapi import Depends, HTTPException, status, Request, Cookie
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.orm import Session
 
-from ..database.database import get_db
+from ..database.database import get_db_sync
 from ..database.models import User, UserRole
 from .jwt_service import jwt_service
 
@@ -47,7 +47,7 @@ async def get_token_from_request(
 
 async def get_current_user(
     token: Optional[str] = Depends(get_token_from_request),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db_sync)
 ) -> User:
     """
     Get current authenticated user from JWT token.
@@ -154,7 +154,7 @@ async def get_current_admin_user(
 
 async def optional_user(
     token: Optional[str] = Depends(get_token_from_request),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db_sync)
 ) -> Optional[User]:
     """
     Get current user if authenticated, or None.
