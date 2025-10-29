@@ -13,8 +13,10 @@ let logs = [];
 let isLogsRunning = true;
 let autoScroll = true;
 let es = null;
+let progressEs = null;
 let currentView = 'visual';
 let filteredFindings = [];
+let currentFileId = null;
 
 // DOM elements
 const elements = {
@@ -205,6 +207,125 @@ function updateTimes() {
   }
 }
 
+function connectProgressStream(fileId) {
+  if (progressEs) {
+    try { progressEs.close(); } catch (_) {}
+    progressEs = null;
+  }
+
+  progressEs = new EventSource(`${API_BASE_URL}/progress/stream/${fileId}`);
+
+  progressEs.onopen = () => {
+    console.log('Progress stream connected');
+  };
+
+  progressEs.onerror = () => {
+    console.log('Progress stream error');
+  };
+
+  progressEs.onmessage = (evt) => {
+    if (!evt || !evt.data) return;
+    try {
+      const progress = JSON.parse(evt.data);
+      console.log('Progress update:', progress);
+
+      // Update status message based on progress stage
+      updateStatus('processing', progress.message);
+
+      // Close stream when completed
+      if (progress.stage === 'completed') {
+        setTimeout(() => {
+          if (progressEs) {
+            progressEs.close();
+            progressEs = null;
+          }
+        }, 1000);
+      }
+    } catch (e) {
+      console.error('Failed to parse progress:', e);
+    }
+  };
+}
+
+function closeProgressStream() {
+  if (progressEs) {
+    try { progressEs.close(); } catch (_) {}
+    progressEs = null;
+  }
+}
+
+async function waitForProcessingComplete(fileId) {
+  /**
+   * Poll the backend for processing completion.
+   * The progress stream provides real-time updates,
+   * but we also poll to get the final result.
+   */
+  const maxAttempts = 300; // 5 minutes with 1s intervals
+  let attempts = 0;
+
+  console.log('Starting to poll for completion, fileId:', fileId);
+
+  while (attempts < maxAttempts) {
+    try {
+      const statusResponse = await fetch(`${API_BASE_URL}/processing-status/${fileId}`);
+      console.log(`Poll attempt ${attempts + 1}, status code:`, statusResponse.status);
+
+      if (statusResponse.ok) {
+        const statusData = await statusResponse.json();
+        console.log('Status data:', statusData);
+
+        if (statusData.status === 'completed' && statusData.result) {
+          // Processing complete!
+          console.log('Processing completed! Result received:', statusData.result);
+          analysisResult = statusData.result;
+          console.log('analysisResult set to:', analysisResult);
+
+          endTime = new Date();
+          updateStatus('completed', 'Document analysis completed successfully');
+          updateTimes();
+
+          console.log('About to call displayVisualReport()');
+          displayVisualReport();
+          console.log('displayVisualReport() completed');
+
+          console.log('About to call displayJsonResult()');
+          displayJsonResult();
+          console.log('displayJsonResult() completed');
+
+          elements.visualReport?.classList.remove('hidden');
+          console.log('Visual report shown');
+
+          elements.analyzeBtn.disabled = false;
+          elements.analyzeBtn.textContent = 'Analyze Document';
+          showToast('Document processed successfully!', 'success');
+          closeProgressStream();
+          return;
+        } else if (statusData.status === 'error') {
+          console.error('Processing error:', statusData.error);
+          throw new Error(statusData.error || 'Processing failed');
+        }
+        // Still processing, continue polling
+        console.log('Still processing, will poll again...');
+      } else {
+        console.warn('Status check returned non-OK:', statusResponse.status);
+      }
+    } catch (error) {
+      console.error('Error checking processing status:', error);
+      // Continue polling unless it's a fatal error
+      if (attempts > 10) {
+        throw error;
+      }
+    }
+
+    // Wait 1 second before next poll
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    attempts++;
+  }
+
+  console.error('Processing timeout after', attempts, 'attempts');
+  throw new Error('Processing timeout - took longer than expected');
+}
+
 async function startAnalysis() {
   if (!currentFile) return;
   console.log('Starting analysis for:', currentFile.name, 'User:', elements.userInfo?.value);
@@ -217,21 +338,31 @@ async function startAnalysis() {
 
   startTime = new Date();
   endTime = null;
-  updateStatus('processing', 'Uploading and analyzing document...');
+  updateStatus('processing', 'Preparing to upload...');
   updateTimes();
   elements.analyzeBtn.disabled = true;
   elements.analyzeBtn.textContent = 'Processing...';
   elements.visualReport?.classList.add('hidden');
   connectLogsStream();
 
-
   try {
     const healthResponse = await fetch(`${API_BASE_URL}/health`);
     if (!healthResponse.ok) throw new Error('Backend not available');
 
+    // Get next file_id before upload to enable progress tracking
+    const fileIdResponse = await fetch(`${API_BASE_URL}/next-document-id`);
+    if (!fileIdResponse.ok) throw new Error('Failed to get document ID');
+
+    const {file_id} = await fileIdResponse.json();
+    currentFileId = file_id;
+
+    // Connect to progress stream BEFORE starting upload
+    connectProgressStream(file_id);
+
     const formData = new FormData();
     formData.append('file', currentFile);
     formData.append('user_info', elements.userInfo?.value);
+
     updateStatus('processing', 'Uploading file to server...');
 
     const uploadResponse = await fetch(`${API_BASE_URL}/upload-document`, {
@@ -247,22 +378,26 @@ async function startAnalysis() {
       throw new Error(msg);
     }
 
-    updateStatus('processing', 'Processing document content...');
-    const result = await uploadResponse.json();
-    endTime = new Date();
+    const uploadResult = await uploadResponse.json();
 
-    analysisResult = result;
-    console.log('user_info in response:', analysisResult.user_info);
-    console.log('Full response:', analysisResult);
-
-    updateStatus('completed', 'Document analysis completed successfully');
-    updateTimes();
-    displayVisualReport();
-    displayJsonResult();
-    elements.visualReport?.classList.remove('hidden');
-    elements.analyzeBtn.disabled = false;
-    elements.analyzeBtn.textContent = 'Analyze Document';
-    showToast('Document processed successfully!', 'success');
+    // Check if processing started (202) or completed immediately (cached)
+    if (uploadResult.status === 'processing') {
+      // Processing started - progress stream will update status
+      // Poll for completion
+      await waitForProcessingComplete(uploadResult.file_id);
+    } else if (uploadResult.status === 'completed') {
+      // Cached result returned immediately
+      analysisResult = uploadResult.result;
+      endTime = new Date();
+      updateStatus('completed', 'Document analysis completed successfully');
+      updateTimes();
+      displayVisualReport();
+      displayJsonResult();
+      elements.visualReport?.classList.remove('hidden');
+      elements.analyzeBtn.disabled = false;
+      elements.analyzeBtn.textContent = 'Analyze Document';
+      showToast('Document processed successfully!', 'success');
+    }
   } catch (error) {
     console.error('Analysis error:', error);
     endTime = new Date();
@@ -271,6 +406,7 @@ async function startAnalysis() {
     showToast(`Analysis failed: ${error.message}`, 'error');
     elements.analyzeBtn.disabled = false;
     elements.analyzeBtn.textContent = 'Analyze Document';
+    closeProgressStream();
   }
 }
 
@@ -866,4 +1002,7 @@ async function init() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
-window.addEventListener('beforeunload', () => { try { closeLogsStream(); } catch {} });
+window.addEventListener('beforeunload', () => {
+  try { closeLogsStream(); } catch {}
+  try { closeProgressStream(); } catch {}
+});

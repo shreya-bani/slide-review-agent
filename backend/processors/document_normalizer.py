@@ -7,7 +7,7 @@ from dataclasses import dataclass, asdict
 from datetime import datetime
 from pathlib import Path
 
-from .pptx_reader import PPTXReader
+from .enhanced_pptx_reader import PPTXReader
 from .pdf_reader import PDFReader
 
 logger = logging.getLogger(__name__)
@@ -111,7 +111,7 @@ class DocumentNormalizer:
     """Convert PPTX and PDF documents to unified format."""
     
     def __init__(self):
-        self.pptx_reader = PPTXReader()
+        self.enhanced_pptx_reader = PPTXReader()
         self.pdf_reader = PDFReader()
     
     def normalize_document(self, file_path: str) -> NormalizedDocument:
@@ -128,10 +128,10 @@ class DocumentNormalizer:
     
     def normalize_pptx(self, file_path: str) -> NormalizedDocument:
         """Normalize a PowerPoint document."""
-        if not self.pptx_reader.load_file(file_path):
+        if not self.enhanced_pptx_reader.load_file(file_path):
             raise ValueError(f"Failed to load PPTX: {file_path}")
         
-        raw_data = self.pptx_reader.extract_to_dict()
+        raw_data = self.enhanced_pptx_reader.extract_to_dict()
         
         # Convert to unified format
         unified_pages = []

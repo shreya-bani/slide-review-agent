@@ -17,55 +17,54 @@ def calculate_quality_score(
 ) -> Dict[str, Any]:
     """
     Calculate comprehensive quality score based on categories and severity.
-
     Args:
-        analysis_summary: Summary containing total_issues and category_breakdown
-        content_statistics: Statistics containing total_pages, total_elements
-
-    Returns:
-        Dictionary with overall_score, grade, status, category_scores, deductions,
-        issues_per_page, and methodology
-
+        analysis_summary: Summary of analysis containing total issues,
+                          category breakdown, and severity breakdown.
+        content_statistics: Statistics about the content, including total pages.
     Note:
-        Severity is NOT considered in the calculation. All issues within a category
-        have equal weight. Only the number of issues per category matters.
-
-    Example:
-        >>> calculate_quality_score(
-        ...     {
-        ...         "total_issues": 25,
-        ...         "category_breakdown": {"grammar": 10, "tone": 8},
-        ...         "severity_breakdown": {"error": 5, "warning": 12}
-        ...     },
-        ...     {"total_pages": 10}
-        ... )
-        {
-            "overall_score": 82.3,
-            "grade": "B",
-            "status": "Good",
-            "category_scores": {...},
-            ...
-        }
+        Only categories present in category_breakdown are included in scoring.
+        Weights are dynamically normalized based on which categories are used.
     """
 
-    # Category weights (total = 100)
+    # Default category weights (total = 100)
     # These weights determine how much each category contributes to overall score
-    CATEGORY_WEIGHTS = {
-        "grammar": 25,          # Grammar, punctuation, spelling
+    DEFAULT_CATEGORY_WEIGHTS = {
+        "grammar": 30,          # Grammar, punctuation, spelling
         "tone": 40,             # Tone, voice, sentiment
-        "inclusivity": 10,      # Inclusive language, person-first
-        "formatting": 15,       # Visual formatting, style
-        "word-list": 10,        # Word preferences, terminology
+        "word-list": 20,        # Word preferences, terminology
+        "filename": 10,         # Filename compliance with naming conventions
     }
 
     # Base deduction per issue (will be scaled by document size)
     # Severity is NOT considered - all issues have equal weight within their category
-    BASE_DEDUCTION_PER_ISSUE = 0.5  # 0.5 points per issue
+    BASE_DEDUCTION_PER_ISSUE = 1  # 0.5 points per issue
 
     # Get data from inputs
     category_breakdown = analysis_summary.get("category_breakdown", {})
     total_issues = analysis_summary.get("total_issues", 0)
     total_pages = max(content_statistics.get("total_pages", 1), 1)
+
+    # Dynamically determine which categories are actually present
+    # Only use categories that have issues or are in the default weights
+    present_categories = set(category_breakdown.keys())
+
+    # Build active weights based on what's actually being used
+    CATEGORY_WEIGHTS = {}
+    for cat in present_categories:
+        if cat in DEFAULT_CATEGORY_WEIGHTS:
+            CATEGORY_WEIGHTS[cat] = DEFAULT_CATEGORY_WEIGHTS[cat]
+
+    # If no recognized categories, fall back to defaults
+    if not CATEGORY_WEIGHTS:
+        CATEGORY_WEIGHTS = DEFAULT_CATEGORY_WEIGHTS.copy()
+
+    # Normalize weights to sum to 100
+    total_weight = sum(CATEGORY_WEIGHTS.values())
+    if total_weight > 0:
+        CATEGORY_WEIGHTS = {
+            cat: (weight / total_weight) * 100
+            for cat, weight in CATEGORY_WEIGHTS.items()
+        }
 
     # Handle perfect document (no issues)
     if total_issues == 0:
@@ -151,39 +150,3 @@ def calculate_quality_score(
             "complexity_multiplier": round(complexity_multiplier, 2)
         }
     }
-
-
-if __name__ == "__main__":
-    # Example usage
-    example_summary = {
-        "total_issues": 25,
-        "category_breakdown": {
-            "grammar": 10,
-            "tone": 8,
-            "inclusivity": 2,
-            "formatting": 5,
-            "word-list": 0
-        },
-        "severity_breakdown": {
-            "error": 5,
-            "warning": 12,
-            "suggestion": 8
-        }
-    }
-
-    example_stats = {
-        "total_pages": 10
-    }
-
-    result = calculate_quality_score(example_summary, example_stats)
-
-    print("Quality Score Calculation Example")
-    print("=" * 50)
-    print(f"Overall Score: {result['overall_score']} ({result['grade']})")
-    print(f"Status: {result['status']}")
-    print(f"\nCategory Scores:")
-    for cat, score in result['category_scores'].items():
-        deduction = result['deductions'][cat]
-        print(f"  {cat:15s}: {score:5.1f} (deduction: {deduction:6.1f})")
-    print(f"\nIssues per page: {result['issues_per_page']}")
-    print(f"\nNote: Severity is NOT considered - all issues within a category have equal weight")

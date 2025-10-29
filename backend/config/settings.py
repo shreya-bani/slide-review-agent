@@ -57,9 +57,9 @@ class Settings(BaseSettings):
     db_max_overflow: int = Field(default=10, alias="DB_MAX_OVERFLOW")
     db_pool_timeout: int = Field(default=30, alias="DB_POOL_TIMEOUT")
 
-    log_dir: str = Field(default=f"{PROJECT_ROOT}/logs", alias="LOG_DIR")
-    output_dir: str = Field(default=f"{PROJECT_ROOT}/outputs", alias="OUTPUT_DIR")
-    upload_dir: str = Field(default=f"{PROJECT_ROOT}/uploads", alias="UPLOAD_DIR")
+    log_dir: str = Field(default=f"{PROJECT_ROOT}/data/logs", alias="LOGS_DIR")
+    output_dir: str = Field(default=f"{PROJECT_ROOT}/data/outputs", alias="OUTPUT_DIR")
+    upload_dir: str = Field(default=f"{PROJECT_ROOT}/data/uploads", alias="UPLOAD_DIR")
     
     # SINGLE LLM CONFIG
     llm_provider: str = Field(default="azure", alias="LLM_PROVIDER")

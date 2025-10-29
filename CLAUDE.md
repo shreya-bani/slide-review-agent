@@ -59,7 +59,7 @@ python -m backend.services.llm_health
 The application follows a three-stage pipeline for document analysis:
 
 1. **Document Upload & Normalization** (`backend/processors/`)
-   - `pptx_reader.py`: Extracts content from PowerPoint files using python-pptx
+   - `enhanced_pptx_reader.py`: Extracts content from PowerPoint files using python-pptx
    - `pdf_reader.py`: Extracts content from PDF files
    - `document_normalizer.py`: Converts both formats to a unified JSON schema with standardized:
      - `UnifiedLocator`: Page/slide index, element type, position
@@ -117,7 +117,7 @@ backend/
 │   ├── settings.py          # Centralized configuration using pydantic-settings
 │   └── style_rules.py       # Style guide rules and patterns
 ├── processors/
-│   ├── pptx_reader.py       # PowerPoint content extraction
+│   ├── enhanced_pptx_reader.py       # PowerPoint content extraction
 │   ├── pdf_reader.py        # PDF content extraction
 │   └── document_normalizer.py # Format unification
 ├── analyzers/
