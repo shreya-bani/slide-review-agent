@@ -298,11 +298,23 @@ class PPTXReader:
             runs = list(getattr(paragraph, "runs", []))
             if runs:
                 # font family: take the first non-None across runs
+                # Try multiple approaches to get font name
                 for r in runs:
-                    name = getattr(r.font, "name", None)
+                    font = r.font
+                    # First try direct name access
+                    name = getattr(font, "name", None)
                     if name:
                         fmt.font_name = name
                         break
+                    # If name is None, check if there's an element with font family
+                    try:
+                        if hasattr(font, '_element') and font._element is not None:
+                            latin = font._element.find('.//{http://schemas.openxmlformats.org/drawingml/2006/main}latin')
+                            if latin is not None and latin.get('typeface'):
+                                fmt.font_name = latin.get('typeface')
+                                break
+                    except Exception:
+                        pass
 
                 # font size: collect all defined sizes (points)
                 sizes = []
@@ -473,10 +485,10 @@ if __name__ == "__main__":
 
     try:
         result = process_pptx_file(
-            r"C:\Users\Shreya B\Documents\GitHub\slide-review-agent\data\uploads\amida vacm project presentation -may 2 2025 -final for mukundan.pptx"
+            r"C:\Users\Shreya B\Documents\GitHub\slide-review-agent\data\uploads\001_Amida_Agentic_AI_solution_Strategic_Plan_Draft_Aug.pptx"
         )
 
-        output_file = r'C:\Users\Shreya B\Documents\GitHub\slide-review-agent\data\logs\try-10.json'
+        output_file = r'C:\Users\Shreya B\Documents\GitHub\slide-review-agent\data\logs\try.json'
         with open(output_file, "w", encoding="utf-8") as f:
             json.dump(result, f, indent=2, ensure_ascii=False)
 

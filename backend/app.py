@@ -43,7 +43,7 @@ logger = logging.getLogger(__name__)
 
 # Import document processors
 try:
-    from .processors.pptx_reader import PPTXReader
+    from .processors.enhanced_pptx_reader import PPTXReader
     from .processors.pdf_reader import PDFReader
     from .processors.document_normalizer import DocumentNormalizer
 except Exception as e:
@@ -62,6 +62,10 @@ except Exception as e:
 # Logging handler to broadcast logs via asyncio queue
 _broadcast_queue: "asyncio.Queue[dict]" = asyncio.Queue()
 _clients: set[asyncio.Queue] = set()
+
+# Progress tracking
+_progress_clients: dict[str, set[asyncio.Queue]] = {}
+_progress_queue: "asyncio.Queue[tuple[str, dict]]" = asyncio.Queue()
 
 class _QueueLogHandler(Handler):
     def emit(self, record: LogRecord) -> None:
@@ -96,6 +100,7 @@ if not any(isinstance(h, _QueueLogHandler) for h in root_logger.handlers):
 
 # Global cache
 processed_files = {}
+processing_jobs = {}  # Track ongoing processing jobs
 
 def create_app() -> FastAPI:
     """Create and configure the FastAPI application."""
@@ -156,12 +161,14 @@ FRONTEND_DIR = REPO_ROOT / "frontend"
 STYLES_DIR = FRONTEND_DIR / "styles"
 SCRIPTS_DIR = FRONTEND_DIR / "scripts"
 PAGES_DIR = FRONTEND_DIR / "pages"
+STATIC_DIR = FRONTEND_DIR / "static"
 
 if STYLES_DIR.exists() and SCRIPTS_DIR.exists():
     app.mount("/styles", StaticFiles(directory=str(STYLES_DIR)), name="styles")
     app.mount("/scripts", StaticFiles(directory=str(SCRIPTS_DIR)), name="scripts")
     app.mount("/pages", StaticFiles(directory=str(PAGES_DIR)), name="pages")
-    app.mount("/static", StaticFiles(directory=str(FRONTEND_DIR)), name="static")
+    if STATIC_DIR.exists():
+        app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 
 def get_next_document_id() -> int:
     """Get the next incremental document ID."""
@@ -296,6 +303,9 @@ async def upload_document(
 
     logger.info(f"Processing document {doc_id}: {file.filename} -> {clean_filename}")
 
+    # Emit progress: uploading
+    emit_progress(file_id, "uploading", "Uploading file to server...", 10)
+
     # Save file
     written = 0
     chunk_size = 1024 * 1024
@@ -358,6 +368,9 @@ async def upload_document(
         # Continue processing even if DB save fails
         db_document = None
 
+    # Emit progress: uploaded
+    emit_progress(file_id, "uploaded", "File uploaded successfully", 20)
+
     # Check cache
     if file_id in processed_files:
         logger.info(f"Document {file_id} already processed, returning cached result")
@@ -365,25 +378,88 @@ async def upload_document(
         cached_result['user_info'] = user_info  # Update with current uploader
         cached_result['processed_at'] = datetime.now().isoformat()
         logger.info(f"Returning cached result with user_info: {cached_result.get('user_info')}")
+        emit_progress(file_id, "completed", "Analysis completed (cached)", 100)
 
-        return JSONResponse(content=cached_result, status_code=200)
+        return JSONResponse(content={"status": "completed", "file_id": file_id, "result": cached_result}, status_code=200)
 
-    # Process and analyze document
-    processing_result = await process_and_analyze_document(
-        file_path=str(file_path),
-        original_filename=file.filename,
-        user_info=user_info,
-        file_id=file_id,
-        doc_id=doc_id,
-        db=db,
-        db_document=db_document,
-        current_user=current_user
+    # Mark job as processing
+    processing_jobs[file_id] = {"status": "processing", "started_at": datetime.now().isoformat()}
+
+    # Start background processing task
+    asyncio.create_task(
+        process_and_analyze_document_background(
+            file_path=str(file_path),
+            original_filename=file.filename,
+            user_info=user_info,
+            file_id=file_id,
+            doc_id=doc_id,
+            db_document=db_document,
+            current_user=current_user
+        )
     )
 
-    # Cache result
-    processed_files[file_id] = processing_result
+    # Return immediately with processing status
+    return JSONResponse(content={
+        "status": "processing",
+        "file_id": file_id,
+        "message": "Document uploaded successfully. Processing started."
+    }, status_code=202)
 
-    return JSONResponse(content=processing_result, status_code=200)
+async def process_and_analyze_document_background(
+    file_path: str,
+    original_filename: str,
+    user_info: str,
+    file_id: str,
+    doc_id: int,
+    db_document: Document = None,
+    current_user: User = None
+):
+    """Background task for processing document."""
+    try:
+        # Get a new database session for this background task
+        db = next(get_db_sync())
+
+        result = await process_and_analyze_document(
+            file_path=file_path,
+            original_filename=original_filename,
+            user_info=user_info,
+            file_id=file_id,
+            doc_id=doc_id,
+            db=db,
+            db_document=db_document,
+            current_user=current_user
+        )
+
+        # Cache result
+        processed_files[file_id] = result
+        processing_jobs[file_id] = {
+            "status": "completed",
+            "completed_at": datetime.now().isoformat(),
+            "result": result
+        }
+
+    except Exception as e:
+        logger.error(f"Background processing error for {file_id}: {e}")
+        import traceback
+        traceback.print_exc()
+
+        error_result = {
+            "success": False,
+            "error": str(e),
+            "file_id": file_id,
+            "doc_id": doc_id,
+            "original_filename": original_filename
+        }
+
+        processing_jobs[file_id] = {
+            "status": "error",
+            "error": str(e),
+            "completed_at": datetime.now().isoformat()
+        }
+        emit_progress(file_id, "error", f"Processing failed: {str(e)}", 0)
+    finally:
+        if db:
+            db.close()
 
 async def process_and_analyze_document(
     file_path: str,
@@ -419,15 +495,18 @@ async def process_and_analyze_document(
             return cached_result
 
         # Step 1: Normalize document
+        emit_progress(file_id, "extracting", "Extracting document metadata...", 30)
         logger.info("Normalizing document into structured data format.")
         normalizer = DocumentNormalizer()
         normalized_obj = await asyncio.to_thread(normalizer.normalize_document, file_path)
         normalized_doc = normalized_obj.to_dict()
-        
+
         logger.info(f"Normalized: {normalized_doc['summary']['total_pages']} pages, "
                    f"{normalized_doc['summary']['total_elements']} elements")
+        emit_progress(file_id, "extracted", "Metadata extracted successfully", 50)
 
         # Step 2: Run combined analysis (grammar + tone + filename)
+        emit_progress(file_id, "analyzing", "Analyzing content against style rules...", 60)
         logger.info("Running combined analysis according to amida guidelines.")
         analyzer = CombinedAnalyzer()
         analysis_report = await asyncio.to_thread(
@@ -436,8 +515,9 @@ async def process_and_analyze_document(
             file_path,
             original_filename
         )
-        
+
         logger.info(f"Analysis complete: {analysis_report['summary']['total_issues']} issues found")
+        emit_progress(file_id, "generating", "Generating suggestions and report...", 80)
 
         # Step 3: Build complete response
         processing_result = {
@@ -481,20 +561,23 @@ async def process_and_analyze_document(
         logger.info(f"Created processing_result with user_info: {processing_result.get('user_info')}")
 
         # Step 4: Save all outputs
+        emit_progress(file_id, "finalizing", "Finalizing and saving report...", 90)
         logger.info(f"Saving outputs to: {output_dir}")
-        
+
         # Save combined analysis
         write_json(
             output_dir / f"{file_id}_{clean_stem}_combined_analysis.json",
             analysis_report
         )
-        
-        # Save normalized document
+
+        # Save normalized document to logs directory
+        logs_dir = Path(settings.log_dir)
         write_json(
-            output_dir / f"{file_id}_{clean_stem}_normalized.json",
+            logs_dir / f"{file_id}_{clean_stem}_normalized.json",
             normalized_doc
         )
-        
+        logger.info(f"Normalized document saved to: {logs_dir}")
+
         # Save processing result (for quick frontend loading)
         write_json(
             output_dir / f"{file_id}_{clean_stem}_result.json",
@@ -508,6 +591,7 @@ async def process_and_analyze_document(
             f"Finished processing at {end_time.isoformat(timespec='seconds')} "
             f"(Duration: {duration:.2f}s)"
         )
+        emit_progress(file_id, "completed", "Document analysis completed successfully", 100)
 
         # Save analysis results to database
         if db and db_document:
@@ -657,10 +741,38 @@ async def _fanout_logs():
             except asyncio.QueueFull:
                 pass
 
+async def _fanout_progress():
+    """Fanout progress updates to subscribed clients."""
+    while True:
+        file_id, progress_data = await _progress_queue.get()
+        if file_id in _progress_clients:
+            for q in list(_progress_clients[file_id]):
+                try:
+                    q.put_nowait(progress_data)
+                except asyncio.QueueFull:
+                    pass
+
+def emit_progress(file_id: str, stage: str, message: str, progress: int = 0):
+    """Emit a progress update for a specific file."""
+    try:
+        loop = asyncio.get_event_loop()
+        if loop.is_running():
+            payload = {
+                "timestamp": datetime.now().isoformat(timespec="milliseconds"),
+                "stage": stage,
+                "message": message,
+                "progress": progress,
+                "file_id": file_id
+            }
+            loop.call_soon_threadsafe(_progress_queue.put_nowait, (file_id, payload))
+    except Exception as e:
+        logger.debug(f"Failed to emit progress: {e}")
+
 # Start the fanout task on startup
 @app.on_event("startup")
 async def _startup_bg():
     asyncio.create_task(_fanout_logs())
+    asyncio.create_task(_fanout_progress())
 
 # PROTECTED: Admin-only endpoint to stream logs
 @app.get("/logs/stream")
@@ -682,5 +794,66 @@ async def logs_stream(current_admin: User = Depends(get_current_admin_user)):
         "Cache-Control": "no-cache",
         "Connection": "keep-alive",
         "X-Accel-Buffering": "no"  # Nginx: disable buffering
+    }
+    return StreamingResponse(event_gen(), media_type="text/event-stream", headers=headers)
+
+# PROTECTED: Get next document ID for progress tracking
+@app.get("/next-document-id")
+async def get_next_doc_id(current_user: User = Depends(get_current_user)):
+    """Get the next document ID before upload."""
+    try:
+        doc_id = get_next_document_id()
+        file_id = f"{doc_id:03d}"
+        return {"file_id": file_id, "doc_id": doc_id}
+    except Exception as e:
+        raise HTTPException(500, f"Failed to generate document ID: {str(e)}")
+
+# PROTECTED: Check processing status
+@app.get("/processing-status/{file_id}")
+async def get_processing_status(file_id: str, current_user: User = Depends(get_current_user)):
+    """Get the processing status of a document."""
+    if file_id in processing_jobs:
+        job_info = processing_jobs[file_id]
+        return JSONResponse(content=job_info, status_code=200)
+    elif file_id in processed_files:
+        return JSONResponse(content={
+            "status": "completed",
+            "result": processed_files[file_id]
+        }, status_code=200)
+    else:
+        raise HTTPException(404, f"No processing job found for file_id: {file_id}")
+
+# PROTECTED: Progress stream for document processing
+@app.get("/progress/stream/{file_id}")
+async def progress_stream(file_id: str, current_user: User = Depends(get_current_user)):
+    """Stream document processing progress in real-time."""
+    client_q: asyncio.Queue = asyncio.Queue(maxsize=100)
+
+    # Initialize progress clients set for this file_id if needed
+    if file_id not in _progress_clients:
+        _progress_clients[file_id] = set()
+
+    _progress_clients[file_id].add(client_q)
+
+    async def event_gen():
+        try:
+            yield "event: connected\ndata: {}\n\n"
+            while True:
+                item = await client_q.get()
+                yield f"data: {json.dumps(item, ensure_ascii=False)}\n\n"
+                # Auto-close after completed event
+                if item.get('stage') == 'completed':
+                    break
+        finally:
+            if file_id in _progress_clients:
+                _progress_clients[file_id].discard(client_q)
+                # Clean up empty sets
+                if not _progress_clients[file_id]:
+                    del _progress_clients[file_id]
+
+    headers = {
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+        "X-Accel-Buffering": "no"
     }
     return StreamingResponse(event_gen(), media_type="text/event-stream", headers=headers)
