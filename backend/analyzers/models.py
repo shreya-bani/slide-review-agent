@@ -27,8 +27,8 @@ class Category(Enum):
     WORD_LIST = "word-list"
     TONE = "tone"
     FILENAME = "filename"
+    FORMATTING = "formatting"
     # Add more categories as you extend the analyzer:
-    # FORMATTING = "formatting"
     # ACCESSIBILITY = "accessibility"
 
 
