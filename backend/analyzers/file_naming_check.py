@@ -5,7 +5,7 @@ This module checks document and folder names against Amida Technology Solutions'
 naming conventions (ADMIN-POL-1-1) using an LLM-powered assistant.
 
 The checker:
-1. Loads the naming convention prompt from backend/prompts/file_naming_convention_prompt.md
+1. Loads the naming convention prompt from backend/prompts/file_naming_convention_prompt.txt
 2. Sends filename(s) to the LLM for analysis
 3. Returns corrected naming options and explanations
 """
@@ -37,7 +37,7 @@ class FileNamingChecker:
     def _load_naming_prompt(self) -> str:
         """Load the file naming convention prompt from the prompts directory."""
         try:
-            prompt_content = load_prompt("file_naming_convention_prompt.md")
+            prompt_content = load_prompt("file_naming_convention_prompt.txt")
             logger.info("Loaded file naming convention prompt successfully")
             return prompt_content
         except FileNotFoundError as e:

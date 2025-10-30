@@ -29,9 +29,11 @@ def calculate_quality_score(
     # Default category weights (total = 100)
     # These weights determine how much each category contributes to overall score
     DEFAULT_CATEGORY_WEIGHTS = {
-        "grammar": 30,          # Grammar, punctuation, spelling
-        "tone": 40,             # Tone, voice, sentiment
-        "word-list": 20,        # Word preferences, terminology
+        "grammar": 20,          # Grammar, punctuation, spelling
+        "tone": 25,             # Tone, voice, sentiment
+        "usage": 20,            # Usage: specificity and inclusivity
+        "word-list": 10,        # Word preferences, terminology
+        "formatting": 15,       # Visual formatting compliance (fonts, colors, sizes)
         "filename": 10,         # Filename compliance with naming conventions
     }
 

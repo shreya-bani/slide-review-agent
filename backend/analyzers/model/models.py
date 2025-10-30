@@ -27,10 +27,8 @@ class Category(Enum):
     WORD_LIST = "word-list"
     TONE = "tone"
     FILENAME = "filename"
-    # Add more categories as you extend the analyzer:
-    # FORMATTING = "formatting"
-    # ACCESSIBILITY = "accessibility"
-
+    FORMATTING = "formatting"
+    USAGE = "usage"
 
 @dataclass
 class StyleIssue:

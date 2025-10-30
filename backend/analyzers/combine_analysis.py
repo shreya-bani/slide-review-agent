@@ -28,7 +28,8 @@ from typing import Any, Dict, List, Optional
 
 from .style_orchestrator import check_document as run_grammar_check
 from .file_naming_check import FileNamingChecker
-from .models import Category
+from .formatter_analyzer import analyze_formatting
+from .model.models import Category
 
 logger = logging.getLogger(__name__)
 
@@ -82,12 +83,22 @@ class CombinedAnalyzer:
         # Separate issues by category for reporting
         grammar_issues = [i for i in all_style_issues if i.get("category") in [Category.GRAMMAR.value, Category.WORD_LIST.value]]
         tone_issues = [i for i in all_style_issues if i.get("category") == Category.TONE.value]
+        usage_issues = [i for i in all_style_issues if i.get("category") == Category.USAGE.value]
 
-        grammar_duration = style_duration * 0.4  # Approximate split for backward compatibility
-        tone_duration = style_duration * 0.6
+        grammar_duration = style_duration * 0.3  # Approximate split for backward compatibility
+        tone_duration = style_duration * 0.4
+        usage_duration = style_duration * 0.3
 
         logger.info(f"Style analysis complete: {len(grammar_issues)} grammar/word-list issues, "
-                   f"{len(tone_issues)} tone issues in {style_duration:.2f}s")
+                   f"{len(tone_issues)} tone issues, {len(usage_issues)} usage issues in {style_duration:.2f}s")
+
+        # Run category formatting check
+        logger.info("Running category formatting check...")
+        formatting_start = datetime.now()
+        formatting_issues_raw = analyze_formatting(normalized_doc)
+        formatting_issues = [issue.to_dict() for issue in formatting_issues_raw]
+        formatting_duration = (datetime.now() - formatting_start).total_seconds()
+        logger.info(f"Category formatting check complete: {len(formatting_issues)} issues in {formatting_duration:.2f}s")
 
         # Run file naming check
         logger.info("Running file naming check...")
@@ -100,10 +111,10 @@ class CombinedAnalyzer:
         filename_issues = self._convert_filename_to_issues(filename_result)
 
         # Combine all issues
-        all_issues = grammar_issues + tone_issues + filename_issues
+        all_issues = grammar_issues + tone_issues + usage_issues + formatting_issues + filename_issues
 
         # Generate statistics
-        stats = self._generate_statistics(grammar_issues, tone_issues, filename_issues, normalized_doc)
+        stats = self._generate_statistics(grammar_issues, tone_issues, usage_issues, formatting_issues, filename_issues, normalized_doc)
         
         # Build comprehensive report
         total_duration = (datetime.now() - start_time).total_seconds()
@@ -114,6 +125,8 @@ class CombinedAnalyzer:
                 "total_duration_seconds": round(total_duration, 2),
                 "grammar_duration_seconds": round(grammar_duration, 2),
                 "tone_duration_seconds": round(tone_duration, 2),
+                "usage_duration_seconds": round(usage_duration, 2),
+                "formatting_duration_seconds": round(formatting_duration, 2),
                 "filename_duration_seconds": round(filename_duration, 2),
                 "analyzer_version": "1.0.0",
             },
@@ -121,6 +134,8 @@ class CombinedAnalyzer:
                 "total_issues": len(all_issues),
                 "grammar_issues": len(grammar_issues),
                 "tone_issues": len(tone_issues),
+                "usage_issues": len(usage_issues),
+                "formatting_issues": len(formatting_issues),
                 "filename_issues": len(filename_issues),
                 "issues_with_suggestions": sum(1 for i in all_issues if i.get("suggestion")),
                 "severity_breakdown": stats["severity_breakdown"],
@@ -131,6 +146,8 @@ class CombinedAnalyzer:
             "issues_by_category": {
                 "grammar": self._categorize_issues(grammar_issues),
                 "tone": self._categorize_issues(tone_issues),
+                "usage": self._categorize_issues(usage_issues),
+                "formatting": self._categorize_issues(formatting_issues),
                 "filename": self._categorize_issues(filename_issues),
             },
             "all_issues": all_issues,
@@ -162,10 +179,12 @@ class CombinedAnalyzer:
 
     def _generate_statistics(self, grammar_issues: List[Dict],
                             tone_issues: List[Dict],
+                            usage_issues: List[Dict],
+                            formatting_issues: List[Dict],
                             filename_issues: List[Dict],
                             doc: Dict[str, Any]) -> Dict[str, Any]:
         """Generate comprehensive statistics."""
-        all_issues = grammar_issues + tone_issues + filename_issues
+        all_issues = grammar_issues + tone_issues + usage_issues + formatting_issues + filename_issues
         
         # Severity breakdown
         severity_counts = {}
@@ -432,6 +451,8 @@ def main():
         print(f"Total Issues:          {summary['total_issues']}")
         print(f"  Grammar Issues:      {summary['grammar_issues']}")
         print(f"  Tone Issues:         {summary['tone_issues']}")
+        print(f"  Usage Issues:        {summary['usage_issues']}")
+        print(f"  Formatting Issues:   {summary['formatting_issues']}")
         print(f"  Filename Issues:     {summary['filename_issues']}")
         print(f"With Suggestions:      {summary['issues_with_suggestions']}")
         print("\nBy Severity:")
