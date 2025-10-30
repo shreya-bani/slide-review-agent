@@ -36,7 +36,7 @@ from ..config.settings import settings
 from ..services.llm_client import LLMClient
 from .protection_layer import ProtectionLayer
 from ..utils.prompt_loader import load_prompt
-from .models import Category
+from .model.models import Category
 
 # LOGGER
 logger = logging.getLogger(__name__)

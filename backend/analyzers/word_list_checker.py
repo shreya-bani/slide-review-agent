@@ -2,7 +2,7 @@ from __future__ import annotations
 import re
 from typing import Any, Dict, List, Optional
 
-from .models import StyleIssue, Severity, Category
+from .model.models import StyleIssue, Severity, Category
 
 class WordListChecker:
     """

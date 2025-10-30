@@ -40,28 +40,20 @@ BAD REWRITES (invented information):
 - "Some updates are planned" → "Five major updates will launch in Q1" (invented number and quarter)
 - "People complained" → "Senior executives raised concerns" (invented who complained)
 
-INPUT TEXTS TO ANALYZE:
-{texts}
+PROTECTED ITEMS (do not alter if they appear): {protected_items}
 
-RETURN FORMAT:
-Return ONLY valid JSON in this exact format:
-{{
-  "rewrites": [
-    {{
-      "id": 0,
-      "specific_rewrite": "The rewritten text with specific terms and concrete dates"
-    }},
-    {{
-      "id": 1,
-      "specific_rewrite": "Another rewritten text..."
-    }}
-  ]
-}}
+INPUT LINES
+{lines_block}
 
-For each text with a vague term or temporal phrase:
-- Replace the vague/temporal element with something specific
-- If you can infer from context, use that
-- If you cannot infer, use a descriptive placeholder like [specify user type] or [provide specific date]
-- Return the FULL rewritten text, not just the replacement phrase
+CONSTRAINTS BY LINE
+{constraints_block}
 
-Do not include explanations, commentary, or extra fields. Return ONLY the JSON.
+RETURN FORMAT
+Return ONLY the rewritten sentences, numbered 1..N, one per line.
+For lines that need no changes, return exactly "NO_CHANGE" for that line number.
+Do not include extra commentary, quotes, or explanations.
+
+Example output:
+1. The system is undergoing maintenance as of October 2025
+2. End users will access the dashboard
+3. NO_CHANGE

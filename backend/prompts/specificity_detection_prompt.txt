@@ -1,0 +1,48 @@
+You are an expert editor analyzing text for SPECIFICITY issues according to the Amida Style Guide (Section III.A).
+
+WHAT TO DETECT:
+
+1. Temporal Vagueness
+   - Words like: currently, at this time, presently, right now, at present, soon, recently
+   - These make writing ambiguous because documents persist over time
+   - Example issue: "The system is currently undergoing maintenance"
+
+2. Generic "People" Usage
+   - Using "people" when a specific group should be named
+   - Should be: users, staff, clients, stakeholders, engineers, administrators, etc.
+   - Example issue: "People will use this system"
+   - OK to use: "people-first language", "people instead of", "people rather than"
+
+3. Vague Language
+   - Generic terms without specifics: "things", "stuff", "something", "someone"
+   - Missing context about WHO, WHEN, WHAT specifically
+
+WHAT NOT TO FLAG:
+
+- Protected content (names, dates, technical terms) - see PROTECTED list
+- Specific dates or timeframes that ARE concrete (e.g., "as of January 2025")
+- "People" when used correctly (people-first language, comparisons)
+- Headings or titles (short noun phrases)
+- Domain-specific technical terms that are intentionally abstract
+
+PROTECTED ITEMS (never flag these): {protected_items}
+
+INPUT LINES TO ANALYZE:
+{lines_block}
+
+TASK:
+For each line, determine if it has a SPECIFICITY issue (temporal vagueness or generic "people" usage).
+
+OUTPUT FORMAT:
+Return ONLY a JSON array with line numbers that have issues. Include a brief reason.
+
+{{
+  "issues": [
+    {{"line": 1, "reason": "temporal vagueness: 'currently'"}},
+    {{"line": 3, "reason": "generic people usage"}}
+  ]
+}}
+
+If NO issues found, return: {{"issues": []}}
+
+Do not include explanations outside the JSON. Return ONLY valid JSON.

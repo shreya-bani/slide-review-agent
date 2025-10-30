@@ -10,7 +10,8 @@ from .protection_layer import ProtectionLayer, LLMConfigError
 from .grammar_checker import GrammarChecker
 from .word_list_checker import WordListChecker
 from .tone_analyzer import AdvancedStyleAnalyzer
-from .models import StyleIssue
+from .usage_analyzer import UsageAnalyzer
+from .model.models import StyleIssue
 
 logger = logging.getLogger(__name__)
 
@@ -19,16 +20,17 @@ class AgenticStyleChecker:
     Orchestrates protection-layer + GrammarChecker + WordListChecker + ToneAnalyzer.
     All analyzers share the same protection data for consistency and efficiency.
     """
-    def __init__(self, use_llm: bool = True, include_tone: bool = True):
+    def __init__(self, use_llm: bool = True, include_tone: bool = True, include_usage: bool = True):
         self.llm = LLMClient() if use_llm else None
         self.protection_layer = ProtectionLayer(llm_client=self.llm)
         self.protection_data: Dict[str, Any] = {}
         self.include_tone = include_tone
+        self.include_usage = include_usage
         self.stats = {
             "total_elements": 0,
             "protected_items": {},
             "by_severity": {"error": 0, "warning": 0, "suggestion": 0, "info": 0},
-            "by_category": {"grammar": 0, "word-list": 0, "tone": 0},
+            "by_category": {"grammar": 0, "word-list": 0, "tone": 0, "usage": 0},
         }
 
     def analyze_document(self, document: Dict[str, Any]) -> Dict[str, Any]:
@@ -99,8 +101,17 @@ class AgenticStyleChecker:
             tone_issues_dicts = tone_result.get("issues", [])
             logger.info(f"Tone analysis complete: {len(tone_issues_dicts)} issues found")
 
+        # Apply usage analysis if enabled
+        usage_issues_dicts = []
+        if self.include_usage:
+            logger.info("Running usage analysis...")
+            usage_analyzer = UsageAnalyzer(use_llm=True, protection_data=self.protection_data)
+            usage_result = usage_analyzer.analyze(document)
+            usage_issues_dicts = usage_result.get("issues", [])
+            logger.info(f"Usage analysis complete: {len(usage_issues_dicts)} issues found")
+
         # Combine all issues
-        issues_dicts = [i.to_dict() for i in all_issues] + tone_issues_dicts
+        issues_dicts = [i.to_dict() for i in all_issues] + tone_issues_dicts + usage_issues_dicts
 
         # Fill tallies
         for issue in issues_dicts:
@@ -121,23 +132,25 @@ def check_document(
     *,
     use_llm: bool = True,
     include_tone: bool = True,
+    include_usage: bool = True,
     return_wrapper: bool = False,
     precomputed_protection: Optional[Dict[str, Any]] = None,
 ):
     """
-    Check document for style issues using grammar, word-list, and optionally tone analyzers.
+    Check document for style issues using grammar, word-list, and optionally tone and usage analyzers.
 
     Args:
         document: Normalized document to analyze
         use_llm: Whether to use LLM for protection detection (default: True)
         include_tone: Whether to include tone analysis (default: True)
+        include_usage: Whether to include usage analysis (default: True)
         return_wrapper: Return full result dict or just issues list (default: False)
         precomputed_protection: Pre-computed protection data to reuse (default: None)
 
     Returns:
         Full result dictionary or issues list depending on return_wrapper
     """
-    checker = AgenticStyleChecker(use_llm=use_llm, include_tone=include_tone)
+    checker = AgenticStyleChecker(use_llm=use_llm, include_tone=include_tone, include_usage=include_usage)
 
     if precomputed_protection is not None:
         # Inject precomputed protection; bypass LLM calls

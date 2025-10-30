@@ -31,7 +31,7 @@ import re
 import logging
 from typing import Any, Dict, List, Optional, Tuple
 
-from .models import Severity, Category, StyleIssue
+from .model.models import Severity, Category, StyleIssue
 
 logger = logging.getLogger(__name__)
 
@@ -212,7 +212,7 @@ class CategoryFormatterAnalyzer:
                     category=Category.FORMATTING,
                     description=f"{role} should use font size {expected_size}",
                     location=f"slide {slide_idx} - element {i}",
-                    found_text=f"{text[:50]}... (size {font_size})",
+                    found_text=f"{text} (size {font_size})",
                     suggestion=f"Change font size to {expected_size}",
                     page_or_slide_index=slide_idx,
                     element_index=i,
@@ -228,7 +228,7 @@ class CategoryFormatterAnalyzer:
                     category=Category.FORMATTING,
                     description=f"{role} should use {self.EXPECTED_FONT} font",
                     location=f"slide {slide_idx} - element {i}",
-                    found_text=f"{text[:50]}... (font: {font_name})",
+                    found_text=f"{text} (font: {font_name})",
                     suggestion=f"Change font to {self.EXPECTED_FONT}",
                     page_or_slide_index=slide_idx,
                     element_index=i,
@@ -244,7 +244,7 @@ class CategoryFormatterAnalyzer:
                     category=Category.FORMATTING,
                     description=f"{role} text should be white on title slide",
                     location=f"slide {slide_idx} - element {i}",
-                    found_text=f"{text[:50]}... (color: {color})",
+                    found_text=f"{text} (color: {color})",
                     suggestion="Change text color to white",
                     page_or_slide_index=slide_idx,
                     element_index=i,
@@ -315,7 +315,7 @@ class CategoryFormatterAnalyzer:
                 category=Category.FORMATTING,
                 description=f"Slide title should use font size {expected_size}",
                 location=f"slide {slide_idx} - element {elem_idx}",
-                found_text=f"{text[:50]}... (size {font_size})",
+                found_text=f"{text} (size {font_size})",
                 suggestion=f"Change font size to {expected_size}",
                 page_or_slide_index=slide_idx,
                 element_index=elem_idx,
@@ -331,7 +331,7 @@ class CategoryFormatterAnalyzer:
                 category=Category.FORMATTING,
                 description=f"Slide title should use {self.EXPECTED_FONT} font",
                 location=f"slide {slide_idx} - element {elem_idx}",
-                found_text=f"{text[:50]}... (font: {font_name})",
+                found_text=f"{text} (font: {font_name})",
                 suggestion=f"Change font to {self.EXPECTED_FONT}",
                 page_or_slide_index=slide_idx,
                 element_index=elem_idx,
@@ -347,7 +347,7 @@ class CategoryFormatterAnalyzer:
                 category=Category.FORMATTING,
                 description="Slide title should be white",
                 location=f"slide {slide_idx} - element {elem_idx}",
-                found_text=f"{text[:50]}... (color: {color})",
+                found_text=f"{text} (color: {color})",
                 suggestion="Change text color to white",
                 page_or_slide_index=slide_idx,
                 element_index=elem_idx,
@@ -363,7 +363,7 @@ class CategoryFormatterAnalyzer:
                 category=Category.FORMATTING,
                 description="Slide title should be a single line only",
                 location=f"slide {slide_idx} - element {elem_idx}",
-                found_text=text[:80],
+                found_text=text,
                 suggestion="Condense title to a single line (max ~10-15 words)",
                 page_or_slide_index=slide_idx,
                 element_index=elem_idx,
@@ -396,7 +396,7 @@ class CategoryFormatterAnalyzer:
                 category=Category.FORMATTING,
                 description=f"Body text should use font size {expected_size}",
                 location=f"slide {slide_idx} - element {elem_idx}",
-                found_text=f"{text[:50]}... (size {font_size})",
+                found_text=f"{text} (size {font_size})",
                 suggestion=f"Change font size to {expected_size}",
                 page_or_slide_index=slide_idx,
                 element_index=elem_idx,
@@ -412,7 +412,7 @@ class CategoryFormatterAnalyzer:
                 category=Category.FORMATTING,
                 description=f"Body text should use {self.EXPECTED_FONT} font",
                 location=f"slide {slide_idx} - element {elem_idx}",
-                found_text=f"{text[:50]}... (font: {font_name})",
+                found_text=f"{text} (font: {font_name})",
                 suggestion=f"Change font to {self.EXPECTED_FONT}",
                 page_or_slide_index=slide_idx,
                 element_index=elem_idx,
@@ -428,7 +428,7 @@ class CategoryFormatterAnalyzer:
                 category=Category.FORMATTING,
                 description="Body text should use color #555555 (dark gray), not white",
                 location=f"slide {slide_idx} - element {elem_idx}",
-                found_text=f"{text[:50]}... (color: {color})",
+                found_text=f"{text} (color: {color})",
                 suggestion="Change text color to #555555 (dark gray)",
                 page_or_slide_index=slide_idx,
                 element_index=elem_idx,
@@ -543,7 +543,7 @@ if __name__ == "__main__":
         logger.info(f"[{issue.severity.value.upper()}] {issue.rule_name}")
         logger.info(f"  Location: {issue.location}")
         logger.info(f"  Issue: {issue.description}")
-        logger.info(f"  Found: {issue.found_text[:80]}")
+        logger.info(f"  Found: {issue.found_text}")
         logger.info(f"  Suggestion: {issue.suggestion}\n")
 
     # Save to file if requested

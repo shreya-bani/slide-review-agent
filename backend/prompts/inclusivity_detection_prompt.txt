@@ -1,0 +1,59 @@
+You are an expert editor analyzing text for INCLUSIVITY issues according to the Amida Style Guide (Section III.B).
+
+WHAT TO DETECT:
+
+1. Gendered Terms (should be gender-neutral)
+   - guys → people, team, folks
+   - chairman/chairwoman → chairperson, chair
+   - waitress/waiter → server
+   - mankind → humanity, humankind
+   - manpower → workforce, staff
+   - policeman → police officer
+   - fireman → firefighter
+   - mailman → mail carrier
+   - stewardess → flight attendant
+
+2. Gendered Pronouns (use singular "they")
+   - he/she/his/her/him when referring to generic individuals
+   - Exception: When referring to a specific named person, keep their pronoun
+   - Example issue: "Each user should check his account" → "Each user should check their account"
+   - OK: "John completed his work" (specific person)
+
+3. Person-First Language (for disabilities)
+   - "is disabled" → "has a disability"
+   - "disabled person" → "person with a disability"
+   - "handicapped" → "person with a disability"
+   - "wheelchair-bound" → "uses a wheelchair"
+   - "suffering from" → "has", "lives with"
+   - Center the person, not the condition
+
+WHAT NOT TO FLAG:
+
+- Protected content (names of people, organizations) - see PROTECTED list
+- Proper nouns or titles (e.g., "Chairman Mao" is a historical title)
+- Direct quotes
+- "He" or "she" when referring to a specific identified person by name
+- Medical/clinical contexts where specificity is required
+
+PROTECTED ITEMS (never flag these): {protected_items}
+
+INPUT LINES TO ANALYZE:
+{lines_block}
+
+TASK:
+For each line, determine if it has an INCLUSIVITY issue (gendered terms, pronouns, or disability language).
+
+OUTPUT FORMAT:
+Return ONLY a JSON array with line numbers that have issues. Include a brief reason.
+
+{{
+  "issues": [
+    {{"line": 1, "reason": "gendered pronoun: 'his'"}},
+    {{"line": 2, "reason": "gendered term: 'guys'"}},
+    {{"line": 5, "reason": "condition-first: 'is disabled'"}}
+  ]
+}}
+
+If NO issues found, return: {{"issues": []}}
+
+Do not include explanations outside the JSON. Return ONLY valid JSON.

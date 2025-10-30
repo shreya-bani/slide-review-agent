@@ -64,65 +64,31 @@ class AmidaStyleRules:
                 }
             ),
             
-            # SPECIFICITY RULES
+            # USAGE RULES - SPECIFICITY
             StyleRule(
-                name="avoid_temporal_vagueness",
-                category="voice",
-                severity="critical",
-                description="Avoid vague temporal phrases like 'currently' or 'at this time'",
-                guide_section="III.A - Specificity",
-                pattern=r"\b(currently|at this time|presently|right now)\b",
-                examples={
-                    "incorrect": "The system is currently undergoing maintenance",
-                    "correct": "The system is undergoing maintenance as of January 2025"
-                }
-            ),
-            StyleRule(
-                name="specific_people_terms",
-                category="voice",
+                name="specificity",
+                category="usage",
                 severity="suggestion",
-                description="Use specific terms instead of generic 'people'",
+                description="Use specific terms and avoid vague temporal references",
                 guide_section="III.A - Specificity",
-                pattern=r"\bpeople\b(?!\s+(instead|rather))",
+                pattern=r"\b(currently|at this time|presently|right now|people)\b",
                 examples={
-                    "incorrect": "People will use this system",
-                    "correct": "End users will access this system"
+                    "incorrect": "The system is currently undergoing maintenance; people will use this",
+                    "correct": "The system is undergoing maintenance as of January 2025; end users will access this"
                 }
             ),
             
-            # INCLUSIVITY RULES
+            # USAGE RULES - INCLUSIVITY
             StyleRule(
-                name="singular_they",
-                category="inclusivity",
-                severity="suggestion",
-                description="Use 'they' as acceptable gender-neutral singular pronoun",
-                guide_section="III.B - Inclusivity",
-                examples={
-                    "incorrect": "Each user should check his account",
-                    "correct": "Each user should check their account"
-                }
-            ),
-            StyleRule(
-                name="avoid_gendered_terms",
-                category="inclusivity",
+                name="inclusivity",
+                category="usage",
                 severity="warning",
-                description="Use gender-neutral terms",
+                description="Use inclusive language: gender-neutral terms, singular 'they', and person-first language",
                 guide_section="III.B - Inclusivity",
-                pattern=r"\b(waitress|guys|chairman|mankind)\b",
+                pattern=r"\b(waitress|guys|chairman|mankind|he|she|his|her|him|disabled)\b",
                 examples={
-                    "incorrect": "server (waitress), guys (people)",
-                    "correct": "server, people"
-                }
-            ),
-            StyleRule(
-                name="person_first_language",
-                category="inclusivity",
-                severity="critical",
-                description="Center the person, not the condition when referencing disabilities",
-                guide_section="III.B - Inclusivity",
-                examples={
-                    "incorrect": "He is disabled",
-                    "correct": "She has a disability"
+                    "incorrect": "Each user should check his account; guys will review; he is disabled",
+                    "correct": "Each user should check their account; people will review; he has a disability"
                 }
             ),
             

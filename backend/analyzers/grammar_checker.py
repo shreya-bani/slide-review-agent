@@ -3,7 +3,7 @@ import re
 import logging
 from typing import Any, Dict, List, Optional
 
-from .models import Severity, Category, StyleIssue
+from .model.models import Severity, Category, StyleIssue
 
 logger = logging.getLogger(__name__)
 
